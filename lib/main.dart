@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
+import 'package:newsphone_competitions/pages/main_page.dart';
+import 'package:newsphone_competitions/pages/settings_page.dart';
 import 'package:newsphone_competitions/themes/light_mode.dart';
 
 void main() {
@@ -14,8 +16,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: IntroPage(),
+      home: const IntroPage(),
       theme: lightMode,
+      routes: {
+        '/intro_page': (context) => const IntroPage(),
+        '/main_page': (context) => const MainPage(),
+        '/settings': (context) => const SettingsPage(),
+      },
     );
   }
 }
