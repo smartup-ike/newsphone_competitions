@@ -5,6 +5,7 @@ class Competition {
   final DateTime endDate;
   final String imgPath;
   final CompetitionType type;
+  final String description;
   final List<DateTime>? callTime;
   final String? prizeName;
   final String? phone;
@@ -15,6 +16,7 @@ class Competition {
     this.endDate,
     this.imgPath,
     this.type,
+    this.description,
     this.callTime,
     this.prizeName,
     this.phone,
