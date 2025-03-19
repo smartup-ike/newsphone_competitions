@@ -1,21 +1,21 @@
-import 'dart:ui';
+enum CompetitionType { vehicle, phone, money, shopping, trip }
 
 class Competition {
   final String title;
   final DateTime endDate;
-  final Image img;
-  final DateTime? callTime;
-  final String? description;
+  final String imgPath;
+  final CompetitionType type;
+  final List<DateTime>? callTime;
   final String? prizeName;
-  final int? phone;
+  final String? phone;
   final String? msgInit;
 
   Competition(
     this.title,
     this.endDate,
-    this.img,
+    this.imgPath,
+    this.type,
     this.callTime,
-    this.description,
     this.prizeName,
     this.phone,
     this.msgInit,

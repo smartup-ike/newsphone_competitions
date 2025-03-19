@@ -14,7 +14,6 @@ class MyCompetitionTile extends StatelessWidget {
         children: [
           Icon(Icons.favorite),
           Text(competition.title),
-          Text(competition.description.toString()),
           Text(
             '${competition.endDate.day}/${competition.endDate.month}/${competition.endDate.year}',
           ),
