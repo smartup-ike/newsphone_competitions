@@ -96,78 +96,44 @@ class InfoPage extends StatelessWidget {
                       ),
                       RichText(
                         text: TextSpan(
-                          text: 'ΚΑΛΕΣΤΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ \nΣΤΟ',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                          children: <TextSpan>[
+                          style: const TextStyle(fontSize: 16, color: Colors.black),
+                          children: [
+                            const TextSpan(text: 'ΚΑΛΕΣΤΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ \nΣΤΟ '),
                             TextSpan(
-                              text: ' ${competition.phone}\n',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                                fontSize: 20,
-                              ),
+                              text: '${competition.phone}\n',
+                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 20),
                             ),
                             const TextSpan(text: 'ΑΦΗΣΤΕ '),
                             const TextSpan(
-                              text: ' ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ\n',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                              ),
+                              text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ\n',
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                             ),
                             const TextSpan(text: 'Ή ΣΤΕΙΛΤΕ '),
                             TextSpan(
                               text: '${competition.msgInit} ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                             ),
                             const TextSpan(text: '(ΚΕΝΟ) '),
                             const TextSpan(
                               text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ\n',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                              ),
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
                             ),
                             const TextSpan(text: 'ΣΤΟ '),
                             TextSpan(
-                              text: '${competition.phone}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red,
-                                fontSize: 20,
-                              ),
+                              text: competition.phone,
+                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 20),
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      RichText(
-                        text: const TextSpan(
-                          text: 'Σταθερό ',
-                          style: TextStyle(fontSize: 16, color: Colors.black),
-                          children: <TextSpan>[
+                            const TextSpan(text: '\n\nΣταθερό '),
                             TextSpan(
                               text: '3,14€',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.red,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
                             ),
-                            TextSpan(text: '/ΚΛΗΣΗ με ΦΠΑ\n'),
-                            TextSpan(text: 'Κινητό '),
+                            const TextSpan(text: '/ΚΛΗΣΗ με ΦΠΑ\nΚινητό '),
                             TextSpan(
                               text: '3,29€',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.red,
-                              ),
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
                             ),
-                            TextSpan(text: '/ΚΛΗΣΗ - SMS με ΦΠΑ'),
+                            const TextSpan(text: '/ΚΛΗΣΗ - SMS με ΦΠΑ'),
                           ],
                         ),
                       ),
