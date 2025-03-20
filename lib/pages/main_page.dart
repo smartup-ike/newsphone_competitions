@@ -44,10 +44,9 @@ class MainPage extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                final comp = comps[index];
                 return MyCompetitionTile(
-                  competition: comp,
-                  onTap: () => Navigator.pushNamed(context, '/info_page',arguments: comp),
+                  competition: provider.filteredItems[index],
+                  onTap: () => Navigator.pushNamed(context, '/info_page',arguments: provider.filteredItems[index]),
                 );
               },
             ),

@@ -10,12 +10,14 @@ import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:newsphone_competitions/themes/light_mode.dart';
 import 'package:provider/provider.dart';
 
+import 'DatabaseHelper.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool firstCall = await IsFirstRun.isFirstCall();
-  if (firstCall) {
-    //
-  }
+
+  final DatabaseHelper db = DatabaseHelper.instance;
+  await db.database;
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => CompetitionsProvider(),
@@ -32,7 +34,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const IntroPage(),
+      home: FutureBuilder(
+        future: IsFirstRun.isFirstCall(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator(); // Or a splash screen
+          } else {
+            if (snapshot.data == true) {
+              return IntroPage();
+            } else {
+              DatabaseHelper db = DatabaseHelper.instance;
+              db.getFavorites().then((onValue) {
+                if (onValue.isNotEmpty) {
+                  for (var element in onValue) {
+                    Provider.of<CompetitionsProvider>(context, listen: false)
+                        .toggleFilter(element['type'], true);
+                  }
+                }
+              });
+              return MainPage();
+            }
+          }
+        },
+      ),
       theme: lightMode,
       routes: {
         '/intro_page': (context) => const IntroPage(),

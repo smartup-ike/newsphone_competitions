@@ -20,7 +20,7 @@ class InfoPage extends StatelessWidget {
         elevation: 0,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
-          competition.prizeName ?? '',
+          competition.prizeName,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

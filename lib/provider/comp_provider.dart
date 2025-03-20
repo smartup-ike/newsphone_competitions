@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/models/competition.dart';
 
+import '../DatabaseHelper.dart';
+
 class CompetitionsProvider extends ChangeNotifier {
+
+  final DatabaseHelper _db = DatabaseHelper.instance;
+
   final List<Competition> _comp = [
     Competition(
       'ΚΕΡΔΙΣΤΕ ΤΟ PEUGEOT 208',
@@ -58,8 +63,10 @@ class CompetitionsProvider extends ChangeNotifier {
   void toggleFilter(String type, bool value) {
     if (value) {
       _selectedFilters.add(type);
+      _db.insertFavorite(type);
     } else {
       _selectedFilters.remove(type);
+      _db.deleteFavorite(type);
     }
     notifyListeners();
   }
