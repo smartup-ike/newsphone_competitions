@@ -4,13 +4,12 @@ import 'package:newsphone_competitions/pages/info_page.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
 import 'package:newsphone_competitions/pages/main_page.dart';
 import 'package:newsphone_competitions/pages/settings_page.dart';
+import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:newsphone_competitions/themes/light_mode.dart';
 import 'package:provider/provider.dart';
 
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   bool firstCall = await IsFirstRun.isFirstCall();
   if (firstCall) {
@@ -39,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/main_page': (context) => const MainPage(),
         '/settings': (context) => const SettingsPage(),
         '/info_page': (context) => const InfoPage(),
+        '/terms-page': (context) => const TermsPage(),
       },
     );
   }

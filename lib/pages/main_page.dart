@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: Text(
-              'Διαλεξε απο την λιστα παρακατω',
+              'Δες όλους τους διαγωνισμούς παρακάτω!',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
