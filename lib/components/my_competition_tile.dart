@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/models/date_time_format.dart';
 
 import '../models/competition.dart';
 
@@ -89,7 +90,14 @@ class MyCompetitionTile extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             Text(
-              '${competition.endDate.day}/${competition.endDate.month}/${competition.endDate.year}',
+              'ΚΛΗΡΩΣΗ: ${formatDate(competition.endDate)}',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color:
+                    DateTime.now().isBefore(competition.endDate)
+                        ? Colors.green
+                        : Colors.red,
+              ),
             ),
           ],
         ),
