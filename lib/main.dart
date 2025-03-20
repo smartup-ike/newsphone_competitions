@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
+import 'package:newsphone_competitions/pages/info_page.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
 import 'package:newsphone_competitions/pages/main_page.dart';
 import 'package:newsphone_competitions/pages/settings_page.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/intro_page': (context) => const IntroPage(),
         '/main_page': (context) => const MainPage(),
         '/settings': (context) => const SettingsPage(),
+        '/info_page': (context) => const InfoPage(),
       },
     );
   }

@@ -43,7 +43,10 @@ class MainPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 final comp = comps[index];
-                return MyCompetitionTile(competition: comp, onTap: () {});
+                return MyCompetitionTile(
+                  competition: comp,
+                  onTap: () => Navigator.pushNamed(context, '/info_page',arguments: comp),
+                );
               },
             ),
           ),

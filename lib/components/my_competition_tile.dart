@@ -16,6 +16,7 @@ class MyCompetitionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
