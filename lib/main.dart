@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
+import 'package:newsphone_competitions/pages/fav_page.dart';
 import 'package:newsphone_competitions/pages/info_page.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
 import 'package:newsphone_competitions/pages/main_page.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/settings': (context) => const SettingsPage(),
         '/info_page': (context) => const InfoPage(),
         '/terms-page': (context) => const TermsPage(),
+        '/fav-page': (context) => const FavPage(),
       },
     );
   }

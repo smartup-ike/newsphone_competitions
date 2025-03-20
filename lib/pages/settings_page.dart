@@ -31,6 +31,7 @@ class SettingsPage extends StatelessWidget {
               title: Text("Αγαπημένα"),
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.favorite),
+              onTap: ()=>Navigator.pushNamed(context, '/fav-page'),
             ),
 
             ListTile(

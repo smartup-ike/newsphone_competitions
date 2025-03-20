@@ -50,4 +50,27 @@ class CompetitionsProvider extends ChangeNotifier {
   ];
 
   List<Competition> get comp => _comp;
+
+  final Set<String> _selectedFilters = {}; // Use a Set for multiple selections
+
+  Set<String> get selectedFilters => _selectedFilters;
+
+  void toggleFilter(String type, bool value) {
+    if (value) {
+      _selectedFilters.add(type);
+    } else {
+      _selectedFilters.remove(type);
+    }
+    notifyListeners();
+  }
+
+  List<Competition> get filteredItems {
+    if (_selectedFilters.isEmpty) {
+      return _comp;
+    } else {
+      return _comp
+          .where((item) => _selectedFilters.contains(item.type.toString()))
+          .toList();
+    }
+  }
 }
