@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:newsphone_competitions/pages/fav_page.dart';
@@ -7,6 +8,7 @@ import 'package:newsphone_competitions/pages/main_page.dart';
 import 'package:newsphone_competitions/pages/settings_page.dart';
 import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
+import 'package:newsphone_competitions/services/notifications_service.dart';
 import 'package:newsphone_competitions/themes/light_mode.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,8 @@ import 'DatabaseHelper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await NotificationService.instance.initialize();
 
   final DatabaseHelper db = DatabaseHelper.instance;
   await db.database;

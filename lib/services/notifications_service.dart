@@ -1,5 +1,13 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await NotificationService.instance.setUpFlutterNotifications();
+  await NotificationService.instance.showNotifications(message);
+}
 
 class NotificationService {
   NotificationService._();
@@ -9,6 +17,14 @@ class NotificationService {
   final _messaging = FirebaseMessaging.instance;
   final _localNotifications = FlutterLocalNotificationsPlugin();
   bool _isFlutterLocalNotificationInitialized = false;
+
+  Future<void> initialize() async {
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    await _requestPermission();
+    await setUpFlutterNotifications();
+    final token = await _messaging.getToken();
+    log('FCM Token: $token');
+  }
 
   Future<void> _requestPermission() async {
     final settings = await _messaging.requestPermission(
@@ -79,8 +95,20 @@ class NotificationService {
   }
 
   Future<void> setUpNotifications() async {
-    await _requestPermission();
-    await setUpFlutterNotifications();
-    FirebaseMessaging.onMessage.listen(showNotifications);
+    FirebaseMessaging.onMessage.listen((message) {
+      showNotifications(message);
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen(_hanldeBackgroundMessage);
+
+    final initialMessage = await _messaging.getInitialMessage();
+    if (initialMessage != null) {
+      _hanldeBackgroundMessage(initialMessage);
+    }
+  }
+
+  void _hanldeBackgroundMessage(RemoteMessage message) {
+    if (message.data['type'] == 'chat') {
+      // open chat screen
+    }
   }
 }
