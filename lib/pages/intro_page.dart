@@ -12,11 +12,7 @@ class IntroPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.interests_rounded,
-              size: 72,
-              color: Theme.of(context).colorScheme.inversePrimary,
-            ),
+            const Image(image: AssetImage('assets/newphone_logo_150.png')),
             const SizedBox(height: 25),
             Text(
               'Welcome to Newsphone Competitions',

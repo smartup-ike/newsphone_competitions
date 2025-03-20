@@ -13,10 +13,8 @@ class MyDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             child: Center(
-              child: Icon(
-                Icons.interests_rounded,
-                size: 72,
-                color: Theme.of(context).colorScheme.inversePrimary,
+              child: const Image(
+                image: AssetImage('assets/newphone_logo_150.png'),
               ),
             ),
           ),
@@ -26,11 +24,15 @@ class MyDrawer extends StatelessWidget {
             icon: Icons.home,
             onTap: () => Navigator.of(context).pop(),
           ),
-          MyListTile(text: 'Ρυθμίσεις', icon: Icons.settings, onTap: () {
-            Navigator.of(context).pop();
+          MyListTile(
+            text: 'Ρυθμίσεις',
+            icon: Icons.settings,
+            onTap: () {
+              Navigator.of(context).pop();
 
-            Navigator.pushNamed(context, '/settings');
-          }),
+              Navigator.pushNamed(context, '/settings');
+            },
+          ),
         ],
       ),
     );
