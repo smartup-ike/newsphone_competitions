@@ -44,7 +44,7 @@ class InfoPage extends StatelessWidget {
                   ],
                   borderRadius: BorderRadius.circular(30),
                   image: DecorationImage(
-                    image: NetworkImage(competition.imgPath),
+                    image: Image.asset(competition.imgPath).image,
                   ),
                 ),
               ),
