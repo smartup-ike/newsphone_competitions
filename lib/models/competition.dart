@@ -6,10 +6,10 @@ class Competition {
   final String imgPath;
   final CompetitionType type;
   final String description;
-  final List<DateTime>? callTime;
-  final String? prizeName;
-  final String? phone;
-  final String? msgInit;
+  final List<DateTime> callTime;
+  final String prizeName;
+  final String phone;
+  final String msgInit;
 
   Competition(
     this.title,
