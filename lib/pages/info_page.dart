@@ -82,7 +82,7 @@ class InfoPage extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         // Further control if needed
                         child: Text(
-                          'ΚΛΗΡΩΣΗ: ${formatDate(competition.endDate)}',
+                          '${DateTime.now().isBefore(competition.endDate) ? 'ΚΛΗΡΩΣΗ' : 'ΚΛΗΡΩΘΗΚΕ'}: ${formatDate(competition.endDate)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.inversePrimary,
@@ -100,7 +100,7 @@ class InfoPage extends StatelessWidget {
                       ),
                       RichText(
                         text: TextSpan(
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
                             color: Theme.of(context).colorScheme.inverseSurface,
                           ),
@@ -199,35 +199,36 @@ class InfoPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: 50,
-                        child: TextButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return MyDialog(
-                                  phoneNumber: competition.phone,
-                                  message: competition.msgInit,
-                                );
-                              },
-                            );
-                          },
-                          style: TextButton.styleFrom(
-                            elevation: 3.0,
-                            backgroundColor: Colors.black,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                      if (DateTime.now().isBefore(competition.endDate))
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 50,
+                          child: TextButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return MyDialog(
+                                    phoneNumber: competition.phone,
+                                    message: competition.msgInit,
+                                  );
+                                },
+                              );
+                            },
+                            style: TextButton.styleFrom(
+                              elevation: 3.0,
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              'Δήλωσε Συμμετοχή',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
-                          child: Text(
-                            'Δήλωσε Συμμετοχή',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
                         ),
-                      ),
                       const SizedBox(height: 7),
                       RichText(
                         text: TextSpan(

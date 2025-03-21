@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       themeMode: ThemeMode.system,
+      theme: lightMode,
       darkTheme: darkMode,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -64,7 +65,6 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
-      theme: lightMode,
       routes: {
         '/intro_page': (context) => const IntroPage(),
         '/main_page': (context) => const MainPage(),

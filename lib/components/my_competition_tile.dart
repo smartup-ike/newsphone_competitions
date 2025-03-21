@@ -63,7 +63,7 @@ class MyCompetitionTile extends StatelessWidget {
             ),
             const SizedBox(height: 25),
             Text(
-              'ΚΛΗΡΩΣΗ: ${formatDate(competition.endDate)}',
+              '${DateTime.now().isBefore(competition.endDate) ? 'ΚΛΗΡΩΣΗ' : 'ΚΛΗΡΩΘΗΚΕ'}: ${formatDate(competition.endDate)}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color:

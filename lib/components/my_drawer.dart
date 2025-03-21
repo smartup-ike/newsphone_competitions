@@ -13,8 +13,12 @@ class MyDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             child: Center(
-              child: const Image(
-                image: AssetImage('assets/newphone_logo_150.png'),
+              child: Image(
+                image: AssetImage(
+                  MediaQuery.of(context).platformBrightness == Brightness.dark
+                      ? 'assets/newsphone-logo-white.png'
+                      : 'assets/newphone_logo_150.png',
+                ),
               ),
             ),
           ),

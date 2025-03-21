@@ -28,9 +28,9 @@ class SettingsPage extends StatelessWidget {
             ),
             SizedBox(height: 12),
             ListTile(
-              title: Text("Αγαπημένα"),
+              title: Text("Διαχείριση ενδιαφερόντων"),
               trailing: Icon(Icons.arrow_forward_ios),
-              leading: Icon(Icons.favorite),
+              leading: Icon(Icons.interests),
               onTap: () => Navigator.pushNamed(context, '/fav-page'),
             ),
 
