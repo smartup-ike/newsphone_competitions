@@ -10,7 +10,7 @@ class CompetitionsProvider extends ChangeNotifier {
     Competition(
       'ΚΕΡΔΙΣΤΕ ΤΟ PEUGEOT 208',
       DateTime(2025, 4, 1),
-      'assets/Peugeot-208-2019-Transparent-PNG.png',
+      'assets/peugot.png',
       CompetitionType.vehicle,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το νέο Peugeot 208!',
       [DateTime(2024, 1, 1, 05, 30), DateTime(2024, 1, 1, 09, 30)],
