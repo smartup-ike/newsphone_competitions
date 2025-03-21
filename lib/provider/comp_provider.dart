@@ -5,11 +5,6 @@ import '../DatabaseHelper.dart';
 
 class CompetitionsProvider extends ChangeNotifier {
   final DatabaseHelper _db = DatabaseHelper.instance;
-  final bool _firstRun = false;
-
-  bool get firstRun => _firstRun;
-
-  set firstRun(bool value) => _firstRun;
 
   final List<Competition> _comp = [
     Competition(
@@ -60,7 +55,7 @@ class CompetitionsProvider extends ChangeNotifier {
 
   List<Competition> get comp => _comp;
 
-  final Set<String> _selectedFilters = {}; // Use a Set for multiple selections
+  final Set<String> _selectedFilters = {};
 
   Set<String> get selectedFilters => _selectedFilters;
 

@@ -4,7 +4,8 @@ import 'package:newsphone_competitions/models/competition.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../models/date_time_format.dart';
+import '../functions/date_time_format.dart';
+import '../functions/helper_functions.dart';
 import '../provider/comp_provider.dart';
 
 class InfoPage extends StatelessWidget {
@@ -14,10 +15,6 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final comps = context.watch<CompetitionsProvider>();
-    comps.firstRun = true;
-
     final competition =
         ModalRoute.of(context)!.settings.arguments as Competition;
 
@@ -187,7 +184,7 @@ class InfoPage extends StatelessWidget {
                             WidgetSpan(
                               alignment: PlaceholderAlignment.middle,
                               child: GestureDetector(
-                                onTap: () => _launchURL('https://winnow.gr'),
+                                onTap: () => launchURL('https://winnow.gr'),
                                 child: Text(
                                   'winnow.gr',
                                   style: TextStyle(
@@ -244,7 +241,7 @@ class InfoPage extends StatelessWidget {
                               alignment: PlaceholderAlignment.middle,
                               child: GestureDetector(
                                 onTap:
-                                    () => _launchURL('https://www.antenna.gr'),
+                                    () => launchURL('https://www.antenna.gr'),
                                 child: const Text(
                                   'www.antenna.gr',
                                   style: TextStyle(
@@ -272,14 +269,5 @@ class InfoPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-void _launchURL(String stringURL) async {
-  final Uri url = Uri.parse(stringURL);
-  if (await canLaunchUrl(url)) {
-    await launchUrl(url, mode: LaunchMode.externalApplication);
-  } else {
-    throw 'Could not launch $url';
   }
 }

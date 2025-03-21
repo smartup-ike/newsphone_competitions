@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/models/date_time_format.dart';
+import 'package:newsphone_competitions/functions/date_time_format.dart';
 
 import '../models/competition.dart';
 
