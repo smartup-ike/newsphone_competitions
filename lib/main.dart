@@ -11,7 +11,6 @@ import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:newsphone_competitions/services/notifications_service.dart';
 import 'package:newsphone_competitions/themes/light_mode.dart';
 import 'package:provider/provider.dart';
-
 import 'DatabaseHelper.dart';
 
 void main() async {
@@ -25,17 +24,16 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => CompetitionsProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       themeMode: ThemeMode.system,
       theme: lightMode,
@@ -55,8 +53,10 @@ class MyApp extends StatelessWidget {
               db.getFavorites().then((onValue) {
                 if (onValue.isNotEmpty) {
                   for (var element in onValue) {
-                    Provider.of<CompetitionsProvider>(context, listen: false)
-                        .toggleFilter(element['type'], true);
+                    Provider.of<CompetitionsProvider>(
+                      context,
+                      listen: false,
+                    ).toggleFilter(element['type'], true);
                   }
                 }
               });
