@@ -17,6 +17,7 @@ class FilterCheckbox extends StatelessWidget {
     return FilterChip(
       label: Text(name),
       selected: isSelected,
+      selectedColor: Colors.white,
       onSelected: (bool value) {
         provider.toggleFilter(type, value);
       },

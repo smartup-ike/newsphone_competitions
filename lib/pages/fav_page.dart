@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/widgets/fav_filters.dart';
 import '../components/filter_box.dart';
 import '../models/competition.dart';
 
@@ -29,32 +30,10 @@ class FavPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Center(
-              child: Wrap(
-                // Use Wrap to handle multiple checkboxes
-                spacing: 8.0,
-                children: [
-                  FilterCheckbox(
-                    type: CompetitionType.vehicle.toString(),
-                    name: 'Αυτοκινητα',
-                  ),
-                  FilterCheckbox(
-                    type: CompetitionType.phone.toString(),
-                    name: 'Κινητά',
-                  ),
-                  FilterCheckbox(
-                    type: CompetitionType.money.toString(),
-                    name: 'Χρήματα',
-                  ),
-                  FilterCheckbox(
-                    type: CompetitionType.shopping.toString(),
-                    name: 'Ψώνια',
-                  ),
-                  FilterCheckbox(
-                    type: CompetitionType.trip.toString(),
-                    name: 'Ταξίδια',
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Center(
+                child: FavFilters(),
               ),
             ),
           ],

@@ -5,6 +5,20 @@ ThemeData lightMode = ThemeData(
     surface: Colors.grey.shade300,
     primary: Colors.grey.shade200,
     secondary: Colors.white,
-    inversePrimary: Colors.grey.shade700
+    inversePrimary: Colors.grey.shade700,
+    inverseSurface: Colors.grey.shade900,
+    shadow: Colors.grey,
+  ),
+);
+
+ThemeData darkMode = ThemeData(
+  colorScheme: ColorScheme.dark(
+    surface: Colors.grey.shade900, // Opposite of light surface (grey.shade300)
+    primary: Colors.grey.shade800, // Opposite of light primary (grey.shade200)
+    secondary: Colors.black,     // Opposite of light secondary (white)
+    inversePrimary: Colors.grey.shade300, // Opposite of light inversePrimary (grey.shade700)
+    inverseSurface: Colors.grey.shade300,
+    shadow: Colors.grey.shade900,
+    // Opposite of light inverseSurface (grey.shade900)
   ),
 );

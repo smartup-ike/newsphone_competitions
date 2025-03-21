@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
               "Γενικές",
               style: TextStyle(
                 fontSize: 24,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.inverseSurface,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -44,7 +44,7 @@ class SettingsPage extends StatelessWidget {
               "Απορρήτου",
               style: TextStyle(
                 fontSize: 24,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.inverseSurface,
                 fontWeight: FontWeight.w500,
               ),
             ),

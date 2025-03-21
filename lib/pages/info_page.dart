@@ -38,11 +38,11 @@ class InfoPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width - (40),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.secondary,
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(3, 3),
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.shadow,
                       blurRadius: 3,
                     ),
                   ],
@@ -59,7 +59,7 @@ class InfoPage extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(3, 3),
-                      color: Colors.grey,
+                      color: Theme.of(context).colorScheme.shadow,
                       blurRadius: 3,
                     ),
                   ],
@@ -95,14 +95,14 @@ class InfoPage extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color: Colors.grey,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                       ),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 16,
-                            color: Colors.black,
+                            color: Theme.of(context).colorScheme.inverseSurface,
                           ),
                           children: [
                             const TextSpan(

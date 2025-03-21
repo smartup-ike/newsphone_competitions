@@ -25,18 +25,20 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => CompetitionsProvider(),
-      child: const MyApp(),
+      child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      themeMode: ThemeMode.system,
+      darkTheme: darkMode,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: FutureBuilder(
