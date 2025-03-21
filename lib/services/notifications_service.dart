@@ -60,7 +60,11 @@ class NotificationService {
     );
     final initilaizeSettings = InitializationSettings(
       android: initilaizeSettingsAndroid,
-      iOS: DarwinInitializationSettings(),
+      iOS: DarwinInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+      ),
     );
 
     await _localNotifications.initialize(
