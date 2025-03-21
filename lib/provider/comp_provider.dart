@@ -4,8 +4,12 @@ import 'package:newsphone_competitions/models/competition.dart';
 import '../DatabaseHelper.dart';
 
 class CompetitionsProvider extends ChangeNotifier {
-
   final DatabaseHelper _db = DatabaseHelper.instance;
+  final bool _firstRun = false;
+
+  bool get firstRun => _firstRun;
+
+  set firstRun(bool value) => _firstRun;
 
   final List<Competition> _comp = [
     Competition(
@@ -43,7 +47,7 @@ class CompetitionsProvider extends ChangeNotifier {
     ),
     Competition(
       'ΚΕΡΔΙΣΤΕ 2 ΗΜΕΡΕΣ ΣΤΟ ΠΕΡΟΥ',
-      DateTime(2025, 4, 25),
+      DateTime(2025, 3, 20),
       'assets/courtyard.jpg',
       CompetitionType.trip,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις ενα 2μερο σε πολυτελές ξενοδοχείο στο Περού',

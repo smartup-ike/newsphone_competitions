@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/components/my_competition_tile.dart';
 import 'package:newsphone_competitions/components/my_drawer.dart';
-import 'package:newsphone_competitions/models/competition.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final comps = context.watch<CompetitionsProvider>().comp;
     final provider = Provider.of<CompetitionsProvider>(context);
 
     return Scaffold(

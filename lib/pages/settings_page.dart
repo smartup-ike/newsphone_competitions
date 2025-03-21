@@ -31,14 +31,14 @@ class SettingsPage extends StatelessWidget {
               title: Text("Αγαπημένα"),
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.favorite),
-              onTap: ()=>Navigator.pushNamed(context, '/fav-page'),
+              onTap: () => Navigator.pushNamed(context, '/fav-page'),
             ),
 
-            ListTile(
-              title: Text("Ειδοποιήσεις"),
-              trailing: Icon(Icons.arrow_forward_ios),
-              leading: Icon(Icons.notification_add_sharp),
-            ),
+            // ListTile(
+            //   title: Text("Ειδοποιήσεις"),
+            //   trailing: Icon(Icons.arrow_forward_ios),
+            //   leading: Icon(Icons.notification_add_sharp),
+            // ),
             SizedBox(height: 12),
             Text(
               "Απορρήτου",
@@ -53,7 +53,7 @@ class SettingsPage extends StatelessWidget {
               title: Text("Όροι χρήσης"),
               trailing: Icon(Icons.arrow_forward_ios),
               leading: Icon(Icons.privacy_tip_rounded),
-              onTap: ()=>Navigator.pushNamed(context, '/terms-page'),
+              onTap: () => Navigator.pushNamed(context, '/terms-page'),
             ),
           ],
         ),

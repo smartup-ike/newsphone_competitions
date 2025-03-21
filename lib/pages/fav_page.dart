@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../components/filter_box.dart';
 import '../models/competition.dart';
 

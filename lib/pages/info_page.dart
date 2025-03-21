@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/components/my_dialog.dart';
 import 'package:newsphone_competitions/models/competition.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/date_time_format.dart';
+import '../provider/comp_provider.dart';
 
 class InfoPage extends StatelessWidget {
   static const routeName = '/extractArguments';
@@ -11,6 +14,10 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final comps = context.watch<CompetitionsProvider>();
+    comps.firstRun = true;
+
     final competition =
         ModalRoute.of(context)!.settings.arguments as Competition;
 
@@ -96,52 +103,102 @@ class InfoPage extends StatelessWidget {
                       ),
                       RichText(
                         text: TextSpan(
-                          style: const TextStyle(fontSize: 16, color: Colors.black),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                           children: [
-                            const TextSpan(text: 'ΚΑΛΕΣΤΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ \nΣΤΟ '),
+                            const TextSpan(
+                              text: 'ΚΑΛΕΣΤΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ \nΣΤΟ ',
+                            ),
                             TextSpan(
                               text: '${competition.phone}\n',
-                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 20),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                                fontSize: 20,
+                              ),
                             ),
                             const TextSpan(text: 'ΑΦΗΣΤΕ '),
                             const TextSpan(
                               text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ\n',
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                             const TextSpan(text: 'Ή ΣΤΕΙΛΤΕ '),
                             TextSpan(
                               text: '${competition.msgInit} ',
-                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                             const TextSpan(text: '(ΚΕΝΟ) '),
                             const TextSpan(
                               text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ\n',
-                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
                             ),
                             const TextSpan(text: 'ΣΤΟ '),
                             TextSpan(
                               text: competition.phone,
-                              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red, fontSize: 20),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                                fontSize: 20,
+                              ),
                             ),
                             const TextSpan(text: '\n\nΣταθερό '),
                             TextSpan(
                               text: '3,14€',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.red,
+                              ),
                             ),
                             const TextSpan(text: '/ΚΛΗΣΗ με ΦΠΑ\nΚινητό '),
                             TextSpan(
                               text: '3,29€',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.red,
+                              ),
                             ),
                             const TextSpan(text: '/ΚΛΗΣΗ - SMS με ΦΠΑ'),
                           ],
                         ),
                       ),
-                      Text(
-                        '• Δωροεπιταγή για όλους από το winnow.gr',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                          children: [
+                            const TextSpan(
+                              text: '• Δωροεπιταγή για όλους από το  ',
+                            ),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: GestureDetector(
+                                onTap: () => _launchURL('https://winnow.gr'),
+                                child: Text(
+                                  'winnow.gr',
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -175,11 +232,34 @@ class InfoPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 7),
-                      Text(
-                        'Οροι: www.antenna.gr | Γρ. Εξυπ. 2109472116 Newsphone Hellas',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                          children: [
+                            const TextSpan(text: 'Οροι: '),
+                            WidgetSpan(
+                              alignment: PlaceholderAlignment.middle,
+                              child: GestureDetector(
+                                onTap:
+                                    () => _launchURL('https://www.antenna.gr'),
+                                child: const Text(
+                                  'www.antenna.gr',
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    // Makes it look like a link
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const TextSpan(
+                              text: ' | Γρ. Εξυπ. 2109472116 Newsphone Hellas',
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -192,5 +272,14 @@ class InfoPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void _launchURL(String stringURL) async {
+  final Uri url = Uri.parse(stringURL);
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } else {
+    throw 'Could not launch $url';
   }
 }

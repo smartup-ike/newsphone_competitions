@@ -6,21 +6,25 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Image(image: AssetImage('assets/newphone_logo_150.png')),
             const SizedBox(height: 25),
             Text(
-              'Welcome to Newsphone Competitions',
+              'Καλώς ήρθατε στη Newsphone Hellas',
+              textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             const SizedBox(height: 10),
             Text(
-              'Learn about the latest competions in ANT1',
+              'Ανακαλύψτε τους πιο συναρπαστικούς διαγωνισμούς και κερδίστε απίθανα δώρα!',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),

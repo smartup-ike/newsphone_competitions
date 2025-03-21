@@ -11,7 +11,7 @@ plugins {
 android {
     namespace = "com.example.newsphone_competitions"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -45,6 +45,8 @@ android {
 }
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }
 
 flutter {
