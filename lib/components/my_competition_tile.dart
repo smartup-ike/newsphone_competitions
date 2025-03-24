@@ -38,7 +38,7 @@ class MyCompetitionTile extends StatelessWidget {
                   aspectRatio: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     width: double.infinity,

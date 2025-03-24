@@ -32,7 +32,7 @@ class InfoPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.width - (40),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.secondaryContainer,
                   boxShadow: [
                     BoxShadow(
                       offset: Offset(3, 3),
