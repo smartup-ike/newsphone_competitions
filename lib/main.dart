@@ -9,7 +9,7 @@ import 'package:newsphone_competitions/pages/settings_page.dart';
 import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:newsphone_competitions/services/notifications_service.dart';
-import 'package:newsphone_competitions/themes/light_mode.dart';
+import 'package:newsphone_competitions/themes/theme_modes.dart';
 import 'package:provider/provider.dart';
 import 'DatabaseHelper.dart';
 
