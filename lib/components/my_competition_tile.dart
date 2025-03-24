@@ -22,6 +22,7 @@ class MyCompetitionTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(12),
+
         ),
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(25),
@@ -55,6 +56,8 @@ class MyCompetitionTile extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   competition.description,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),

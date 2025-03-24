@@ -5,6 +5,7 @@ import 'package:newsphone_competitions/pages/fav_page.dart';
 import 'package:newsphone_competitions/pages/info_page.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
 import 'package:newsphone_competitions/pages/main_page.dart';
+import 'package:newsphone_competitions/pages/search_page.dart';
 import 'package:newsphone_competitions/pages/settings_page.dart';
 import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         '/info_page': (context) => const InfoPage(),
         '/terms-page': (context) => const TermsPage(),
         '/fav-page': (context) => const FavPage(),
+        '/search_page': (context) => const SearchPage()
       },
     );
   }

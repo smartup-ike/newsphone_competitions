@@ -1,5 +1,7 @@
 enum CompetitionType { vehicle, phone, money, shopping, trip }
 
+List<String> greekNames = ['Οχήματα', 'Κινητά', 'Χρήμματα', 'Ψώνια', 'Ταξίδια'];
+
 class Competition {
   final String title;
   final DateTime endDate;

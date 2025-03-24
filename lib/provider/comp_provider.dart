@@ -79,4 +79,12 @@ class CompetitionsProvider extends ChangeNotifier {
           .toList();
     }
   }
+
+  List<Competition> getItemsByType(CompetitionType type) {
+    return _comp.where((item) => item.type == type).toList();
+  }
+
+  List<Competition> getSearchedList(String searched) {
+    return _comp.where((item) => item.title.contains(searched)).toList();
+  }
 }
