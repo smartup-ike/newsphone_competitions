@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 class TermsPage extends StatelessWidget {
   const TermsPage({super.key});

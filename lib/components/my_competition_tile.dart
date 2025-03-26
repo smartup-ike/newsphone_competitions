@@ -22,7 +22,6 @@ class MyCompetitionTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(12),
-
         ),
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(25),
@@ -64,7 +63,6 @@ class MyCompetitionTile extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 25),
             Text(
               '${DateTime.now().isBefore(competition.endDate) ? 'ΚΛΗΡΩΣΗ' : 'ΚΛΗΡΩΘΗΚΕ'}: ${formatDate(competition.endDate)}',
               style: TextStyle(

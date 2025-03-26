@@ -12,7 +12,7 @@ import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:newsphone_competitions/services/notifications_service.dart';
 import 'package:newsphone_competitions/themes/theme_modes.dart';
 import 'package:provider/provider.dart';
-import 'DatabaseHelper.dart';
+import 'database_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,10 +54,12 @@ class MyApp extends StatelessWidget {
               db.getFavorites().then((onValue) {
                 if (onValue.isNotEmpty) {
                   for (var element in onValue) {
-                    Provider.of<CompetitionsProvider>(
-                      context,
-                      listen: false,
-                    ).toggleFilter(element['type'], true);
+                    if (context.mounted) {
+                      Provider.of<CompetitionsProvider>(
+                        context,
+                        listen: false,
+                      ).toggleFilter(element['type'], true);
+                    }
                   }
                 }
               });
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
         '/info_page': (context) => const InfoPage(),
         '/terms-page': (context) => const TermsPage(),
         '/fav-page': (context) => const FavPage(),
-        '/search_page': (context) => const SearchPage()
+        '/search_page': (context) => const SearchPage(),
       },
     );
   }

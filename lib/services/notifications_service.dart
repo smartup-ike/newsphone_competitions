@@ -12,17 +12,11 @@ class NotificationService {
 
   Future<void> initialize() async {
     NotificationSettings settings = await _messaging.requestPermission();
-    if(settings.authorizationStatus == AuthorizationStatus.authorized){
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       if (Platform.isIOS) {
         final apnsToken = await _messaging.getAPNSToken();
-        log('FCM Token: $apnsToken');
+        log('APNS Token: $apnsToken');
       }
-      final token = await _messaging.getToken();
-      log('FCM Token: $token');
-    } else if (settings.authorizationStatus == AuthorizationStatus.denied) {
-      log("❌ User denied notifications.");
-    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
-      log("⚠️ User granted provisional permissions (iOS only).");
     }
   }
 }
