@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -19,8 +20,12 @@ class NotificationService {
   bool _isFlutterLocalNotificationInitialized = false;
 
   Future<void> initialize() async {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     await _requestPermission();
+    if (Platform.isIOS) {
+      final apnsToken = await _messaging.getAPNSToken();
+      log('FCM Token: $apnsToken');
+    }
     await setUpFlutterNotifications();
     final token = await _messaging.getToken();
     log('FCM Token: $token');
