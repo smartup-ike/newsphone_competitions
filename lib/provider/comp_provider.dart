@@ -9,7 +9,7 @@ class CompetitionsProvider extends ChangeNotifier {
   final List<Competition> _comp = [
     Competition(
       'ΚΕΡΔΙΣΤΕ ΤΟ PEUGEOT 208',
-      DateTime(2025, 4, 1),
+      DateTime(2025, 8, 12),
       'assets/peugot.png',
       CompetitionType.vehicle,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το νέο Peugeot 208!',
@@ -20,7 +20,7 @@ class CompetitionsProvider extends ChangeNotifier {
     ),
     Competition(
       'ΚΕΡΔΙΣΤΕ ΤΟ TOYOTA PRIUS',
-      DateTime(2025, 3, 31),
+      DateTime(2025, 7, 22),
       'assets/toyota.png',
       CompetitionType.vehicle,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το νέο Toyota PRIUS!',
@@ -31,7 +31,7 @@ class CompetitionsProvider extends ChangeNotifier {
     ),
     Competition(
       'ΚΕΡΔΙΣΤΕ ΤΟ IPHONE 16 PRO',
-      DateTime(2025, 3, 31),
+      DateTime(2025, 10, 11),
       'assets/iphone16_PNG38.png',
       CompetitionType.phone,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το νέο IPHONE 16 PRO!',
@@ -42,7 +42,7 @@ class CompetitionsProvider extends ChangeNotifier {
     ),
     Competition(
       'ΚΕΡΔΙΣΤΕ 2 ΗΜΕΡΕΣ ΣΤΟ ΠΕΡΟΥ',
-      DateTime(2025, 3, 20),
+      DateTime(2025, 5, 6),
       'assets/courtyard.jpg',
       CompetitionType.trip,
       'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις ενα 2μερο σε πολυτελές ξενοδοχείο στο Περού',
