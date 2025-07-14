@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/models/competition.dart';
+import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'my_dialog.dart';
 import '../functions/date_time_format.dart';
 import '../functions/helper_functions.dart';
@@ -148,7 +149,7 @@ class InfoWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
             if (DateTime.now().isBefore(competition.endDate))
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -179,7 +180,7 @@ class InfoWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            const SizedBox(height: 7),
+            const SizedBox(height: 20),
             RichText(
               text: TextSpan(
                 style: TextStyle(
@@ -187,13 +188,18 @@ class InfoWidget extends StatelessWidget {
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 children: [
-                  const TextSpan(text: 'Οροι: '),
+                  const TextSpan(text: 'Όροι Χρήσης: '),
                   WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: GestureDetector(
-                      onTap: () => launchURL('https://www.antenna.gr'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TermsPage()),
+                        );
+                      },
                       child: const Text(
-                        'www.antenna.gr',
+                        'Πάτησε Εδώ',
                         style: TextStyle(
                           color: Colors.blueAccent,
                           // Makes it look like a link
