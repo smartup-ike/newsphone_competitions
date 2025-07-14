@@ -61,7 +61,9 @@ class MyDialog extends StatelessWidget {
   }
 
   Future<void> _sendMessage() async {
-    final Uri smsUri = Uri.parse('sms:$phoneNumber?body=${Uri.encodeComponent('$message ')}');
+    final Uri smsUri = Uri.parse(
+      'sms:$phoneNumber?body=${Uri.encodeComponent('$message ')}',
+    );
 
     if (await canLaunchUrl(smsUri)) {
       await launchUrl(smsUri);
