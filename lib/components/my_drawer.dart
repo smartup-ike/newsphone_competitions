@@ -14,10 +14,7 @@ class MyDrawer extends StatelessWidget {
           DrawerHeader(
             child: Center(
               child: Image(
-                image: AssetImage(
-                  MediaQuery.of(context).platformBrightness == Brightness.dark
-                      ? 'assets/newsphone-logo-white.png'
-                      : 'assets/newphone_logo_150.png',
+                image: AssetImage('assets/proino_logo.png'
                 ),
               ),
             ),

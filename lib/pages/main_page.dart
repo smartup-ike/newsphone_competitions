@@ -125,7 +125,7 @@ class _MainPageState extends State<MainPage> {
                 const SizedBox(height: 50),
                 Center(
                   child: Text(
-                    'N e w s p h o n e ● H e ll a s',
+                    'T O  P R O I N O ● A N T E N N A  T V',
                     style: TextStyle(
                       fontSize: 16,
                       fontStyle: FontStyle.italic,

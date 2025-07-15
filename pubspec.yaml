@@ -1,6 +1,6 @@
 name: newsphone_competitions
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+2
 
@@ -31,21 +31,21 @@ dev_dependencies:
   flutter_native_splash: ^2.4.5
 
 flutter_native_splash:
-    android: true
-    ios: true
-    web: false
+  android: true
+  ios: true
+  web: false
 
+  color: "#e0e0e0"
+  image: "assets/proino_logo.png"
+
+  color_dark: "#212121"
+  image_dark: "assets/proino_logo.png"
+
+  android_12:
     color: "#e0e0e0"
-    image: "assets/splash.png"
-
+    image: "assets/proino_logo.png"
     color_dark: "#212121"
-    image_dark: "assets/dark_splash.png"
-
-    android_12:
-      color: "#e0e0e0"
-      image: "assets/splash.png"
-      color_dark: "#212121"
-      image_dark: "assets/dark_splash.png"
+    image_dark: "assets/proino_logo.png"
 
 
 flutter:
@@ -58,6 +58,6 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: "AppIcon"
-  image_path: "assets/splash.png"
+  image_path: "assets/icon.png"
   min_sdk_android: 21
   remove_alpha_ios: true
