@@ -1,6 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/models/competition.dart';
 import 'package:newsphone_competitions/pages/terms_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'my_dialog.dart';
 import '../functions/date_time_format.dart';
 import '../functions/helper_functions.dart';
@@ -209,9 +211,34 @@ class InfoWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const TextSpan(
-                    text: ' | Γρ. Εξυπ. 2109472116 Newsphone Hellas',
+                  const TextSpan(text: ' | Γρ. Εξυπ. '),
+                  TextSpan(
+                    text: '2109472116',
+                    style: const TextStyle(
+                      color: Colors.blueAccent,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    recognizer:
+                        TapGestureRecognizer()
+                          ..onTap = () async {
+                            final Uri telUri = Uri(
+                              scheme: 'tel',
+                              path: '2109472116',
+                            );
+                            if (await canLaunchUrl(telUri)) {
+                              await launchUrl(telUri);
+                            } else {
+                              // optionally handle error
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Αδύνατη η κλήση στον αριθμό.'),
+                                ),
+                              );
+                            }
+                          },
                   ),
+                  const TextSpan(text: ' Newsphone Hellas'),
                 ],
               ),
             ),

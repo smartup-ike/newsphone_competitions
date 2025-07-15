@@ -14,14 +14,11 @@ class IntroPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image(image: AssetImage(MediaQuery
-                .of(context)
-                .platformBrightness == Brightness.dark
-                ? 'assets/newsphone-logo-white.png'
-                : 'assets/newphone_logo_150.png')),
+            Image(image: AssetImage('assets/proino_logo.png'),width: 150,  // or any size you want
+                height: 150),
             const SizedBox(height: 25),
             Text(
-              'Καλώς ήρθατε στη Newsphone Hellas',
+              'Καλώς ήρθατε στο Πρωινό του ANT1',
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
