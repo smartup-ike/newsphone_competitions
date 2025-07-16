@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
+import 'package:newsphone_competitions/pages/about_page.dart';
 import 'package:newsphone_competitions/pages/fav_page.dart';
 import 'package:newsphone_competitions/pages/info_page.dart';
 import 'package:newsphone_competitions/pages/intro_page.dart';
@@ -16,6 +17,7 @@ import 'database_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(Duration(seconds: 2));
   await Firebase.initializeApp();
   await NotificationService.instance.initialize();
 
@@ -75,6 +77,7 @@ class MyApp extends StatelessWidget {
         '/terms-page': (context) => const TermsPage(),
         '/fav-page': (context) => const FavPage(),
         '/search_page': (context) => const SearchPage(),
+        '/about_page': (context) => const AboutAppPage(),
       },
     );
   }

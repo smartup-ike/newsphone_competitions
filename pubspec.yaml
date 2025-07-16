@@ -36,16 +36,12 @@ flutter_native_splash:
   web: false
 
   color: "#e0e0e0"
-  image: "assets/proino_logo.png"
-
-  color_dark: "#212121"
-  image_dark: "assets/proino_logo.png"
+  image: "assets/android12.png"
 
   android_12:
     color: "#e0e0e0"
-    image: "assets/proino_logo.png"
-    color_dark: "#212121"
-    image_dark: "assets/proino_logo.png"
+    image: "assets/android12.png"
+    image_dark: "assets/android12.png"
 
 
 flutter:
@@ -58,6 +54,6 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: "AppIcon"
-  image_path: "assets/icon.png"
+  image_path: "assets/icon.jpeg"
   min_sdk_android: 21
   remove_alpha_ios: true

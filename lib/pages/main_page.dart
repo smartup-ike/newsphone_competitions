@@ -123,18 +123,6 @@ class _MainPageState extends State<MainPage> {
                     ),
                 ],
                 const SizedBox(height: 50),
-                Center(
-                  child: Text(
-                    'T O  P R O I N O ● A N T E N N A  T V',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
               ],
             ),
           ),

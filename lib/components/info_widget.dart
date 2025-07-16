@@ -238,7 +238,6 @@ class InfoWidget extends StatelessWidget {
                             }
                           },
                   ),
-                  const TextSpan(text: ' Newsphone Hellas'),
                 ],
               ),
             ),

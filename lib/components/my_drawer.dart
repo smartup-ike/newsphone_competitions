@@ -13,10 +13,7 @@ class MyDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             child: Center(
-              child: Image(
-                image: AssetImage('assets/proino_logo.png'
-                ),
-              ),
+              child: Image(image: AssetImage('assets/android12.png')),
             ),
           ),
           const SizedBox(height: 25),

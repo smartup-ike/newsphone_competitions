@@ -17,7 +17,7 @@
         </intent>
     </queries>
     <application
-        android:label="Newsphone"
+        android:label="14614"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
