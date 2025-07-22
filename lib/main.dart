@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
 import 'package:newsphone_competitions/pages/about_page.dart';
@@ -10,17 +9,12 @@ import 'package:newsphone_competitions/pages/search_page.dart';
 import 'package:newsphone_competitions/pages/settings_page.dart';
 import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:newsphone_competitions/provider/comp_provider.dart';
-import 'package:newsphone_competitions/services/notifications_service.dart';
 import 'package:newsphone_competitions/themes/theme_modes.dart';
 import 'package:provider/provider.dart';
 import 'database_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Future.delayed(Duration(seconds: 2));
-  await Firebase.initializeApp();
-  await NotificationService.instance.initialize();
-
   final DatabaseHelper db = DatabaseHelper.instance;
   await db.database;
 
