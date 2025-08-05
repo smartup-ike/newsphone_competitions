@@ -1,233 +1,284 @@
 import 'package:flutter/material.dart';
 
-const List<Widget> englishTerms = [
-  Text(
+final List<Widget> englishTerms = [
+  const Text(
     'A. Introduction',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''The company "ANTENNA TV SOLE SHAREHOLDER S.A." (the "Organizer"), based in Marousi, Attica (Kifisias 10-12), a provider of free-to-air national television programming broadcast under the logo "ANTENNA TV" (the "Station"), organizes promotional activities, specifically contests, draws, etc. (the "Promotional Activities"), within the framework of the program produced and broadcast by the Station, primarily from Monday to Friday, from 09:50 a.m. to 13:00 p.m. (or other days/hours, which the Organizer may choose at its discretion) under the title "TO PROINO on ANTENNA TV" (the "Show"). The technical support for the Promotional Activities has been undertaken by the company "EIDISEOFONIKI HELLAS S.A.E." (the "Provider"), based in Kallithea, Attica (L. Thiseos 280), whose role and responsibility are limited to providing the telecommunications infrastructure and tele-information and SMS systems it makes available for use, at the Organizer's instruction and on its behalf, for the purposes of the Promotional Activities and other matters mentioned below in these terms.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'B. Description of Promotional Activities - How to Participate',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''Information on the duration of each Promotional Activity (start & end), the draw time, and its Prizes (beyond what is already mentioned herein) will be provided by the Show's presenter during the broadcast of the episodes within which each respective Promotional Activity will be conducted.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''All users of mobile and/or landline telephony services, only if they reside in Greece, are over 18 years of age, are owners of the telephone number or have the written consent of the owner of the telephone number through which they participate in the Promotional Activities, have full legal capacity as defined in relevant legislative provisions, and unreservedly accept these Terms and all decisions and announcements of the Organizer for each Promotional Activity, which are final, binding, and unassailable, are eligible to participate in the Promotional Activities. The staff of the Organizer and the Provider, their spouses, and relatives up to the second degree (in direct or collateral line) are not eligible to participate in the Promotional Activities.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''To be considered as having declared participation in the Promotional Activity (hereinafter the "Participant"), the participant must, during the stated duration of the Promotional Activity (and specifically as referred to per participation method), call (from a landline or mobile phone within Greece) or send an SMS (from a mobile phone within Greece) to the premium rate number 14614, with a charge of €3.14/call from a landline or €3.29/call from a mobile, and €3.29/SMS (including VAT and fixed and mobile subscriber fees respectively).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Participation in a Promotional Activity of the Show takes place as follows:\n (a) via call from a landline or mobile phone (within Greece) from Monday to Friday, from 09:50 a.m. to 13:00 p.m., to the premium rate number 14614, with a charge of (a) €3.14 (including VAT and fixed telephony subscriber fee) per call from a landline and €3.29 (including VAT and mobile telephony subscriber fee) per call from a mobile, \n (b) by sending an SMS, from Monday to Sunday, 24 hours a day, during the Promotional Activity, by typing the command TO (space) and full name, from a mobile phone within Greece, to the premium rate number 14614, with a charge of €3.29 (including VAT and mobile telephony subscriber fee) per SMS.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Specifically, the following are defined: \n(i) Each Participant via call, by calling 14614, connects to the Provider's automatic call management system, where an audio message informs them about: a) the cost of their call, b) the confirmation of their participation in the Promotional Activity, c) the unique code number (Gift Voucher), of equal or greater value than the cost of the call (which is announced twice) and which can be redeemed for services or products (of equal or greater value, without being obliged to pay any difference) from the website www.winnow.gr. It is noted that Participants can receive the above unique code from the Provider, upon communication (on the support hotline 2109472166), if this was not possible during the call, but only if they have not called with subscriber number concealment. The Participant via voice call must pronounce/record their phone number and full name. Each viewer can call more than once to declare corresponding participations, however, each time they call, they will receive a new code number that can be redeemed for services or products (of equal or greater value than the cost of the call, without being obliged to pay any difference) from the website www.winnow.gr. The use of the code is subject to the terms mentioned below, in Chapter E of this document.\n (ii) Each Participant via SMS must type the command TO (space) and their full name and send the SMS to 14614. Subsequently, the Participant will receive a free SMS informing them about a) the message charge for their participation, b) the confirmation of their participation in the Promotional Activity, c) the unique code number (Gift Voucher) which they can redeem for services or products (of equal or greater value than the cost of the call, without being obliged to pay any difference) from the website www.winnow.gr, and d) the location where the terms and conditions are posted. The use of the code is subject to the terms mentioned below, in Chapter E of this document.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Proper participation in a Promotional Activity of the Show implies the assignment, to each properly participating user and for each of their calls/messages, of a code (gift voucher) of equal or greater value than the cost of the call/message through which they participate, as well as their participation in the pursuit of the respective monetary or non-monetary prize (hereinafter the "Prize"), which will be won after a draw, after the announced duration of each Promotional Activity, according to the provisions of these terms.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each Participant can declare participation, by using the above-mentioned Service under a or/and b, i.e. by calling by phone in the above-mentioned way under a or/and by sending an SMS in the way under b, more than once within the framework of each Promotional Activity. Each time they use a Service, they will be informed as above about the corresponding unique code (gift voucher). Therefore, each Participant can make more than one (1) participation declaration (without limitation) and in a combined way (i.e. via call and SMS as above), receiving each time a new (unique) code number, which can be redeemed for services or products (of equal or greater value, without being obliged to pay any difference) from the website www.winnow.gr. The use of the code is subject to the terms mentioned below, in Chapter E of this document.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''On the TV card where the number 14614 appears, detailed information is provided regarding the service's support hotline, charges, and the Provider, as stipulated by EETT Regulations.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'C. Winner selection process - Prizes:',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''The Participants' data are registered in the Provider's systems, and at the end of each Promotional Activity (and at the time to be announced by the presenter each time), an electronic draw will be conducted by the Provider's agents, based on all Participants who called/sent a message, for the purpose of selecting one or more winners (depending on the terms of each Promotional Activity, as announced by the Show's presenter and the number of Prizes), who will win the corresponding Prizes, as well as one or more alternate winners, in case the initially selected winners or some of them do not come to receive their prize, or refuse to receive it, or it is found that their participation is not valid, or in case they cannot be found within twenty (20) working days from the date of the draw, according to the terms herein. The electronic draw will be conducted using an algorithm method, from a certified generator, and will comply with the provisions of these terms.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''At the end of each Promotional Activity (as announced by the show's presenter), the possibility of declaring participation for that specific Activity ceases, and therefore, overdue participation declarations will not be accepted. Subsequently, each winner will be informed by phone and SMS (if they participated via mobile phone) by the Provider's representatives at the number from which they declared their participation and will be informed about the receipt of the relevant Prize. The disclosure of the winner's details, to safeguard the integrity of the process, will be made by the production during the episode of the Show in which the draw takes place, with a relevant parallel entry of their name on the Organizer's website. Viewers, Participants, and generally any interested party can contact the urban charge support line 2109472166 for issues concerning the Promotional Activities, such as questions, clarifications, and/or information.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'D. Reasons for winner cancellation',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''Any winner may be disqualified and lose the prize if:\n''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''1. The recording or text message (SMS) of their participation does not include all the required information (full name & phone number for the recording and full name for the text message) or the content of the recording or text message (SMS) is empty, inaccurate, or incomprehensible, thus their participation is not proper.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''2. It is not possible to contact the respective winner at the telephone number they provided to the Provider's agents, within the predetermined deadline of twenty (20) working days from the broadcast of the draw episode for the Promotional Activity, in accordance with these terms.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''3. In the event that the winner has not sent (based on the postmark date or courier receipt), within twenty (20) days from the date of their notification, all the required supporting documents as mentioned above.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''4. In case the above-described prize delivery process is not completed within twenty (20) days from the date of their notification due to their fault.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''5. In the event that they refuse to pay the corresponding taxes to the tax authorities, as defined by law 2961/2001 (Article 58, paragraph 1 case e & Article 60, paragraph 3).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'E. Use of Code/Gift Voucher',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''In order to use the relevant winnow Code Number, the Participant must enter the unique code on the website www.winnow.gr each time, redeeming it for a product or service of their choice.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''This specific website offers products and services of various categories, which are useful for all Participants in the Promotional Activity, giving them the possibility of choice.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The benefits offered (products or services) to Participants are always of equal or greater value than the cost of their participation in the Promotional Activity as described above. Each code can be used only once (1). The code cannot be redeemed for cash. All codes are redeemed individually, for different purchases, and it is not possible to redeem them cumulatively. The beneficiary can choose products of greater value than the cost of their participation, without being obliged to pay any difference.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each Participant can acquire and use an unlimited number of winnow Code Numbers, corresponding to their participation declarations. In any case, the shipment of products to beneficiaries is carried out by a courier company or the agents/partners of the website www.winnow.gr, to the address declared by the beneficiary, without the latter being charged with shipping costs. Each code can be used exclusively within a period of one (1) month from the day following the date of receipt of the relevant code, after which period the code is canceled and ceases to be valid. The granting of the aforementioned code and its use by the Participant is independent of whether or not they are drawn as a Winner of the Prize of the Promotional Activity (and/or lucky winner of any Additional Draws).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''In any case, the shipment of products to the beneficiaries is carried out by a courier company or the agents/partners of the website www.winnow.gr, to the address declared by the beneficiary, without the latter being charged with shipping costs.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each code can be used exclusively within a period of one (1) month from the day following the date of receipt of the relevant code; after this period, the code is cancelled and ceases to be valid.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The granting of the aforementioned code and its use by the Participant is independent of whether or not they are drawn as a Winner of the Prize of the Promotional Activity (and/or lucky winner of any Additional Draws).\n Participants can receive the code from the Provider, upon communication to the telephone number 2109472166, if this was not possible during the call and if they have not called with their subscriber number hidden.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'F. Winner notification - Prize delivery conditions',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''The Company ("EIDISEOFONIKI HELLAS S.A.E.") is responsible for the payment/delivery of monetary and non-monetary (in kind) prizes to the winners, which will be awarded after their relevant notification, as follows:\n''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The payment of monetary prizes will take place as follows: The Provider's agents will inform the winners by phone and SMS (if they participated via mobile phone) about the required documents they must submit in order for the monetary or other prizes to be awarded to them. Specifically, within five (5) working days from the draw, the Provider will contact the winners at the telephone number they have provided (or from which they declared participation via message), in order to inform them about how to claim the prize.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''During this communication, the winners' full details will be requested to verify their identity upon prize delivery, specifically, ID card number, VAT number, Tax Office, and residential address. In the event that communication with the winners has not been possible (despite documented attempts by the Provider's agents as above) within twenty (20) working days from the broadcast of the Show's episode where the draw for the Promotional Activity took place, they forfeit the relevant prize.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Winners must, within twenty (20) days from the date of their notification, as above, send the following documents to the Provider's offices (at the above address): 1. Certified photocopy of their police identity card or passport, from a police station or KEP. 2. Solemn declaration with certified signature from a police station / KEP or via the digital portal gov.gr, where they will declare (a) a bank account (IBAN) and credit institution (within Greece) for the payment of the Prize by the Provider and their VAT number and Tax Office to which they belong, as well as (b) that they accept the prize and the terms & conditions of the Show's Promotional Activity.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The monetary prize will be paid to the Winners (by transfer to their account) within sixty (60) days from the day following the receipt by the Provider of the required documents as above. It is clarified that in any case the tax imposed by the Greek State based on law 2961/2001 (Article 58 paragraph 1 case e & Article 60 paragraph 3) on prizes over €1000 is borne by the winner of the prize and is 20% or as otherwise defined by law (it is therefore withheld from the prize amount).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The delivery of non-monetary prizes takes place as follows: The Provider's agents inform the winners by phone and SMS (if they participated via mobile phone) about the required documents they must submit in order for the prizes to be awarded to them. Specifically, within twenty (20) working days from the date of the broadcast of the Show's episode where the draw for the Promotional Activity took place, they will contact the winners at the telephone number they have provided (or from which they declared participation via message), in order to inform them about how to receive the respective Prize. During this communication, the winners' full details will be requested to verify their identity upon delivery of the sponsorship/gift prizes. In the event that communication with the winners has not been possible (demonstrably) within twenty (20) working days from the broadcast of the Show's episode where the draw took place, they forfeit the said prizes.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''It is explicitly clarified that in any case, the tax imposed by the Greek State based on law 2961/2001 (Article 58, paragraph 1, case e & Article 60, paragraph 3) on prizes over €1000 is borne by the winner of the prize, and is 20% (or as otherwise defined by law). Also, any expenses required for the exploitation of any gifts (e.g., expenses for the transfer of license, road tax, and vehicle license plates, etc.), are again borne by the winners. It is explicitly clarified that the Provider is solely responsible for the awarding of all prizes - monetary and non-monetary prizes (according to the terms of its agreement with the Organizer), who will also handle the entire process, care, and responsibility for their awarding to the winners.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''It is explicitly clarified that the Provider bears sole responsibility for the awarding of all prizes - monetary and non-monetary prizes (according to the terms of its agreement with the Organizer) and will handle the entire process, care, and responsibility for their awarding to the winners.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each winner, by declaring their participation in the Promotional Activity and accepting these terms, unreservedly consents to the announcement and presentation of themselves, their name, their image (through a short video/footage) to the public, through the Station or otherwise, as a winner of the Promotional Activity, without payment of any fee for this reason and to their participation in the video recording of the prize delivery/award process to them.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'G. Other terms',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''-All prizes are personal and cannot be exchanged or requested to be replaced with others or converted into money. The Organizer and the Provider are not responsible for participations that may contain incorrect or incomplete information.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-It is explicitly stated that any expenses required for the receipt of the Prize or any expenses required for its utilization (e.g., expenses for the transfer of license, road tax, and vehicle license plates, etc.), as well as any legal taxes or deductions for third parties or other fees, are borne exclusively and entirely by the winner. In case of non-compliance with the terms of the selection of the respective Participant as a winner or generally the terms hereof, or waiver of the prize, the Provider has the right to refuse its awarding, in which case it will be allocated to the alternate winners who will be drawn each time (depending on the terms of each Promotional Activity, as announced by the Show's presenter and the number of winners and Prizes).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-After the expiration of each Promotional Activity and the awarding of the Prizes, all obligations of the Organizer and the Provider cease to exist, without any obligation or liability towards the Participants and the winners (beyond what is stated below regarding their personal data). The Organizer and/or the Provider bear no criminal or civil liability towards the winners or third parties, for any accident and/or damage and/or for any physical or other harm that may be caused to them directly or indirectly related to the Prize and/or its use and/or for any other reason.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-These Terms of Conduct for Promotional Activities within the framework of the Show will remain posted on the Organizer's website, www.antenna.gr, throughout their duration. Any additional announcement with instructions, terms, and/or modifications regarding these terms for participation in the Show's Promotional Activities and/or the claiming of prizes, which will be posted by the Organizer as above and/or announced through the Show and/or published in any other way, constitutes an integral part of these terms.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-The Organizer reserves the right, at any time, unilaterally to interrupt or cancel or postpone a Promotional Activity, at any time, as well as to modify parts of these terms and the respective terms and procedures of each Promotional Activity (e.g., duration, draw time, prizes, etc.), informing the Participants accordingly by the most appropriate means (even orally through the presenter, within the framework of an episode of the Show) and by posting a newer document on the aforementioned website, being released from any liability, and the Participants accept the above from now on, solely by their participation in a Promotional Activity and the acceptance of the terms herein.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-Regarding any prize – car: Due to the special conditions that have arisen internationally due to the COVID 19 pandemic, significant delays are observed in vehicle imports in Greece. Therefore, the delivery date of the prize (vehicle) of the Activity, as well as its color, will depend on the availability of the importing company (representative), and/or the manufacturing plant. Participants in Promotional activities where the prize may be a car, as well as the winners, by their sole participation, fully accept these terms, including the possible delay in the delivery of the vehicle and/or change of the available color. This possible delay and/or change of color of the prize (vehicle) will in no case constitute a responsibility of the Organizer or the Provider and will not create any claim for compensation for the respective beneficiary of the prize (winner).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-Participants acknowledge and accept that a Promotional Activity may be affected or temporarily interrupted due to network problems or fixed & mobile telephony providers or in case of technical problems during the use of the service, whether due to unforeseen equipment failure of the Provider (force majeure) or due to failures or weaknesses of telecommunication networks or technical equipment and software for which the Organizer and the Provider bear no responsibility.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''-Every effort will be made to amicably resolve any dispute or claim that may arise in relation to the show's promotional activity. Issues related to the application, interpretation, invalidity of these terms, are interpreted according to Greek Law and fall under the exclusive jurisdiction of the competent courts of the city of Athens.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     'H. Personal Data:',
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
-  Text(
+  const Text(
     '''The implementation of the Program requires the creation of a personal data file, which will include the names of the Participants, as well as the other details mentioned within the framework of these terms that constitute their personal data and are the minimum required for the conduct of the Promotional Activity. For this reason, the mere declaration of participation in any Promotional Activity within the framework of this document implies the unreserved provision of the free, explicit, and unreserved consent of each Participant to the Organizer and the Provider, in order for their full name (and the other minimal details as mentioned above) to be registered in a file that will be created (and maintained) for the duration of the Promotional Activity and for six (6) months after its expiration (draw) by the Organizer and the Provider, in accordance with the General European Regulation on Personal Data Protection, Law 4624/2019, as well as the Decisions and Guidelines of the Hellenic Data Protection Authority.\nEach participant can, however, withdraw their above consent at any time and through an easy procedure. The purpose of the Provider's maintenance of this file and processing of its data is exclusively the conduct and implementation of the Contest and the identification of the winner for the purpose of awarding the prize to them. The Organizer and the Provider have taken all appropriate technical and organizational measures for the protection of your above personal data, which will be used exclusively for the above processing purposes. Your personal data will not be accessible and will not generally be subject to any processing by unauthorized third parties, except for those who are duly involved in the implementation of this Promotional Activity. The processing of your personal data will take place strictly for as long as is deemed absolutely necessary to achieve the above processing purposes, i.e., for the duration of this Promotional Activity and the awarding of the prize to the winner.\n In any case, at the latest after at least six (6) months from the end of each Promotional Activity, as defined in these Terms, the relevant data will be deleted/destroyed, unless there is a legal reason for further processing of them. You can exercise your rights arising from the General Data Protection Regulation (Regulation (EU) 2016/679) and Law 4624/2019: a. Right to information (Articles 13-14) b. Right of access (Article 15), c. Right to rectification (Article 16), d. Right to erasure (Article 17), e. Right to restriction of processing (Article 18) f. Right to data portability - Article 20) and g. Right to object (Article 21).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each participant reserves the right to access, delete, and/or object to the processing of their data by the Provider (under the provisions of the above General European Regulation (EU GDPR)), by contacting the Organizer at dataprotection@antenna.gr, as well as by letter to Kifisias 10-12, Marousi (15125) and the Provider at 2109472166 or privacy@newsphone.gr, as well as by letter to the Provider's address mentioned above.\nParticipation in the promotional activity constitutes an explicit declaration of consent by the participant, which can be revoked at any time by calling 2109472166 or at the above e-mails, as well as by letter to the above addresses, without retroactive effect and without the participation being able to be disputed as an action originating from the participant. For this purpose, the Provider may keep all declarations of consent revocation in a file.\nThe Provider undertakes not to disclose these personal data of the participants to third parties, with the exception of those who may cooperate with it/its agents in the context of conducting the Promotional Activities. In any case, if you believe that the protection of your personal data has been violated in any way, you have the right to submit a complaint to the Hellenic Data Protection Authority (www.dpa.gr), Kifisias 1-3, P.C. 11523-Athens, tel. 2106475600, e-mail: contact@dpa.gr.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''In any case, at the latest after at least six (6) months from the end of each Promotional Activity, as defined in these Terms, the relevant data will be deleted/destroyed, unless there is a legal reason for further processing of them. You can exercise your rights arising from the General Data Protection Regulation (Regulation (EU) 2016/679) and Law 4624/2019: a. Right to information (Articles 13-14) b. Right of access (Article 15), c. Right to rectification (Article 16), d. Right to erasure (Article 17), e. Right to restriction of processing (Article 18) f. Right to data portability - Article 20) and g. Right to object (Article 21).''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Each participant retains the right to access, delete, and/or object to the processing of their data by the Provider (under the provisions of the above General European Regulation (EU GDPR)), by contacting the Organizer at dataprotection@antenna.gr, as well as by letter to Kifisias 10-12, Marousi (15125) and the Provider at 2109472166 or privacy@newsphone.gr, as well as by letter to the Provider's address mentioned above.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Participation in the promotional activity constitutes an explicit declaration of consent by the participant, which can be revoked at any time by calling 2109472166 or at the above e-mails, as well as by letter to the above addresses, without retroactive effect and without the participation being able to be disputed as an action originating from the participant. For this purpose, the Provider may keep all declarations of consent revocation in a file.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''The Provider undertakes not to disclose these personal data of the participants to third parties, with the exception of those who may cooperate with it/its agents in the context of conducting the Promotional Activities. In any case, if you believe that the protection of your personal data has been violated in any way, you have the right to submit a complaint to the Hellenic Data Protection Authority (www.dpa.gr), Kifisias 1-3, P.C. 11523-Athens, tel. 2106475600, e-mail: contact@dpa.gr.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''More information about the Organizer, the purpose and time of processing your personal data, how to exercise your rights, as well as generally more extensive information about the processing of your personal data, can be found in the Organizer's Data Protection Statement.''',
     textAlign: TextAlign.justify,
   ),
-  Text(
+  const Text(
     '''Contact details of the Data Protection Officer (DPO)\nTo exercise your above rights, you can contact the Data Protection Officer:\n dataprotection@antenna.gr\n Kifisias 10-12, Marousi\n Contact phone: 2106886100\n Name and Address of the Data Controller\n The Data Controller, as defined by GDPR and the applicable legislation on personal data protection, is \n ANTENNA TV\n Kifisias Ave. 10-12, Marousi 15125\n tel: 210 6886100\n dataprotection@antenna.gr\n''',
     textAlign: TextAlign.justify,
+  ),
+
+  Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          Icons.apple,
+          size: 24,
+          color: Colors.grey[700],
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            'Apple is not a sponsor of, or involved in, the contest in any manner.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[800],
+              height: 1.4,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+  Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          Icons.android,
+          size: 24,
+          color: Colors.grey[700],
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            'Google is not a sponsor of, or involved in, the contest in any manner.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[800],
+              height: 1.4,
+            ),
+          ),
+        ),
+      ],
+    ),
   ),
 ];
 final List<Widget> greekTerms = [
@@ -472,7 +523,7 @@ final List<Widget> greekTerms = [
         const SizedBox(width: 12),
         Expanded(
           child: Text(
-            'Apple is not a sponsor of, or involved in, the contest in any manner.',
+            'Η Apple δεν είναι χορηγός και δεν συμμετέχει με κανέναν τρόπο στον διαγωνισμό.',
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 14,
@@ -497,7 +548,7 @@ final List<Widget> greekTerms = [
         const SizedBox(width: 12),
         Expanded(
           child: Text(
-            'Google is not a sponsor of, or involved in, the contest in any manner.',
+            'Η Google δεν είναι χορηγός και δεν συμμετέχει με κανέναν τρόπο στον διαγωνισμό.',
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontSize: 14,
