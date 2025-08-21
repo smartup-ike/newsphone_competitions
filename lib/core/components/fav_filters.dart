@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../data/models/competition.dart';
 import 'filter_box.dart';
-import '../models/competition.dart';
 
 class FavFilters extends StatelessWidget {
   const FavFilters({super.key});

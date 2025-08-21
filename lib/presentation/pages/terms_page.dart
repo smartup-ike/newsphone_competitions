@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constans/terms.dart';
+import '../../core/constans/terms.dart';
 
 class TermsPage extends StatefulWidget {
   const TermsPage({super.key});

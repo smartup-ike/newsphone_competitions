@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/components/fav_filters.dart';
+
+import '../../core/components/fav_filters.dart';
+
 
 class FavPage extends StatelessWidget {
   const FavPage({super.key});

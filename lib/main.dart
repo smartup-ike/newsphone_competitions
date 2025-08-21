@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:is_first_run/is_first_run.dart';
-import 'package:newsphone_competitions/pages/about_page.dart';
-import 'package:newsphone_competitions/pages/fav_page.dart';
-import 'package:newsphone_competitions/pages/info_page.dart';
-import 'package:newsphone_competitions/pages/intro_page.dart';
-import 'package:newsphone_competitions/pages/main_page.dart';
-import 'package:newsphone_competitions/pages/search_page.dart';
-import 'package:newsphone_competitions/pages/settings_page.dart';
-import 'package:newsphone_competitions/pages/terms_page.dart';
-import 'package:newsphone_competitions/provider/comp_provider.dart';
-import 'package:newsphone_competitions/themes/theme_modes.dart';
+import 'package:newsphone_competitions/presentation/pages/about_page.dart';
+import 'package:newsphone_competitions/presentation/pages/fav_page.dart';
+import 'package:newsphone_competitions/presentation/pages/info_page.dart';
+import 'package:newsphone_competitions/presentation/pages/intro_page.dart';
+import 'package:newsphone_competitions/presentation/pages/main_page.dart';
+import 'package:newsphone_competitions/presentation/pages/search_page.dart';
+import 'package:newsphone_competitions/presentation/pages/settings_page.dart';
+import 'package:newsphone_competitions/presentation/pages/terms_page.dart';
 import 'package:provider/provider.dart';
+import 'core/themes/theme_modes.dart';
+import 'data/provider/comp_provider.dart';
 import 'database_helper.dart';
 
 void main() async {

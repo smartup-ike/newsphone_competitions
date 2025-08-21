@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/models/competition.dart';
-import 'package:newsphone_competitions/pages/terms_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../data/models/competition.dart';
+import '../../presentation/pages/terms_page.dart';
 import 'my_dialog.dart';
 import '../functions/date_time_format.dart';
 import '../functions/helper_functions.dart';

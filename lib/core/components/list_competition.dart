@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/components/my_competition_tile.dart';
-import 'package:newsphone_competitions/models/competition.dart';
+
+import '../../data/models/competition.dart';
+import 'my_competition_tile.dart';
 
 class ListCompetition extends StatelessWidget {
   final List<Competition> competitions;

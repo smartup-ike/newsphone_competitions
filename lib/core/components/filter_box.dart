@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/pages/fav_page.dart';
-import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../data/provider/comp_provider.dart';
+import '../../presentation/pages/fav_page.dart';
 
 class FilterCheckbox extends StatelessWidget {
   final String type;

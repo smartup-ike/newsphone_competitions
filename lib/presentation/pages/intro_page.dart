@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/components/my_button.dart';
-import 'package:newsphone_competitions/components/fav_filters.dart';
+
+import '../../core/components/fav_filters.dart';
+import '../../core/components/my_button.dart';
+
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});

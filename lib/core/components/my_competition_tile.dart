@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/functions/date_time_format.dart';
 
-import '../models/competition.dart';
+import '../../data/models/competition.dart';
+import '../functions/date_time_format.dart';
 
 class MyCompetitionTile extends StatelessWidget {
   final Competition competition;

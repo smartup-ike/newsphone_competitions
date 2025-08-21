@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/models/competition.dart';
-import 'package:newsphone_competitions/components/info_widget.dart';
+
+import '../../core/components/info_widget.dart';
+import '../../data/models/competition.dart';
+
 
 class InfoPage extends StatelessWidget {
   static const routeName = '/extractArguments';

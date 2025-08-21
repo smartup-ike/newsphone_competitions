@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/models/competition.dart';
 
-import '../database_helper.dart';
+import '../../database_helper.dart';
+import '../models/competition.dart';
 
 class CompetitionsProvider extends ChangeNotifier {
   final DatabaseHelper _db = DatabaseHelper.instance;

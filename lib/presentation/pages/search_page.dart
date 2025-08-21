@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/components/list_competition.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/comp_provider.dart';
+import '../../core/components/list_competition.dart';
+import '../../data/provider/comp_provider.dart';
 
 class SearchPage extends StatelessWidget {
   static const routeName = '/extractArguments';

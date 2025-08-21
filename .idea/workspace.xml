@@ -10,8 +10,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constans/terms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constans/terms.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/fav_filters.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/fav_filters.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/filter_box.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/filter_box.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/info_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/info_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/list_competition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/list_competition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/my_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/my_competition_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_competition_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/my_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/my_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_list_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constans/terms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constans/terms.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/date_time_format.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/date_time_format.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/functions/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/helper_functions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/competition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/models/competition.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/about_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/about_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/fav_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/fav_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/info_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/intro_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/intro_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/main_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/search_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/search_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/terms_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/terms_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/comp_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/provider/comp_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/themes/theme_modes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/themes/theme_modes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,30 +94,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.android.app.executor&quot;: &quot;Run&quot;,
-    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/dmilios/Documents/GitHub/newsphone_competitions&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.android.app.executor": "Run",
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "redisign-app",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/dmilios/Documents/GitHub/newsphone_competitions",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.0",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/data" />
+      <recent name="$PROJECT_DIR$/lib/presentation" />
+      <recent name="$PROJECT_DIR$/lib/core" />
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="C:\Users\dim\Documents\flutterprojects\newsphone_competitions\assets" />
     </key>

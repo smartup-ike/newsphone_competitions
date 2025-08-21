@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/components/my_drawer.dart';
-import 'package:newsphone_competitions/models/competition.dart';
-import 'package:newsphone_competitions/provider/comp_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../components/list_competition.dart';
+import '../../core/components/list_competition.dart';
+import '../../core/components/my_drawer.dart';
+import '../../data/models/competition.dart';
+import '../../data/provider/comp_provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
