@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../data/models/contests.dart';
 import '../../../data/services/api_service.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/bottom_nav_bar.dart';
+import '../contest_content/contest_content_page.dart';
 import 'components/category_button.dart';
 import 'components/contest_card.dart';
 
@@ -134,7 +134,13 @@ class _HomePageState extends State<HomePage> {
                   return ContestCard(
                     content: contest,
                     clickContentFunction: () {
-                      print('asdf');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => ContestContentPage(contest: contest),
+                        ),
+                      );
                     },
                   );
                 }, childCount: filteredContests.length),
