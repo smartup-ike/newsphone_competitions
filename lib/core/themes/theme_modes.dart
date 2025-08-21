@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightMode = ThemeData(
   colorScheme: ColorScheme.light(
@@ -9,6 +10,9 @@ ThemeData lightMode = ThemeData(
     inverseSurface: Colors.grey.shade900,
     secondaryContainer: Colors.white,
     shadow: Colors.grey,
+  ),
+  textTheme: GoogleFonts.robotoFlexTextTheme(
+    ThemeData.light().textTheme,
   ),
 );
 

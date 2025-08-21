@@ -10,32 +10,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/frame.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/core/components/button_gradient.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/models/contests.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/models/deals.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/data/services/api_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/home/components/category_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/home/components/contest_card.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/fav_filters.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/fav_filters.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/filter_box.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/filter_box.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/info_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/info_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/list_competition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/list_competition.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/my_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/my_competition_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_competition_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/my_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/my_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_drawer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/my_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/components/my_list_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constans/terms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constans/terms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/date_time_format.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/date_time_format.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/functions/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/helper_functions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/fav_filters.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/filter_box.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/info_widget.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/list_competition.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/my_button.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/my_competition_tile.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/my_dialog.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/my_drawer.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/components/my_list_tile.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/themes/theme_modes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/themes/theme_modes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/models/competition.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/provider/comp_provider.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/database_helper.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/competition.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/models/competition.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/about_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/about_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/fav_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/fav_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/info_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/info_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/intro_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/intro_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/main_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/main_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/search_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/search_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/terms_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/terms_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/comp_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/provider/comp_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/themes/theme_modes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/themes/theme_modes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/about_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/fav_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/info_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/intro_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/main_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/search_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,11 +128,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/lib/data" />
       <recent name="$PROJECT_DIR$/lib/presentation" />
       <recent name="$PROJECT_DIR$/lib/core" />
       <recent name="$PROJECT_DIR$/assets" />
-      <recent name="C:\Users\dim\Documents\flutterprojects\newsphone_competitions\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
