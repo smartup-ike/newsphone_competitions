@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../data/models/contests.dart';
+import 'components/bottom_modalsheet.dart';
 import 'components/contest_appbar.dart';
 import 'components/contest_details.dart';
 import 'components/contest_header.dart';
@@ -17,7 +18,12 @@ class ContestContentPage extends StatelessWidget {
         slivers: [
           ContestAppBar(title: contest.name),
           ContestHeader(imageUrl: contest.imageUrl),
-          ContestDetails(contest: contest, buttonClick: () {}),
+          ContestDetails(
+            contest: contest,
+            buttonClick: () {
+              showContestBottomSheet(context);
+            },
+          ),
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
         ],
       ),
