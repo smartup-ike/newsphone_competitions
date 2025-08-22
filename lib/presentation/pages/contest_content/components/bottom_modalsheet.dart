@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void showContestBottomSheet(BuildContext context) {
+void showContestBottomSheet(
+  BuildContext context,
+  VoidCallback onPressDial,
+  VoidCallback onPressMessage,
+) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -59,17 +63,13 @@ void showContestBottomSheet(BuildContext context) {
                   label: 'Καλέστε',
                   details:
                       'Σταθερό 3,14 € / ΚΛΗΣΗ με ΦΠΑ\nΚινητό 3,29 € / ΚΛΗΣΗ με ΦΠΑ',
-                  onTap: () {
-                    // Handle Call action
-                  },
+                  onTap: onPressDial,
                 ),
                 _buildOptionButton(
                   icon: CupertinoIcons.chat_bubble,
                   label: 'Στείλτε SMS',
                   details: 'SMS 3,29 € / SMS με ΦΠΑ',
-                  onTap: () {
-                    // Handle SMS action
-                  },
+                  onTap: onPressMessage,
                 ),
               ],
             ),

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ContestTerms extends StatelessWidget {
-  const ContestTerms({super.key});
+  final VoidCallback onPressTermsButton;
+  final VoidCallback onPressCallService;
+
+  const ContestTerms({
+    super.key,
+    required this.onPressTermsButton,
+    required this.onPressCallService,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class ContestTerms extends StatelessWidget {
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: GestureDetector(
-              onTap: () {},
+              onTap: onPressTermsButton,
               child: const Text(
                 'εδώ',
                 style: TextStyle(color: Colors.blue, fontSize: 12),
@@ -23,7 +30,7 @@ class ContestTerms extends StatelessWidget {
           const TextSpan(text: ' | Γρ. Εξυπηρέτησης '),
           WidgetSpan(
             child: GestureDetector(
-              onTap: () {},
+              onTap: onPressCallService,
               child: const Text(
                 '2109472116',
                 style: TextStyle(
