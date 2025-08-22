@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'core/themes/theme_modes.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
+import 'logic/blocs/deals/deals_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ContestsCubit>(
           create: (context) => ContestsCubit()..fetchAndSortContests(),
+        ),BlocProvider<DealsCubit>(
+          create: (_) => DealsCubit()..fetchDeals(),
         ),
+
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,
