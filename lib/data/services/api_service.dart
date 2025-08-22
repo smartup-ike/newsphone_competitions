@@ -4,7 +4,7 @@ final List<Content> dummyContests = [
   Content(
     id: '1',
     name: 'IPHONE 16 PRO',
-    imageUrl: 'assets/iphone16_PNG38.png', // Or a URL
+    imageUrl: 'assets/iphone16_PNG38.png',
     dateStart: DateTime(2025, 9, 1),
     dateEnd: DateTime(2025, 10, 11),
     contentsType: 'Κινητά',
@@ -27,3 +27,9 @@ final List<Content> dummyContests = [
   ),
   // Add more dummy data as needed
 ];
+
+Future<List<Content>> fetchContests() async {
+  await Future.delayed(Duration(seconds: 2));
+  // Return the dummy data
+  return dummyContests;
+}

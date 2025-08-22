@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/presentation/pages/settings_page.dart';
 
 import '../../../data/models/contests.dart';
-import '../../../data/services/api_service.dart';
+import '../../../logic/blocs/contest/contests_cubit.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import '../contest_content/contest_content_page.dart';
@@ -24,11 +26,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _filterContests('ΌΛΑ');
   }
 
   @override
   Widget build(BuildContext context) {
+    final currentContestsState = context.read<ContestsCubit>().state;
+
+    if (currentContestsState is ContestsLoaded) {
+      selectedCategory = 'ΌΛΑ';
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -36,7 +42,12 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             /// 🔹 App Bar (sticky)
             HomePageAppBar(
-              clickDrawerFunction: () {},
+              clickDrawerFunction: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+              },
               clickNotificationFunction: () {},
             ),
 
@@ -95,27 +106,37 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: SizedBox(
                       height: 40,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          // List of category names
-                          ...[
+                      child: BlocBuilder<ContestsCubit, ContestsState>(
+                        builder: (context, state) {
+                          String selectedCategory = 'ΌΛΑ';
+                          if (state is ContestsLoaded) {
+                            selectedCategory = state.selectedCategory;
+                          }
+
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              ...[
                                 'ΌΛΑ',
                                 'Οχήματα',
                                 'Κινητά',
                                 'Ταξίδια',
                                 'Χρήματα',
                                 'Ψώνια',
-                              ]
-                              .map(
+                              ].map(
                                 (category) => CategoryButton(
                                   category: category,
-                                  isSelected: selectedCategory == category,
-                                  onTap: () => _filterContests(category),
+                                  isSelected: category == selectedCategory,
+                                  onTap: () {
+                                    context
+                                        .read<ContestsCubit>()
+                                        .filterContests(category);
+                                  },
                                 ),
-                              )
-                              .toList(),
-                        ],
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -125,32 +146,53 @@ class _HomePageState extends State<HomePage> {
 
             const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
-            /// 🔹 Contest Grid
-            SliverPadding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final contest = filteredContests[index];
-                  return ContestCard(
-                    content: contest,
-                    clickContentFunction: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => ContestContentPage(contest: contest),
-                        ),
-                      );
-                    },
+            /// 🔹 Contest Grid: Now Fetches from Cubit
+            BlocBuilder<ContestsCubit, ContestsState>(
+              builder: (context, state) {
+                if (state is ContestsLoading) {
+                  return const SliverToBoxAdapter(
+                    child: Center(child: CircularProgressIndicator()),
                   );
-                }, childCount: filteredContests.length),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 14,
-                  childAspectRatio: 0.45,
-                ),
-              ),
+                }
+                if (state is ContestsError) {
+                  return SliverToBoxAdapter(
+                    child: Center(child: Text(state.message)),
+                  );
+                }
+                if (state is ContestsLoaded) {
+                  final contests = state.contests;
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    sliver: SliverGrid(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final contest = contests[index];
+                        return ContestCard(
+                          content: contest,
+                          clickContentFunction: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) =>
+                                        ContestContentPage(contest: contest),
+                              ),
+                            );
+                          },
+                        );
+                      }, childCount: contests.length),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 14,
+                            childAspectRatio: 0.45,
+                          ),
+                    ),
+                  );
+                }
+                // Handle initial state or unexpected state
+                return const SliverToBoxAdapter(child: SizedBox());
+              },
             ),
 
             const SliverToBoxAdapter(child: SizedBox(height: 20)),
@@ -164,18 +206,6 @@ class _HomePageState extends State<HomePage> {
         onItemTapped: _onItemTapped,
       ),
     );
-  }
-
-  void _filterContests(String category) {
-    setState(() {
-      selectedCategory = category;
-      if (category == 'ΌΛΑ') {
-        filteredContests = dummyContests;
-      } else {
-        filteredContests =
-            dummyContests.where((c) => c.contentsType == category).toList();
-      }
-    });
   }
 
   void _onItemTapped(int index) {
