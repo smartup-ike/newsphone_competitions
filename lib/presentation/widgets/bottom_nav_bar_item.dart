@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavBarItem extends StatelessWidget {
-  final IconData icon;
+  final SvgPicture icon;
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
@@ -29,11 +30,7 @@ class BottomNavBarItem extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: isSelected ? Colors.white : Colors.grey[700],
-                size: 20,
-              ),
+              icon,
               const SizedBox(width: 8),
               Text(
                 label,

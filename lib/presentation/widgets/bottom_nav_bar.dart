@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'bottom_nav_bar_item.dart';
 
 class HomePageBottomNavBar extends StatelessWidget {
@@ -25,13 +26,23 @@ class HomePageBottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BottomNavBarItem(
-              icon: Icons.emoji_events,
+              icon: SvgPicture.asset(
+                'assets/images/icons/FireSimple.svg',
+                height: 24.0,
+                width: 24.0,
+                color: selectedIndex == 0 ? Colors.white : Colors.grey[700],
+              ),
               label: 'Διαγωνισμοί',
               isSelected: selectedIndex == 0,
               onTap: () => onItemTapped(0),
             ),
             BottomNavBarItem(
-              icon: Icons.local_offer,
+              icon: SvgPicture.asset(
+                'assets/images/icons/Lightning.svg',
+                height: 24.0,
+                width: 24.0,
+                color: selectedIndex == 0 ? Colors.grey[700] : Colors.white,
+              ),
               label: 'Deals',
               isSelected: selectedIndex == 1,
               onTap: () => onItemTapped(1),

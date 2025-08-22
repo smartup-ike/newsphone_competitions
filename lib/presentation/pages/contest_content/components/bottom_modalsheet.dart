@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 void showContestBottomSheet(
   BuildContext context,
@@ -59,14 +60,14 @@ void showContestBottomSheet(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildOptionButton(
-                  icon: CupertinoIcons.phone,
+                  icon: 'assets/images/icons/PhoneCall.svg',
                   label: 'Καλέστε',
                   details:
                       'Σταθερό 3,14 € / ΚΛΗΣΗ με ΦΠΑ\nΚινητό 3,29 € / ΚΛΗΣΗ με ΦΠΑ',
                   onTap: onPressDial,
                 ),
                 _buildOptionButton(
-                  icon: CupertinoIcons.chat_bubble,
+                  icon: 'assets/images/icons/ChatCircleDots.svg',
                   label: 'Στείλτε SMS',
                   details: 'SMS 3,29 € / SMS με ΦΠΑ',
                   onTap: onPressMessage,
@@ -82,7 +83,7 @@ void showContestBottomSheet(
 }
 
 Widget _buildOptionButton({
-  required IconData icon,
+  required String icon,
   required String label,
   required String details,
   required VoidCallback onTap,
@@ -107,7 +108,12 @@ Widget _buildOptionButton({
                 end: Alignment.centerRight,
               ),
             ),
-            child: Icon(icon, color: Colors.white, size: 30),
+            child: SvgPicture.asset(
+              icon,
+              height: 30.0,
+              width: 30.0,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 8.0),
           Text(
