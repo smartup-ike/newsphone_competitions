@@ -10,16 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/ChatCircleDots.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/FireSimple.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/Lightning.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/icons/PhoneCall.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/deal_content/deal_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/deals_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/logic/blocs/contest/contests_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/contest/contests_cubit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/components/category_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/components/contest_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,11 +101,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/presentation/pages/contests" />
       <recent name="$PROJECT_DIR$/assets/images/icons" />
       <recent name="$PROJECT_DIR$/lib/presentation/pages/terms_page" />
       <recent name="$PROJECT_DIR$/lib/presentation/pages/settings/components" />
       <recent name="$PROJECT_DIR$/lib/presentation/pages/settings" />
-      <recent name="$PROJECT_DIR$/lib/logic/blocs/contest" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">

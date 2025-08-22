@@ -51,4 +51,32 @@ class ContestsCubit extends Cubit<ContestsState> {
     }
     emit(ContestsLoaded(filteredList, selectedCategory: category));
   }
+
+  // The new, updated searchContests method
+  void searchContests(String query) {
+    List<Content> listToFilter;
+    String currentCategory = 'ΌΛΑ';
+    if (state is ContestsLoaded) {
+      ContestsLoaded currentState = state as ContestsLoaded;
+      currentCategory = currentState.selectedCategory;
+
+      if (currentCategory == 'ΌΛΑ') {
+        listToFilter = _allContests;
+      } else {
+        listToFilter = _allContests.where((contest) => contest.contentsType == currentCategory).toList();
+      }
+    } else {
+      listToFilter = _allContests;
+    }
+
+    List<Content> filteredList;
+    if (query.isEmpty) {
+      filteredList = listToFilter;
+    } else {
+      filteredList = listToFilter
+          .where((contest) => contest.name.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    emit(ContestsLoaded(filteredList, selectedCategory: currentCategory));
+  }
 }
