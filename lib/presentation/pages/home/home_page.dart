@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsphone_competitions/presentation/pages/settings_page.dart';
+import 'package:newsphone_competitions/presentation/pages/settings/settings_page.dart';
 
 import '../../../data/models/contests.dart';
 import '../../../logic/blocs/contest/contests_cubit.dart';
