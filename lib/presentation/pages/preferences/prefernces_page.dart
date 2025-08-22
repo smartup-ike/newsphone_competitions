@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import the package
 
 import 'components/custom_action_chip.dart';
 
@@ -19,6 +20,29 @@ class _PreferencesPageState extends State<PreferencesPage> {
   ];
 
   final Set<String> _selectedCategories = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  // Method to load saved preferences from SharedPreferences
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedCategories = prefs.getStringList('selectedCategories');
+    if (savedCategories != null) {
+      setState(() {
+        _selectedCategories.addAll(savedCategories);
+      });
+    }
+  }
+
+  // Method to save preferences to SharedPreferences
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('selectedCategories', _selectedCategories.toList());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +107,8 @@ class _PreferencesPageState extends State<PreferencesPage> {
                             } else {
                               _selectedCategories.add(category);
                             }
+                            // Save the updated preferences
+                            _savePreferences();
                           });
                         },
                       );
