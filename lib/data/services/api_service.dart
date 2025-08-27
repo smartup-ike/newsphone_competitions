@@ -26,6 +26,14 @@ final List<Content> dummyContests = [
     dateEnd: DateTime(2025, 7, 22),
     contentsType: 'Οχήματα',
   ),
+  Content(
+    id: '4',
+    name: '5ΗΜΕΡΟ ΤΑΞΙΔΙ ΣΤΟ ΠΕΡΟΥ',
+    imageUrl: 'assets/courtyard.jpg',
+    dateStart: DateTime(2025, 11, 1),
+    dateEnd: DateTime(2025, 11, 22),
+    contentsType: 'Ταξίδια',
+  ),
   // Add more dummy data as needed
 ];
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/data/services/notifications_services.dart';
+import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart'; // Ensure this import is correct
 import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/app_bar.dart';
 import '../contests/contests_page.dart';
@@ -15,10 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
-    ContestsPage(),
-    DealsPage(),
-  ];
+  final List<Widget> _pages = const [ContestsPage(), DealsPage()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -27,11 +26,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      NotificationService.listenForMessages(context);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: HomePageAppBar(
-        clickNotificationFunction: () {},
+        clickNotificationFunction: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NotificationsPage()),
+          );
+        },
         clickDrawerFunction: () {
           Navigator.push(
             context,
