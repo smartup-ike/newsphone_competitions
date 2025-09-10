@@ -8,7 +8,7 @@ import 'components/contest_details.dart';
 import 'components/contest_header.dart';
 
 class ContestContentPage extends StatelessWidget {
-  final Content contest;
+  final Contest contest;
 
   const ContestContentPage({super.key, required this.contest});
 

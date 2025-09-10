@@ -10,6 +10,15 @@ class ContestsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = [
+      'ΟΛΑ',
+      'Οχήματα',
+      'Κινητά',
+      'Ταξίδια',
+      'Χρήματα',
+      'Ψώνια',
+    ];
+
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -73,28 +82,26 @@ class ContestsPage extends StatelessWidget {
                         if (state is ContestsLoaded) {
                           selectedCategory = state.selectedCategory;
                         }
-
                         return ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            ...[
-                              'ΌΛΑ',
-                              'Οχήματα',
-                              'Κινητά',
-                              'Ταξίδια',
-                              'Χρήματα',
-                              'Ψώνια',
-                            ].map(
-                              (category) => CategoryButton(
-                                category: category,
-                                isSelected: category == selectedCategory,
+                            for (
+                              int index = 0;
+                              index < categories.length;
+                              index++
+                            )
+                              CategoryButton(
+                                category: categories[index],
+                                isSelected:
+                                    categories[index] == selectedCategory,
+                                isFirst: index == 0,
+                                isLast: index == categories.length - 1,
                                 onTap: () {
                                   context.read<ContestsCubit>().filterContests(
-                                    category,
+                                    categories[index],
                                   );
                                 },
                               ),
-                            ),
                           ],
                         );
                       },

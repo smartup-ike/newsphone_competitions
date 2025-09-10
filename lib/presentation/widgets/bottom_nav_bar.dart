@@ -15,13 +15,13 @@ class HomePageBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: 81,
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: Colors.black12, width: 1)),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30, top: 8, bottom: 19),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

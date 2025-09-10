@@ -7,10 +7,14 @@ import '../../../../data/models/contests.dart';
 
 /// 🔹 Contest Card (unchanged)
 class ContestCard extends StatelessWidget {
-  final Content content;
+  final Contest content;
   final VoidCallback clickContentFunction;
 
-  const ContestCard({super.key, required this.content, required this.clickContentFunction});
+  const ContestCard({
+    super.key,
+    required this.content,
+    required this.clickContentFunction,
+  });
 
   String formatDate(DateTime date) {
     return DateFormat('dd/MM/yyyy').format(date);
@@ -44,7 +48,10 @@ class ContestCard extends StatelessWidget {
                 fontSize: 11,
               ),
             ),
-            AspectRatio(aspectRatio: 1, child: Image.asset(content.imageUrl!)),
+            AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(content.imageUrl!),
+            ),
             Text(
               'ΚΕΡΔΙΣΤΕ ΤΟ ${content.name.toUpperCase()}',
               style: GoogleFonts.robotoFlex(

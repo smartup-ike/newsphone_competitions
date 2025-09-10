@@ -1,90 +1,56 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import '../models/contests.dart';
 import '../models/deals.dart';
 
-final List<Content> dummyContests = [
-  Content(
-    id: '1',
-    name: 'IPHONE 16 PRO',
-    imageUrl: 'assets/iphone16_PNG38.png',
-    dateStart: DateTime(2025, 9, 1),
-    dateEnd: DateTime(2025, 10, 11),
-    contentsType: 'Κινητά',
-  ),
-  Content(
-    id: '2',
-    name: 'PEUGEOT 208',
-    imageUrl: 'assets/peugot.png',
-    dateStart: DateTime(2025, 8, 1),
-    dateEnd: DateTime(2025, 8, 12),
-    contentsType: 'Οχήματα',
-  ),
-  Content(
-    id: '3',
-    name: 'TOYOTA PRIUS',
-    imageUrl: 'assets/toyota.png',
-    dateStart: DateTime(2025, 7, 1),
-    dateEnd: DateTime(2025, 7, 22),
-    contentsType: 'Οχήματα',
-  ),
-  Content(
-    id: '4',
-    name: '5ΗΜΕΡΟ ΤΑΞΙΔΙ ΣΤΟ ΠΕΡΟΥ',
-    imageUrl: 'assets/courtyard.jpg',
-    dateStart: DateTime(2025, 11, 1),
-    dateEnd: DateTime(2025, 11, 22),
-    contentsType: 'Ταξίδια',
-  ),
-  // Add more dummy data as needed
-];
+class ApiService {
+  // Base URL for your API (update this as per your actual API)
+  final String _baseUrl =
+      'https://newsphone-api-560508338889.europe-central2.run.app';
 
-final List<Deal> dummyDeals = [
-  // 🔹 Cosmote Deal
-  Deal(
-    id: '1',
-    name: '50% έκπτωση σε αξεσουάρ κινητής',
-    dealImage: 'assets/images/cosmote_deal_image.png',
-    companyImage: 'assets/images/cosmote_logo.png',
-    details:
-        'Εξαργυρώστε τον κωδικό στα καταστήματα COSMOTE και Γερμανός για έκπτωση 50% σε επιλεγμένα αξεσουάρ κινητής.',
-    terms:
-        'Η προσφορά ισχύει έως 31/12/2025 και δεν συνδυάζεται με άλλες προσφορές. Ισχύει για μία χρήση ανά κωδικό.',
-    dealCode: 'COSMO50OFF',
-  ),
+  // Fetch contests from API
+  Future<List<Contest>> fetchContests() async {
+    final url = '$_baseUrl/contests'; // Adjust endpoint for contests
 
-  // 🔹 Vodafone Deal
-  Deal(
-    id: '2',
-    name: 'Δώρο 5GB για 1 μήνα',
-    dealImage: 'assets/images/vodafone_deal_image.jpg',
-    companyImage: 'assets/images/vodafone_logo.png',
-    details:
-        'Ενεργοποιήστε τον κωδικό μέσω του My Vodafone App και αποκτήστε δωρεάν 5GB για χρήση εντός Ελλάδας.',
-    terms:
-        'Η προσφορά ισχύει για συνδρομητές κινητής Vodafone ιδιώτες και εταιρικούς. Τα δωρεάν GB έχουν ισχύ 30 ημέρες από την ενεργοποίηση.',
-    dealCode: 'VODA5GBFREE',
-  ),
+    try {
+      final response = await http.get(Uri.parse(url));
+      //log("/deals contests: ${response.body}");
 
-  // 🔹 Lidl Deal
-  Deal(
-    id: '3',
-    name: '10% έκπτωση σε επιλεγμένα προϊόντα αρτοποιίας',
-    dealImage: 'assets/images/lidl_deal_image.png',
-    companyImage: 'assets/images/lidl_logo.png',
-    details:
-        'Επωφεληθείτε από 10% έκπτωση σε όλα τα φρέσκα αρτοσκευάσματα του Lidl. Απλά δείξτε τον κωδικό στο ταμείο.',
-    terms:
-        'Η προσφορά ισχύει μόνο για αγορές άνω των 5€. Εξαιρούνται συσκευασμένα προϊόντα αρτοποιίας. Ισχύει μέχρι τις 30/11/2025.',
-    dealCode: 'LIDLARTOS10',
-  ),
-];
+      if (response.statusCode == 200) {
+        // Decode the JSON response and map it to a list of Contest objects
+        final List<dynamic> data = json.decode(response.body);
+        return data
+            .map((contestJson) => Contest.fromJson(contestJson))
+            .toList();
+      } else {
+        // Handle API errors (non-200 responses)
+        throw Exception('Failed to load contests: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network or parsing errors
+      throw Exception('Failed to load contests: $e');
+    }
+  }
 
-Future<List<Content>> fetchContests() async {
-  await Future.delayed(Duration(seconds: 2));
-  // Return the dummy data
-  return dummyContests;
-}
+  // Fetch deals from API
+  Future<List<Deal>> apiFetchDeals() async {
+    final url = '$_baseUrl/deals'; // Adjust endpoint for deals
 
-Future<List<Deal>> apiFetchDeals() async {
-  await Future.delayed(Duration(seconds: 2));
-  return dummyDeals;
+    try {
+      final response = await http.get(Uri.parse(url));
+      //log("/deals response: ${response.body}");
+
+      if (response.statusCode == 200) {
+        // Decode the JSON response and map it to a list of Deal objects
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((dealJson) => Deal.fromJson(dealJson)).toList();
+      } else {
+        // Handle API errors (non-200 responses)
+        throw Exception('Failed to load deals: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network or parsing errors
+      throw Exception('Failed to load deals: $e');
+    }
+  }
 }

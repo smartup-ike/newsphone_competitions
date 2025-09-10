@@ -43,7 +43,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),
-                      child: Image.asset(
+                      child: Image.network(
                         widget.deal.dealImage!,
                         width: double.infinity,
                         height: 200,
@@ -71,7 +71,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
               // --- Company Logo
               if (widget.deal.companyImage != null)
                 Center(
-                  child: Image.asset(widget.deal.companyImage!, height: 60),
+                  child: Image.network(widget.deal.companyImage!, height: 60),
                 ),
 
               const SizedBox(height: 27),

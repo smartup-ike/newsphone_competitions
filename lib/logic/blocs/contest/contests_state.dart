@@ -12,7 +12,7 @@ class ContestsInitial extends ContestsState {}
 class ContestsLoading extends ContestsState {}
 
 class ContestsLoaded extends ContestsState {
-  final List<Content> contests;
+  final List<Contest> contests;
   final String selectedCategory;
 
   const ContestsLoaded(this.contests, {this.selectedCategory = 'ΌΛΑ'});

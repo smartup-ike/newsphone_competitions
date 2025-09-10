@@ -14,7 +14,7 @@ class ContestDetails extends StatelessWidget {
   final VoidCallback onPressWinnow;
   final VoidCallback onPressCallService;
 
-  final Content contest;
+  final Contest contest;
 
   const ContestDetails({
     super.key,

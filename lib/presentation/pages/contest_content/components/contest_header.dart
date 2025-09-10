@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ContestHeader extends StatelessWidget {
   final String? imageUrl;
+
   const ContestHeader({super.key, this.imageUrl});
 
   @override
@@ -20,7 +21,7 @@ class ContestHeader extends StatelessWidget {
                 padding: const EdgeInsets.all(43.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15.0),
-                  child: Image.asset(
+                  child: Image.network(
                     imageUrl ?? '',
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -30,10 +31,7 @@ class ContestHeader extends StatelessWidget {
               Positioned(
                 top: 10,
                 right: 10,
-                child: Image.asset(
-                  'assets/proino_logo.png',
-                  width: 50,
-                ),
+                child: Image.asset('assets/proino_logo.png', width: 50),
               ),
             ],
           ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'core/themes/theme_modes.dart';
+import 'data/services/api_service.dart';
 import 'data/services/notifications_services.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
 import 'logic/blocs/deals/deals_cubit.dart';
@@ -19,22 +20,25 @@ void main() async {
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await NotificationService.initialize();
+  // Initialize the ApiService.
+  final apiService = ApiService();
 
-  runApp(MyApp());
+  runApp(MyApp(apiService: apiService,));
 }
 
 class MyApp extends StatelessWidget {
 
-  const MyApp({super.key});
+  const MyApp({super.key, required this.apiService});
+  final ApiService apiService;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ContestsCubit>(
-          create: (context) => ContestsCubit()..fetchAndSortContests(),
+          create: (context) => ContestsCubit()..fetchAndSortContests(apiService),
         ),BlocProvider<DealsCubit>(
-          create: (_) => DealsCubit()..fetchDeals(),
+          create: (_) => DealsCubit()..fetchDeals(apiService),
         ),
         BlocProvider<NotificationCubit>(
           create: (_) => NotificationCubit(),

@@ -13,10 +13,10 @@ class DealsCubit extends Cubit<DealsState> {
   DealsCubit() : super(DealsInitial());
 
   /// Fetches deals from the API and updates the state.
-  Future<void> fetchDeals() async {
+  Future<void> fetchDeals(ApiService apiService) async {
     emit(DealsLoading());
     try {
-      List<Deal> fetchDeal = await apiFetchDeals();
+      List<Deal> fetchDeal = await apiService.apiFetchDeals();
       _allDeals = fetchDeal;
       emit(DealsLoaded(_allDeals));
     } catch (e) {

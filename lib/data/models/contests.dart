@@ -1,4 +1,4 @@
-class Content {
+class Contest {
   final String id;
   final String name;
   final String? imageUrl;
@@ -6,7 +6,7 @@ class Content {
   final DateTime dateEnd;
   final String? contentsType;
 
-  Content({
+  Contest({
     required this.id,
     required this.name,
     this.imageUrl,
@@ -15,8 +15,8 @@ class Content {
     this.contentsType,
   });
 
-  factory Content.fromJson(Map<String, dynamic> json) {
-    return Content(
+  factory Contest.fromJson(Map<String, dynamic> json) {
+    return Contest(
       id: json['id'] as String,
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String?,
@@ -38,7 +38,7 @@ class Content {
   }
 
   /// CopyWith method
-  Content copyWith({
+  Contest copyWith({
     String? id,
     String? name,
     String? imageUrl,
@@ -46,7 +46,7 @@ class Content {
     DateTime? dateEnd,
     String? contentsType,
   }) {
-    return Content(
+    return Contest(
       id: id ?? this.id,
       name: name ?? this.name,
       imageUrl: imageUrl ?? this.imageUrl,

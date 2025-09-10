@@ -7,32 +7,32 @@ import 'package:equatable/equatable.dart';
 part 'contests_state.dart';
 
 class ContestsCubit extends Cubit<ContestsState> {
-  List<Content> _allContests = [];
+  List<Contest> _allContests = [];
   ContestsCubit() : super(ContestsInitial());
 
 
-  Future<void> fetchAndSortContests() async {
+  Future<void> fetchAndSortContests(ApiService apiService) async {
     emit(ContestsLoading());
     try {
       // Use the external fetchContests() function to get the data
-      List<Content> fetchedContests = await fetchContests();
+      List<Contest> fetchedContests = await apiService.fetchContests();
 
       // Store the full list for filtering
       _allContests = fetchedContests;
 
       final now = DateTime.now();
 
-      List<Content> upcomingContests = _allContests
+      List<Contest> upcomingContests = _allContests
           .where((contest) => contest.dateEnd.isAfter(now))
           .toList();
-      List<Content> pastContests = _allContests
+      List<Contest> pastContests = _allContests
           .where((contest) => contest.dateEnd.isBefore(now))
           .toList();
 
       upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
       pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
 
-      List<Content> sortedContests = [...upcomingContests, ...pastContests];
+      List<Contest> sortedContests = [...upcomingContests, ...pastContests];
 
       emit(ContestsLoaded(sortedContests));
     } catch (e) {
@@ -41,7 +41,7 @@ class ContestsCubit extends Cubit<ContestsState> {
   }
 
   void filterContests(String category) {
-    List<Content> filteredList;
+    List<Contest> filteredList;
     if (category == 'ΌΛΑ') {
       filteredList = _allContests;
     } else {
@@ -54,7 +54,7 @@ class ContestsCubit extends Cubit<ContestsState> {
 
   // The new, updated searchContests method
   void searchContests(String query) {
-    List<Content> listToFilter;
+    List<Contest> listToFilter;
     String currentCategory = 'ΌΛΑ';
     if (state is ContestsLoaded) {
       ContestsLoaded currentState = state as ContestsLoaded;
@@ -69,7 +69,7 @@ class ContestsCubit extends Cubit<ContestsState> {
       listToFilter = _allContests;
     }
 
-    List<Content> filteredList;
+    List<Contest> filteredList;
     if (query.isEmpty) {
       filteredList = listToFilter;
     } else {

@@ -4,18 +4,22 @@ class CategoryButton extends StatelessWidget {
   final String category;
   final bool isSelected;
   final VoidCallback onTap;
+  final bool? isFirst;
+  final bool? isLast;
 
   const CategoryButton({
     super.key,
     required this.category,
     required this.isSelected,
     required this.onTap,
+    this.isFirst,
+    this.isLast,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 5),
+      padding: EdgeInsets.only(left: isFirst==true ? 4 : 0, right: isLast==true ? 4 : 0, top: 5, bottom: 5),
       child: InkWell(
         onTap: onTap,
         child: Container(

@@ -22,7 +22,7 @@ class DealCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (deal.companyImage != null)
-              Image.asset(
+              Image.network(
                 deal.companyImage!,
                 width: double.infinity,
                 height: 82,

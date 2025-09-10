@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 
