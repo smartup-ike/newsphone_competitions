@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ContestsCubit>(
-          create: (context) => ContestsCubit()..fetchAndSortContests(apiService),
+          create: (context) => ContestsCubit()..init(apiService),
         ),BlocProvider<DealsCubit>(
           create: (_) => DealsCubit()..fetchDeals(apiService),
         ),

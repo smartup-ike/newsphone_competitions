@@ -49,6 +49,10 @@ class DealsPage extends StatelessWidget {
     });
   }
 
+  Future<void> _onRefresh(BuildContext context) async {
+    await context.read<DealsCubit>().refreshDeals();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,34 +64,37 @@ class DealsPage extends StatelessWidget {
           } else if (state is DealsError) {
             return Center(child: Text(state.message));
           } else if (state is DealsLoaded) {
-            return ListView.builder(
-              padding: const EdgeInsets.all(12),
-              itemCount: state.deals.length,
-              itemBuilder: (context, index) {
-                final deal = state.deals[index];
-                return DealCard(
-                  deal: deal,
-                  onPressButton: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                      ),
-                      builder:
-                          (_) => DealBottomSheet(
-                            deal: deal,
-                            onCodeCopied: (String dealCode) {
-                              _showToast(context);
-                            },
+            return RefreshIndicator(
+              onRefresh: () => _onRefresh(context),
+              child: ListView.builder(
+                padding: const EdgeInsets.all(12),
+                itemCount: state.deals.length,
+                itemBuilder: (context, index) {
+                  final deal = state.deals[index];
+                  return DealCard(
+                    deal: deal,
+                    onPressButton: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
                           ),
-                    );
-                  },
-                );
-              },
+                        ),
+                        builder:
+                            (_) => DealBottomSheet(
+                              deal: deal,
+                              onCodeCopied: (String dealCode) {
+                                _showToast(context);
+                              },
+                            ),
+                      );
+                    },
+                  );
+                },
+              ),
             );
           }
           return const Center(child: Text("No deals available"));
