@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:560508338889:android:b6d9c9230cf9e71c004318",
+        "android_client_info": {
+          "package_name": "com.akep.app14614"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZuDf9GoCGcUfn_-DNKPV_II1FprQpiHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:560508338889:android:111ab0852e8d4cc4004318",
         "android_client_info": {
           "package_name": "com.example.newsphone_competitions"

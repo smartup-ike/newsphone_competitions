@@ -19,7 +19,7 @@ class ContestsCubit extends Cubit<ContestsState> {
 
   void filterContests(String category) {
     List<Contest> filteredList;
-    if (category == 'ΌΛΑ') {
+    if (category == 'ΟΛΑ') {
       filteredList = _allContests;
     } else {
       filteredList =
@@ -33,12 +33,12 @@ class ContestsCubit extends Cubit<ContestsState> {
   // The new, updated searchContests method
   void searchContests(String query) {
     List<Contest> listToFilter;
-    String currentCategory = 'ΌΛΑ';
+    String currentCategory = 'ΟΛΑ';
     if (state is ContestsLoaded) {
       ContestsLoaded currentState = state as ContestsLoaded;
       currentCategory = currentState.selectedCategory;
 
-      if (currentCategory == 'ΌΛΑ') {
+      if (currentCategory == 'ΟΛΑ') {
         listToFilter = _allContests;
       } else {
         listToFilter =
@@ -68,31 +68,27 @@ class ContestsCubit extends Cubit<ContestsState> {
   Future<void> fetchContests() async {
     emit(ContestsLoading());
     try {
-      // Use the external fetchContests() function to get the data
       List<Contest> fetchedContests = await _apiService.fetchContests();
 
-      // Store the full list for filtering
       _allContests = fetchedContests;
 
       final now = DateTime.now();
 
       List<Contest> upcomingContests =
-          _allContests
-              .where((contest) => contest.dateEnd.isAfter(now))
-              .toList();
+      _allContests.where((contest) => contest.dateEnd.isAfter(now)).toList();
       List<Contest> pastContests =
-          _allContests
-              .where((contest) => contest.dateEnd.isBefore(now))
-              .toList();
+      _allContests.where((contest) => contest.dateEnd.isBefore(now)).toList();
 
       upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
       pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
 
       List<Contest> sortedContests = [...upcomingContests, ...pastContests];
 
-      emit(ContestsLoaded(sortedContests));
+      // 🔹 Always emit with selectedCategory (default "ΟΛΑ")
+      emit(ContestsLoaded(sortedContests, selectedCategory: 'ΟΛΑ'));
     } catch (e) {
       emit(ContestsError("Failed to fetch contests."));
     }
   }
+
 }

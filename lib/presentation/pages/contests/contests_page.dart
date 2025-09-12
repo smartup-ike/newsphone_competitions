@@ -87,7 +87,7 @@ class ContestsPage extends StatelessWidget {
                       height: 40,
                       child: BlocBuilder<ContestsCubit, ContestsState>(
                         builder: (context, state) {
-                          String selectedCategory = 'ΌΛΑ';
+                          String selectedCategory = 'ΟΛΑ';
                           if (state is ContestsLoaded) {
                             selectedCategory = state.selectedCategory;
                           }

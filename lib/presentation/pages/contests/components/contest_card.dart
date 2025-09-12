@@ -54,6 +54,8 @@ class ContestCard extends StatelessWidget {
             ),
             Text(
               'ΚΕΡΔΙΣΤΕ ΤΟ ${content.name.toUpperCase()}',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: GoogleFonts.robotoFlex(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
