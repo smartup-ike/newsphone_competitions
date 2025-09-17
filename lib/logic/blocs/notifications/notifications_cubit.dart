@@ -66,4 +66,8 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     await _box.clear(); // clears all data in the box
     emit([]); // update state to empty list
   }
+  Future<void> deleteNotification(AppNotification notification) async {
+    await notification.delete(); // removes from Hive
+    loadNotifications(); // update state
+  }
 }

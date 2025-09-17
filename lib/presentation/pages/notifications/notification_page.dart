@@ -56,12 +56,41 @@ class _NotificationsPageState extends State<NotificationsPage>
                 borderRadius: BorderRadius.circular(10),
               ),
               onSelected: (value) {
+                if (value == 'read_all') {
+                  context.read<NotificationCubit>().markAllAsRead();
+                }
                 if (value == 'delete') {
                   context.read<NotificationCubit>().deleteAllNotifications();
                 }
               },
               itemBuilder:
                   (BuildContext context) => <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: 'read_all',
+                      height: 36,
+                      // 🔹 Makes the row thinner (default is 48)
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      // tighter padding
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.check_box_outlined,
+                            color: Colors.black,
+                            size: 18,
+                          ),
+                          // smaller icon
+                          SizedBox(width: 6),
+                          Text(
+                            'Σήμανση όλων ως διαβασμένα',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14, // smaller font
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     PopupMenuItem<String>(
                       value: 'delete',
                       height: 36,
@@ -99,52 +128,91 @@ class _NotificationsPageState extends State<NotificationsPage>
             itemBuilder: (context, index) {
               final notification = notifications[index];
               return Card(
-                margin: const EdgeInsets.only(bottom: 0.0),
-                // Spacing between cards
+                margin: EdgeInsets.zero,
                 elevation: 0,
-                // Cards appear flat in the image
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  // This defines the shape
-                  borderRadius: BorderRadius.circular(
-                    0,
-                  ), // This makes the corners rounded
+                  borderRadius: BorderRadius.circular(0),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    // Notification content
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        'Νέος Διαγωνισμός!',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.black,
-                        ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Νέος Διαγωνισμός!',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  notification.body,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'ΚΛΗΡΩΣΗ ${notification.endDate != null ? formatDate(notification.endDate!) : ''}',
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Color(0xFF00A113),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // Three dots menu
+                          PopupMenuButton<String>(
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            color: Colors.white,
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            onSelected: (value) {
+                              if (value == 'delete') {
+                                context
+                                    .read<NotificationCubit>()
+                                    .deleteNotification(notification);
+                              }
+                            },
+                            itemBuilder:
+                                (context) => <PopupMenuEntry<String>>[
+                                  const PopupMenuItem<String>(
+                                    value: 'delete',
+                                    height: 30,
+                                    child: Text('Διαγραφή'),
+                                  ),
+                                ],
+                          ),
+                        ],
                       ),
                     ),
+
                     const SizedBox(height: 4),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        notification.body,
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0, left: 8),
-                      child: Text(
-                        'ΚΛΗΡΩΣΗ ${notification.endDate != null ? formatDate(notification.endDate!) : ''}',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF00A113),
-                          // Deep purple color as in the image
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
+                    // Register button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Container(
@@ -186,7 +254,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                         ),
                       ),
                     ),
-                    Divider(color: Colors.grey),
+                    const SizedBox(height: 8),
+                    // Divider at dead bottom
+                    const Divider(height: 1, color: Colors.grey),
                   ],
                 ),
               );

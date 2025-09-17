@@ -86,6 +86,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "redisign-app",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
