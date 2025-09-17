@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart'; // Ensure this import is correct
-import '../../../data/services/notifications_services.dart';
+import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/app_bar.dart';

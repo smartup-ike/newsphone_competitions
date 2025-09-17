@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
@@ -72,21 +71,48 @@ class ContestCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildInfoItem(
-                        icon: SvgPicture.asset(
-                          'assets/images/icons/calendar.svg',
-                          width: 20,
-                          height: 20,
-                        ),
-                        text: 'Κλήρωση ${formatDate(content.dateEnd)}',
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/icons/calendar.svg',
+                            width: 20,
+                            height: 20,
+                            color:
+                                content.dateEnd.isBefore(DateTime.now())
+                                    ? Color(0xFFBE0609)
+                                    : null,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            '${content.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(content.dateEnd)}',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color:
+                                  content.dateEnd.isBefore(DateTime.now())
+                                      ? Color(0xFFBE0609)
+                                      : Color(0xFF054279),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                      _buildInfoItem(
-                        icon: SvgPicture.asset(
-                          'assets/images/icons/Vector.svg',
-                          width: 20,
-                          height: 20,
-                        ),
-                        text: 'Το Πρωϊνό',
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/icons/Vector.svg',
+                            width: 20,
+                            height: 20,
+                          ),
+                          const SizedBox(width: 10),
+                          Text(
+                            'Το Πρωϊνό',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFF054279),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -95,6 +121,7 @@ class ContestCard extends StatelessWidget {
                   // Call-to-action Button
                   Container(
                     width: double.infinity,
+                    height: 45,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
@@ -116,7 +143,7 @@ class ContestCard extends StatelessWidget {
                         'Δήλωσε Συμμετοχή',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
                       ),
@@ -128,23 +155,6 @@ class ContestCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildInfoItem({required SvgPicture icon, required String text}) {
-    return Row(
-      children: [
-        icon,
-        const SizedBox(width: 10),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 15,
-            color: Color(0xFF054279),
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }

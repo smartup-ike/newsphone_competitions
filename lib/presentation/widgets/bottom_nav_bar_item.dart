@@ -24,7 +24,8 @@ class BottomNavBarItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           margin: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: isSelected ? Colors.blue[900] : const Color(0xFFEFEFEF),
+            color:
+                isSelected ? const Color(0xFF0062BA) : const Color(0xFFEFEFEF),
             borderRadius: BorderRadius.circular(30),
           ),
           child: Row(

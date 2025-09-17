@@ -21,14 +21,15 @@ class ButtonGradient extends StatelessWidget {
       width: double.infinity,
       height: 40,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        gradient: isDisabled
-            ? null
-            : LinearGradient(
-          colors: colors,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        borderRadius: BorderRadius.circular(24),
+        gradient:
+            isDisabled
+                ? null
+                : LinearGradient(
+                  colors: colors,
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
         color: isDisabled ? Colors.black12 : null,
       ),
       child: ElevatedButton(

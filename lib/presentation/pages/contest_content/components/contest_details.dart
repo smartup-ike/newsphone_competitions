@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:newsphone_competitions/core/functions/date_time_format.dart';
 
 import '../../../../core/components/button_gradient.dart';
 import '../../../../data/models/contests.dart';
@@ -44,7 +45,7 @@ class ContestDetails extends StatelessWidget {
             children: [
               /// 🔹 Date
               Text(
-                '${isContestEnded ? 'ΚΛΗΡΩΘΗΚΕ' : 'ΚΛΗΡΩΣΗ'} ${contest.dateEnd.day}/${contest.dateEnd.month}/${contest.dateEnd.year}',
+                '${isContestEnded ? 'ΚΛΗΡΩΘΗΚΕ' : 'ΚΛΗΡΩΣΗ'} ${formatDate(contest.dateEnd)}',
                 style: GoogleFonts.robotoFlex(
                   color: isContestEnded ? Color(0xFFFF0000) : Color(0xFF00A113),
                   fontWeight: FontWeight.bold,
@@ -57,7 +58,7 @@ class ContestDetails extends StatelessWidget {
               Text(
                 'ΚΕΡΔΙΣΤΕ ΤΟ\n${contest.name.toUpperCase()}',
                 style: const TextStyle(
-                  fontSize: 22,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
