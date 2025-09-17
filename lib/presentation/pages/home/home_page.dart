@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart'; // Ensure this import is correct
+import '../../../data/services/notifications_services.dart';
+import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/app_bar.dart';
 import '../contests/contests_page.dart';
@@ -27,6 +30,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    NotificationService.notificationStream.listen((notification) {
+      context.read<NotificationCubit>().addNotification(notification);
+    });
   }
 
   @override
