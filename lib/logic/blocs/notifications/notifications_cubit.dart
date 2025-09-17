@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import '../../../data/models/notification.dart';
@@ -6,11 +8,23 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   // Getter to check if there are any unread notifications
   bool get hasUnreadNotifications =>
       state.any((notification) => !notification.isRead);
-  final Box<AppNotification> _box = Hive.box<AppNotification>('notifications');
+
+  // Use a late final box
+  late final Box<AppNotification> _box;
+  late StreamSubscription<BoxEvent> _subscription;
 
   NotificationCubit() : super([]) {
-    // Load existing notifications from Hive
-    emit(_box.values.toList());
+    _init();
+  }
+
+  void _init() async {
+    _box = await Hive.openBox<AppNotification>('notifications');
+    // Listen for changes to the box
+    _subscription = _box.watch().listen((event) {
+      loadNotifications();
+    });
+    // Load initial notifications
+    loadNotifications();
   }
 
   void loadNotifications() {
@@ -18,9 +32,12 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   void addNotification(AppNotification notification) {
-    _box.add(notification); // Save locally
-    final newState = [...state, notification];
-    emit(newState);
+    _box.add(notification);
+  }
+  @override
+  Future<void> close() {
+    _subscription.cancel();
+    return super.close();
   }
 
   void markAllAsRead() {

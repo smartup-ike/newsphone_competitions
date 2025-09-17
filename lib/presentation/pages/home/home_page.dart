@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [ContestsPage(), DealsPage()];
@@ -30,10 +30,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    NotificationService.notificationStream.listen((notification) {
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
       context.read<NotificationCubit>().loadNotifications();
-      context.read<NotificationCubit>().addNotification(notification);
-    });
+    }
   }
 
   @override

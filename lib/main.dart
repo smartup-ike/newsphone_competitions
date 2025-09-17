@@ -8,20 +8,37 @@ import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'core/themes/theme_modes.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
-import 'data/services/notifications_services.dart';
+import 'package:newsphone_competitions/data/services/notifications_services.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
 import 'logic/blocs/deals/deals_cubit.dart';
 import 'logic/blocs/notifications/notifications_cubit.dart';
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print("Handling a background message: ${message.messageId}");
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(AppNotificationAdapter());
+  var box = await Hive.openBox<AppNotification>('notifications');
+
+  final notification = AppNotification(
+    title: message.notification?.title ?? '',
+    body: message.notification?.body ?? '',
+    timestamp: DateTime.now(),
+    isRead: false,
+    competitionId: message.data['competitionId'],
+    endDate: message.data['endDate'] != null
+        ? DateTime.tryParse(message.data['endDate'])
+        : null,
+  );
+  await box.add(notification);
+  await NotificationService.showNotificationStatic(message);
 }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final apiService = ApiService();
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
   await Hive.initFlutter();
   Hive.registerAdapter(AppNotificationAdapter());

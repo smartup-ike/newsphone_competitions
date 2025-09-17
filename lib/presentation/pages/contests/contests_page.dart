@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../logic/blocs/contest/contests_cubit.dart';
+import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
 import 'components/category_button.dart';
 import 'components/contest_card.dart';
@@ -9,6 +10,7 @@ class ContestsPage extends StatelessWidget {
   const ContestsPage({super.key});
 
   Future<void> _onRefresh(BuildContext context) async {
+    context.read<NotificationCubit>().loadNotifications();
     await context.read<ContestsCubit>().fetchContests();
   }
 
