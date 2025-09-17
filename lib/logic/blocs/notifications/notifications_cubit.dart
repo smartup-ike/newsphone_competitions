@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../core/constans/constants.dart';
+import '../../../data/models/categories.dart';
 import '../../../data/models/notification.dart';
+import '../../../data/services/notifications_services.dart';
 
 class NotificationCubit extends Cubit<List<AppNotification>> {
   // Getter to check if there are any unread notifications
@@ -13,9 +17,23 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   late final Box<AppNotification> _box;
   late StreamSubscription<BoxEvent> _subscription;
 
+  // Keep track of selected topic IDs
+  Set<String> _selectedTopics = {};
+
+  Set<String> get selectedTopics => _selectedTopics;
+
   NotificationCubit() : super([]) {
     _init();
   }
+
+  // ! It will fetch letter by api
+  final List<Category> categories = [
+    Category(title: 'Οχήματα', topicId: 'vehiclesTopic'),
+    Category(title: 'Κινητά', topicId: 'mobilesTopic'),
+    Category(title: 'Χρήματα', topicId: 'moneyTopic'),
+    Category(title: 'Ψώνια', topicId: 'shoppingTopic'),
+    Category(title: 'Ταξίδια', topicId: 'travelTopic'),
+  ];
 
   void _init() async {
     _box = await Hive.openBox<AppNotification>('notifications');
@@ -25,6 +43,17 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     });
     // Load initial notifications
     loadNotifications();
+
+    // Load saved topics from SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    _selectedTopics = (prefs.getStringList('selectedTopics') ?? []).toSet();
+
+    // Ensure default topic if none selected
+    if (_selectedTopics.isEmpty) {
+      _selectedTopics.add(defaultTopic);
+    }
+
+    await _subscribeToTopics(_selectedTopics);
   }
 
   void loadNotifications() {
@@ -34,6 +63,7 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   void addNotification(AppNotification notification) {
     _box.add(notification);
   }
+
   @override
   Future<void> close() {
     _subscription.cancel();
@@ -41,24 +71,27 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   void markAllAsRead() {
-    final newState = state.map((notification) {
-      if (!notification.isRead) {
-        notification.isRead = true;
-        notification.save(); // update Hive
-      }
-      return notification;
-    }).toList();
+    final newState =
+        state.map((notification) {
+          if (!notification.isRead) {
+            notification.isRead = true;
+            notification.save(); // update Hive
+          }
+          return notification;
+        }).toList();
     emit(newState);
   }
 
   void markNotificationAsRead(AppNotification notificationToMark) {
-    final newState = state.map((notification) {
-      if (notification.key == notificationToMark.key && !notification.isRead) {
-        notification.isRead = true;
-        notification.save();
-      }
-      return notification;
-    }).toList();
+    final newState =
+        state.map((notification) {
+          if (notification.key == notificationToMark.key &&
+              !notification.isRead) {
+            notification.isRead = true;
+            notification.save();
+          }
+          return notification;
+        }).toList();
     emit(newState);
   }
 
@@ -66,8 +99,46 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     await _box.clear(); // clears all data in the box
     emit([]); // update state to empty list
   }
+
   Future<void> deleteNotification(AppNotification notification) async {
     await notification.delete(); // removes from Hive
     loadNotifications(); // update state
+  }
+
+  Future<void> toggleTopic(String topicId) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (_selectedTopics.contains(topicId)) {
+      // Remove topic
+      _selectedTopics.remove(topicId);
+      await NotificationService.unsubscribeFromTopic(topicId);
+    } else {
+      // Add topic
+      _selectedTopics.add(topicId);
+      await NotificationService.subscribeToTopic(topicId);
+    }
+
+    // Ensure at least default topic is subscribed
+    if (_selectedTopics.isEmpty) {
+      _selectedTopics.add(defaultTopic);
+      await NotificationService.subscribeToTopic(defaultTopic);
+    } else {
+      // If default topic is no longer needed, unsubscribe it
+      if (_selectedTopics.contains(defaultTopic) &&
+          _selectedTopics.length > 1) {
+        _selectedTopics.remove(defaultTopic);
+        await NotificationService.unsubscribeFromTopic(defaultTopic);
+      }
+    }
+
+    // Save updated topics
+    await prefs.setStringList('selectedTopics', _selectedTopics.toList());
+    emit(List.from(state));
+  }
+
+  Future<void> _subscribeToTopics(Set<String> topics) async {
+    for (var topic in topics) {
+      await NotificationService.subscribeToTopic(topic);
+    }
   }
 }

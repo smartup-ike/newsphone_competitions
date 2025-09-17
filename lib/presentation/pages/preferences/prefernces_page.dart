@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import the package
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/models/notification.dart';
+import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import 'components/custom_action_chip.dart';
 
 class PreferencesPage extends StatefulWidget {
@@ -11,37 +13,9 @@ class PreferencesPage extends StatefulWidget {
 }
 
 class _PreferencesPageState extends State<PreferencesPage> {
-  final List<String> categories = [
-    'Οχήματα',
-    'Κινητά',
-    'Χρήματα',
-    'Ψώνια',
-    'Ταξίδια',
-  ];
-
-  final Set<String> _selectedCategories = {};
-
   @override
   void initState() {
     super.initState();
-    _loadPreferences();
-  }
-
-  // Method to load saved preferences from SharedPreferences
-  Future<void> _loadPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedCategories = prefs.getStringList('selectedCategories');
-    if (savedCategories != null) {
-      setState(() {
-        _selectedCategories.addAll(savedCategories);
-      });
-    }
-  }
-
-  // Method to save preferences to SharedPreferences
-  Future<void> _savePreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList('selectedCategories', _selectedCategories.toList());
   }
 
   @override
@@ -66,56 +40,54 @@ class _PreferencesPageState extends State<PreferencesPage> {
             ),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(1.0),
-              child: Container(
-                color: Colors.grey[300],
-                height: 1.0,
-              ),
+              child: Container(color: Colors.grey[300], height: 1.0),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  const SizedBox(height: 24),
-                  const Text(
-                    "Τι κατηγορίες διαγωνισμών σας ενδιαφέρουν;",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF121212),
-                    ),
+              delegate: SliverChildListDelegate([
+                const SizedBox(height: 24),
+                const Text(
+                  "Τι κατηγορίες διαγωνισμών σας ενδιαφέρουν;",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF121212),
                   ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Επιλέξτε τις κατηγορίες διαγωνισμών για τους οποίους θέλετε να λαμβάνετε ειδοποιήσεις.",
-                    style: TextStyle(fontSize: 13, color: Color(0xFF333435)),
-                  ),
-                  const SizedBox(height: 24),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children: categories.map((category) {
-                      final isSelected = _selectedCategories.contains(category);
-                      return CustomActionChip(
-                        label: category,
-                        isSelected: isSelected,
-                        onPressed: () {
-                          setState(() {
-                            if (isSelected) {
-                              _selectedCategories.remove(category);
-                            } else {
-                              _selectedCategories.add(category);
-                            }
-                            // Save the updated preferences
-                            _savePreferences();
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  "Επιλέξτε τις κατηγορίες διαγωνισμών για τους οποίους θέλετε να λαμβάνετε ειδοποιήσεις.",
+                  style: TextStyle(fontSize: 13, color: Color(0xFF333435)),
+                ),
+                const SizedBox(height: 24),
+                BlocBuilder<NotificationCubit, List<AppNotification>>(
+                  builder: (context, state) {
+                    final cubit = context.read<NotificationCubit>();
+                    final selectedTopics = cubit.selectedTopics;
+                    final categories = cubit.categories;
+
+                    return Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children:
+                          categories.map((category) {
+                            final isSelected = selectedTopics.contains(
+                              category.topicId,
+                            );
+                            return CustomActionChip(
+                              label: category.title,
+                              isSelected: isSelected,
+                              onPressed: () {
+                                cubit.toggleTopic(category.topicId);
+                              },
+                            );
+                          }).toList(),
+                    );
+                  },
+                ),
+              ]),
             ),
           ),
         ],

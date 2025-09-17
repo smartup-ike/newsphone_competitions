@@ -7,10 +7,10 @@ import 'package:hive_flutter/adapters.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
 
-
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
-  static final FlutterLocalNotificationsPlugin _localNotifications = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin _localNotifications =
+      FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
     // Request permissions (iOS)
@@ -59,13 +59,24 @@ class NotificationService {
       timestamp: DateTime.now(),
       isRead: false,
       competitionId: message.data['competitionId'],
-      endDate: message.data['endDate'] != null
-          ? DateTime.tryParse(message.data['endDate'])
-          : null,
+      endDate:
+          message.data['endDate'] != null
+              ? DateTime.tryParse(message.data['endDate'])
+              : null,
     );
 
     // 3️⃣ Save to Hive
     var box = await Hive.openBox<AppNotification>('notifications');
     await box.add(appNotification);
+  }
+
+  static Future<void> subscribeToTopic(String topic) async {
+    await _messaging.subscribeToTopic(topic);
+    print("Subscribed to topic: $topic");
+  }
+
+  static Future<void> unsubscribeFromTopic(String topic) async {
+    await _messaging.unsubscribeFromTopic(topic);
+    print("Unsubscribed from topic: $topic");
   }
 }
