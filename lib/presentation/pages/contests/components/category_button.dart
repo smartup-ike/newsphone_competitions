@@ -19,30 +19,49 @@ class CategoryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: isFirst==true ? 4 : 0, right: isLast==true ? 4 : 0, top: 5, bottom: 5),
+      padding: EdgeInsets.only(
+        left: isFirst == true ? 4 : 0,
+        right: isLast == true ? 4 : 0,
+        top: 5,
+        bottom: 5,
+      ),
       child: InkWell(
         onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-          decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
-            borderRadius: BorderRadius.circular(8.0),
-            boxShadow: isSelected
-                ? [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+              vertical: 5.0,
+            ),
+            decoration: BoxDecoration(
+              gradient: isSelected
+                  ? const LinearGradient(
+                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+                  : null,
+              color: isSelected ? null : Colors.transparent, // fallback for unselected
+              borderRadius: BorderRadius.circular(8.0),
+              boxShadow:
+                  isSelected
+                      ? [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                          offset: const Offset(0, 2),
+                        ),
+                      ]
+                      : null,
+            ),
+            child: Text(
+              category,
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.grey[700],
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
-            ]
-                : null,
-          ),
-          child: Text(
-            category,
-            style: TextStyle(
-              color: isSelected ? Colors.black : Colors.grey[700],
-              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
             ),
           ),
         ),

@@ -16,6 +16,7 @@ class ContestsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final categories = [
       'ΟΛΑ',
+      'Μεγάλοι διαγωνισμοί',
       'Οχήματα',
       'Κινητά',
       'Ταξίδια',
@@ -44,6 +45,7 @@ class ContestsPage extends StatelessWidget {
                   },
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
+                    isDense: true,
                     hintText: 'Αναζήτηση',
                     hintStyle: TextStyle(color: Colors.grey[700], fontSize: 15),
                     prefixIcon: const Icon(Icons.search),
@@ -74,17 +76,13 @@ class ContestsPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,
-                  horizontal: 8,
+                  horizontal: 0,
                 ),
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF2F4F7),
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     child: SizedBox(
-                      height: 40,
+                      height: 42,
                       child: BlocBuilder<ContestsCubit, ContestsState>(
                         builder: (context, state) {
                           String selectedCategory = 'ΟΛΑ';
@@ -136,8 +134,10 @@ class ContestsPage extends StatelessWidget {
                 }
                 if (state is ContestsLoaded) {
                   return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    sliver: SliverGrid(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                    ),
+                    sliver: SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final contest = state.contests[index];
                         return ContestCard(
@@ -154,13 +154,6 @@ class ContestsPage extends StatelessWidget {
                           },
                         );
                       }, childCount: state.contests.length),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 14,
-                            childAspectRatio: 0.45,
-                          ),
                     ),
                   );
                 }
