@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     NotificationService.notificationStream.listen((notification) {
+      context.read<NotificationCubit>().loadNotifications();
       context.read<NotificationCubit>().addNotification(notification);
     });
   }

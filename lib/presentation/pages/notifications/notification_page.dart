@@ -15,6 +15,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<NotificationCubit>().loadNotifications();
       context.read<NotificationCubit>().markAllAsRead();
     });
   }

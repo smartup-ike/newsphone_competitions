@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
+import '../../logic/blocs/notifications/notifications_cubit.dart';
 import '../models/notification.dart';
 
 class NotificationService {
@@ -35,20 +38,27 @@ class NotificationService {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
-  static void _handleMessage(RemoteMessage message) {
+  static void _handleMessage(RemoteMessage message) async {
     // 1️⃣ Show system notification
-    _showNotification(message);
+    await _showNotification(message);
 
-    // 2️⃣ Push notification to app stream
+    // 2️⃣ Create AppNotification
     final appNotification = AppNotification(
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
       timestamp: DateTime.now(),
       isRead: false,
       competitionId: message.data['competitionId'],
-      endDate: message.data['endDate'],
+      endDate: message.data['endDate'] != null
+          ? DateTime.tryParse(message.data['endDate'])
+          : null,
     );
 
+    // 3️⃣ Save to Hive
+    var box = await Hive.openBox<AppNotification>('notifications');
+    await box.add(appNotification);
+
+    // 4️⃣ Push to stream (optional, for any listeners)
     _notificationStreamController.add(appNotification);
   }
 
@@ -73,5 +83,22 @@ class NotificationService {
 // Background handler (must be top-level function)
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  NotificationService._showNotification(message);
+  await Hive.initFlutter();
+  Hive.registerAdapter(AppNotificationAdapter());
+  var box = await Hive.openBox<AppNotification>('notifications');
+
+  final notification = AppNotification(
+    title: message.notification?.title ?? '',
+    body: message.notification?.body ?? '',
+    timestamp: DateTime.now(),
+    isRead: false,
+    competitionId: message.data['competitionId'],
+    endDate: message.data['endDate'] != null
+        ? DateTime.tryParse(message.data['endDate'])
+        : null,
+  );
+
+  await box.add(notification);
+
+  await NotificationService._showNotification(message);
 }

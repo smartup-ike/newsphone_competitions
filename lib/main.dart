@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'core/themes/theme_modes.dart';
+import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'data/services/notifications_services.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
@@ -18,8 +21,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await NotificationService.init();
   final apiService = ApiService();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(AppNotificationAdapter());
+  await Hive.openBox<AppNotification>('notifications');
+
+  await NotificationService.init();
 
   runApp(MyApp(apiService: apiService,));
 }

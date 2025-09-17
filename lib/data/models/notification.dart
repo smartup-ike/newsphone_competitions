@@ -1,18 +1,33 @@
-// In lib/models/notification.dart
-class AppNotification {
+import 'package:hive/hive.dart';
+
+part 'notification.g.dart';
+
+@HiveType(typeId: 0)
+class AppNotification extends HiveObject {
+  @HiveField(0)
   final String title;
+
+  @HiveField(1)
   final String body;
+
+  @HiveField(2)
   final DateTime timestamp;
+
+  @HiveField(3)
   bool isRead;
-  final String? competitionId; // New: ID of the competition
-  final DateTime? endDate;      // New: End date of the competition
+
+  @HiveField(4)
+  final String? competitionId;
+
+  @HiveField(5)
+  final DateTime? endDate;
 
   AppNotification({
     required this.title,
     required this.body,
     required this.timestamp,
     this.isRead = false,
-    this.competitionId, // Initialize new fields
-    this.endDate,       // Initialize new fields
+    this.competitionId,
+    this.endDate,
   });
 }
