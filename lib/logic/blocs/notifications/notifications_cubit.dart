@@ -61,4 +61,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     }).toList();
     emit(newState);
   }
+
+  Future<void> deleteAllNotifications() async {
+    await _box.clear(); // clears all data in the box
+    emit([]); // update state to empty list
+  }
 }
