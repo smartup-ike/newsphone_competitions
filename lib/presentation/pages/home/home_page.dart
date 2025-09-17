@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:newsphone_competitions/data/services/notifications_services.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart'; // Ensure this import is correct
 import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/app_bar.dart';
@@ -28,9 +27,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      NotificationService.listenForMessages(context);
-    });
   }
 
   @override
