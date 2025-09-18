@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/functions/date_time_format.dart';
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
+import '../contest_content/contest_content_page.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -127,6 +128,7 @@ class _NotificationsPageState extends State<NotificationsPage>
             itemCount: notifications.length,
             itemBuilder: (context, index) {
               final notification = notifications[index];
+              print(notification.competitionId);
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,
@@ -225,10 +227,21 @@ class _NotificationsPageState extends State<NotificationsPage>
                           ),
                         ),
                         child: ElevatedButton(
-                          onPressed: () {
-                            print(
-                              'Register for competition: ${notification.competitionId}',
-                            );
+                          onPressed: () async {
+                            final content = await context
+                                .read<NotificationCubit>()
+                                .openContentFromNotifications(
+                                  notification.competitionId,
+                                );
+                            if (content != null) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) =>
+                                          ContestContentPage(contest: content),
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,

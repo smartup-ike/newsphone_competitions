@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:newsphone_competitions/data/models/contests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/constans/constants.dart';
 import '../../../data/models/categories.dart';
 import '../../../data/models/notification.dart';
+import '../../../data/services/api_service.dart';
 import '../../../data/services/notifications_services.dart';
 
 class NotificationCubit extends Cubit<List<AppNotification>> {
@@ -139,6 +141,26 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   Future<void> _subscribeToTopics(Set<String> topics) async {
     for (var topic in topics) {
       await NotificationService.subscribeToTopic(topic);
+    }
+  }
+
+  Future<Contest?> openContentFromNotifications(String? id) async {
+    final apiService = ApiService();
+
+    try {
+      // 1. Fetch all contests
+      final contests = await apiService.fetchContests();
+
+      // 2. Find the contest that matches the notification ID
+      final contest = contests.firstWhere(
+        (c) => c.id == id,
+        orElse: () => throw Exception('Contest not found'),
+      );
+
+      return contest;
+    } catch (e) {
+      print("Error opening contest content: $e");
+      return null;
     }
   }
 }
