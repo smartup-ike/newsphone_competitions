@@ -59,7 +59,8 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   void loadNotifications() {
-    emit(_box.values.toList());
+    final reversed = _box.values.toList().reversed.toList();
+    emit(reversed);
   }
 
   void addNotification(AppNotification notification) {
@@ -108,33 +109,37 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   Future<void> toggleTopic(String topicId) async {
+    // Cache SharedPreferences instance somewhere else if possible
     final prefs = await SharedPreferences.getInstance();
+
+    final List<Future<void>> tasks = [];
 
     if (_selectedTopics.contains(topicId)) {
       // Remove topic
       _selectedTopics.remove(topicId);
-      await NotificationService.unsubscribeFromTopic(topicId);
+      tasks.add(NotificationService.unsubscribeFromTopic(topicId));
     } else {
       // Add topic
       _selectedTopics.add(topicId);
-      await NotificationService.subscribeToTopic(topicId);
+      tasks.add(NotificationService.subscribeToTopic(topicId));
     }
 
     // Ensure at least default topic is subscribed
     if (_selectedTopics.isEmpty) {
       _selectedTopics.add(defaultTopic);
-      await NotificationService.subscribeToTopic(defaultTopic);
-    } else {
-      // If default topic is no longer needed, unsubscribe it
-      if (_selectedTopics.contains(defaultTopic) &&
-          _selectedTopics.length > 1) {
-        _selectedTopics.remove(defaultTopic);
-        await NotificationService.unsubscribeFromTopic(defaultTopic);
-      }
+      tasks.add(NotificationService.subscribeToTopic(defaultTopic));
+    } else if (_selectedTopics.contains(defaultTopic) &&
+        _selectedTopics.length > 1) {
+      _selectedTopics.remove(defaultTopic);
+      tasks.add(NotificationService.unsubscribeFromTopic(defaultTopic));
     }
+
+    // Run all subscriptions/unsubscriptions in parallel
+    await Future.wait(tasks);
 
     // Save updated topics
     await prefs.setStringList('selectedTopics', _selectedTopics.toList());
+
     emit(List.from(state));
   }
 

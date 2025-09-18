@@ -14,6 +14,8 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage>
     with WidgetsBindingObserver {
+  final Set<String> _loadingNotifications = {};
+
   @override
   void initState() {
     super.initState();
@@ -215,57 +217,93 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                     const SizedBox(height: 4),
                     // Register button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            final content = await context
-                                .read<NotificationCubit>()
-                                .openContentFromNotifications(
-                                  notification.competitionId,
-                                );
-                            if (content != null) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder:
-                                      (context) =>
-                                          ContestContentPage(contest: content),
-                                ),
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 8,
-                              horizontal: 20,
-                            ),
-                            minimumSize: const Size(double.minPositive, 0),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            shape: RoundedRectangleBorder(
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
                             ),
-                          ),
-                          child: const Text(
-                            'Δήλωσε Συμμετοχή',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
+                            child: ElevatedButton(
+                              onPressed:
+                                  _loadingNotifications.contains(
+                                        notification.competitionId,
+                                      )
+                                      ? null
+                                      : () async {
+                                        setState(() {
+                                          _loadingNotifications.add(
+                                            notification.competitionId!,
+                                          );
+                                        });
+
+                                        final content = await context
+                                            .read<NotificationCubit>()
+                                            .openContentFromNotifications(
+                                              notification.competitionId,
+                                            );
+
+                                        if (content != null) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                      ContestContentPage(
+                                                        contest: content,
+                                                      ),
+                                            ),
+                                          );
+                                        }
+
+                                        setState(() {
+                                          _loadingNotifications.remove(
+                                            notification.competitionId,
+                                          );
+                                        });
+                                      },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 20,
+                                ),
+                                minimumSize: const Size(double.minPositive, 0),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: const Text(
+                                'Δήλωσε Συμμετοχή',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 8),
+                        if (_loadingNotifications.contains(
+                          notification.competitionId,
+                        ))
+                          const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.blue,
+                            ),
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 8),
                     // Divider at dead bottom
