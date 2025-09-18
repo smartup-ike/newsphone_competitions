@@ -23,8 +23,6 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           Image.asset('assets/images/logo.png', height: 27, width: 93),
-          const SizedBox(width: 8),
-          Image.asset('assets/images/frame.png', height: 30, width: 118),
         ],
       ),
       actions: [

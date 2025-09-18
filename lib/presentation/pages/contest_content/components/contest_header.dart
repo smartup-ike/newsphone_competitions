@@ -15,25 +15,13 @@ class ContestHeader extends StatelessWidget {
             color: const Color(0xFFF5F5F7),
             borderRadius: BorderRadius.circular(15.0),
           ),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(43.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15.0),
-                  child: Image.network(
-                    imageUrl ?? '',
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: Image.asset('assets/proino_logo.png', width: 50),
-              ),
-            ],
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15.0),
+            child: Image.network(
+              imageUrl ?? '',
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

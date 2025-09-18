@@ -149,6 +149,26 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     }
   }
 
+  Future<void> unsubscribeFromAllTopics() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Copy current topics to avoid modifying set while iterating
+    final topicsToUnsubscribe = _selectedTopics.toList();
+
+    // Unsubscribe from all topics
+    for (var topic in topicsToUnsubscribe) {
+      await NotificationService.unsubscribeFromTopic(topic);
+    }
+
+    // Clear local state
+    _selectedTopics.clear();
+
+    // Save empty list to SharedPreferences
+    await prefs.setStringList('selectedTopics', []);
+
+    emit(List.from(state));
+  }
+
   Future<Contest?> openContentFromNotifications(String? id) async {
     final apiService = ApiService();
 

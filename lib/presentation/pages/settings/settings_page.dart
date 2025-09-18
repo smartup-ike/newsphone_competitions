@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/about/about_page.dart';
 import 'package:newsphone_competitions/presentation/pages/preferences/prefernces_page.dart';
 import 'package:newsphone_competitions/presentation/pages/terms_page/terms_page.dart';
 
+import '../../../core/constans/constants.dart';
+import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import 'components/settings_list_tile.dart';
 import 'components/version_info.dart';
 
@@ -30,37 +33,6 @@ class _SettingsPageState extends State<SettingsPage> {
           settings.authorizationStatus == AuthorizationStatus.authorized ||
           settings.authorizationStatus == AuthorizationStatus.provisional;
     });
-  }
-
-  Future<void> _toggleNotifications(bool enable) async {
-    if (enable) {
-      // 🔥 Request permission from user
-      NotificationSettings settings = await FirebaseMessaging.instance
-          .requestPermission(alert: true, badge: true, sound: true);
-
-      setState(() {
-        _allowNotifications =
-            settings.authorizationStatus == AuthorizationStatus.authorized ||
-            settings.authorizationStatus == AuthorizationStatus.provisional;
-      });
-    } else {
-      // ⚡ There’s no direct API to "revoke" permissions programmatically.
-      // Instead, you could unsubscribe from topics or disable your local notification logic.
-      await FirebaseMessaging.instance.unsubscribeFromTopic("all_users");
-
-      setState(() {
-        _allowNotifications = false;
-      });
-
-      // 🔔 Tell the user to go to system settings if they want to fully block notifications
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Για πλήρη απενεργοποίηση ειδοποιήσεων, αλλάξτε τις ρυθμίσεις του συστήματος.",
-          ),
-        ),
-      );
-    }
   }
 
   @override
@@ -126,7 +98,19 @@ class _SettingsPageState extends State<SettingsPage> {
                 leadingIcon: Icons.notifications_none,
                 trailingWidget: Switch(
                   value: _allowNotifications,
-                  onChanged: _toggleNotifications,
+                  onChanged: (bool value) async {
+                    setState(() {
+                      _allowNotifications = value;
+                    });
+
+                    final cubit = context.read<NotificationCubit>();
+
+                    if (value) {
+                      await cubit.toggleTopic(defaultTopic);
+                    } else {
+                      await cubit.unsubscribeFromAllTopics();
+                    }
+                  },
                   activeColor: Colors.blue,
                 ),
               ),

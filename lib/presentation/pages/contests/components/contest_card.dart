@@ -55,9 +55,8 @@ class ContestCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   // Description
-                  // ! Change with value from API
                   Text(
-                    'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις ...',
+                    'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF555758),
@@ -68,10 +67,13 @@ class ContestCard extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Info Row (Icons and Text)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Wrap(
+                    spacing: 16,
+                    runSpacing: 8,
+                    alignment: WrapAlignment.spaceBetween,
                     children: [
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset(
                             'assets/images/icons/calendar.svg',
@@ -82,7 +84,7 @@ class ContestCard extends StatelessWidget {
                                     ? Color(0xFFBE0609)
                                     : null,
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: 4),
                           Text(
                             '${content.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(content.dateEnd)}',
                             style: TextStyle(
@@ -91,25 +93,32 @@ class ContestCard extends StatelessWidget {
                                   content.dateEnd.isBefore(DateTime.now())
                                       ? Color(0xFFBE0609)
                                       : Color(0xFF054279),
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
+
+                      const SizedBox(width: 20),
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset(
                             'assets/images/icons/Vector.svg',
                             width: 20,
                             height: 20,
                           ),
-                          const SizedBox(width: 10),
-                          Text(
-                            'Το Πρωϊνό',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFF054279),
-                              fontWeight: FontWeight.w600,
+                          const SizedBox(width: 4),
+                          // TODO: Change with value from MODEL !!!!!
+                          Flexible(
+                            child: Text(
+                              'Το Πρωϊνό',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFF054279),
+                                fontWeight: FontWeight.w500,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
