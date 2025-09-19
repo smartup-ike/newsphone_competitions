@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newsphone_competitions/core/functions/date_time_format.dart';
 
-import '../../../../core/components/button_gradient.dart';
+import '../../../widgets/button_gradient.dart';
 import '../../../../data/models/contests.dart';
 import 'contest_fotternote.dart';
 import 'contest_instrunctions.dart';

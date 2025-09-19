@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -16,7 +17,7 @@ class NotificationService {
     // Request permissions (iOS)
     await _messaging.requestPermission();
     String? token = await FirebaseMessaging.instance.getToken();
-    print("FCM Token: $token");
+    developer.log("FCM Token: $token");
 
     // Setup local notifications
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -72,11 +73,11 @@ class NotificationService {
 
   static Future<void> subscribeToTopic(String topic) async {
     await _messaging.subscribeToTopic(topic);
-    print("Subscribed to topic: $topic");
+    developer.log("Subscribed to topic: $topic");
   }
 
   static Future<void> unsubscribeFromTopic(String topic) async {
     await _messaging.unsubscribeFromTopic(topic);
-    print("Unsubscribed from topic: $topic");
+    developer.log("Unsubscribed from topic: $topic");
   }
 }

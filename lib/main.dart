@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'core/themes/theme_modes.dart';
@@ -25,9 +24,10 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     timestamp: DateTime.now(),
     isRead: false,
     competitionId: message.data['competitionId'],
-    endDate: message.data['endDate'] != null
-        ? DateTime.tryParse(message.data['endDate'])
-        : null,
+    endDate:
+        message.data['endDate'] != null
+            ? DateTime.tryParse(message.data['endDate'])
+            : null,
   );
   await box.add(notification);
   await NotificationService.showNotificationStatic(message);
@@ -46,12 +46,12 @@ void main() async {
 
   await NotificationService.init();
 
-  runApp(MyApp(apiService: apiService,));
+  runApp(MyApp(apiService: apiService));
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key, required this.apiService});
+
   final ApiService apiService;
 
   @override
@@ -60,13 +60,11 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ContestsCubit>(
           create: (context) => ContestsCubit()..init(apiService),
-        ),BlocProvider<DealsCubit>(
+        ),
+        BlocProvider<DealsCubit>(
           create: (_) => DealsCubit()..fetchDeals(apiService),
         ),
-        BlocProvider<NotificationCubit>(
-          create: (_) => NotificationCubit(),
-        ),
-
+        BlocProvider<NotificationCubit>(create: (_) => NotificationCubit()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,

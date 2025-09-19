@@ -130,7 +130,6 @@ class _NotificationsPageState extends State<NotificationsPage>
             itemCount: notifications.length,
             itemBuilder: (context, index) {
               final notification = notifications[index];
-              print(notification.competitionId);
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,

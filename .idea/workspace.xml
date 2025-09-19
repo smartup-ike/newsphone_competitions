@@ -10,18 +10,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_choosepro.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/program_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/courtyard.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/dark_splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/cosmote_deal_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/cosmote_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/lidl_deal_image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/lidl_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/vodafone_deal_image.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/vodafone_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/iphone16_PNG38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/newphone_logo_150.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/newsphone-logo-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/peugot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/proino_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/toyota.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Podfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/data/services/notifications_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/services/notifications_services.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/logic/blocs/notifications/notifications_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/notifications/notifications_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_callsms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_header.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/contest_content_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/contest_content_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/settings/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings/settings_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/deals/deals_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/deals_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/notifications/notification_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/notifications/notification_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/settings/components/version_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings/components/version_info.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [ContestsPage(), DealsPage()];
@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
@@ -46,28 +47,37 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: HomePageAppBar(
-        clickNotificationFunction: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const NotificationsPage()),
-          );
-        },
-        clickDrawerFunction: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SettingsPage()),
-          );
-        },
-      ),
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: HomePageAppBar(
+            clickNotificationFunction: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
+            },
+            clickDrawerFunction: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
+            },
+          ),
 
-      body: _pages[_selectedIndex],
+          body: _pages[_selectedIndex],
 
-      bottomNavigationBar: HomePageBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+          bottomNavigationBar: HomePageBottomNavBar(
+            selectedIndex: _selectedIndex,
+            onItemTapped: _onItemTapped,
+          ),
+        ),
       ),
     );
   }

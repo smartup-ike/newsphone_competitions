@@ -80,41 +80,39 @@ class ContestsPage extends StatelessWidget {
                   vertical: 8.0,
                   horizontal: 0,
                 ),
-                child: Container(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: SizedBox(
-                      height: 42,
-                      child: BlocBuilder<ContestsCubit, ContestsState>(
-                        builder: (context, state) {
-                          String selectedCategory = 'ΟΛΑ';
-                          if (state is ContestsLoaded) {
-                            selectedCategory = state.selectedCategory;
-                          }
-                          return ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              for (
-                                int index = 0;
-                                index < categories.length;
-                                index++
-                              )
-                                CategoryButton(
-                                  category: categories[index],
-                                  isSelected:
-                                      categories[index] == selectedCategory,
-                                  isFirst: index == 0,
-                                  isLast: index == categories.length - 1,
-                                  onTap: () {
-                                    context
-                                        .read<ContestsCubit>()
-                                        .filterContests(categories[index]);
-                                  },
-                                ),
-                            ],
-                          );
-                        },
-                      ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: SizedBox(
+                    height: 42,
+                    child: BlocBuilder<ContestsCubit, ContestsState>(
+                      builder: (context, state) {
+                        String selectedCategory = 'ΟΛΑ';
+                        if (state is ContestsLoaded) {
+                          selectedCategory = state.selectedCategory;
+                        }
+                        return ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            for (
+                              int index = 0;
+                              index < categories.length;
+                              index++
+                            )
+                              CategoryButton(
+                                category: categories[index],
+                                isSelected:
+                                    categories[index] == selectedCategory,
+                                isFirst: index == 0,
+                                isLast: index == categories.length - 1,
+                                onTap: () {
+                                  context.read<ContestsCubit>().filterContests(
+                                    categories[index],
+                                  );
+                                },
+                              ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ),

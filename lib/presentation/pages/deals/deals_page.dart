@@ -27,7 +27,7 @@ class DealsPage extends StatelessWidget {
                   vertical: 12.0,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.black.withValues(alpha: 0.7),
                   borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: const Text(

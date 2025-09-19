@@ -24,7 +24,7 @@ class VersionInfo extends StatelessWidget {
         return Text(
           'Version $version',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.inverseSurface.withOpacity(0.6),
+            color: Theme.of(context).colorScheme.inverseSurface.withValues(alpha: 0.6),
             fontWeight: FontWeight.bold,
           ),
         );

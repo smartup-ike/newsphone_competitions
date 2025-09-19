@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -184,7 +185,7 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
       return contest;
     } catch (e) {
-      print("Error opening contest content: $e");
+      developer.log("Error opening contest content: $e");
       return null;
     }
   }
