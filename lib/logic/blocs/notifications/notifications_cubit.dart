@@ -5,9 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../core/constans/constants.dart';
-import '../../../data/models/categories.dart';
 import '../../../data/models/notification.dart';
+import '../../../data/models/topics.dart';
 import '../../../data/services/api_service.dart';
 import '../../../data/services/notifications_services.dart';
 
@@ -25,18 +24,16 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
   Set<String> get selectedTopics => _selectedTopics;
 
+  // List of topics fetched from API
+  List<Topic> topics = [];
+
+  final ApiService _apiService = ApiService();
+
+  bool get isSubscribedToAnyTopic => _selectedTopics.isNotEmpty;
+
   NotificationCubit() : super([]) {
     _init();
   }
-
-  // ! It will fetch letter by api
-  final List<Category> categories = [
-    Category(title: 'Οχήματα', topicId: 'vehiclesTopic'),
-    Category(title: 'Κινητά', topicId: 'mobilesTopic'),
-    Category(title: 'Χρήματα', topicId: 'moneyTopic'),
-    Category(title: 'Ψώνια', topicId: 'shoppingTopic'),
-    Category(title: 'Ταξίδια', topicId: 'travelTopic'),
-  ];
 
   void _init() async {
     _box = await Hive.openBox<AppNotification>('notifications');
@@ -46,17 +43,52 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     });
     // Load initial notifications
     loadNotifications();
+    await _loadSelectedTopics();
+    await fetchTopicsFromApi();
 
     // Load saved topics from SharedPreferences
     final prefs = await SharedPreferences.getInstance();
     _selectedTopics = (prefs.getStringList('selectedTopics') ?? []).toSet();
 
-    // Ensure default topic if none selected
-    if (_selectedTopics.isEmpty) {
-      _selectedTopics.add(defaultTopic);
+    await _subscribeToTopics(_selectedTopics);
+  }
+
+  Future<void> fetchTopicsFromApi() async {
+    try {
+      topics = await _apiService.fetchTopic();
+      emit(List.from(state)); // trigger rebuild
+    } catch (e) {
+      // You can handle errors here
+      topics = [];
+    }
+  }
+
+  Future<void> _loadSelectedTopics() async {
+    final prefs = await SharedPreferences.getInstance();
+    _selectedTopics = (prefs.getStringList('selectedTopics') ?? []).toSet();
+
+    // Ensure default topic
+    if (_selectedTopics.isEmpty && topics.isNotEmpty) {
+      _selectedTopics.add(topics.first.id.toString());
     }
 
+    // Subscribe to selected topics
     await _subscribeToTopics(_selectedTopics);
+  }
+
+  Future<void> toggleTopic(String topicId) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (_selectedTopics.contains(topicId)) {
+      _selectedTopics.remove(topicId);
+      await NotificationService.unsubscribeFromTopic(topicId);
+    } else {
+      _selectedTopics.add(topicId);
+      await NotificationService.subscribeToTopic(topicId);
+    }
+
+    await prefs.setStringList('selectedTopics', _selectedTopics.toList());
+    emit(List.from(state));
   }
 
   void loadNotifications() {
@@ -109,41 +141,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     loadNotifications(); // update state
   }
 
-  Future<void> toggleTopic(String topicId) async {
-    // Cache SharedPreferences instance somewhere else if possible
-    final prefs = await SharedPreferences.getInstance();
-
-    final List<Future<void>> tasks = [];
-
-    if (_selectedTopics.contains(topicId)) {
-      // Remove topic
-      _selectedTopics.remove(topicId);
-      tasks.add(NotificationService.unsubscribeFromTopic(topicId));
-    } else {
-      // Add topic
-      _selectedTopics.add(topicId);
-      tasks.add(NotificationService.subscribeToTopic(topicId));
-    }
-
-    // Ensure at least default topic is subscribed
-    if (_selectedTopics.isEmpty) {
-      _selectedTopics.add(defaultTopic);
-      tasks.add(NotificationService.subscribeToTopic(defaultTopic));
-    } else if (_selectedTopics.contains(defaultTopic) &&
-        _selectedTopics.length > 1) {
-      _selectedTopics.remove(defaultTopic);
-      tasks.add(NotificationService.unsubscribeFromTopic(defaultTopic));
-    }
-
-    // Run all subscriptions/unsubscriptions in parallel
-    await Future.wait(tasks);
-
-    // Save updated topics
-    await prefs.setStringList('selectedTopics', _selectedTopics.toList());
-
-    emit(List.from(state));
-  }
-
   Future<void> _subscribeToTopics(Set<String> topics) async {
     for (var topic in topics) {
       await NotificationService.subscribeToTopic(topic);
@@ -170,16 +167,42 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     emit(List.from(state));
   }
 
-  Future<Contest?> openContentFromNotifications(String? id) async {
+  /// Subscribe to all available topics, fetching them first if necessary
+  Future<void> subscribeToAllTopics() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Fetch topics from API if the list is empty
+    if (topics.isEmpty) {
+      await fetchTopicsFromApi();
+    }
+
+    // If still empty (API failed), do nothing
+    if (topics.isEmpty) return;
+
+    // Map all topic IDs to a set
+    _selectedTopics = topics.map((t) => t.name.toString()).toSet();
+
+    // Save all topic IDs to SharedPreferences
+    await prefs.setStringList('selectedTopics', _selectedTopics.toList());
+
+    // Subscribe to all topics via NotificationService
+    await _subscribeToTopics(_selectedTopics);
+
+    // Trigger rebuild
+    emit(List.from(state));
+  }
+
+  Future<Contest?> openContentFromNotifications(int? id) async {
     final apiService = ApiService();
 
     try {
       // 1. Fetch all contests
       final contests = await apiService.fetchContests();
 
+      print(id);
       // 2. Find the contest that matches the notification ID
       final contest = contests.firstWhere(
-        (c) => c.id == id,
+            (c) => int.tryParse(c.id) == id,
         orElse: () => throw Exception('Contest not found'),
       );
 

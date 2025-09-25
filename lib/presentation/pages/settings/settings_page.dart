@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/about/about_page.dart';
 import 'package:newsphone_competitions/presentation/pages/preferences/prefernces_page.dart';
 import 'package:newsphone_competitions/presentation/pages/terms_page/terms_page.dart';
 
-import '../../../core/constans/constants.dart';
+import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import 'components/settings_list_tile.dart';
 import 'components/version_info.dart';
@@ -18,25 +17,14 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _allowNotifications = false;
-
   @override
   void initState() {
     super.initState();
-    _checkNotificationPermission();
-  }
-
-  Future<void> _checkNotificationPermission() async {
-    final settings = await FirebaseMessaging.instance.getNotificationSettings();
-    setState(() {
-      _allowNotifications =
-          settings.authorizationStatus == AuthorizationStatus.authorized ||
-          settings.authorizationStatus == AuthorizationStatus.provisional;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<NotificationCubit>();
     return Scaffold(
       backgroundColor: const Color(0xFFF2F4F7),
       body: CustomScrollView(
@@ -92,27 +80,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   );
                 },
               ),
-              SettingsListTile(
-                title: "Ειδοποιήσεις",
-                subtitle: "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
-                leadingIcon: Icons.notifications_none,
-                trailingWidget: Switch(
-                  value: _allowNotifications,
-                  onChanged: (bool value) async {
-                    setState(() {
-                      _allowNotifications = value;
-                    });
-
-                    final cubit = context.read<NotificationCubit>();
-
-                    if (value) {
-                      await cubit.toggleTopic(defaultTopic);
-                    } else {
-                      await cubit.unsubscribeFromAllTopics();
-                    }
-                  },
-                  activeColor: Colors.blue,
-                ),
+              BlocBuilder<NotificationCubit, List<AppNotification>>(
+                builder: (context, state) {
+                  return SettingsListTile(
+                    title: "Ειδοποιήσεις",
+                    subtitle:
+                        "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
+                    leadingIcon: Icons.notifications_none,
+                    trailingWidget: Switch(
+                      value: cubit.isSubscribedToAnyTopic,
+                      onChanged: (bool value) async {
+                        if (value) {
+                          await cubit.subscribeToAllTopics();
+                        } else {
+                          await cubit.unsubscribeFromAllTopics();
+                        }
+                      },
+                      activeColor: Colors.blue,
+                    ),
+                  );
+                },
               ),
               SettingsListTile(
                 title: "Σχετικά",

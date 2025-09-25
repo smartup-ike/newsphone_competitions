@@ -5,29 +5,39 @@ part 'notification.g.dart';
 @HiveType(typeId: 0)
 class AppNotification extends HiveObject {
   @HiveField(0)
-  final String title;
+  final int id;
 
   @HiveField(1)
-  final String body;
+  final String title;
 
   @HiveField(2)
-  final DateTime timestamp;
+  final String body;
 
   @HiveField(3)
-  bool isRead;
+  final String topicName;
 
   @HiveField(4)
-  final String? competitionId;
+  final DateTime sentAt;
 
   @HiveField(5)
-  final DateTime? endDate;
+  final int? linkedContestId;
+
+  @HiveField(6)
+  final int? linkedDealId;
+  @HiveField(7)
+  final String? type;
+  @HiveField(8)
+  bool isRead;
 
   AppNotification({
+    required this.id,
     required this.title,
     required this.body,
-    required this.timestamp,
+    required this.topicName,
+    required this.sentAt,
+    required this.type,
+    this.linkedContestId,
+    this.linkedDealId,
     this.isRead = false,
-    this.competitionId,
-    this.endDate,
   });
 }

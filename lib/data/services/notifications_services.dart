@@ -52,18 +52,28 @@ class NotificationService {
   static void _handleMessage(RemoteMessage message) async {
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
+    // 🔹 Print the RemoteMessage object
+    print('--- RemoteMessage ---');
+    print('Message ID: ${message.messageId}');
+    print('Title: ${message.notification?.title}');
+    print('Body: ${message.notification?.body}');
+    print('Data: ${message.data}');
+    print('From: ${message.from}');
+    print('Sent time: ${message.sentTime}');
+    print('--- End RemoteMessage ---');
+
 
     // 2️⃣ Create AppNotification
     final appNotification = AppNotification(
       title: message.notification?.title ?? '',
       body: message.notification?.body ?? '',
-      timestamp: DateTime.now(),
+      topicName: message.data['topic_name'] ?? '',
+      sentAt: DateTime.now(),
+      id: int.tryParse(message.messageId ?? '') ?? 0,
+      linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
+      linkedDealId: int.tryParse(message.data['id'] ?? ''),
+      type: message.data['type'] ?? '',
       isRead: false,
-      competitionId: message.data['competitionId'],
-      endDate:
-          message.data['endDate'] != null
-              ? DateTime.tryParse(message.data['endDate'])
-              : null,
     );
 
     // 3️⃣ Save to Hive

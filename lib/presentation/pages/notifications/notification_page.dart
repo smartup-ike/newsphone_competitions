@@ -14,7 +14,7 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage>
     with WidgetsBindingObserver {
-  final Set<String> _loadingNotifications = {};
+  final Set<int> _loadingNotifications = {};
 
   @override
   void initState() {
@@ -172,10 +172,10 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'ΚΛΗΡΩΣΗ ${notification.endDate != null ? formatDate(notification.endDate!) : ''}',
+                                  formatDate(notification.sentAt),
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFF00A113),
+                                    color: Color(0xFF0765CB),
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -232,20 +232,20 @@ class _NotificationsPageState extends State<NotificationsPage>
                             child: ElevatedButton(
                               onPressed:
                                   _loadingNotifications.contains(
-                                        notification.competitionId,
+                                        notification.linkedContestId,
                                       )
                                       ? null
                                       : () async {
                                         setState(() {
                                           _loadingNotifications.add(
-                                            notification.competitionId!,
+                                            notification.linkedContestId ?? -1,
                                           );
                                         });
 
                                         final content = await context
                                             .read<NotificationCubit>()
                                             .openContentFromNotifications(
-                                              notification.competitionId,
+                                              notification.linkedContestId,
                                             );
 
                                         if (content != null) {
@@ -262,7 +262,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                                         setState(() {
                                           _loadingNotifications.remove(
-                                            notification.competitionId,
+                                            notification.linkedContestId ?? -1,
                                           );
                                         });
                                       },
@@ -292,7 +292,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                         ),
                         const SizedBox(width: 8),
                         if (_loadingNotifications.contains(
-                          notification.competitionId,
+                          notification.linkedContestId,
                         ))
                           const SizedBox(
                             width: 20,

@@ -74,7 +74,6 @@ class ContestsCubit extends Cubit<ContestsState> {
     emit(ContestsLoading());
     try {
       List<Contest> fetchedContests = await _apiService.fetchContests();
-      print('fetchedContests: $fetchedContests');
 
       _allContests = fetchedContests;
 

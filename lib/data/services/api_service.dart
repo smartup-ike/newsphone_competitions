@@ -55,6 +55,7 @@ class ApiService {
     }
   }
 
+  ///Fetch topics of notifications
   Future<List<Topic>> fetchTopic() async {
     final url = '$_baseUrl/topics';
     try {

@@ -21,13 +21,13 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   final notification = AppNotification(
     title: message.notification?.title ?? '',
     body: message.notification?.body ?? '',
-    timestamp: DateTime.now(),
+    topicName: message.data['topic_name'] ?? '',
+    sentAt: DateTime.now(),
+    id: int.tryParse(message.messageId ?? '') ?? 0,
+    linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
+    linkedDealId: int.tryParse(message.data['id'] ?? ''),
+    type: message.data['type'],
     isRead: false,
-    competitionId: message.data['competitionId'],
-    endDate:
-        message.data['endDate'] != null
-            ? DateTime.tryParse(message.data['endDate'])
-            : null,
   );
   await box.add(notification);
   await NotificationService.showNotificationStatic(message);

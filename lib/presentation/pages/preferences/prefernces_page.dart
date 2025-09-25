@@ -65,7 +65,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                       builder: (context, state) {
                         final cubit = context.read<NotificationCubit>();
                         final selectedTopics = cubit.selectedTopics;
-                        final categories = cubit.categories;
+                        final categories = cubit.topics;
 
                         return Wrap(
                           spacing: 14,
@@ -73,21 +73,21 @@ class _PreferencesPageState extends State<PreferencesPage> {
                           children:
                               categories.map((category) {
                                 final isSelected = selectedTopics.contains(
-                                  category.topicId,
+                                  category.name,
                                 );
                                 return CustomActionChip(
-                                  label: category.title,
+                                  label: category.description,
                                   isSelected: isSelected,
                                   onPressed: () async {
                                     setState(() => _isLoading = true);
-                                    await cubit.toggleTopic(category.topicId);
+                                    await cubit.toggleTopic(category.name);
                                     setState(() => _isLoading = false);
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
                                           !isSelected
-                                              ? 'Η κατηγορία "${category.title}" ενεργοποιήθηκε'
-                                              : 'Η κατηγορία "${category.title}" απενεργοποιήθηκε',
+                                              ? 'Η κατηγορία "${category.description}" ενεργοποιήθηκε'
+                                              : 'Η κατηγορία "${category.description}" απενεργοποιήθηκε',
                                         ),
                                         duration: const Duration(seconds: 2),
                                       ),

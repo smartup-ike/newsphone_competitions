@@ -17,31 +17,40 @@ class AppNotificationAdapter extends TypeAdapter<AppNotification> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AppNotification(
-      title: fields[0] as String,
-      body: fields[1] as String,
-      timestamp: fields[2] as DateTime,
-      isRead: fields[3] as bool,
-      competitionId: fields[4] as String?,
-      endDate: fields[5] as DateTime?,
+      id: fields[0] as int,
+      title: fields[1] as String,
+      body: fields[2] as String,
+      topicName: fields[3] as String,
+      sentAt: fields[4] as DateTime,
+      type: fields[7] as String?,
+      linkedContestId: fields[5] as int?,
+      linkedDealId: fields[6] as int?,
+      isRead: fields[8] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppNotification obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(9)
       ..writeByte(0)
-      ..write(obj.title)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.body)
+      ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.timestamp)
+      ..write(obj.body)
       ..writeByte(3)
-      ..write(obj.isRead)
+      ..write(obj.topicName)
       ..writeByte(4)
-      ..write(obj.competitionId)
+      ..write(obj.sentAt)
       ..writeByte(5)
-      ..write(obj.endDate);
+      ..write(obj.linkedContestId)
+      ..writeByte(6)
+      ..write(obj.linkedDealId)
+      ..writeByte(7)
+      ..write(obj.type)
+      ..writeByte(8)
+      ..write(obj.isRead);
   }
 
   @override
