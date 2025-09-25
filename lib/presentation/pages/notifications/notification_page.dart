@@ -157,7 +157,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Νέος Διαγωνισμός!',
+                                  (notification.type ?? '') == 'contest'
+                                      ? 'Νέος Διαγωνισμός!'
+                                      : 'Νέα Προσφορά!',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
