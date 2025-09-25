@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../data/models/deals.dart';
 import '../../../data/models/notification.dart';
 import '../../../data/models/topics.dart';
 import '../../../data/services/api_service.dart';
@@ -192,23 +193,45 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     emit(List.from(state));
   }
 
-  Future<Contest?> openContentFromNotifications(int? id) async {
+  Future<dynamic> openContentFromNotifications(
+    int? contestId,
+    int? dealId,
+    String? type,
+  ) async {
     final apiService = ApiService();
 
     try {
-      // 1. Fetch all contests
-      final contests = await apiService.fetchContests();
+      // 1️⃣ Fetch all contests and deals simultaneously
+      final contestsFuture = apiService.fetchContests();
+      final dealsFuture = apiService.apiFetchDeals();
 
-      print(id);
-      // 2. Find the contest that matches the notification ID
-      final contest = contests.firstWhere(
-            (c) => int.tryParse(c.id) == id,
-        orElse: () => throw Exception('Contest not found'),
-      );
+      final results = await Future.wait([contestsFuture, dealsFuture]);
 
-      return contest;
+      final contests = results[0] as List<Contest>;
+      final deals = results[1] as List<Deal>;
+
+      // 2️⃣ Find the contest if contestId is provided
+      if (type == 'contest' && contestId != null) {
+        final contest = contests.firstWhere(
+          (c) => int.tryParse(c.id) == contestId,
+          orElse: () => throw Exception('Contest not found'),
+        );
+        return contest;
+      }
+
+      // 3️⃣ Find the deal if dealId is provided
+      if (type == 'deal' && contestId != null) {
+        final deal = deals.firstWhere(
+          (d) => int.tryParse(d.id) == dealId,
+          orElse: () => throw Exception('Deal not found'),
+        );
+        return deal;
+      }
+
+      // 4️⃣ If neither ID is provided
+      return null;
     } catch (e) {
-      developer.log("Error opening contest content: $e");
+      developer.log("Error opening content: $e");
       return null;
     }
   }

@@ -3,52 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../logic/blocs/deals/deals_cubit.dart';
 import 'components/deal_bottom_sheet.dart';
 import 'components/deal_card.dart';
+import 'components/toast_helper.dart';
 
 class DealsPage extends StatelessWidget {
   const DealsPage({super.key});
-
-  void _showToast(BuildContext context) {
-    OverlayEntry overlayEntry;
-
-    // Create the OverlayEntry widget
-    overlayEntry = OverlayEntry(
-      builder:
-          (context) => Positioned(
-            top:
-                MediaQuery.of(context).size.height *
-                0.75, // Adjust vertical position
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-            child: Material(
-              color: Colors.transparent,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 12.0,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.7),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
-                child: const Text(
-                  "Κωδικός αντιγράφηκε!",
-                  style: TextStyle(color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-    );
-
-    // Insert the toast into the Overlay
-    Overlay.of(context).insert(overlayEntry);
-
-    // Remove the toast after a short duration
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      overlayEntry.remove();
-    });
-  }
-
   Future<void> _onRefresh(BuildContext context) async {
     await context.read<DealsCubit>().refreshDeals();
   }
@@ -87,7 +45,7 @@ class DealsPage extends StatelessWidget {
                             (_) => DealBottomSheet(
                               deal: deal,
                               onCodeCopied: (String dealCode) {
-                                _showToast(context);
+                                showToast(context, message: "Κωδικός $dealCode αντιγράφηκε!");
                               },
                             ),
                       );

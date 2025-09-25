@@ -4,6 +4,8 @@ import '../../../core/functions/date_time_format.dart';
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
+import '../deals/components/deal_bottom_sheet.dart';
+import '../deals/components/toast_helper.dart';
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -164,7 +166,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  notification.body,
+                                  notification.title,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey[700],
@@ -242,22 +244,54 @@ class _NotificationsPageState extends State<NotificationsPage>
                                           );
                                         });
 
-                                        final content = await context
+                                        final result = await context
                                             .read<NotificationCubit>()
                                             .openContentFromNotifications(
                                               notification.linkedContestId,
+                                              notification.linkedDealId,
+                                              notification.type,
                                             );
 
-                                        if (content != null) {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
+                                        if (result != null) {
+                                          if (notification.type == 'contest') {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (context) =>
+                                                        ContestContentPage(
+                                                          contest: result,
+                                                        ),
+                                              ),
+                                            );
+                                          } else {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              backgroundColor: Colors.white,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                          top: Radius.circular(
+                                                            20,
+                                                          ),
+                                                        ),
+                                                  ),
                                               builder:
-                                                  (context) =>
-                                                      ContestContentPage(
-                                                        contest: content,
-                                                      ),
-                                            ),
-                                          );
+                                                  (_) => DealBottomSheet(
+                                                    deal: result,
+                                                    onCodeCopied: (
+                                                      String dealCode,
+                                                    ) {
+                                                      showToast(
+                                                        context,
+                                                        message:
+                                                            "Κωδικός $dealCode αντιγράφηκε!",
+                                                      );
+                                                    },
+                                                  ),
+                                            );
+                                          }
                                         }
 
                                         setState(() {
