@@ -174,6 +174,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+
+          SliverToBoxAdapter(child: const SizedBox(height: 20)),
         ],
       ),
     );

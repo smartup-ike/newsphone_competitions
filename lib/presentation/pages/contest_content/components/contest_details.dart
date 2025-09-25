@@ -45,35 +45,40 @@ class ContestDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// 🔹 Date
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Text(
-                      '${isContestEnded ? 'ΚΛΗΡΩΘΗΚΕ' : 'ΚΛΗΡΩΣΗ'} ${formatDate(contest.dateEnd)}',
-                      style: GoogleFonts.robotoFlex(
-                        color:
-                            isContestEnded
-                                ? Color(0xFFFF0000)
-                                : Color(0xFF00A113),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                  SvgPicture.asset(
-                    'assets/images/icons/Vector.svg',
-                    width: 20,
-                    height: 20,
-                  ),
-                  const SizedBox(width: 4),
-                  // TODO : CHANGE THE TEXT TO THE PROGRAMS NAME
                   Text(
-                    'Το Πρωϊνό',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF054279),
-                      fontWeight: FontWeight.w600,
+                    '${isContestEnded ? 'ΚΛΗΡΩΘΗΚΕ' : 'ΚΛΗΡΩΣΗ'} ${formatDate(contest.dateEnd)}',
+                    style: GoogleFonts.robotoFlex(
+                      color:
+                          isContestEnded
+                              ? Color(0xFFFF0000)
+                              : Color(0xFF00A113),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
                     ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/images/icons/Vector.svg',
+                        width: 20,
+                        height: 20,
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          contest.shows.map((show) => show.name).join(', '),
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xFF054279),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

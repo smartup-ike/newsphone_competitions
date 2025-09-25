@@ -6,6 +6,7 @@ class Deal {
   final String? details;
   final String? terms;
   final String dealCode;
+  final bool? isActive;
 
   Deal({
     required this.id,
@@ -15,6 +16,7 @@ class Deal {
     this.details,
     this.terms,
     required this.dealCode,
+    this.isActive,
   });
 
   /// Factory for creating Deal from JSON
@@ -27,6 +29,7 @@ class Deal {
       details: json['details'] as String?,
       terms: json['terms'] as String?,
       dealCode: json['dealCode'] as String,
+      isActive: json['is_active'] as bool?,
     );
   }
 
@@ -40,6 +43,7 @@ class Deal {
       'details': details,
       'terms': terms,
       'dealCode': dealCode,
+      'is_active': isActive,
     };
   }
 
@@ -52,6 +56,7 @@ class Deal {
     String? details,
     String? terms,
     String? dealCode,
+    bool? isActive,
   }) {
     return Deal(
       id: id ?? this.id,
@@ -61,6 +66,7 @@ class Deal {
       details: details ?? this.details,
       terms: terms ?? this.terms,
       dealCode: dealCode ?? this.dealCode,
+      isActive: isActive ?? this.isActive,
     );
   }
 }

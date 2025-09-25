@@ -29,9 +29,8 @@ class ContestContentPage extends StatelessWidget {
                 () {
                   launchURL('tel:14614');
                 },
-                () {
-                  // TODO : Here to change the first to letters from model
-                  final String messageBody = 'PO "Ονοματεπώνυμο"';
+                (String prefix) {
+                  final String messageBody = '$prefix "Ονοματεπώνυμο"';
                   launchURL(
                     'sms:14614?body=${Uri.encodeComponent(messageBody)}',
                   );
@@ -51,7 +50,7 @@ class ContestContentPage extends StatelessWidget {
               launchURL('tel:2109472116');
             },
           ),
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          const SliverToBoxAdapter(child: SizedBox(height: 70)),
         ],
       ),
     );

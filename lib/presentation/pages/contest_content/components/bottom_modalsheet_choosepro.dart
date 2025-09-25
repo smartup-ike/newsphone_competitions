@@ -8,7 +8,7 @@ void showContestChooseProBottomSheet(
   BuildContext context,
   Contest contest,
   VoidCallback onPressDial,
-  VoidCallback onPressMessage,
+  void Function(String selectedShow) onPressMessage,
 ) {
   showModalBottomSheet(
     context: context,
@@ -29,7 +29,7 @@ void showContestChooseProBottomSheet(
 class _ContestChooseProContent extends StatefulWidget {
   final Contest contest;
   final VoidCallback onPressDial;
-  final VoidCallback onPressMessage;
+  final Function(String selectedShow) onPressMessage;
 
   const _ContestChooseProContent({
     required this.contest,
@@ -44,9 +44,6 @@ class _ContestChooseProContent extends StatefulWidget {
 
 class _ContestChooseProContentState extends State<_ContestChooseProContent> {
   int selectedIndex = -1;
-
-  // TODO : Here it will take them from the contest model
-  final programs = ['Το Πρωίνο', 'Σαββατοκύριακο με τον Μάνεση'];
 
   @override
   Widget build(BuildContext context) {
@@ -98,11 +95,11 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
 
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: List.generate(programs.length, (index) {
+            children: List.generate(widget.contest.shows.length, (index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: ProgramButton(
-                  label: programs[index],
+                  label: widget.contest.shows[index].name,
                   selected: selectedIndex == index,
                   onTap: () {
                     setState(() {
@@ -111,7 +108,9 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
                     showContestPhoneSmsBottomSheet(
                       context,
                       widget.onPressDial,
-                      widget.onPressMessage,
+                      () => widget.onPressMessage(
+                        widget.contest.shows[index].prefix,
+                      ),
                     );
                   },
                 ),

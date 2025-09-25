@@ -7,11 +7,11 @@ import '../../../../core/functions/date_time_format.dart';
 class ContestCard extends StatelessWidget {
   const ContestCard({
     super.key,
-    required this.content,
+    required this.contest,
     required this.clickContentFunction,
   });
 
-  final Contest content;
+  final Contest contest;
   final VoidCallback clickContentFunction;
 
   @override
@@ -33,11 +33,22 @@ class ContestCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20.0),
               ),
-              child: Image.network(
-                content.imageUrl!,
-                fit: BoxFit.cover,
-                height: 200,
-              ),
+              child:
+                  contest.imageUrl != null
+                      ? Image.network(
+                        contest.imageUrl!,
+                        fit: BoxFit.cover,
+                        height: 200,
+                      )
+                      : Container(
+                        height: 200,
+                        color: Colors.grey[300],
+                        child: const Icon(
+                          Icons.image,
+                          size: 50,
+                          color: Colors.white,
+                        ),
+                      ),
             ),
 
             Padding(
@@ -47,7 +58,7 @@ class ContestCard extends StatelessWidget {
                 children: [
                   // Title
                   Text(
-                    content.name,
+                    contest.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
@@ -56,7 +67,8 @@ class ContestCard extends StatelessWidget {
                   const SizedBox(height: 8),
                   // Description
                   Text(
-                    'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
+                    contest.instructions ??
+                        'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF555758),
@@ -80,17 +92,17 @@ class ContestCard extends StatelessWidget {
                             width: 20,
                             height: 20,
                             color:
-                                content.dateEnd.isBefore(DateTime.now())
+                                contest.dateEnd.isBefore(DateTime.now())
                                     ? Color(0xFFBE0609)
                                     : null,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${content.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(content.dateEnd)}',
+                            '${contest.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(contest.dateEnd)}',
                             style: TextStyle(
                               fontSize: 15,
                               color:
-                                  content.dateEnd.isBefore(DateTime.now())
+                                  contest.dateEnd.isBefore(DateTime.now())
                                       ? Color(0xFFBE0609)
                                       : Color(0xFF054279),
                               fontWeight: FontWeight.w500,
@@ -100,29 +112,31 @@ class ContestCard extends StatelessWidget {
                       ),
 
                       const SizedBox(width: 20),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/images/icons/Vector.svg',
-                            width: 20,
-                            height: 20,
-                          ),
-                          const SizedBox(width: 4),
-                          // TODO: Change with value from MODEL !!!!!
-                          Flexible(
-                            child: Text(
-                              'Το Πρωϊνό',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Color(0xFF054279),
-                                fontWeight: FontWeight.w500,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                      if (contest.shows.isNotEmpty)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/icons/Vector.svg',
+                              width: 20,
+                              height: 20,
                             ),
-                          ),
-                        ],
-                      ),
+                            const SizedBox(width: 4),
+                            Flexible(
+                              child: Text(
+                                contest.shows
+                                    .map((show) => show.name)
+                                    .join(', '),
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Color(0xFF054279),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                   const SizedBox(height: 20),

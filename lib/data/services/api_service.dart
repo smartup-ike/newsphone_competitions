@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/contests.dart';
 import '../models/deals.dart';
+import '../models/topics.dart';
 
 class ApiService {
   // Base URL for your API (update this as per your actual API)
@@ -50,6 +51,22 @@ class ApiService {
       }
     } catch (e) {
       // Handle network or parsing errors
+      throw Exception('Failed to load deals: $e');
+    }
+  }
+
+  Future<List<Topic>> fetchTopic() async {
+    final url = '$_baseUrl/topics';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((topicJson) => Topic.fromJson(topicJson)).toList();
+      } else {
+        // Handle API errors (non-200 responses)
+        throw Exception('Failed to load deals: ${response.statusCode}');
+      }
+    } catch (e) {
       throw Exception('Failed to load deals: $e');
     }
   }

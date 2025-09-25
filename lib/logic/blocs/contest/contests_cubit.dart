@@ -21,6 +21,11 @@ class ContestsCubit extends Cubit<ContestsState> {
     List<Contest> filteredList;
     if (category == 'ΟΛΑ') {
       filteredList = _allContests;
+    } else if (category == 'Μεγάλοι διαγωνισμοί') {
+      filteredList =
+          _allContests
+              .where((contest) => contest.isBigContest == true)
+              .toList();
     } else {
       filteredList =
           _allContests
@@ -69,15 +74,20 @@ class ContestsCubit extends Cubit<ContestsState> {
     emit(ContestsLoading());
     try {
       List<Contest> fetchedContests = await _apiService.fetchContests();
+      print('fetchedContests: $fetchedContests');
 
       _allContests = fetchedContests;
 
       final now = DateTime.now();
 
       List<Contest> upcomingContests =
-      _allContests.where((contest) => contest.dateEnd.isAfter(now)).toList();
+          _allContests
+              .where((contest) => contest.dateEnd.isAfter(now))
+              .toList();
       List<Contest> pastContests =
-      _allContests.where((contest) => contest.dateEnd.isBefore(now)).toList();
+          _allContests
+              .where((contest) => contest.dateEnd.isBefore(now))
+              .toList();
 
       upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
       pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
@@ -90,5 +100,4 @@ class ContestsCubit extends Cubit<ContestsState> {
       emit(ContestsError("Failed to fetch contests."));
     }
   }
-
 }

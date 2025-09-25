@@ -183,7 +183,7 @@ class ContestsPage extends StatelessWidget {
                       delegate: SliverChildBuilderDelegate((context, index) {
                         final contest = state.contests[index];
                         return ContestCard(
-                          content: contest,
+                          contest: contest,
                           clickContentFunction: () {
                             Navigator.push(
                               context,

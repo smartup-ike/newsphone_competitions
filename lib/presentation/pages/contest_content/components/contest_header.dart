@@ -17,11 +17,22 @@ class ContestHeader extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15.0),
-            child: Image.network(
-              imageUrl ?? '',
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+            child:
+                imageUrl != null
+                    ? Image.network(
+                      imageUrl ?? '',
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    )
+                    : Container(
+                      height: 200,
+                      color: Colors.grey[300],
+                      child: const Icon(
+                        Icons.image,
+                        size: 50,
+                        color: Colors.white,
+                      ),
+                    ),
           ),
         ),
       ),
