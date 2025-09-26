@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ContestInstructions extends StatelessWidget {
-  const ContestInstructions({super.key});
+  final List<String> prefixs;
+
+  const ContestInstructions({super.key, required this.prefixs});
 
   @override
   Widget build(BuildContext context) {
+    print(prefixs.toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           'Οδηγίες Συμμετοχής:',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
         ),
         const SizedBox(height: 8),
         const Text(
@@ -66,12 +66,12 @@ class ContestInstructions extends StatelessWidget {
 
         /// SMS Instructions
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             style: TextStyle(fontSize: 14, color: Colors.black),
             children: [
               TextSpan(text: 'ΣΤΕΙΛΤΕ '),
               TextSpan(
-                text: 'ΡΟ',
+                text: prefixs.join(' ή '),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFED1953),

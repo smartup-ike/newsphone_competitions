@@ -20,7 +20,7 @@ class NotificationService {
     developer.log("FCM Token: $token");
 
     // Setup local notifications
-    const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidInit = AndroidInitializationSettings('@mipmap/launcher_icon');
     const iosInit = DarwinInitializationSettings();
     const initSettings = InitializationSettings(
       android: androidInit,
@@ -53,15 +53,14 @@ class NotificationService {
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
     // 🔹 Print the RemoteMessage object
-    print('--- RemoteMessage ---');
-    print('Message ID: ${message.messageId}');
-    print('Title: ${message.notification?.title}');
-    print('Body: ${message.notification?.body}');
-    print('Data: ${message.data}');
-    print('From: ${message.from}');
-    print('Sent time: ${message.sentTime}');
-    print('--- End RemoteMessage ---');
-
+    // print('--- RemoteMessage ---');
+    // print('Message ID: ${message.messageId}');
+    // print('Title: ${message.notification?.title}');
+    // print('Body: ${message.notification?.body}');
+    // print('Data: ${message.data}');
+    // print('From: ${message.from}');
+    // print('Sent time: ${message.sentTime}');
+    // print('--- End RemoteMessage ---');
 
     // 2️⃣ Create AppNotification
     final appNotification = AppNotification(

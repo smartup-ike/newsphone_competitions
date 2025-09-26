@@ -96,7 +96,7 @@ class ContestDetails extends StatelessWidget {
               const SizedBox(height: 16),
 
               /// 🔹 Instructions
-              const ContestInstructions(),
+              ContestInstructions(prefixs: contest.shows.map((show) => show.prefix).toList(),),
 
               const SizedBox(height: 40),
 
