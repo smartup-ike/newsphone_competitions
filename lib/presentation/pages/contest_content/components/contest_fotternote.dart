@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class ContestFooterNote extends StatelessWidget {
   final VoidCallback onPressWinnow;
+
   const ContestFooterNote({super.key, required this.onPressWinnow});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         const Text(
           '*Δωροεπιταγή για όλους από το ',

@@ -82,15 +82,26 @@ class ContestsPage extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: SizedBox(
-                    height: 42,
-                    child: BlocBuilder<ContestsCubit, ContestsState>(
-                      builder: (context, state) {
-                        String selectedCategory = 'ΟΛΑ';
-                        if (state is ContestsLoaded) {
-                          selectedCategory = state.selectedCategory;
-                        }
-                        return ListView(
+                  child: BlocBuilder<ContestsCubit, ContestsState>(
+                    builder: (context, state) {
+                      String selectedCategory = 'ΟΛΑ';
+                      if (state is ContestsLoaded) {
+                        selectedCategory = state.selectedCategory;
+                      }
+
+                      // Get font size from theme (labelLarge or bodyMedium)
+                      final textTheme = Theme.of(context).textTheme;
+                      final baseFontSize = textTheme.labelLarge?.fontSize ?? 16;
+
+                      // Calculate height: font size * multiplier + some padding
+                      final dynamicHeight =
+                          baseFontSize *
+                          MediaQuery.of(context).textScaleFactor *
+                          2.6;
+
+                      return SizedBox(
+                        height: dynamicHeight,
+                        child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
                             for (
@@ -111,9 +122,9 @@ class ContestsPage extends StatelessWidget {
                                 },
                               ),
                           ],
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -167,6 +178,7 @@ class ContestsPage extends StatelessWidget {
                             SizedBox(height: 16),
                             Text(
                               'Δεν βρέθηκε διαγωνισμός!',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.grey,

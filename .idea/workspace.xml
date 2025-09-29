@@ -28,10 +28,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/services/notifications_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/services/notifications_services.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_fotternote.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_fotternote.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/button_gradient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/button_gradient.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +111,7 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;redisign-app&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;stage&quot;,
     &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/dmilios/Documents/GitHub/newsphone_competitions&quot;,

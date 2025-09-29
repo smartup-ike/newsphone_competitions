@@ -30,6 +30,7 @@ class CategoryButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
           child: Container(
+            alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 5.0,

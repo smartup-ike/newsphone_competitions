@@ -144,7 +144,6 @@ class ContestCard extends StatelessWidget {
                   // Call-to-action Button
                   Container(
                     width: double.infinity,
-                    height: 45,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
                         colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
@@ -156,18 +155,22 @@ class ContestCard extends StatelessWidget {
                     child: TextButton(
                       onPressed: clickContentFunction,
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 12.0,
+                        ),
                         backgroundColor: Colors.transparent,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(24.0),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Δήλωσε Συμμετοχή',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
-                          fontSize: 16,
+                          fontSize:
+                              16, // can also pull from Theme.of(context).textTheme.button
                         ),
                       ),
                     ),

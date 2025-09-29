@@ -17,19 +17,34 @@ class ButtonGradient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = GoogleFonts.robotoFlex(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      height: 22 / 13,
+      letterSpacing: -0.13,
+    );
+
+    // Measure the height needed for the text
+    final textHeight = (textStyle.fontSize ?? 14) * (textStyle.height ?? 1.0);
+
+    // Add vertical padding for the button
+    final verticalPadding = 12.0;
+
+    final buttonHeight = textHeight + verticalPadding * 2;
+
     return Container(
       width: double.infinity,
-      height: 40,
+      height: buttonHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        gradient:
-            isDisabled
-                ? null
-                : LinearGradient(
-                  colors: colors,
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                ),
+        gradient: isDisabled
+            ? null
+            : LinearGradient(
+          colors: colors,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
         color: isDisabled ? Colors.black12 : null,
       ),
       child: ElevatedButton(
@@ -41,17 +56,13 @@ class ButtonGradient extends StatelessWidget {
           elevation: 0,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(24),
           ),
         ),
-        child: Text(
-          title,
-          style: GoogleFonts.robotoFlex(
-            color: Colors.white,
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            height: 22 / 13,
-            letterSpacing: -0.13,
+        child: Center(
+          child: Text(
+            title,
+            style: textStyle,
           ),
         ),
       ),
