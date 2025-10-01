@@ -71,6 +71,12 @@ class MyApp extends StatelessWidget {
         theme: lightMode,
         debugShowCheckedModeBanner: false,
         title: '14614 App',
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+            child: child!,
+          );
+        },
         home: HomePage(),
         routes: {},
       ),

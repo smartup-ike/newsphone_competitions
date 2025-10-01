@@ -97,7 +97,7 @@ class ContestsPage extends StatelessWidget {
                       final dynamicHeight =
                           baseFontSize *
                           MediaQuery.of(context).textScaleFactor *
-                          2.8;
+                          3.2;
 
                       return SizedBox(
                         height: dynamicHeight,
