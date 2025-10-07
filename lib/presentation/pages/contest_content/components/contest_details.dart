@@ -5,7 +5,6 @@ import 'package:newsphone_competitions/core/functions/date_time_format.dart';
 
 import '../../../widgets/button_gradient.dart';
 import '../../../../data/models/contests.dart';
-import 'contest_fotternote.dart';
 import 'contest_instrunctions.dart';
 import 'contest_prices.dart';
 import 'contest_terms.dart';
@@ -44,7 +43,7 @@ class ContestDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// 🔹 Date
+              // 🔹 Date
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,7 +83,7 @@ class ContestDetails extends StatelessWidget {
               ),
               const SizedBox(height: 8),
 
-              /// 🔹 Title
+              // 🔹 Title
               Text(
                 contest.name.toUpperCase(),
                 style: const TextStyle(
@@ -95,18 +94,19 @@ class ContestDetails extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              /// 🔹 Instructions
-              ContestInstructions(prefixs: contest.shows.map((show) => show.prefix).toList(),),
+              // 🔹 Instructions
+              ContestInstructions(
+                prefixs: contest.shows.map((show) => show.prefix).toList(),
+              ),
 
               const SizedBox(height: 40),
 
-              /// 🔹 Prices
+              // 🔹 Prices
               const ContestPrices(),
 
-              /// 🔹 Footer note
-              ContestFooterNote(onPressWinnow: onPressWinnow),
+              const SizedBox(height: 16),
 
-              /// 🔹 Button
+              // 🔹 Button
               if (!isContestEnded) ...[
                 ButtonGradient(
                   title: 'Δήλωσε Συμμετοχή',
@@ -117,7 +117,7 @@ class ContestDetails extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              /// 🔹 Terms & Contact
+              // 🔹 Terms & Contact
               ContestTerms(
                 onPressTermsButton: onPressTermsButton,
                 onPressCallService: onPressCallService,

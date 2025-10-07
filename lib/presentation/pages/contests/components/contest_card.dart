@@ -165,10 +165,10 @@ class ContestCard extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Δήλωσε Συμμετοχή',
+                        'Διεκδίκησε το',
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize:
                               16, // can also pull from Theme.of(context).textTheme.button
                         ),

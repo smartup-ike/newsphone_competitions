@@ -27,20 +27,8 @@ class ContestTerms extends StatelessWidget {
               ),
             ),
           ),
-          const TextSpan(text: ' | Γρ. Εξυπηρέτησης '),
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: onPressCallService,
-              child: const Text(
-                '2109472116',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ),
+          const TextSpan(text: ' | Δωροεπιταγή για όλους από το winnow.gr'),
+          const TextSpan(text: ' | Γρ. Εξυπηρέτησης 2109472116'),
         ],
       ),
     );

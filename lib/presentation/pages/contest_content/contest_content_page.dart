@@ -18,8 +18,13 @@ class ContestContentPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
+          //App bar with the title name
           ContestAppBar(title: contest.name),
+
+          //Contest header the images etc.
           ContestHeader(imageUrl: contest.imageUrl),
+
+          //The rest details.
           ContestDetails(
             contest: contest,
             buttonClick: () {
