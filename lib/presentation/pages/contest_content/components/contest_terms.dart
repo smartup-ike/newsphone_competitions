@@ -16,7 +16,7 @@ class ContestTerms extends StatelessWidget {
       text: TextSpan(
         style: const TextStyle(fontSize: 12, color: Colors.black),
         children: [
-          const TextSpan(text: 'Δείτε τους Όρους Χρήσης '),
+          const TextSpan(text: 'Δες τους Όρους Χρήσης '),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: GestureDetector(

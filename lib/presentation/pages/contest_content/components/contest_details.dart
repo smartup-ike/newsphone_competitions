@@ -86,7 +86,7 @@ class ContestDetails extends StatelessWidget {
 
               /// 🔹 Title
               Text(
-                'ΚΕΡΔΙΣΤΕ ΤΟ\n${contest.name.toUpperCase()}',
+                contest.name.toUpperCase(),
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

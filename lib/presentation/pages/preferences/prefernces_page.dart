@@ -48,7 +48,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                   delegate: SliverChildListDelegate([
                     const SizedBox(height: 24),
                     const Text(
-                      "Τι κατηγορίες διαγωνισμών σας ενδιαφέρουν;",
+                      "Τι κατηγορίες διαγωνισμών σε ενδιαφέρουν;",
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      "Επιλέξτε τις κατηγορίες διαγωνισμών για τους οποίους θέλετε να λαμβάνετε ειδοποιήσεις.",
+                      "Επίλεξε τις κατηγορίες διαγωνισμών για τους οποίους θέλεις να λαμβάνεις ειδοποιήσεις.",
                       style: TextStyle(fontSize: 13, color: Color(0xFF333435)),
                     ),
                     const SizedBox(height: 24),
