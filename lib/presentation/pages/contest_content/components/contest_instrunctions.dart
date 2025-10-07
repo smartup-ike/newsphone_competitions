@@ -17,7 +17,7 @@ class ContestInstructions extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         const Text(
-          'ΚΑΛΕΣΤΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ ΣΤΟ',
+          'ΚΑΛΕΣΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ ΣΤΟ',
           style: TextStyle(fontSize: 15),
         ),
         RichText(
@@ -31,7 +31,7 @@ class ContestInstructions extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextSpan(text: 'ΑΦΗΣΤΕ '),
+              TextSpan(text: 'ΑΦΗΣΕ '),
               TextSpan(
                 text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ',
                 style: TextStyle(
@@ -69,7 +69,7 @@ class ContestInstructions extends StatelessWidget {
           text: TextSpan(
             style: TextStyle(fontSize: 14, color: Colors.black),
             children: [
-              TextSpan(text: 'ΣΤΕΙΛΤΕ '),
+              TextSpan(text: 'ΣΤΕΙΛΕ '),
               TextSpan(
                 text: prefixs.join(' ή '),
                 style: TextStyle(

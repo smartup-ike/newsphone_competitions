@@ -69,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SettingsListTile(
                 title: "Προτιμήσεις διαγωνισμών",
-                subtitle: "Επιλέξτε τις κατηγορίες που επιθυμείτε",
+                subtitle: "Επίλεξε τις κατηγορίες που επιθυμείς",
                 leadingIcon: Icons.star_border,
                 onTap: () {
                   Navigator.push(
@@ -128,7 +128,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SettingsListTile(
                 title: "Όροι Χρήσης",
-                subtitle: "Διαβάστε τους όρους χρήσης",
+                subtitle: "Διάβασε τους όρους χρήσης",
                 leadingIcon: Icons.shield_outlined,
                 onTap: () {
                   Navigator.push(

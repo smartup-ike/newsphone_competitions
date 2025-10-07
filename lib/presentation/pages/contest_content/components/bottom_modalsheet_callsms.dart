@@ -34,7 +34,7 @@ void showContestPhoneSmsBottomSheet(
             const SizedBox(height: 16.0),
             // Title
             const Text(
-              'Διαλέξτε τον τρόπο συμμετοχής',
+              'Διάλεξε τον τρόπο συμμετοχής',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -44,7 +44,7 @@ void showContestPhoneSmsBottomSheet(
             const SizedBox(height: 8.0),
             // Subtitle
             const Text(
-              'Επιλέξτε τρόπο συμμετοχής στον διαγωνισμό.\nΚαλέστε μας ή στείλτε μήνυμα.',
+              'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
@@ -60,15 +60,12 @@ void showContestPhoneSmsBottomSheet(
               children: [
                 _buildOptionButton(
                   icon: 'assets/images/icons/PhoneCall.svg',
-                  label: 'Καλέστε',
-                  details:
-                      'Σταθερό 3,14 € / ΚΛΗΣΗ με ΦΠΑ\nΚινητό 3,29 € / ΚΛΗΣΗ με ΦΠΑ',
+                  label: 'Κάλεσε',
                   onTap: onPressDial,
                 ),
                 _buildOptionButton(
                   icon: 'assets/images/icons/ChatCircleDots.svg',
-                  label: 'Στείλτε SMS',
-                  details: 'SMS 3,29 € / SMS με ΦΠΑ',
+                  label: 'Στείλε SMS',
                   onTap: onPressMessage,
                 ),
               ],
@@ -84,7 +81,6 @@ void showContestPhoneSmsBottomSheet(
 Widget _buildOptionButton({
   required String icon,
   required String label,
-  required String details,
   required VoidCallback onTap,
 }) {
   return Expanded(
@@ -119,14 +115,8 @@ Widget _buildOptionButton({
             label,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
-          const SizedBox(height: 20.0),
-          Text(
-            details,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 10, color: Colors.black54),
-          ),
 
-          const SizedBox(height: 10.0),
+          const SizedBox(height: 50.0),
         ],
       ),
     ),
