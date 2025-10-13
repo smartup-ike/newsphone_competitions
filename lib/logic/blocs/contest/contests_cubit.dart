@@ -96,7 +96,7 @@ class ContestsCubit extends Cubit<ContestsState> {
       // 🔹 Always emit with selectedCategory (default "ΟΛΑ")
       emit(ContestsLoaded(sortedContests, selectedCategory: 'ΟΛΑ'));
     } catch (e) {
-      emit(ContestsError("Failed to fetch contests."));
+      emit(ContestsError("Failed to fetch contests. $e"));
     }
   }
 }

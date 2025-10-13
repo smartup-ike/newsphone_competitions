@@ -139,6 +139,7 @@ class ContestsPage extends StatelessWidget {
                   );
                 }
                 if (state is ContestsError) {
+                  print(state.message);
                   return SliverToBoxAdapter(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,

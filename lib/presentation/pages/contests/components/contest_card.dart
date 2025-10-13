@@ -16,6 +16,7 @@ class ContestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(contest.images);
     return Card(
       color: Colors.white,
       elevation: 4,
@@ -34,9 +35,9 @@ class ContestCard extends StatelessWidget {
                 top: Radius.circular(20.0),
               ),
               child:
-                  contest.imageUrl != null
+                  (contest.images != null && contest.images!.isNotEmpty)
                       ? Image.network(
-                        contest.imageUrl!,
+                        contest.images!.first.imageUrl,
                         fit: BoxFit.cover,
                         height: 200,
                       )
@@ -145,11 +146,18 @@ class ContestCard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
+                      gradient:
+                          contest.dateEnd.isBefore(DateTime.now())
+                              ? null
+                              : const LinearGradient(
+                                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                      color:
+                          contest.dateEnd.isBefore(DateTime.now())
+                              ? Colors.grey[300]
+                              : null,
                       borderRadius: BorderRadius.circular(24.0),
                     ),
                     child: TextButton(

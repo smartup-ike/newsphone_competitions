@@ -23,7 +23,7 @@ class ContestContentPage extends StatelessWidget {
           ContestAppBar(title: contest.name),
 
           //Contest header the images etc.
-          ContestHeader(imageUrl: contest.imageUrl),
+          ContestHeader(images: contest.images),
 
           //The rest details.
           ContestDetails(

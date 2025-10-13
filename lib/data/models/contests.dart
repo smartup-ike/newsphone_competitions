@@ -1,9 +1,10 @@
+import 'package:newsphone_competitions/data/models/image.dart';
 import 'package:newsphone_competitions/data/models/shows.dart';
 
 class Contest {
   final String id;
   final String name;
-  final String? imageUrl;
+  final List<ImageModel>? images;
   final DateTime dateStart;
   final DateTime dateEnd;
   final String? contentsType;
@@ -15,7 +16,7 @@ class Contest {
   Contest({
     required this.id,
     required this.name,
-    this.imageUrl,
+    this.images,
     required this.dateStart,
     required this.dateEnd,
     this.contentsType,
@@ -29,7 +30,10 @@ class Contest {
     return Contest(
       id: json['id'] as String,
       name: json['name'] as String,
-      imageUrl: json['imageUrl'] as String?,
+      images:
+          (json['images'] as List<dynamic>?)
+              ?.map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
       dateStart: DateTime.parse(json['dateStart'] as String),
       dateEnd: DateTime.parse(json['dateEnd'] as String),
       contentsType: json['contentsType'] as String?,
@@ -48,7 +52,7 @@ class Contest {
     return {
       'id': id,
       'name': name,
-      'imageUrl': imageUrl,
+      'imageUrl': images,
       'dateStart': dateStart.toIso8601String(),
       'dateEnd': dateEnd.toIso8601String(),
       'contentsType': contentsType,
@@ -75,7 +79,7 @@ class Contest {
     return Contest(
       id: id ?? this.id,
       name: name ?? this.name,
-      imageUrl: imageUrl ?? this.imageUrl,
+      images: images ?? images,
       dateStart: dateStart ?? this.dateStart,
       dateEnd: dateEnd ?? this.dateEnd,
       contentsType: contentsType ?? this.contentsType,
