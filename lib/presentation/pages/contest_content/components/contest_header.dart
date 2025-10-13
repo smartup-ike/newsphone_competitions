@@ -81,8 +81,8 @@ class _ContestHeaderState extends State<ContestHeader> {
                   (index) => AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: _currentPage == index ? 12 : 8,
-                    height: _currentPage == index ? 12 : 8,
+                    width: _currentPage == index ? 10 : 6,
+                    height: _currentPage == index ? 10 : 6,
                     decoration: BoxDecoration(
                       color:
                           _currentPage == index
