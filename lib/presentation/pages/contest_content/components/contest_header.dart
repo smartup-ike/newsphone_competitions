@@ -49,7 +49,7 @@ class _ContestHeaderState extends State<ContestHeader> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: AspectRatio(
-                  aspectRatio: 16 / 13,
+                  aspectRatio: 16 / 10,
                   child: PageView.builder(
                     controller: _pageController,
                     itemCount: widget.images!.length,
