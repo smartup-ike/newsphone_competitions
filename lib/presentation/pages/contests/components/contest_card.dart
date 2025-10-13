@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
 
 import '../../../../core/functions/date_time_format.dart';
@@ -36,10 +37,13 @@ class ContestCard extends StatelessWidget {
               ),
               child:
                   (contest.images != null && contest.images!.isNotEmpty)
-                      ? Image.network(
-                        contest.images!.first.imageUrl,
+                      ? FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: contest.images!.first.imageUrl,
                         fit: BoxFit.cover,
                         height: 200,
+                        fadeInDuration: const Duration(milliseconds: 500),
+                        fadeInCurve: Curves.easeIn,
                       )
                       : Container(
                         height: 200,

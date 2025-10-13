@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../data/models/deals.dart';
 
@@ -22,8 +23,9 @@ class DealCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (deal.companyImage != null)
-              Image.network(
-                deal.companyImage!,
+              FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: deal.companyImage!,
                 width: double.infinity,
                 height: 82,
                 fit: BoxFit.contain,

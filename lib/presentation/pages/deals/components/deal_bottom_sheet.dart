@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../data/models/deals.dart';
 
@@ -43,8 +44,9 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(20),
                       ),
-                      child: Image.network(
-                        widget.deal.dealImage!,
+                      child: FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.deal.companyImage!,
                         width: double.infinity,
                         height: 200,
                         fit: BoxFit.cover,
@@ -71,7 +73,11 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
               // --- Company Logo
               if (widget.deal.companyImage != null)
                 Center(
-                  child: Image.network(widget.deal.companyImage!, height: 60),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: widget.deal.companyImage!,
+                    height: 60,
+                  ),
                 ),
 
               const SizedBox(height: 27),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/data/models/image.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ContestHeader extends StatefulWidget {
   final List<ImageModel>? images;
@@ -58,10 +59,13 @@ class _ContestHeaderState extends State<ContestHeader> {
                       });
                     },
                     itemBuilder: (context, index) {
-                      return Image.network(
-                        widget.images![index].imageUrl,
-                        width: double.infinity,
+                      return FadeInImage.memoryNetwork(
+                        placeholder: kTransparentImage,
+                        image: widget.images![index].imageUrl,
                         fit: BoxFit.cover,
+                        width: double.infinity,
+                        fadeInDuration: const Duration(milliseconds: 500),
+                        fadeInCurve: Curves.easeIn,
                       );
                     },
                   ),
