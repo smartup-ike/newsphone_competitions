@@ -7,7 +7,6 @@ class ContestInstructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(prefixs.toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

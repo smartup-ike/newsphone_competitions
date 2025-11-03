@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/models/deals.dart';
 import '../../../data/models/notification.dart';
 import '../../../data/models/topics.dart';
+import '../../../data/services/analytics_service.dart';
 import '../../../data/services/api_service.dart';
 import '../../../data/services/notifications_services.dart';
 
@@ -79,6 +80,7 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
   Future<void> toggleTopic(String topicId) async {
     final prefs = await SharedPreferences.getInstance();
+    final isSubscribing = !_selectedTopics.contains(topicId);
 
     if (_selectedTopics.contains(topicId)) {
       _selectedTopics.remove(topicId);
@@ -87,6 +89,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       _selectedTopics.add(topicId);
       await NotificationService.subscribeToTopic(topicId);
     }
+
+    // 📊 ANALYTICS CALL 1: Log topic toggle
+    await AnalyticsService.logTopicSubscription(topicId, isSubscribing);
 
     await prefs.setStringList('selectedTopics', _selectedTopics.toList());
     emit(List.from(state));
@@ -145,6 +150,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   Future<void> _subscribeToTopics(Set<String> topics) async {
     for (var topic in topics) {
       await NotificationService.subscribeToTopic(topic);
+
+      // 📊 ANALYTICS CALL 2: Log topic subscription
+      await AnalyticsService.logTopicSubscription(topic, true);
     }
   }
 
@@ -216,6 +224,10 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           (c) => int.tryParse(c.id) == contestId,
           orElse: () => throw Exception('Contest not found'),
         );
+
+        // 📊 ANALYTICS CALL 3: Log notification contest open
+        await AnalyticsService.logNotificationOpen('contest', contestId);
+        return contest;
         return contest;
       }
 
@@ -225,6 +237,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           (d) => int.tryParse(d.id) == dealId,
           orElse: () => throw Exception('Deal not found'),
         );
+
+        // 📊 ANALYTICS CALL 3: Log notification deal open
+        await AnalyticsService.logNotificationOpen('deal', dealId ?? 0);
         return deal;
       }
 

@@ -17,7 +17,6 @@ class ContestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(contest.images);
     return Card(
       color: Colors.white,
       elevation: 4,
