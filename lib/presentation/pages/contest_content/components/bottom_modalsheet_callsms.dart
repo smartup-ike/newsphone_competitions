@@ -44,7 +44,9 @@ void showContestPhoneSmsBottomSheet(
             Text(
               'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
               textAlign: TextAlign.center,
-              style: NewsphoneTypography.body13SemiBold.copyWith(color: NewsphoneTheme.neutral40),
+              style: NewsphoneTypography.body13SemiBold.copyWith(
+                color: NewsphoneTheme.neutral40,
+              ),
             ),
             const SizedBox(height: 24.0),
             // Buttons
@@ -86,13 +88,10 @@ Widget _buildOptionButton({
         children: [
           Container(
             padding: const EdgeInsets.all(16.0),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                colors: [
-                  Color(0xFF08C7F4), // Blue
-                  Color(0xFF0765CB), // Lighter Blue
-                ],
+                colors: [NewsphoneTheme.primary, NewsphoneTheme.primary],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 
 class CategoryButton extends StatelessWidget {
   final String category;
@@ -36,31 +37,28 @@ class CategoryButton extends StatelessWidget {
               vertical: 5.0,
             ),
             decoration: BoxDecoration(
-              gradient: isSelected
-                  ? const LinearGradient(
-                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )
-                  : null,
-              color: isSelected ? null : Colors.transparent, // fallback for unselected
-              borderRadius: BorderRadius.circular(8.0),
-              boxShadow:
+              gradient:
                   isSelected
-                      ? [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                          offset: const Offset(0, 2),
-                        ),
-                      ]
+                      ? LinearGradient(
+                        colors: [
+                          NewsphoneTheme.primary20,
+                          NewsphoneTheme.primary20,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      )
                       : null,
+              color: isSelected ? null : Colors.transparent,
+              // fallback for unselected
+              borderRadius: BorderRadius.circular(24.0),
             ),
             child: Text(
               category,
               style: TextStyle(
-                color: isSelected ? Colors.white : Colors.grey[700],
+                color:
+                    isSelected
+                        ? NewsphoneTheme.neutralWhite
+                        : NewsphoneTheme.neutral30,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),

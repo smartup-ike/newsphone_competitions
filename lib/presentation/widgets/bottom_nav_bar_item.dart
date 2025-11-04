@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 
 class BottomNavBarItem extends StatelessWidget {
   final SvgPicture icon;
@@ -23,7 +24,7 @@ class BottomNavBarItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF0062BA) : const Color(0xFFEFEFEF),
+          color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutral90,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -35,7 +36,10 @@ class BottomNavBarItem extends StatelessWidget {
               child: Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey[700],
+                  color:
+                      isSelected
+                          ? NewsphoneTheme.neutralWhite
+                          : NewsphoneTheme.neutral30,
                   fontWeight: FontWeight.w600,
                 ),
                 overflow: TextOverflow.ellipsis,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'bottom_nav_bar_item.dart';
 
 class HomePageBottomNavBar extends StatelessWidget {
@@ -16,19 +17,19 @@ class HomePageBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: NewsphoneTheme.neutralWhite,
         border: Border(top: BorderSide(color: Colors.black12, width: 1)),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width, // fill screen width
+            minWidth: MediaQuery.of(context).size.width,
           ),
           child: IntrinsicWidth(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center, // center items
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BottomNavBarItem(
                   icon: SvgPicture.asset(

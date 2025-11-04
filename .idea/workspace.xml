@@ -28,48 +28,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/core/themes/newsphone_theme.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/core/themes/newsphone_typography.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/newsphone_competitions.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/newsphone_competitions.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/ant1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/icons/calendar.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/icons/Calendar.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/constans/terms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/constans/terms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/functions/helper_functions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/functions/helper_functions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/themes/theme_modes.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/services/analytics_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/services/analytics_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/services/api_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logic/blocs/contest/contests_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/contest/contests_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logic/blocs/deals/deals_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/deals/deals_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logic/blocs/notifications/notifications_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/notifications/notifications_cubit.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/about/about_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/about/about_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_callsms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_callsms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_choosepro.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_choosepro.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_header.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_prices.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_prices.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_terms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_terms.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/contest_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/contests_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/deals/components/deal_bottom_sheet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/components/deal_bottom_sheet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/deals/components/deal_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/components/deal_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/deals/components/toast_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/components/toast_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/deals/deals_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/deals/deals_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/home/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/notifications/notification_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/notifications/notification_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/preferences/components/custom_action_chip.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/preferences/components/custom_action_chip.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/preferences/prefernces_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/preferences/prefernces_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/settings/components/settings_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings/components/settings_list_tile.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/settings/components/version_info.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings/components/version_info.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/settings/settings_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/settings/settings_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/terms_page/terms_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/terms_page/terms_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/button_gradient.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/button_gradient.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contests/components/category_button.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/app_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/bottom_nav_bar_item.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,8 +124,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/presentation/widgets" />
       <recent name="$PROJECT_DIR$/assets/images" />
+      <recent name="$PROJECT_DIR$/lib/presentation/widgets" />
       <recent name="$PROJECT_DIR$/assets/images/icons" />
       <recent name="$PROJECT_DIR$/ios/Runner" />
       <recent name="$PROJECT_DIR$/android/app" />
