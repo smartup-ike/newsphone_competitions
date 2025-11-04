@@ -9,14 +9,13 @@ part 'deals_state.dart';
 
 class DealsCubit extends Cubit<DealsState> {
   List<Deal> _allDeals = [];
-  late ApiService _apiService;
+  final ApiService _apiService;
 
-  DealsCubit() : super(DealsInitial());
+  DealsCubit(this._apiService) : super(DealsInitial());
 
   /// Fetches deals from the API and updates the state.
-  Future<void> fetchDeals(ApiService apiService) async {
+  Future<void> fetchDeals() async {
     emit(DealsLoading());
-    _apiService = apiService;
     try {
       List<Deal> fetchDeal = await _apiService.apiFetchDeals();
       _allDeals = fetchDeal;

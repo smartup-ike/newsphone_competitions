@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import '../../../core/functions/date_time_format.dart';
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
@@ -37,25 +39,21 @@ class _NotificationsPageState extends State<NotificationsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: NewsphoneTheme.neutral95,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: NewsphoneTheme.neutralWhite,
         elevation: 0,
-        title: const Text(
-          'Ειδοποιήσεις',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
+        title: Text('Ειδοποιήσεις', style: NewsphoneTypography.body17Bold),
         centerTitle: true,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: PopupMenuButton<String>(
-              icon: const Icon(Icons.more_horiz, color: Colors.black),
-              color: Colors.white,
+              icon: const Icon(
+                Icons.more_horiz,
+                color: NewsphoneTheme.neutralBlack,
+              ),
+              color: NewsphoneTheme.neutralWhite,
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -77,20 +75,18 @@ class _NotificationsPageState extends State<NotificationsPage>
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       // tighter padding
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.check_box_outlined,
-                            color: Colors.black,
+                            color: NewsphoneTheme.neutralBlack,
                             size: 18,
                           ),
                           // smaller icon
                           SizedBox(width: 6),
                           Text(
                             'Σήμανση όλων ως διαβασμένα',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14, // smaller font
+                            style: NewsphoneTypography.body15Medium.copyWith(
+                              color: NewsphoneTheme.neutralBlack,
                             ),
                           ),
                         ],
@@ -103,16 +99,18 @@ class _NotificationsPageState extends State<NotificationsPage>
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       // tighter padding
                       child: Row(
-                        children: const [
-                          Icon(Icons.delete, color: Colors.red, size: 18),
+                        children: [
+                          Icon(
+                            Icons.delete,
+                            color: NewsphoneTheme.deactivate,
+                            size: 18,
+                          ),
                           // smaller icon
                           SizedBox(width: 6),
                           Text(
                             'Διαγραφή όλων',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14, // smaller font
+                            style: NewsphoneTypography.body15Medium.copyWith(
+                              color: NewsphoneTheme.deactivate,
                             ),
                           ),
                         ],
@@ -135,7 +133,7 @@ class _NotificationsPageState extends State<NotificationsPage>
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,
-                color: Colors.white,
+                color: NewsphoneTheme.neutralWhite,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
@@ -160,28 +158,24 @@ class _NotificationsPageState extends State<NotificationsPage>
                                   (notification.type ?? '') == 'contest'
                                       ? 'Νέος Διαγωνισμός!'
                                       : 'Νέα Προσφορά!',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
+                                  style: NewsphoneTypography.body16SemiBold
+                                      .copyWith(
+                                        color: NewsphoneTheme.neutralBlack,
+                                      ),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
                                   notification.title,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[700],
-                                  ),
+                                  style: NewsphoneTypography.body13Regular
+                                      .copyWith(
+                                        color: NewsphoneTheme.neutral30,
+                                      ),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
                                   formatDate(notification.sentAt),
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF0765CB),
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: NewsphoneTypography.body12Bold
+                                      .copyWith(color: NewsphoneTheme.primary),
                                 ),
                               ],
                             ),
@@ -190,10 +184,10 @@ class _NotificationsPageState extends State<NotificationsPage>
                           PopupMenuButton<String>(
                             icon: const Icon(
                               Icons.more_horiz,
-                              color: Colors.black,
+                              color: NewsphoneTheme.neutralBlack,
                               size: 20,
                             ),
-                            color: Colors.white,
+                            color: NewsphoneTheme.neutralWhite,
                             elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -227,8 +221,11 @@ class _NotificationsPageState extends State<NotificationsPage>
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                              gradient: LinearGradient(
+                                colors: [
+                                  NewsphoneTheme.primary20,
+                                  NewsphoneTheme.primary20,
+                                ],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),
@@ -269,7 +266,8 @@ class _NotificationsPageState extends State<NotificationsPage>
                                             showModalBottomSheet(
                                               context: context,
                                               isScrollControlled: true,
-                                              backgroundColor: Colors.white,
+                                              backgroundColor:
+                                                  NewsphoneTheme.neutralWhite,
                                               shape:
                                                   const RoundedRectangleBorder(
                                                     borderRadius:
@@ -315,12 +313,10 @@ class _NotificationsPageState extends State<NotificationsPage>
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Δήλωσε Συμμετοχή',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
+                                style: NewsphoneTypography.body13Bold.copyWith(
+                                  color: NewsphoneTheme.neutralWhite,
                                 ),
                               ),
                             ),
@@ -330,19 +326,19 @@ class _NotificationsPageState extends State<NotificationsPage>
                         if (_loadingNotifications.contains(
                           notification.linkedContestId,
                         ))
-                          const SizedBox(
+                          SizedBox(
                             width: 20,
                             height: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: Colors.blue,
+                              color: NewsphoneTheme.primary,
                             ),
                           ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     // Divider at dead bottom
-                    const Divider(height: 1, color: Colors.grey),
+                    const Divider(height: 1, color: NewsphoneTheme.neutral30),
                   ],
                 ),
               );

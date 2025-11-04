@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
-import 'core/themes/theme_modes.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'package:newsphone_competitions/data/services/notifications_services.dart';
@@ -64,16 +63,17 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ContestsCubit>(
-          create: (context) => ContestsCubit()..init(apiService),
+          create: (context) => ContestsCubit(apiService)..init(),
         ),
         BlocProvider<DealsCubit>(
-          create: (_) => DealsCubit()..fetchDeals(apiService),
+          create: (_) => DealsCubit(apiService)..fetchDeals(),
         ),
-        BlocProvider<NotificationCubit>(create: (_) => NotificationCubit()),
+        BlocProvider<NotificationCubit>(
+          create: (_) => NotificationCubit(apiService),
+        ),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.light,
-        theme: lightMode,
         debugShowCheckedModeBanner: false,
         title: '14614 App',
         builder: (context, child) {

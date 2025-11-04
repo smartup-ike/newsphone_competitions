@@ -8,12 +8,11 @@ part 'contests_state.dart';
 
 class ContestsCubit extends Cubit<ContestsState> {
   List<Contest> _allContests = [];
-  late ApiService _apiService;
+  final ApiService _apiService;
 
-  ContestsCubit() : super(ContestsInitial());
+  ContestsCubit(this._apiService) : super(ContestsInitial());
 
-  Future<void> init(ApiService apiService) async {
-    _apiService = apiService;
+  Future<void> init() async {
     await fetchContests();
   }
 

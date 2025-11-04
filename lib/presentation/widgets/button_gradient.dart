@@ -19,9 +19,9 @@ class ButtonGradient extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = GoogleFonts.robotoFlex(
       color: Colors.white,
-      fontSize: 14,
+      fontSize: 15,
       fontWeight: FontWeight.w600,
-      height: 22 / 13,
+      height: 20 / 13,
       letterSpacing: -0.13,
     );
 

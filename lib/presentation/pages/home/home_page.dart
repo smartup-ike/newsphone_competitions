@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -48,12 +49,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: NewsphoneTheme.neutralWhite,
       child: SafeArea(
         top: false,
         bottom: true,
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: NewsphoneTheme.neutralWhite,
           appBar: HomePageAppBar(
             clickNotificationFunction: () {
               Navigator.push(

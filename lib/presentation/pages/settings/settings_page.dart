@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:newsphone_competitions/presentation/pages/about/about_page.dart';
 import 'package:newsphone_competitions/presentation/pages/preferences/prefernces_page.dart';
 import 'package:newsphone_competitions/presentation/pages/terms_page/terms_page.dart';
@@ -26,11 +28,11 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     final cubit = context.read<NotificationCubit>();
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F4F7),
+      backgroundColor: NewsphoneTheme.neutral95,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: NewsphoneTheme.neutralWhite,
             elevation: 0,
             floating: false,
             pinned: true,
@@ -38,9 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
             centerTitle: true,
             title: Text(
               'Ρυθμίσεις',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+              style: NewsphoneTypography.body16SemiBold.copyWith(
                 color: Theme.of(context).colorScheme.inverseSurface,
               ),
             ),
@@ -58,13 +58,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   top: 16,
                   bottom: 8,
                 ),
-                child: const Text(
+                child: Text(
                   "ΓΕΝΙΚΕΣ ΡΥΘΜΙΣΕΙΣ",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF121212),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: NewsphoneTypography.body13SemiBold,
                 ),
               ),
               SettingsListTile(
@@ -117,13 +113,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   horizontal: 16.0,
                   vertical: 8.0,
                 ),
-                child: const Text(
+                child: Text(
                   "ΑΠΟΡΡΗΤΟ",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Color(0xFF121212),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: NewsphoneTypography.body13SemiBold,
                 ),
               ),
               SettingsListTile(
@@ -144,14 +136,13 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(bottom: 40.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Έκδοση εφαρμογής',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      style: NewsphoneTypography.body15Bold.copyWith(
                         color: Theme.of(context).colorScheme.inverseSurface,
                       ),
                     ),

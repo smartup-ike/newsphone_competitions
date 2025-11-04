@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestInstructions extends StatelessWidget {
   final List<String> prefixs;
@@ -10,23 +12,20 @@ class ContestInstructions extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Οδηγίες Συμμετοχής:',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
-        ),
+        Text('Οδηγίες Συμμετοχής:', style: NewsphoneTypography.body15Bold),
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'ΚΑΛΕΣΕ ΑΠΟ ΣΤΑΘΕΡΟ Ή ΚΙΝΗΤΟ ΣΤΟ',
-          style: TextStyle(fontSize: 15),
+          style: NewsphoneTypography.body15Medium,
         ),
         RichText(
-          text: const TextSpan(
-            style: TextStyle(fontSize: 15, color: Colors.black),
+          text: TextSpan(
+            style: NewsphoneTypography.body15Medium,
             children: [
               TextSpan(
                 text: '14614 ',
                 style: TextStyle(
-                  color: Color(0xFFED1953),
+                  color: NewsphoneTheme.deactivate,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -34,7 +33,7 @@ class ContestInstructions extends StatelessWidget {
               TextSpan(
                 text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ',
                 style: TextStyle(
-                  color: Color(0xFFED1953),
+                  color: NewsphoneTheme.deactivate,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -51,11 +50,11 @@ class ContestInstructions extends StatelessWidget {
               Container(
                 height: 1,
                 width: double.infinity,
-                color: Colors.grey[400],
+                color: NewsphoneTheme.neutral60,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                color: Color(0xFFF5F5F7),
+                color: NewsphoneTheme.neutral95,
                 child: const Text('ή'),
               ),
             ],
@@ -66,22 +65,20 @@ class ContestInstructions extends StatelessWidget {
         /// SMS Instructions
         RichText(
           text: TextSpan(
-            style: TextStyle(fontSize: 14, color: Colors.black),
+            style: NewsphoneTypography.body15Medium,
             children: [
               TextSpan(text: 'ΣΤΕΙΛΕ '),
               TextSpan(
                 text: prefixs.join(' ή '),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFED1953),
+                style: NewsphoneTypography.body15Bold.copyWith(
+                  color: NewsphoneTheme.deactivate,
                 ),
               ),
               TextSpan(text: ' (ΚΕΝΟ) '),
               TextSpan(
                 text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFED1953),
+                style: NewsphoneTypography.body15Bold.copyWith(
+                  color: NewsphoneTheme.deactivate,
                 ),
               ),
             ],

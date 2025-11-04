@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 
 // Reusable widget for a selectable category chip
 class CustomActionChip extends StatelessWidget {
@@ -23,14 +24,18 @@ class CustomActionChip extends StatelessWidget {
         ),
       ),
       labelStyle: TextStyle(
-        color: isSelected ? Color(0xFF004079) : Colors.black87,
+        color:
+            isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutralBlack,
       ),
       avatar:
           isSelected
-              ? const Icon(Icons.check, color: Color(0xFF004079), size: 16)
+              ? Icon(Icons.check, color: NewsphoneTheme.primary, size: 16)
               : null,
-      side: BorderSide(color: isSelected ? Color(0xFF004079) : Colors.grey),
-      backgroundColor: isSelected ? Color(0XFFDEF8FF) : Colors.white,
+      side: BorderSide(
+        color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutral50,
+      ),
+      backgroundColor:
+          isSelected ? NewsphoneTheme.primary40 : NewsphoneTheme.neutralWhite,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       onPressed: onPressed,
     );

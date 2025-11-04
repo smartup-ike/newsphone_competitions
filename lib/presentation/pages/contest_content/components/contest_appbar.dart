@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestAppBar extends StatelessWidget {
   final String title;
@@ -11,13 +12,7 @@ class ContestAppBar extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       pinned: true,
-      title: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      title: Text(title, style: NewsphoneTypography.body17Bold),
       centerTitle: true,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1.0),

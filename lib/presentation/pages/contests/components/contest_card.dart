@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
 
@@ -18,7 +20,7 @@ class ContestCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: NewsphoneTheme.neutralWhite,
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       shadowColor: Colors.black.withValues(alpha: 0.5),
@@ -46,11 +48,11 @@ class ContestCard extends StatelessWidget {
                       )
                       : Container(
                         height: 200,
-                        color: Colors.grey[300],
+                        color: NewsphoneTheme.neutral30,
                         child: const Icon(
                           Icons.image,
                           size: 50,
-                          color: Colors.white,
+                          color: NewsphoneTheme.neutralWhite,
                         ),
                       ),
             ),
@@ -61,21 +63,14 @@ class ContestCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Title
-                  Text(
-                    contest.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                  ),
+                  Text(contest.name, style: NewsphoneTypography.body17Bold),
                   const SizedBox(height: 8),
                   // Description
                   Text(
                     contest.instructions ??
                         'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF555758),
+                    style: NewsphoneTypography.body13Medium.copyWith(
+                      color: NewsphoneTheme.neutral35,
                     ),
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
@@ -92,24 +87,22 @@ class ContestCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SvgPicture.asset(
-                            'assets/images/icons/calendar.svg',
+                            'assets/images/icons/Calendar.svg',
                             width: 20,
                             height: 20,
                             color:
                                 contest.dateEnd.isBefore(DateTime.now())
-                                    ? Color(0xFFBE0609)
-                                    : null,
+                                    ? NewsphoneTheme.deactivate
+                                    : NewsphoneTheme.primary,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             '${contest.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(contest.dateEnd)}',
-                            style: TextStyle(
-                              fontSize: 15,
+                            style: NewsphoneTypography.body15Medium.copyWith(
                               color:
                                   contest.dateEnd.isBefore(DateTime.now())
-                                      ? Color(0xFFBE0609)
-                                      : Color(0xFF054279),
-                              fontWeight: FontWeight.w500,
+                                      ? NewsphoneTheme.deactivate
+                                      : NewsphoneTheme.primary,
                             ),
                           ),
                         ],
@@ -124,6 +117,7 @@ class ContestCard extends StatelessWidget {
                               'assets/images/icons/Vector.svg',
                               width: 20,
                               height: 20,
+                              color: NewsphoneTheme.primary,
                             ),
                             const SizedBox(width: 4),
                             Flexible(
@@ -131,11 +125,8 @@ class ContestCard extends StatelessWidget {
                                 contest.shows
                                     .map((show) => show.name)
                                     .join(', '),
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF054279),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: NewsphoneTypography.body15Medium
+                                    .copyWith(color: NewsphoneTheme.primary),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -152,8 +143,11 @@ class ContestCard extends StatelessWidget {
                       gradient:
                           contest.dateEnd.isBefore(DateTime.now())
                               ? null
-                              : const LinearGradient(
-                                colors: [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                              : LinearGradient(
+                                colors: [
+                                  NewsphoneTheme.primary20,
+                                  NewsphoneTheme.primary20,
+                                ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -177,11 +171,8 @@ class ContestCard extends StatelessWidget {
                       ),
                       child: Text(
                         'Διεκδίκησε το',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize:
-                              16, // can also pull from Theme.of(context).textTheme.button
+                        style: NewsphoneTypography.body16SemiBold.copyWith(
+                          color: NewsphoneTheme.neutralWhite,
                         ),
                       ),
                     ),

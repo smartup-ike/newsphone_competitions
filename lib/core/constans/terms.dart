@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///English Terms in Terms of use using Text
 final List<Widget> englishTerms = [
   const Text(
     'A. Introduction',
@@ -235,11 +236,7 @@ final List<Widget> englishTerms = [
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.apple,
-          size: 24,
-          color: Colors.grey[700],
-        ),
+        Icon(Icons.apple, size: 24, color: Colors.grey[700]),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -260,11 +257,7 @@ final List<Widget> englishTerms = [
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.android,
-          size: 24,
-          color: Colors.grey[700],
-        ),
+        Icon(Icons.android, size: 24, color: Colors.grey[700]),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -281,6 +274,8 @@ final List<Widget> englishTerms = [
     ),
   ),
 ];
+
+///Greek Terms in Terms of use using Text
 final List<Widget> greekTerms = [
   const Text(
     'Α. Εισαγωγή',
@@ -515,11 +510,7 @@ final List<Widget> greekTerms = [
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.apple,
-          size: 24,
-          color: Colors.grey[700],
-        ),
+        Icon(Icons.apple, size: 24, color: Colors.grey[700]),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -540,11 +531,7 @@ final List<Widget> greekTerms = [
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          Icons.android,
-          size: 24,
-          color: Colors.grey[700],
-        ),
+        Icon(Icons.android, size: 24, color: Colors.grey[700]),
         const SizedBox(width: 12),
         Expanded(
           child: Text(

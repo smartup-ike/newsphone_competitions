@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+
+import '../../../../core/themes/newsphone_typography.dart';
 
 class ContestPrices extends StatelessWidget {
   const ContestPrices({super.key});
@@ -9,15 +12,14 @@ class ContestPrices extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
-          text: const TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFF555758)),
+          text: TextSpan(
+            style: NewsphoneTypography.body15Regular,
             children: [
               TextSpan(text: 'Σταθερό '),
               TextSpan(
                 text: '3,14 €',
-                style: TextStyle(
-                  color: Color(0xFFED1953),
-                  fontWeight: FontWeight.w700,
+                style: NewsphoneTypography.body15Bold.copyWith(
+                  color: NewsphoneTheme.deactivate,
                 ),
               ),
               TextSpan(text: ' / ΚΛΗΣΗ με ΦΠΑ'),
@@ -26,15 +28,14 @@ class ContestPrices extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         RichText(
-          text: const TextSpan(
-            style: TextStyle(fontSize: 14, color: Color(0xFF555758)),
+          text: TextSpan(
+            style: NewsphoneTypography.body15Regular,
             children: [
               TextSpan(text: 'Κινητό '),
               TextSpan(
                 text: '3,29 €',
-                style: TextStyle(
-                  color: Color(0xFFED1953),
-                  fontWeight: FontWeight.w700,
+                style: NewsphoneTypography.body15Bold.copyWith(
+                  color: NewsphoneTheme.deactivate,
                 ),
               ),
               TextSpan(text: ' / ΚΛΗΣΗ - SMS με ΦΠΑ'),

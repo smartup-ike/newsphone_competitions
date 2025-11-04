@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestTerms extends StatelessWidget {
   final VoidCallback onPressTermsButton;
@@ -14,16 +16,18 @@ class ContestTerms extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: const TextStyle(fontSize: 12, color: Colors.black),
+        style: NewsphoneTypography.body12Regular,
         children: [
           const TextSpan(text: 'Δες τους Όρους Χρήσης '),
           WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: GestureDetector(
               onTap: onPressTermsButton,
-              child: const Text(
+              child: Text(
                 'εδώ',
-                style: TextStyle(color: Colors.blue, fontSize: 12),
+                style: NewsphoneTypography.body12Regular.copyWith(
+                  color: NewsphoneTheme.info50,
+                ),
               ),
             ),
           ),

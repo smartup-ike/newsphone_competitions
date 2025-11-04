@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 void showContestPhoneSmsBottomSheet(
   BuildContext context,
@@ -15,8 +17,8 @@ void showContestPhoneSmsBottomSheet(
     builder: (BuildContext context) {
       return Container(
         padding: const EdgeInsets.all(16.0),
-        decoration: const BoxDecoration(
-          color: Color(0xFFF5F5F7), // Match the card background color
+        decoration: BoxDecoration(
+          color: NewsphoneTheme.neutral95,
           borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
         ),
         child: Column(
@@ -33,24 +35,16 @@ void showContestPhoneSmsBottomSheet(
             ),
             const SizedBox(height: 16.0),
             // Title
-            const Text(
+            Text(
               'Διάλεξε τον τρόπο συμμετοχής',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+              style: NewsphoneTypography.heading6Bold,
             ),
             const SizedBox(height: 8.0),
             // Subtitle
-            const Text(
+            Text(
               'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-                fontWeight: FontWeight.w600,
-              ),
+              style: NewsphoneTypography.body13SemiBold.copyWith(color: NewsphoneTheme.neutral40),
             ),
             const SizedBox(height: 24.0),
             // Buttons

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../data/models/deals.dart';
@@ -13,7 +15,7 @@ class DealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xFFF5F5F7),
+      color: NewsphoneTheme.neutral95,
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 2,
@@ -31,15 +33,14 @@ class DealCard extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             const SizedBox(height: 12),
-            Text(
-              deal.name,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+            Text(deal.name, style: NewsphoneTypography.heading7Bold),
             if (deal.details != null) ...[
               const SizedBox(height: 8),
               Text(
                 deal.details!,
-                style: const TextStyle(fontSize: 14, color: Colors.black87),
+                style: NewsphoneTypography.body15Medium.copyWith(
+                  color: NewsphoneTheme.neutral40,
+                ),
               ),
             ],
             const SizedBox(height: 12),
@@ -53,15 +54,20 @@ class DealCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   elevation: 0,
-                  backgroundColor: null, // we'll override with gradient
+                  backgroundColor: null,
                 ).copyWith(
                   backgroundColor: WidgetStateProperty.all(Colors.transparent),
-                  shadowColor: WidgetStateProperty.all(Color(0xff555758)),
+                  shadowColor: WidgetStateProperty.all(
+                    NewsphoneTheme.neutral95,
+                  ),
                 ),
                 label: Ink(
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF2196F3), Color(0xFFE91E63)],
+                    gradient: LinearGradient(
+                      colors: [
+                        NewsphoneTheme.primary,
+                        NewsphoneTheme.deactivate,
+                      ],
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -78,12 +84,10 @@ class DealCard extends StatelessWidget {
                           width: 24.0,
                         ),
                         const SizedBox(width: 5),
-                        const Text(
+                        Text(
                           "Πάρε την προσφορά!",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                          style: NewsphoneTypography.body16SemiBold.copyWith(
+                            color: NewsphoneTheme.neutralWhite,
                           ),
                         ),
                       ],

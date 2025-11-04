@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/data/models/image.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+import '../../../../core/themes/newsphone_theme.dart';
+
 class ContestHeader extends StatefulWidget {
   final List<ImageModel>? images;
 
@@ -43,7 +45,7 @@ class _ContestHeaderState extends State<ContestHeader> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F7),
+                color: NewsphoneTheme.neutral95,
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: ClipRRect(

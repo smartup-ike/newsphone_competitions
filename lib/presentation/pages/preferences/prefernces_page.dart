@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
@@ -20,20 +22,18 @@ class _PreferencesPageState extends State<PreferencesPage> {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: const Color(0xFFF2F4F7),
+          backgroundColor: NewsphoneTheme.neutral95,
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: NewsphoneTheme.neutralWhite,
                 elevation: 0,
                 floating: false,
                 pinned: true,
                 centerTitle: true,
                 title: Text(
                   'Προτιμήσεις διαγωνισμών',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                  style: NewsphoneTypography.body16SemiBold.copyWith(
                     color: Theme.of(context).colorScheme.inverseSurface,
                   ),
                 ),
@@ -47,18 +47,18 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     const SizedBox(height: 24),
-                    const Text(
+                    Text(
                       "Τι κατηγορίες διαγωνισμών σε ενδιαφέρουν;",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF121212),
+                      style: NewsphoneTypography.heading7Bold.copyWith(
+                        color: NewsphoneTheme.neutralBlack,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
+                    Text(
                       "Επίλεξε τις κατηγορίες διαγωνισμών για τους οποίους θέλεις να λαμβάνεις ειδοποιήσεις.",
-                      style: TextStyle(fontSize: 13, color: Color(0xFF333435)),
+                      style: NewsphoneTypography.body13Regular.copyWith(
+                        color: NewsphoneTheme.neutral20,
+                      ),
                     ),
                     const SizedBox(height: 24),
                     BlocBuilder<NotificationCubit, List<AppNotification>>(

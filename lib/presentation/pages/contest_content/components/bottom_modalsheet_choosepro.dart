@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:newsphone_competitions/presentation/pages/contest_content/components/program_button.dart';
 
 import '../../../../data/models/contests.dart';
@@ -49,8 +51,8 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFFFFF),
+      decoration: BoxDecoration(
+        color: NewsphoneTheme.neutral95,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(
@@ -65,31 +67,21 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
               borderRadius: BorderRadius.circular(2.5),
             ),
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 15.0),
 
           // Title
-          const Text(
+          Text(
             'Μέσω ποιας εκπομπής θέλεις να συμμετέχεις στο διαγωνισμό;',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              letterSpacing: 0,
-              height: 1.1,
-            ),
+            style: NewsphoneTypography.heading6Bold,
           ),
           const SizedBox(height: 16.0),
 
           // Subtitle
-          const Text(
+          Text(
             'Επίλεξε την εκπομπή που παρακολουθείς και στης οποίας το διαγωνισμό θέλεις να πάρεις μέρος',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
-              fontWeight: FontWeight.w600,
-            ),
+            style: NewsphoneTypography.body13Regular,
           ),
           const SizedBox(height: 24.0),
 

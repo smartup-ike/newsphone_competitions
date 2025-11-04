@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../data/models/deals.dart';
@@ -34,11 +36,9 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Use a Stack to place the notch on top of the image
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  // The image is the bottom layer
                   if (widget.deal.dealImage != null)
                     ClipRRect(
                       borderRadius: const BorderRadius.vertical(
@@ -53,7 +53,6 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                       ),
                     ),
 
-                  // The notch is on top of the image
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Container(
@@ -87,10 +86,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   widget.deal.name,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: NewsphoneTypography.heading7Bold,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -104,13 +100,15 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                   child: Text(
                     widget.deal.details!,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14, color: Colors.black87),
+                    style: NewsphoneTypography.body15Regular.copyWith(
+                      color: NewsphoneTheme.neutral35,
+                    ),
                   ),
                 ),
 
               const SizedBox(height: 16),
 
-              // --- CTA Button (like “Δες τον κωδικό”)
+              // --- CTA Button ---
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child:
@@ -119,7 +117,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Colors.white,
+                            color: NewsphoneTheme.neutralWhite,
                             border: Border.all(color: Colors.transparent),
                             boxShadow: const [
                               BoxShadow(
@@ -146,10 +144,8 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                             },
                             child: Text(
                               widget.deal.dealCode,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black87,
+                              style: NewsphoneTypography.body16Bold.copyWith(
+                                color: NewsphoneTheme.neutralBlack,
                                 letterSpacing: 1.6,
                               ),
                             ),
@@ -159,15 +155,18 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF2196F3), Color(0xFFE91E63)],
+                            gradient: LinearGradient(
+                              colors: [
+                                NewsphoneTheme.primary,
+                                NewsphoneTheme.deactivate,
+                              ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                             ),
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
+                              foregroundColor: NewsphoneTheme.neutralWhite,
                               backgroundColor: Colors.transparent,
                               shadowColor: Colors.transparent,
                               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -180,11 +179,10 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                                 _isCodeRevealed = true;
                               });
                             },
-                            child: const Text(
+                            child: Text(
                               "Δες τον κωδικό",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                              style: NewsphoneTypography.body16Bold.copyWith(
+                                color: NewsphoneTheme.neutralWhite,
                               ),
                             ),
                           ),
@@ -200,21 +198,14 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Όροι και Προϋποθέσεις",
-                        style: TextStyle(
-                          color: Color(0xff121212),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                        style: NewsphoneTypography.body16Bold,
                       ),
                       const SizedBox(height: 8),
                       Text(
                         widget.deal.terms!,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.black54,
-                        ),
+                        style: NewsphoneTypography.body13Regular,
                       ),
                     ],
                   ),

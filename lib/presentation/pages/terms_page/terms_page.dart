@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 import '../../../core/constans/terms.dart';
 
@@ -15,26 +17,22 @@ class _TermsPageState extends State<TermsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2F4F7),
+      backgroundColor: NewsphoneTheme.neutral95,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: NewsphoneTheme.neutralWhite,
             elevation: 0,
             floating: false,
             pinned: true,
             centerTitle: true,
             title: Text(
               isGreek ? 'Όροι χρήσης' : 'Terms of Use',
-              style: const TextStyle(
-                fontSize: 16,
-                color: Color(0xFF121212),
-                fontWeight: FontWeight.bold,
-              ),
+              style: NewsphoneTypography.body16Bold,
             ),
             actions: [
               IconButton(
-                icon: const Icon(Icons.language, color: Colors.black),
+                icon: Icon(Icons.language, color: NewsphoneTheme.neutralBlack),
                 tooltip: 'Switch language',
                 onPressed: () {
                   setState(() {
@@ -44,15 +42,16 @@ class _TermsPageState extends State<TermsPage> {
               ),
             ],
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1.0), // Height of the divider
+              preferredSize: const Size.fromHeight(1.0),
+              // Height of the divider
               child: Container(
-                color: Colors.grey[300], // Color of the divider
-                height: 1.0, // Thickness of the divider
+                color: Colors.grey[300],
+                height: 1.0,
               ),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.all(16.0), // Padding for the content
+            padding: const EdgeInsets.all(16.0),
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 isGreek

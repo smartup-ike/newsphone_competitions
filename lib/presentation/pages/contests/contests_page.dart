@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/contest/contests_cubit.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
@@ -63,12 +65,12 @@ class ContestsPage extends StatelessWidget {
             ),
 
             // 🔹 Intro Text
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
                 child: Text(
                   'Δές όλους τους διαγωνισμούς που τρέχουν τώρα και δήλωσε συμμετοχή!',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: NewsphoneTypography.heading7Bold,
                 ),
               ),
             ),
@@ -139,23 +141,24 @@ class ContestsPage extends StatelessWidget {
                   );
                 }
                 if (state is ContestsError) {
-                  print(state.message);
                   return SliverToBoxAdapter(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.error_outline,
                             size: 60,
-                            color: Colors.grey,
+                            color: NewsphoneTheme.neutral30,
                           ),
                           SizedBox(height: 16),
                           Text(
                             'Κάτι πήγε στραβά',
-                            style: TextStyle(fontSize: 20, color: Colors.grey),
+                            style: NewsphoneTypography.heading6Bold.copyWith(
+                              color: NewsphoneTheme.neutral30,
+                            ),
                           ),
                         ],
                       ),
@@ -170,19 +173,18 @@ class ContestsPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               Icons.search_off_outlined,
                               size: 60,
-                              color: Colors.grey,
+                              color: NewsphoneTheme.neutral30,
                             ),
                             SizedBox(height: 16),
                             Text(
                               'Δεν βρέθηκε διαγωνισμός!',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.grey,
+                              style: NewsphoneTypography.heading6Bold.copyWith(
+                                color: NewsphoneTheme.neutral30,
                               ),
                             ),
                           ],

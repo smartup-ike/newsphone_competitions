@@ -29,11 +29,11 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   // List of topics fetched from API
   List<Topic> topics = [];
 
-  final ApiService _apiService = ApiService();
+  final ApiService _apiService;
 
   bool get isSubscribedToAnyTopic => _selectedTopics.isNotEmpty;
 
-  NotificationCubit() : super([]) {
+  NotificationCubit(this._apiService) : super([]) {
     _init();
   }
 
@@ -227,7 +227,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
         // 📊 ANALYTICS CALL 3: Log notification contest open
         await AnalyticsService.logNotificationOpen('contest', contestId);
-        return contest;
         return contest;
       }
 

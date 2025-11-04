@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import '../../../core/themes/newsphone_typography.dart';
 import '../../../data/services/analytics_service.dart';
 import '../../../logic/blocs/deals/deals_cubit.dart';
 import 'components/deal_bottom_sheet.dart';
@@ -16,13 +18,35 @@ class DealsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: NewsphoneTheme.neutralWhite,
       body: BlocBuilder<DealsCubit, DealsState>(
         builder: (context, state) {
           if (state is DealsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is DealsError) {
-            return Center(child: Text(state.message));
+            return Center(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 60,
+                      color: NewsphoneTheme.neutral30,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Κάτι πήγε στραβά',
+                      style: NewsphoneTypography.heading6Bold.copyWith(
+                        color: NewsphoneTheme.neutral30,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
           } else if (state is DealsLoaded) {
             return RefreshIndicator(
               onRefresh: () => _onRefresh(context),
@@ -37,7 +61,7 @@ class DealsPage extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        backgroundColor: Colors.white,
+                        backgroundColor: NewsphoneTheme.neutralWhite,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(20),

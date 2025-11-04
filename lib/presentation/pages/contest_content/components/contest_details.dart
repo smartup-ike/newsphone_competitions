@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newsphone_competitions/core/functions/date_time_format.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 import '../../../widgets/button_gradient.dart';
 import '../../../../data/models/contests.dart';
@@ -37,7 +39,7 @@ class ContestDetails extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: const Color(0xFFF5F5F7),
+            color: NewsphoneTheme.neutral95,
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Column(
@@ -52,8 +54,8 @@ class ContestDetails extends StatelessWidget {
                     style: GoogleFonts.robotoFlex(
                       color:
                           isContestEnded
-                              ? Color(0xFFFF0000)
-                              : Color(0xFF00A113),
+                              ? NewsphoneTheme.deactivate
+                              : NewsphoneTheme.active,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
@@ -65,6 +67,7 @@ class ContestDetails extends StatelessWidget {
                         'assets/images/icons/Vector.svg',
                         width: 20,
                         height: 20,
+                        color: NewsphoneTheme.primary,
                       ),
                       const SizedBox(width: 4),
                       Expanded(
@@ -72,7 +75,7 @@ class ContestDetails extends StatelessWidget {
                           contest.shows.map((show) => show.name).join(', '),
                           style: TextStyle(
                             fontSize: 15,
-                            color: Color(0xFF054279),
+                            color: NewsphoneTheme.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -86,11 +89,7 @@ class ContestDetails extends StatelessWidget {
               // 🔹 Title
               Text(
                 contest.name.toUpperCase(),
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+                style: NewsphoneTypography.heading7Bold,
               ),
               const SizedBox(height: 16),
 
@@ -99,18 +98,18 @@ class ContestDetails extends StatelessWidget {
                 prefixs: contest.shows.map((show) => show.prefix).toList(),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 15),
 
               // 🔹 Prices
               const ContestPrices(),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
               // 🔹 Button
               if (!isContestEnded) ...[
                 ButtonGradient(
                   title: 'Δήλωσε Συμμετοχή',
-                  colors: const [Color(0xFF08C7F4), Color(0xFF0765CB)],
+                  colors: [NewsphoneTheme.primary20, NewsphoneTheme.primary20],
                   onPressed: buttonClick,
                 ),
               ],

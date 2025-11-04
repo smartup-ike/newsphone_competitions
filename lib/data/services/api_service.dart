@@ -5,13 +5,12 @@ import '../models/deals.dart';
 import '../models/topics.dart';
 
 class ApiService {
-  // Base URL for your API (update this as per your actual API)
   final String _baseUrl =
       'https://newsphone-api-560508338889.europe-central2.run.app';
 
   // Fetch contests from API
   Future<List<Contest>> fetchContests() async {
-    final url = '$_baseUrl/contests'; // Adjust endpoint for contests
+    final url = '$_baseUrl/contests';
 
     try {
       final response = await http.get(Uri.parse(url));
@@ -35,14 +34,13 @@ class ApiService {
 
   // Fetch deals from API
   Future<List<Deal>> apiFetchDeals() async {
-    final url = '$_baseUrl/deals'; // Adjust endpoint for deals
+    final url = '$_baseUrl/deals';
 
     try {
       final response = await http.get(Uri.parse(url));
       //log("/deals response: ${response.body}");
 
       if (response.statusCode == 200) {
-        // Decode the JSON response and map it to a list of Deal objects
         final List<dynamic> data = json.decode(response.body);
         return data.map((dealJson) => Deal.fromJson(dealJson)).toList();
       } else {
@@ -68,6 +66,7 @@ class ApiService {
         throw Exception('Failed to load deals: ${response.statusCode}');
       }
     } catch (e) {
+      // Handle network or parsing errors
       throw Exception('Failed to load deals: $e');
     }
   }
