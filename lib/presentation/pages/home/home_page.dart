@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
-import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../../widgets/bottom_nav_bar.dart';
 import '../../widgets/app_bar.dart';
 import '../contests/contests_page.dart';
@@ -28,56 +26,39 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      context.read<NotificationCubit>().loadNotifications();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      color: NewsphoneTheme.neutralWhite,
-      child: SafeArea(
-        top: false,
-        bottom: true,
-        child: Scaffold(
-          backgroundColor: NewsphoneTheme.neutralWhite,
-          appBar: HomePageAppBar(
-            clickNotificationFunction: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NotificationsPage(),
+    return SafeArea(
+      top: false,
+      bottom: true,
+      child: Scaffold(
+        backgroundColor: NewsphoneTheme.neutralWhite,
+        body: NestedScrollView(
+          headerSliverBuilder:
+              (context, innerBoxIsScrolled) => [
+                HomePageAppBar(
+                  clickNotificationFunction: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationsPage(),
+                      ),
+                    );
+                  },
+                  clickDrawerFunction: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsPage(),
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-            clickDrawerFunction: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
-              );
-            },
-          ),
-
+              ],
           body: _pages[_selectedIndex],
-
-          bottomNavigationBar: HomePageBottomNavBar(
-            selectedIndex: _selectedIndex,
-            onItemTapped: _onItemTapped,
-          ),
+        ),
+        bottomNavigationBar: HomePageBottomNavBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
         ),
       ),
     );

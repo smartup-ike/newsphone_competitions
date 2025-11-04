@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/logic/blocs/notifications/notifications_cubit.dart';
 import '../../data/models/notification.dart';
+import '../pages/notifications/notification_page.dart';
+import '../pages/settings/settings_page.dart';
 
 class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback clickNotificationFunction;
@@ -17,10 +19,12 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: Colors.white,
+    return SliverAppBar(
+      pinned: false,
+      floating: true,
+      snap: true,
+      backgroundColor: NewsphoneTheme.neutralWhite,
       elevation: 0,
-      centerTitle: false,
       toolbarHeight: 50,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
@@ -60,7 +64,6 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       actions: [
-        // Notification Icon with unread dot
         BlocBuilder<NotificationCubit, List<AppNotification>>(
           builder: (context, notifications) {
             final hasUnread =
@@ -69,16 +72,21 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
             return Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.only(
-                    top: 5,
-                    bottom: 5,
-                    right: 3,
-                    left: 3,
-                  ),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
                   child: IconButton(
-                    icon: const Icon(CupertinoIcons.bell, color: Colors.black),
-                    onPressed: clickNotificationFunction,
+                    icon: const Icon(
+                      CupertinoIcons.bell,
+                      color: NewsphoneTheme.neutralBlack,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotificationsPage(),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 if (hasUnread)
@@ -88,8 +96,8 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: Container(
                       width: 8,
                       height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
+                      decoration: BoxDecoration(
+                        color: NewsphoneTheme.deactivate,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -98,14 +106,17 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
         ),
-
-        // Menu icon
         Container(
-          padding: const EdgeInsets.only(top: 5, bottom: 5, right: 3, left: 3),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
           child: IconButton(
             icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: clickDrawerFunction,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
+              );
+            },
           ),
         ),
       ],

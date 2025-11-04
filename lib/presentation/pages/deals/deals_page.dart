@@ -49,6 +49,7 @@ class DealsPage extends StatelessWidget {
             );
           } else if (state is DealsLoaded) {
             return RefreshIndicator(
+              color: NewsphoneTheme.primary,
               onRefresh: () => _onRefresh(context),
               child: ListView.builder(
                 padding: const EdgeInsets.all(12),

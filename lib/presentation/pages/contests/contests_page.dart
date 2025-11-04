@@ -33,9 +33,11 @@ class ContestsPage extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: RefreshIndicator(
+        color: NewsphoneTheme.primary,
         onRefresh: () => _onRefresh(context),
         child: CustomScrollView(
           slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 20)),
             // 🔹 Search Bar
             SliverToBoxAdapter(
               child: Padding(
@@ -51,13 +53,30 @@ class ContestsPage extends StatelessWidget {
                   decoration: InputDecoration(
                     isDense: true,
                     hintText: 'Αναζήτηση',
-                    hintStyle: TextStyle(color: Colors.grey[700], fontSize: 15),
+                    hintStyle: NewsphoneTypography.body15Regular.copyWith(
+                      color: NewsphoneTheme.neutral30,
+                    ),
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(0.0),
+                      borderSide: const BorderSide(
+                        color: NewsphoneTheme.neutral30,
+                      ),
                     ),
-                    filled: true,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                      borderSide: const BorderSide(
+                        color: NewsphoneTheme.neutral30,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                      borderSide: const BorderSide(
+                        color: NewsphoneTheme.neutral30,
+                        width: 1.0,
+                      ),
+                    ),
+                    filled: false,
                     fillColor: const Color(0xFFE7E9EB),
                   ),
                 ),
