@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
@@ -23,8 +26,47 @@ class ContestCard extends StatefulWidget {
 
 class _ContestCardState extends State<ContestCard> {
   final PageController _pageController = PageController();
-
   int _currentPage = 0;
+  Timer? _autoSlideTimer;
+  final Random _random = Random();
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    if (widget.contest.images == null || widget.contest.images!.length <= 1) {
+      return;
+    }
+
+    // Pick a random duration between 10 seconds and 65 seconds
+    final duration = Duration(seconds: 5 + _random.nextInt(25));
+
+    _autoSlideTimer?.cancel();
+    _autoSlideTimer = Timer(duration, () {
+      if (!mounted) return;
+
+      // Move to next page or loop to first
+      _currentPage = (_currentPage + 1) % widget.contest.images!.length;
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+
+      // Schedule next random slide
+      _startAutoSlide();
+    });
+  }
+
+  @override
+  void dispose() {
+    _autoSlideTimer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +99,8 @@ class _ContestCardState extends State<ContestCard> {
                             setState(() {
                               _currentPage = index;
                             });
+                            // Restart timer on user swipe
+                            _startAutoSlide();
                           },
                           itemBuilder: (context, index) {
                             return FadeInImage.memoryNetwork(
