@@ -7,7 +7,7 @@ import 'package:newsphone_competitions/data/models/contests.dart';
 
 import '../../../../core/functions/date_time_format.dart';
 
-class ContestCard extends StatelessWidget {
+class ContestCard extends StatefulWidget {
   const ContestCard({
     super.key,
     required this.contest,
@@ -18,6 +18,15 @@ class ContestCard extends StatelessWidget {
   final VoidCallback clickContentFunction;
 
   @override
+  State<ContestCard> createState() => _ContestCardState();
+}
+
+class _ContestCardState extends State<ContestCard> {
+  final PageController _pageController = PageController();
+
+  int _currentPage = 0;
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       color: NewsphoneTheme.neutralWhite,
@@ -26,7 +35,7 @@ class ContestCard extends StatelessWidget {
       shadowColor: Colors.black.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: InkWell(
-        onTap: clickContentFunction,
+        onTap: widget.clickContentFunction,
         borderRadius: BorderRadius.circular(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -36,25 +45,39 @@ class ContestCard extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20.0),
               ),
-              child:
-                  (contest.images != null && contest.images!.isNotEmpty)
-                      ? FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: contest.images!.first.imageUrl,
-                        fit: BoxFit.cover,
-                        height: 200,
-                        fadeInDuration: const Duration(milliseconds: 500),
-                        fadeInCurve: Curves.easeIn,
-                      )
-                      : Container(
-                        height: 200,
-                        color: NewsphoneTheme.neutral30,
-                        child: const Icon(
-                          Icons.image,
-                          size: 50,
-                          color: NewsphoneTheme.neutralWhite,
+              child: SizedBox(
+                height: 220,
+                child:
+                    (widget.contest.images != null &&
+                            widget.contest.images!.isNotEmpty)
+                        ? PageView.builder(
+                          controller: _pageController,
+                          itemCount: widget.contest.images!.length,
+                          onPageChanged: (index) {
+                            setState(() {
+                              _currentPage = index;
+                            });
+                          },
+                          itemBuilder: (context, index) {
+                            return FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: widget.contest.images![index].imageUrl,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              fadeInDuration: const Duration(milliseconds: 500),
+                              fadeInCurve: Curves.easeIn,
+                            );
+                          },
+                        )
+                        : Container(
+                          color: NewsphoneTheme.neutral30,
+                          child: const Icon(
+                            Icons.image,
+                            size: 50,
+                            color: NewsphoneTheme.neutralWhite,
+                          ),
                         ),
-                      ),
+              ),
             ),
 
             Padding(
@@ -63,11 +86,14 @@ class ContestCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Title
-                  Text(contest.name, style: NewsphoneTypography.body17Bold),
+                  Text(
+                    widget.contest.name,
+                    style: NewsphoneTypography.body17Bold,
+                  ),
                   const SizedBox(height: 8),
                   // Description
                   Text(
-                    contest.instructions ??
+                    widget.contest.instructions ??
                         'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
                     style: NewsphoneTypography.body13Medium.copyWith(
                       color: NewsphoneTheme.neutral35,
@@ -91,16 +117,18 @@ class ContestCard extends StatelessWidget {
                             width: 20,
                             height: 20,
                             color:
-                                contest.dateEnd.isBefore(DateTime.now())
+                                widget.contest.dateEnd.isBefore(DateTime.now())
                                     ? NewsphoneTheme.deactivate
                                     : NewsphoneTheme.primary,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '${contest.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(contest.dateEnd)}',
+                            '${widget.contest.dateEnd.isBefore(DateTime.now()) ? 'Κληρώθηκε' : 'Κλήρωση'} ${formatDate(widget.contest.dateEnd)}',
                             style: NewsphoneTypography.body15Medium.copyWith(
                               color:
-                                  contest.dateEnd.isBefore(DateTime.now())
+                                  widget.contest.dateEnd.isBefore(
+                                        DateTime.now(),
+                                      )
                                       ? NewsphoneTheme.deactivate
                                       : NewsphoneTheme.primary,
                             ),
@@ -109,7 +137,7 @@ class ContestCard extends StatelessWidget {
                       ),
 
                       const SizedBox(width: 20),
-                      if (contest.shows.isNotEmpty)
+                      if (widget.contest.shows.isNotEmpty)
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -122,7 +150,7 @@ class ContestCard extends StatelessWidget {
                             const SizedBox(width: 4),
                             Flexible(
                               child: Text(
-                                contest.shows
+                                widget.contest.shows
                                     .map((show) => show.name)
                                     .join(', '),
                                 style: NewsphoneTypography.body15Medium
@@ -141,7 +169,7 @@ class ContestCard extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient:
-                          contest.dateEnd.isBefore(DateTime.now())
+                          widget.contest.dateEnd.isBefore(DateTime.now())
                               ? null
                               : LinearGradient(
                                 colors: [
@@ -152,13 +180,13 @@ class ContestCard extends StatelessWidget {
                                 end: Alignment.bottomRight,
                               ),
                       color:
-                          contest.dateEnd.isBefore(DateTime.now())
+                          widget.contest.dateEnd.isBefore(DateTime.now())
                               ? Colors.grey[300]
                               : null,
                       borderRadius: BorderRadius.circular(24.0),
                     ),
                     child: TextButton(
-                      onPressed: clickContentFunction,
+                      onPressed: widget.clickContentFunction,
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
