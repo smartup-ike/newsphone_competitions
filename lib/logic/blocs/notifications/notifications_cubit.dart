@@ -90,8 +90,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       await NotificationService.subscribeToTopic(topicId);
     }
 
-    // 📊 ANALYTICS CALL 1: Log topic toggle
-    await AnalyticsService.logTopicSubscription(topicId, isSubscribing);
 
     await prefs.setStringList('selectedTopics', _selectedTopics.toList());
     emit(List.from(state));
@@ -151,8 +149,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     for (var topic in topics) {
       await NotificationService.subscribeToTopic(topic);
 
-      // 📊 ANALYTICS CALL 2: Log topic subscription
-      await AnalyticsService.logTopicSubscription(topic, true);
     }
   }
 
@@ -235,8 +231,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           orElse: () => throw Exception('Contest not found'),
         );
 
-        // 📊 ANALYTICS CALL 3: Log notification contest open
-        await AnalyticsService.logNotificationOpen('contest', contestId);
         return contest;
       }
 
@@ -247,8 +241,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           orElse: () => throw Exception('Deal not found'),
         );
 
-        // 📊 ANALYTICS CALL 3: Log notification deal open
-        await AnalyticsService.logNotificationOpen('deal', dealId ?? 0);
         return deal;
       }
 

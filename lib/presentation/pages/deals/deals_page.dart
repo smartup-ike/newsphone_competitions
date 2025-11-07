@@ -76,10 +76,6 @@ class DealsPage extends StatelessWidget {
                                   context,
                                   message: "Κωδικός $dealCode αντιγράφηκε!",
                                 );
-                                await AnalyticsService.basicLogEvent(
-                                  'copy_deal_code',
-                                  [dealCode],
-                                );
                               },
                             ),
                       );

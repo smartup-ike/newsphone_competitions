@@ -24,15 +24,16 @@ class DealCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 10,),
             if (deal.companyImage != null)
               FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage,
                 image: deal.companyImage!,
                 width: double.infinity,
-                height: 82,
+                height: 70,
                 fit: BoxFit.contain,
               ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 20),
             Text(deal.name, style: NewsphoneTypography.heading7Bold),
             if (deal.details != null) ...[
               const SizedBox(height: 8),

@@ -46,10 +46,10 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                       ),
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
-                        image: widget.deal.companyImage!,
+                        image: widget.deal.dealImage!,
                         width: double.infinity,
-                        height: 200,
-                        fit: BoxFit.cover,
+                        height: 270,
+                        fit: BoxFit.fitWidth,
                       ),
                     ),
 

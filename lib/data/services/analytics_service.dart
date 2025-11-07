@@ -61,7 +61,7 @@ class AnalyticsService {
     int contentId,
   ) async {
     await _analytics.logEvent(
-      name: 'notification_open',
+      name: 'user_notification_open',
       parameters: {'content_type': contentType, 'content_id': contentId},
     );
     if (kDebugMode) {
