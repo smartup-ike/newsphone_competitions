@@ -201,6 +201,16 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     emit(List.from(state));
   }
 
+  void setSubscriptionState(bool isSubscribed) {
+    if (isSubscribed) {
+      // just mark as subscribed locally (no network yet)
+      _selectedTopics = {'temp'};
+    } else {
+      _selectedTopics.clear();
+    }
+    emit(List.from(state)); // trigger UI rebuild
+  }
+
   Future<dynamic> openContentFromNotifications(
     int? contestId,
     int? dealId,

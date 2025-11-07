@@ -80,16 +80,28 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (context, state) {
                   return SettingsListTile(
                     title: "Ειδοποιήσεις",
-                    subtitle:
-                        "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
+                    subtitle: "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
                     leadingIcon: Icons.notifications_none,
                     trailingWidget: Switch(
                       value: cubit.isSubscribedToAnyTopic,
                       onChanged: (bool value) async {
-                        if (value) {
-                          await cubit.subscribeToAllTopics();
-                        } else {
-                          await cubit.unsubscribeFromAllTopics();
+                        // Optimistic update for instant feedback
+                        cubit.setSubscriptionState(value);
+
+                        try {
+                          if (value) {
+                            await cubit.subscribeToAllTopics();
+                          } else {
+                            await cubit.unsubscribeFromAllTopics();
+                          }
+                        } catch (e) {
+                          // If something fails, revert and show error
+                          cubit.setSubscriptionState(!value);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Αποτυχία ενημέρωσης ειδοποιήσεων."),
+                            ),
+                          );
                         }
                       },
                       activeColor: Colors.blue,
