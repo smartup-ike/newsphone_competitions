@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
+import 'package:newsphone_competitions/data/services/analytics_service.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
@@ -79,6 +80,10 @@ class _PreferencesPageState extends State<PreferencesPage> {
                                   label: category.description,
                                   isSelected: isSelected,
                                   onPressed: () async {
+                                    AnalyticsService.logTopicSubscription(
+                                      category.name,
+                                      !isSelected,
+                                    );
                                     setState(() => _isLoading = true);
                                     await cubit.toggleTopic(category.name);
                                     setState(() => _isLoading = false);

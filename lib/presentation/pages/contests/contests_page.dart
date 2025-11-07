@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
+import '../../../data/services/analytics_service.dart';
 import '../../../logic/blocs/contest/contests_cubit.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
@@ -226,6 +227,11 @@ class ContestsPage extends StatelessWidget {
                                     (context) =>
                                         ContestContentPage(contest: contest),
                               ),
+                            );
+                            AnalyticsService.logOpenContentDeal(
+                              contest.id,
+                              contest.name,
+                              true,
                             );
                           },
                         );

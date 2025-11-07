@@ -12,14 +12,15 @@ void launchURL(String stringURL) async {
 }
 
 ///Redirect to call the 14614
-void handleCall() {
+void handleCall(String showName) {
   launchURL('tel:14614');
+  AnalyticsService.logActionCallSMS('Call', showName);
 }
 
 ///Redirect to send sms to the 14614 with prefix
-void handleSms(String prefix) {
+void handleSms(String prefix,String showName) {
   final messageBody = '$prefix ';
 
-
   launchURL('sms:14614?body=${Uri.encodeComponent(messageBody)}');
+  AnalyticsService.logActionCallSMS('SMS', showName);
 }

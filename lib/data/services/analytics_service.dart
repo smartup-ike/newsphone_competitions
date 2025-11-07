@@ -2,7 +2,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 
 class AnalyticsService {
-  // FirebaseAnalytics singleton
   static final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   /// Logs a generic event with a list of actions
@@ -25,9 +24,77 @@ class AnalyticsService {
     }
   }
 
-  /// 1️⃣ Log a topic subscription/unsubscription
+  /// Logs even when open deal or content
+  static Future<void> logOpenContentDeal(
+    String id,
+    String name,
+    bool isContent,
+  ) async {
+    // Log event in Firebase Analytics
+    await _analytics.logEvent(
+      name: isContent ? 'open_content' : 'open_deal',
+      parameters: {'id': id, 'name': name},
+    );
+
+    if (kDebugMode) {
+      print(
+        '📊 ANALYTICS: Logged Open ${isContent ? 'Content' : 'Deal'}: $id, $name ',
+      );
+    }
+  }
+
+  /// Log a communication action (Call/SMS)
+  static Future<void> logActionCallSMS(
+    String actionType,
+    String showName,
+  ) async {
+    await _analytics.logEvent(
+      name: 'communication_action',
+      parameters: {
+        'action_type': actionType,
+        'show_name': showName,
+      },
+    );
+
+    if (kDebugMode) {
+      print(
+        '📞 ANALYTICS: Logged Action: $actionType. Show name: ($showName)',
+      );
+    }
+  }
+
+  /// Log copy of deal code
+  static Future<void> logCopyDealCode(String dealName) async {
+    await _analytics.logEvent(
+      name: 'copy_action',
+      parameters: {'deal_name': dealName},
+    );
+
+    if (kDebugMode) {
+      print('📊 ANALYTICS: Logged Action Copy code: $dealName');
+    }
+  }
+
+  /// Log open Content/Deal content from Notification
+  static Future<void> logNotificationOpen(
+    String type,
+    String id,
+    String name,
+  ) async {
+    await _analytics.logEvent(
+      name: 'user_notification_open',
+      parameters: {'type': type, 'id': id, 'name': name},
+    );
+    if (kDebugMode) {
+      print(
+        '🔔 ANALYTICS: Logged Notification Open: $type ID: $id Name: $name',
+      );
+    }
+  }
+
+  /// Log a topic subscription/unsubscription
   static Future<void> logTopicSubscription(
-    String topicId,
+    String topicName,
     bool isSubscribing,
   ) async {
     final action = isSubscribing ? 'subscribe' : 'unsubscribe';
@@ -35,75 +102,28 @@ class AnalyticsService {
     // Log event in Firebase Analytics
     await _analytics.logEvent(
       name: 'topic_subscription',
-      parameters: {'topic_id': topicId, 'action': action},
+      parameters: {'topic_name': topicName, 'action': action},
     );
 
     if (kDebugMode) {
-      print('📊 ANALYTICS: Logged Topic $action: $topicId');
+      print('📊 ANALYTICS: Logged Topic $action: $topicName');
     }
   }
 
-  /// 2️⃣ Log a communication action (Call/SMS)
-  static Future<void> logAction(String actionType, String target) async {
+  /// Log subscription/unsubscription to all
+  static Future<void> logTopicSubscriptionAll(
+      bool isSubscribing,
+      ) async {
+    final action = isSubscribing ? 'subscribe' : 'unsubscribe';
+
+    // Log event in Firebase Analytics
     await _analytics.logEvent(
-      name: 'communication_action',
-      parameters: {'action_type': actionType, 'target': target},
+      name: 'subscription_all_topics',
+      parameters: {'action': action},
     );
 
     if (kDebugMode) {
-      print('📞 ANALYTICS: Logged Action: $actionType to $target');
-    }
-  }
-
-  /// 3️⃣ Log a notification content open
-  static Future<void> logNotificationOpen(
-    String contentType,
-    int contentId,
-  ) async {
-    await _analytics.logEvent(
-      name: 'user_notification_open',
-      parameters: {'content_type': contentType, 'content_id': contentId},
-    );
-    if (kDebugMode) {
-      print(
-        '🔔 ANALYTICS: Logged Notification Open: $contentType ID $contentId',
-      );
-    }
-  }
-
-  /// 4️⃣ Optional: Log screen view
-  static Future<void> logScreenView(String screenName) async {
-    await _analytics.logEvent(
-      name: 'screen_view',
-      parameters: {'screen_name': screenName},
-    );
-
-    if (kDebugMode) {
-      print('🖥️ ANALYTICS: Logged Screen View: $screenName');
-    }
-  }
-
-  /// ⚠️ 5️⃣ Log an error or exception
-  static Future<void> logError(
-    dynamic error, {
-    StackTrace? stack,
-    String? context,
-    bool fatal = false,
-  }) async {
-    final message = error.toString();
-
-    // Log to Firebase Analytics for context
-    await _analytics.logEvent(
-      name: 'app_error',
-      parameters: {
-        'error_message': message,
-        if (context != null) 'context': context,
-        'fatal': fatal.toString(),
-      },
-    );
-
-    if (kDebugMode) {
-      print('🚨 ANALYTICS: Logged Error: $message [fatal: $fatal]');
+      print('📊 ANALYTICS: Logged to all Topic $action');
     }
   }
 }

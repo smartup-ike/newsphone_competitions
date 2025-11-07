@@ -32,15 +32,18 @@ class ContestContentPage extends StatelessWidget {
               if (contest.shows.length == 1) {
                 showContestPhoneSmsBottomSheet(
                   context,
-                  handleCall,
-                  () => handleSms(contest.shows.first.prefix),
+                  () => handleCall(contest.shows.first.name),
+                  () => handleSms(
+                    contest.shows.first.prefix,
+                    contest.shows.first.name,
+                  ),
                 );
               } else {
                 showContestChooseProBottomSheet(
                   context,
                   contest,
-                  handleCall,
-                  (String prefix) => handleSms(prefix),
+                  (String name) => handleCall(name),
+                  (String prefix, String name) => handleSms(prefix, name),
                 );
               }
             },

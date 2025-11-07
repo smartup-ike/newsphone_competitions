@@ -90,7 +90,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       await NotificationService.subscribeToTopic(topicId);
     }
 
-
     await prefs.setStringList('selectedTopics', _selectedTopics.toList());
     emit(List.from(state));
   }
@@ -148,7 +147,6 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   Future<void> _subscribeToTopics(Set<String> topics) async {
     for (var topic in topics) {
       await NotificationService.subscribeToTopic(topic);
-
     }
   }
 
@@ -168,6 +166,8 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
     // Save empty list to SharedPreferences
     await prefs.setStringList('selectedTopics', []);
+
+    AnalyticsService.logTopicSubscriptionAll(false);
 
     emit(List.from(state));
   }
@@ -192,6 +192,8 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
     // Subscribe to all topics via NotificationService
     await _subscribeToTopics(_selectedTopics);
+
+    AnalyticsService.logTopicSubscriptionAll(true);
 
     // Trigger rebuild
     emit(List.from(state));
@@ -230,7 +232,11 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           (c) => int.tryParse(c.id) == contestId,
           orElse: () => throw Exception('Contest not found'),
         );
-
+        AnalyticsService.logNotificationOpen(
+          'Content',
+          contest.id,
+          contest.name,
+        );
         return contest;
       }
 
@@ -240,7 +246,7 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
           (d) => int.tryParse(d.id) == dealId,
           orElse: () => throw Exception('Deal not found'),
         );
-
+        AnalyticsService.logNotificationOpen('Deal', deal.id, deal.name);
         return deal;
       }
 

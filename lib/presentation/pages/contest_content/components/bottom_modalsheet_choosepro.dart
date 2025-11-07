@@ -9,8 +9,8 @@ import 'bottom_modalsheet_callsms.dart';
 void showContestChooseProBottomSheet(
   BuildContext context,
   Contest contest,
-  VoidCallback onPressDial,
-  void Function(String selectedShow) onPressMessage,
+  void Function(String selectedShowName) onPressDial,
+  void Function(String selectedShow, String selectedNameShow) onPressMessage,
 ) {
   showModalBottomSheet(
     context: context,
@@ -30,8 +30,8 @@ void showContestChooseProBottomSheet(
 
 class _ContestChooseProContent extends StatefulWidget {
   final Contest contest;
-  final VoidCallback onPressDial;
-  final Function(String selectedShow) onPressMessage;
+  final Function(String selectedShowName) onPressDial;
+  final Function(String selectedShow, String selectedNameShow) onPressMessage;
 
   const _ContestChooseProContent({
     required this.contest,
@@ -99,9 +99,11 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
                     });
                     showContestPhoneSmsBottomSheet(
                       context,
-                      widget.onPressDial,
+                      () =>
+                          widget.onPressDial(widget.contest.shows[index].name),
                       () => widget.onPressMessage(
                         widget.contest.shows[index].prefix,
+                        widget.contest.shows[index].name,
                       ),
                     );
                   },

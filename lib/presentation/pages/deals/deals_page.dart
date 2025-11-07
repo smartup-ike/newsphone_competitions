@@ -79,6 +79,11 @@ class DealsPage extends StatelessWidget {
                               },
                             ),
                       );
+                      AnalyticsService.logOpenContentDeal(
+                        deal.id,
+                        deal.name,
+                        false,
+                      );
                     },
                   );
                 },

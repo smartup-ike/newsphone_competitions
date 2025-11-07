@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
+import 'package:newsphone_competitions/data/services/analytics_service.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../data/models/deals.dart';
@@ -141,6 +142,9 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                                 ClipboardData(text: widget.deal.dealCode),
                               );
                               widget.onCodeCopied(widget.deal.dealCode);
+                              AnalyticsService.logCopyDealCode(
+                                widget.deal.name,
+                              );
                             },
                             child: Text(
                               widget.deal.dealCode,
