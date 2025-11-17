@@ -1,8 +1,8 @@
-class Category {
+class TopicCategory {
   final String title;   // Display name
   final String topicId; // Topic ID used for Firebase subscription
 
-  Category({
+  TopicCategory({
     required this.title,
     required this.topicId,
   });

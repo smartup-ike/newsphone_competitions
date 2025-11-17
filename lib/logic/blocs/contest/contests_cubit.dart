@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/data/models/contest_categories.dart';
 
 import '../../../data/models/contests.dart';
 import '../../../data/services/api_service.dart';

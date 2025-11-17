@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:newsphone_competitions/data/models/contest_categories.dart';
 import '../models/contests.dart';
 import '../models/deals.dart';
 import '../models/topics.dart';
@@ -8,7 +9,7 @@ class ApiService {
   final String _baseUrl =
       'https://newsphone-api-560508338889.europe-central2.run.app';
 
-  // Fetch contests from API
+  /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
     final url = '$_baseUrl/contests';
 
@@ -32,7 +33,7 @@ class ApiService {
     }
   }
 
-  // Fetch deals from API
+  /// Fetch deals from API
   Future<List<Deal>> apiFetchDeals() async {
     final url = '$_baseUrl/deals';
 
@@ -61,6 +62,26 @@ class ApiService {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data.map((topicJson) => Topic.fromJson(topicJson)).toList();
+      } else {
+        // Handle API errors (non-200 responses)
+        throw Exception('Failed to load deals: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network or parsing errors
+      throw Exception('Failed to load deals: $e');
+    }
+  }
+
+  ///Fetch categories of contests
+  Future<List<ContestCategories>> fetchCategories() async {
+    final url = '$_baseUrl/contest-categories';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data
+            .map((categoriesJson) => ContestCategories.fromJson(categoriesJson))
+            .toList();
       } else {
         // Handle API errors (non-200 responses)
         throw Exception('Failed to load deals: ${response.statusCode}');

@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
@@ -70,6 +71,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<NotificationCubit>(
           create: (_) => NotificationCubit(apiService),
+        ),
+        BlocProvider<CategoriesCubit>(
+          create: (_) => CategoriesCubit(apiService),
         ),
       ],
       child: MaterialApp(
