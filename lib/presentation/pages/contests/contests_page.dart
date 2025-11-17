@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/core/constans/constants.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import '../../../data/services/analytics_service.dart';
@@ -10,15 +11,8 @@ import '../contest_content/contest_content_page.dart';
 import 'components/category_button.dart';
 import 'components/contest_card.dart';
 
-class ContestsPage extends StatefulWidget {
+class ContestsPage extends StatelessWidget {
   const ContestsPage({super.key});
-
-  @override
-  State<ContestsPage> createState() => _ContestsPageState();
-}
-
-class _ContestsPageState extends State<ContestsPage> {
-  String selectedCategory = 'ΟΛΑ';
 
   Future<void> _onRefresh(BuildContext context) async {
     context.read<NotificationCubit>().loadNotifications();
@@ -99,15 +93,6 @@ class _ContestsPageState extends State<ContestsPage> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: BlocBuilder<CategoriesCubit, CategoriesState>(
                   builder: (context, catState) {
-                    // Handle loading
-                    if (catState is CategoriesLoading) {
-                      return const SizedBox(
-                        height: 40,
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-
-                    // Handle error
                     if (catState is CategoriesError) {
                       return Padding(
                         padding: const EdgeInsets.all(16),
@@ -117,45 +102,51 @@ class _ContestsPageState extends State<ContestsPage> {
                         ),
                       );
                     }
-
-                    // Handle loaded categories
                     if (catState is CategoriesLoaded) {
-                      final categories =
-                          ['ΟΛΑ'] +
-                          catState.categories.map((c) => c.name).toList();
+                      final categories = [
+                        ConsCategories.all.name,
+                        ConsCategories.bigContests.name,
+                        ...catState.categories.map((c) => c.name),
+                      ];
+
+                      final selectedCategory = catState.selectedCategoryName;
 
                       final textTheme = Theme.of(context).textTheme;
                       final baseFontSize = textTheme.labelLarge?.fontSize ?? 16;
                       final dynamicHeight =
                           baseFontSize *
-                          MediaQuery.of(context).textScaleFactor *
-                          3.2;
-
+                              MediaQuery.of(context).textScaleFactor *
+                              3.2;
                       return SizedBox(
                         height: dynamicHeight,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: categories.length,
                           itemBuilder: (context, index) {
+                            final category = categories[index];
+
                             return CategoryButton(
-                              category: categories[index],
-                              isSelected: categories[index] == selectedCategory,
+                              category: category,
+                              isSelected: category == selectedCategory,
                               isFirst: index == 0,
                               isLast: index == categories.length - 1,
                               onTap: () {
-                                setState(() {
-                                  selectedCategory = categories[index];
-                                });
-                                context.read<ContestsCubit>().filterContests(
-                                  categories[index],
-                                );
+                                if (category == ConsCategories.all.name) {
+                                  context.read<CategoriesCubit>().selectCategory(special: ConsCategories.all);
+                                  context.read<ContestsCubit>().filterContests(special: ConsCategories.all);
+                                } else if (category == ConsCategories.bigContests.name) {
+                                  context.read<CategoriesCubit>().selectCategory(special: ConsCategories.bigContests);
+                                  context.read<ContestsCubit>().filterContests(special: ConsCategories.bigContests);
+                                } else {
+                                  context.read<CategoriesCubit>().selectCategory(normal: category);
+                                  context.read<ContestsCubit>().filterContests(normal: category);
+                                }
                               },
                             );
                           },
                         ),
                       );
                     }
-
                     return const SizedBox();
                   },
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newsphone_competitions/data/models/contest_categories.dart';
 
+import '../../../core/constans/constants.dart';
 import '../../../data/models/contests.dart';
 import '../../../data/services/api_service.dart';
 import 'package:equatable/equatable.dart';
@@ -17,17 +17,19 @@ class ContestsCubit extends Cubit<ContestsState> {
     await fetchContests();
   }
 
-  void filterContests(String category) {
-    List<Contest> filteredList;
-    if (category == 'ΟΛΑ') {
-      filteredList = _allContests;
+  void filterContests({ConsCategories? special, String? normal}) {
+    List<Contest> filtered;
+
+    if (special == ConsCategories.all || (special == null && (normal == null || normal == 'ΟΛΑ'))) {
+      filtered = _allContests;
+    } else if (special == ConsCategories.bigContests) {
+      filtered = _allContests.where((c) => c.isBigContest == true).toList();
     } else {
-      filteredList =
-          _allContests
-              .where((contest) => contest.category?.name == category)
-              .toList();
+      filtered = _allContests.where((c) => c.category?.name == normal).toList();
     }
-    emit(ContestsLoaded(filteredList, selectedCategory: category));
+
+    final selectedCategory = special?.name ?? normal ?? ConsCategories.all.name;
+    emit(ContestsLoaded(filtered, selectedCategory: selectedCategory));
   }
 
   // The new, updated searchContests method
