@@ -21,15 +21,10 @@ class ContestsCubit extends Cubit<ContestsState> {
     List<Contest> filteredList;
     if (category == 'ΟΛΑ') {
       filteredList = _allContests;
-    } else if (category == 'Μεγάλοι διαγωνισμοί') {
-      filteredList =
-          _allContests
-              .where((contest) => contest.isBigContest == true)
-              .toList();
     } else {
       filteredList =
           _allContests
-              .where((contest) => contest.contentsType == category)
+              .where((contest) => contest.category?.name == category)
               .toList();
     }
     emit(ContestsLoaded(filteredList, selectedCategory: category));
@@ -48,7 +43,7 @@ class ContestsCubit extends Cubit<ContestsState> {
       } else {
         listToFilter =
             _allContests
-                .where((contest) => contest.contentsType == currentCategory)
+                .where((contest) => contest.category?.name == currentCategory)
                 .toList();
       }
     } else {

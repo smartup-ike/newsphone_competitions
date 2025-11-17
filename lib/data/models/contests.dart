@@ -1,3 +1,4 @@
+import 'package:newsphone_competitions/data/models/contest_categories.dart';
 import 'package:newsphone_competitions/data/models/image.dart';
 import 'package:newsphone_competitions/data/models/shows.dart';
 
@@ -7,7 +8,7 @@ class Contest {
   final List<ImageModel>? images;
   final DateTime dateStart;
   final DateTime dateEnd;
-  final String? contentsType;
+  final ContestCategories? category;
   final bool? isActive;
   final String? instructions;
   final bool? isBigContest;
@@ -19,7 +20,7 @@ class Contest {
     this.images,
     required this.dateStart,
     required this.dateEnd,
-    this.contentsType,
+    this.category,
     this.isActive,
     this.instructions,
     this.isBigContest,
@@ -36,7 +37,12 @@ class Contest {
               .toList(),
       dateStart: DateTime.parse(json['dateStart'] as String),
       dateEnd: DateTime.parse(json['dateEnd'] as String),
-      contentsType: json['contentsType'] as String?,
+      category:
+          json['category'] != null
+              ? ContestCategories.fromJson(
+                json['category'] as Map<String, dynamic>,
+              )
+              : null,
       isActive: json['is_active'] as bool?,
       instructions: json['instructions'] as String?,
       isBigContest: json['isBigContest'] as bool?,
@@ -55,7 +61,7 @@ class Contest {
       'imageUrl': images,
       'dateStart': dateStart.toIso8601String(),
       'dateEnd': dateEnd.toIso8601String(),
-      'contentsType': contentsType,
+      'category': category,
       'is_active': isActive,
       'instructions': instructions,
       'isBigContest': isBigContest,
@@ -70,7 +76,7 @@ class Contest {
     String? imageUrl,
     DateTime? dateStart,
     DateTime? dateEnd,
-    String? contentsType,
+    ContestCategories? category,
     bool? isActive,
     String? instructions,
     bool? isBigContest,
@@ -82,7 +88,7 @@ class Contest {
       images: images ?? images,
       dateStart: dateStart ?? this.dateStart,
       dateEnd: dateEnd ?? this.dateEnd,
-      contentsType: contentsType ?? this.contentsType,
+      category: category ?? this.category,
       isActive: isActive ?? this.isActive,
       instructions: instructions ?? this.instructions,
       isBigContest: isBigContest ?? this.isBigContest,

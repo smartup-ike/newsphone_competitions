@@ -66,14 +66,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<ContestsCubit>(
           create: (context) => ContestsCubit(apiService)..init(),
         ),
-        BlocProvider<DealsCubit>(
-          create: (_) => DealsCubit(apiService)..fetchDeals(),
+        BlocProvider<DealsCubit>(create: (_) => DealsCubit(apiService)..init()),
+        BlocProvider<CategoriesCubit>(
+          create: (_) => CategoriesCubit(apiService)..init(),
         ),
         BlocProvider<NotificationCubit>(
           create: (_) => NotificationCubit(apiService),
-        ),
-        BlocProvider<CategoriesCubit>(
-          create: (_) => CategoriesCubit(apiService),
         ),
       ],
       child: MaterialApp(

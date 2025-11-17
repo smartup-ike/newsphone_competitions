@@ -3,14 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import '../../../data/services/analytics_service.dart';
+import '../../../logic/blocs/categories/categories_cubit.dart';
 import '../../../logic/blocs/contest/contests_cubit.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
 import 'components/category_button.dart';
 import 'components/contest_card.dart';
 
-class ContestsPage extends StatelessWidget {
+class ContestsPage extends StatefulWidget {
   const ContestsPage({super.key});
+
+  @override
+  State<ContestsPage> createState() => _ContestsPageState();
+}
+
+class _ContestsPageState extends State<ContestsPage> {
+  String selectedCategory = 'ΟΛΑ';
 
   Future<void> _onRefresh(BuildContext context) async {
     context.read<NotificationCubit>().loadNotifications();
@@ -19,16 +27,6 @@ class ContestsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      'ΟΛΑ',
-      'Μεγάλοι διαγωνισμοί',
-      'Οχήματα',
-      'Κινητά',
-      'Ταξίδια',
-      'Χρήματα',
-      'Ψώνια',
-    ];
-
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -98,24 +96,36 @@ class ContestsPage extends StatelessWidget {
             // 🔹 Categories
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 0,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4.0),
-                  child: BlocBuilder<ContestsCubit, ContestsState>(
-                    builder: (context, state) {
-                      String selectedCategory = 'ΟΛΑ';
-                      if (state is ContestsLoaded) {
-                        selectedCategory = state.selectedCategory;
-                      }
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: BlocBuilder<CategoriesCubit, CategoriesState>(
+                  builder: (context, catState) {
+                    // Handle loading
+                    if (catState is CategoriesLoading) {
+                      return const SizedBox(
+                        height: 40,
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    }
 
-                      // Get font size from theme (labelLarge or bodyMedium)
+                    // Handle error
+                    if (catState is CategoriesError) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Text(
+                          "Αποτυχία φόρτωσης κατηγοριών",
+                          style: NewsphoneTypography.body15Regular,
+                        ),
+                      );
+                    }
+
+                    // Handle loaded categories
+                    if (catState is CategoriesLoaded) {
+                      final categories =
+                          ['ΟΛΑ'] +
+                          catState.categories.map((c) => c.name).toList();
+
                       final textTheme = Theme.of(context).textTheme;
                       final baseFontSize = textTheme.labelLarge?.fontSize ?? 16;
-
-                      // Calculate height: font size * multiplier + some padding
                       final dynamicHeight =
                           baseFontSize *
                           MediaQuery.of(context).textScaleFactor *
@@ -123,31 +133,31 @@ class ContestsPage extends StatelessWidget {
 
                       return SizedBox(
                         height: dynamicHeight,
-                        child: ListView(
+                        child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            for (
-                              int index = 0;
-                              index < categories.length;
-                              index++
-                            )
-                              CategoryButton(
-                                category: categories[index],
-                                isSelected:
-                                    categories[index] == selectedCategory,
-                                isFirst: index == 0,
-                                isLast: index == categories.length - 1,
-                                onTap: () {
-                                  context.read<ContestsCubit>().filterContests(
-                                    categories[index],
-                                  );
-                                },
-                              ),
-                          ],
+                          itemCount: categories.length,
+                          itemBuilder: (context, index) {
+                            return CategoryButton(
+                              category: categories[index],
+                              isSelected: categories[index] == selectedCategory,
+                              isFirst: index == 0,
+                              isLast: index == categories.length - 1,
+                              onTap: () {
+                                setState(() {
+                                  selectedCategory = categories[index];
+                                });
+                                context.read<ContestsCubit>().filterContests(
+                                  categories[index],
+                                );
+                              },
+                            );
+                          },
                         ),
                       );
-                    },
-                  ),
+                    }
+
+                    return const SizedBox();
+                  },
                 ),
               ),
             ),
@@ -161,6 +171,7 @@ class ContestsPage extends StatelessWidget {
                   );
                 }
                 if (state is ContestsError) {
+                  print(state.message);
                   return SliverToBoxAdapter(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.5,
