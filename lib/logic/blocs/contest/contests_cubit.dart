@@ -74,24 +74,24 @@ class ContestsCubit extends Cubit<ContestsState> {
 
       _allContests = fetchedContests;
 
-      final now = DateTime.now();
-
-      List<Contest> upcomingContests =
-          _allContests
-              .where((contest) => contest.dateEnd.isAfter(now))
-              .toList();
-      List<Contest> pastContests =
-          _allContests
-              .where((contest) => contest.dateEnd.isBefore(now))
-              .toList();
-
-      upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
-      pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
-
-      List<Contest> sortedContests = [...upcomingContests, ...pastContests];
+      // final now = DateTime.now();
+      //
+      // List<Contest> upcomingContests =
+      //     _allContests
+      //         .where((contest) => contest.dateEnd.isAfter(now))
+      //         .toList();
+      // List<Contest> pastContests =
+      //     _allContests
+      //         .where((contest) => contest.dateEnd.isBefore(now))
+      //         .toList();
+      //
+      // upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
+      // pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
+      //
+      // List<Contest> sortedContests = [...upcomingContests, ...pastContests];
 
       // 🔹 Always emit with selectedCategory (default "ΟΛΑ")
-      emit(ContestsLoaded(sortedContests, selectedCategory: 'ΟΛΑ'));
+      emit(ContestsLoaded(_allContests, selectedCategory: 'ΟΛΑ'));
     } catch (e) {
       emit(ContestsError("Failed to fetch contests. $e"));
     }

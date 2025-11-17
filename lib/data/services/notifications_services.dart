@@ -89,4 +89,10 @@ class NotificationService {
     await _messaging.unsubscribeFromTopic(topic);
     developer.log("Unsubscribed from topic: $topic");
   }
+
+  static Future<void> loadMissedNotifications() async {
+    var box = Hive.box<AppNotification>('notifications');
+    // Here you can do any re-processing or mark them as unread
+    print('Loaded ${box.length} notifications on startup');
+  }
 }

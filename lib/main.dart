@@ -37,6 +37,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   final apiService = ApiService();
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -46,6 +47,10 @@ void main() async {
   await Hive.openBox<AppNotification>('notifications');
 
   await NotificationService.init();
+
+  await NotificationService.subscribeToTopic('14614Notifications');
+
+  await NotificationService.loadMissedNotifications();
 
   runApp(MyApp(apiService: apiService));
 }
