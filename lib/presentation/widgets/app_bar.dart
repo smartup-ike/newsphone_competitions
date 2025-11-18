@@ -47,7 +47,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: NewsphoneTheme.neutral90,
               padding: const EdgeInsets.only(
                 left: 10,
-                right: 20,
+                right: 10,
                 top: 20,
                 bottom: 20,
               ),
@@ -71,22 +71,25 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
 
             return Stack(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
-                  child: IconButton(
-                    icon: const Icon(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationsPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: NewsphoneTheme.neutral90,
+                    ),
+                    child: const Icon(
                       CupertinoIcons.bell,
                       color: NewsphoneTheme.neutralBlack,
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const NotificationsPage(),
-                        ),
-                      );
-                    },
                   ),
                 ),
                 if (hasUnread)
@@ -106,17 +109,20 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
             );
           },
         ),
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
-          child: IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsPage()),
-              );
-            },
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsPage()),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            height: 50,
+            decoration: BoxDecoration(
+              color: NewsphoneTheme.neutral90,
+            ),
+            child: const Icon(Icons.menu, color: Colors.black),
           ),
         ),
       ],

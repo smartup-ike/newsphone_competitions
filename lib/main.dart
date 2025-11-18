@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
@@ -52,6 +53,12 @@ void main() async {
 
   await NotificationService.loadMissedNotifications();
 
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(MyApp(apiService: apiService));
 }
 
@@ -85,9 +92,12 @@ class MyApp extends StatelessWidget {
         title: '14614 App',
         builder: (context, child) {
           return MediaQuery(
-            data: MediaQuery.of(
-              context,
-            ).copyWith(textScaler: TextScaler.linear(1.0)),
+            data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1.0, // lock font size
+              devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // optional, keeps pixel ratio fixed
+              size: MediaQuery.of(context).size, // locks the logical screen size
+            ),
+
             child: child!,
           );
         },
