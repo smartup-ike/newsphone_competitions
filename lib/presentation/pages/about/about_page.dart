@@ -10,19 +10,19 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F4F7),
       body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            floating: false,
-            pinned: true,
-            centerTitle: true,
-            title: Text('Σχετικά', style: NewsphoneTypography.body17SemiBold),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1.0),
-              child: Container(color: Colors.grey[300], height: 1.0),
-            ),
+        slivers: [SliverAppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          floating: false,
+          pinned: true,
+          centerTitle: true,
+          title: Text('Σχετικά', style: NewsphoneTypography.body17SemiBold),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1.0),
+            child: Container(color: Colors.grey[300], height: 1.0),
           ),
+        ),
+
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             sliver: SliverList(

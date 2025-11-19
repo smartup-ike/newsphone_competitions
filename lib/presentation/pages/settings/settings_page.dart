@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
@@ -8,6 +9,7 @@ import 'package:newsphone_competitions/presentation/pages/terms_page/terms_page.
 
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
+import '../coupons/coupons_page.dart';
 import 'components/settings_list_tile.dart';
 import 'components/version_info.dart';
 
@@ -80,7 +82,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (context, state) {
                   return SettingsListTile(
                     title: "Ειδοποιήσεις",
-                    subtitle: "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
+                    subtitle:
+                        "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
                     leadingIcon: Icons.notifications_none,
                     trailingWidget: Switch(
                       value: cubit.isSubscribedToAnyTopic,
@@ -99,7 +102,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           cubit.setSubscriptionState(!value);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Αποτυχία ενημέρωσης ειδοποιήσεων."),
+                              content: Text(
+                                "Αποτυχία ενημέρωσης ειδοποιήσεων.",
+                              ),
                             ),
                           );
                         }
@@ -117,6 +122,29 @@ class _SettingsPageState extends State<SettingsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const AboutPage()),
+                  );
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  top: 16,
+                  bottom: 8,
+                ),
+                child: Text(
+                  'ΚΟΥΠΟΝΙΑ',
+                  style: NewsphoneTypography.body13SemiBold,
+                ),
+              ),
+              SettingsListTile(
+                title: "Τα Κουπόνια μου",
+                subtitle: "Δείτε τα διαθέσιμα κουπόνια σας",
+                leadingIcon: Icons.discount_outlined,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CouponsPage()),
                   );
                 },
               ),

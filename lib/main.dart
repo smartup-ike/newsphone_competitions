@@ -1,4 +1,5 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'package:newsphone_competitions/data/services/notifications_services.dart';
 import 'firebase_options.dart';
+import 'logic/blocs/auth/auth_cubit.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
 import 'logic/blocs/deals/deals_cubit.dart';
 import 'logic/blocs/notifications/notifications_cubit.dart';
@@ -84,6 +86,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<NotificationCubit>(
           create: (_) => NotificationCubit(apiService),
+        ),
+        BlocProvider<AuthCubit>(
+          create: (_) => AuthCubit(FirebaseAuth.instance, apiService),
         ),
       ],
       child: MaterialApp(

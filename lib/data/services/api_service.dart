@@ -91,4 +91,31 @@ class ApiService {
       throw Exception('Failed to load deals: $e');
     }
   }
+
+  /// Register user with Firebase ID token
+  Future<Map<String, dynamic>> registerUser(String idToken) async {
+    final url = '$_baseUrl/auth/register';
+    final body = json.encode({'idToken': idToken});
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        // Successful registration, parse the JSON
+        return json.decode(response.body) as Map<String, dynamic>;
+      } else if (response.statusCode == 422) {
+        // Validation error
+        final error = json.decode(response.body);
+        throw Exception('Validation Error: $error');
+      } else {
+        throw Exception('Failed to register user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to register user: $e');
+    }
+  }
 }
