@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/presentation/pages/coupons/my_coupons_page.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/success_auth.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
+import 'coupons_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -59,6 +61,11 @@ class _SignInPageState extends State<SignInPage> {
       node.dispose();
     }
     super.dispose();
+  }
+  String _formatTimer(int s) {
+    final m = (s ~/ 60).toString().padLeft(2, '0');
+    final sec = (s % 60).toString().padLeft(2, '0');
+    return "$m:$sec";
   }
 
   final Color buttonColor = const Color(0xFF3B5998);
@@ -324,10 +331,14 @@ class _SignInPageState extends State<SignInPage> {
                             BlocListener<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 if (state.smsStatus == SmsStatus.success) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(builder: (_) => SuccessAuth()),
-                                  );
+                                  if (state.isNewUser ?? true) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => SuccessAuth()),
+                                    );
+                                  } else {
+                                    Navigator.pop(context);
+                                  }
                                 } else if (state.smsStatus == SmsStatus.failure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text(state.errorMessage ?? 'Σφάλμα επαλήθευσης')),
@@ -368,19 +379,22 @@ class _SignInPageState extends State<SignInPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
-                                      // Implement resend logic here
-                                      print("Resend code tapped");
-                                    },
+                                    onTap: state.canResend
+                                        ? () {
+                                      final phone = _phoneController.text.trim();
+                                      context.read<AuthCubit>().resendSms('+30$phone');
+                                    }
+                                        : null,
                                     child: Text(
-                                      "Αποστολή Ξανά",
-                                      style: NewsphoneTypography.body13SemiBold
-                                          .copyWith(color: buttonColor),
+                                      state.canResend ? "Αποστολή Ξανά" : "Αποστολή Ξανά",
+                                      style: NewsphoneTypography.body13SemiBold.copyWith(
+                                        color: state.canResend ? buttonColor : Colors.grey,
+                                      ),
                                     ),
                                   ),
                                   // Placeholder for the timer
                                   Text(
-                                    "04:49",
+                                    _formatTimer(state.resendSeconds),
                                     style: NewsphoneTypography.body13SemiBold
                                         .copyWith(color: Colors.grey.shade600),
                                   ),

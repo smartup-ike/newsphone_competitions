@@ -10,6 +10,9 @@ class AuthState {
   final Map<String, dynamic>? backendUserData;
   final String? errorMessage;
   final SmsStatus smsStatus;
+  final bool? isNewUser;
+  final int resendSeconds;
+  final bool canResend;
 
   const AuthState({
     required this.status,
@@ -17,7 +20,9 @@ class AuthState {
     this.verificationId,
     this.backendUserData,
     this.smsStatus = SmsStatus.initial,
-    this.errorMessage,
+    this.errorMessage, this.isNewUser,
+    this.resendSeconds = 60,
+    this.canResend = false,
   });
 
   const AuthState.unknown() : this(status: AuthStatus.unknown);
@@ -30,6 +35,9 @@ class AuthState {
     Map<String, dynamic>? backendUserData,
     String? errorMessage,
     SmsStatus? smsStatus,
+    bool? isNewUser,
+    int? resendSeconds,
+    bool? canResend,
   }) {
     return AuthState(
       status: status ?? this.status,
@@ -38,6 +46,17 @@ class AuthState {
       backendUserData: backendUserData ?? this.backendUserData,
       errorMessage: errorMessage ?? this.errorMessage,
       smsStatus: smsStatus ?? this.smsStatus,
+      isNewUser: isNewUser ?? this.isNewUser,
+      resendSeconds: resendSeconds ?? this.resendSeconds,
+      canResend: canResend ?? this.canResend,
     );
   }
+  @override
+  List<Object?> get props => [
+    verificationId,
+    smsStatus,
+    errorMessage,
+    resendSeconds,
+    canResend,
+  ];
 }

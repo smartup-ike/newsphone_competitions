@@ -19,6 +19,7 @@ class MyCouponsPage extends StatelessWidget {
               }
 
               if (state.error != null) {
+                print('asdffff');
                 return Center(child: Text(state.error!));
               }
 

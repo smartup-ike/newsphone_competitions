@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,11 +12,13 @@ class AuthCubit extends Cubit<AuthState> {
 
   final ApiService _apiService;
 
+  Timer? _timer;
+
   AuthCubit(this._auth, this._apiService) : super(const AuthState.unknown()) {
     _auth.authStateChanges().listen((user) async {
       if (user != null) {
         // Emit authenticated state
-        emit(state.copyWith(status: AuthStatus.authenticated, user: user));
+        emit(state.copyWith(status: AuthStatus.authenticated, user: user,isNewUser: true));
         registerUser();
       } else {
         emit(const AuthState.unauthenticated());
@@ -23,6 +27,8 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void verifyPhone(String phoneNumber) async {
+    emit(state.copyWith(canResend: false, resendSeconds: 60));
+    _startResendTimer();
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (credential) async {
@@ -49,10 +55,15 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     try {
-      await _auth.signInWithCredential(credential);
+      final result = await _auth.signInWithCredential(credential);
 
-      // Only mark success after Firebase auth completes
-      emit(state.copyWith(smsStatus: SmsStatus.success, errorMessage: null));
+      final bool isNew = result.additionalUserInfo?.isNewUser ?? false;
+
+      emit(state.copyWith(
+        smsStatus: SmsStatus.success,
+        errorMessage: null,
+        isNewUser: isNew,
+      ));
     } catch (e) {
       emit(state.copyWith(
         smsStatus: SmsStatus.failure,
@@ -93,6 +104,32 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  void resendSms(String phone) {
+    emit(state.copyWith(canResend: false, resendSeconds: 60));
+    _startResendTimer();
+    verifyPhone(phone);
+  }
+
+  void _startResendTimer() {
+    _timer?.cancel();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      final sec = state.resendSeconds;
+
+      if (sec == 0) {
+        timer.cancel();
+        emit(state.copyWith(canResend: true));
+      } else {
+        emit(state.copyWith(resendSeconds: sec - 1));
+      }
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
 
   void signOut() async {
     await _auth.signOut();

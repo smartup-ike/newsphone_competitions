@@ -62,6 +62,7 @@ class CouponsCubit extends Cubit<CouponsState> {
         transactions: transactions,
       ));
     } catch (e) {
+      print('asdf');
       emit(state.copyWith(
         loading: false,
         error: e.toString(),
