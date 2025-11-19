@@ -147,7 +147,7 @@ void showContestCouponsBottomSheet(
           
                 const SizedBox(height: 50.0),
                 InkWell(
-                  onTap: onPressButton,
+                  onTap: ()=> onPressButton(),
                   child: Container(
                     width: double.infinity,
                     height: 50,

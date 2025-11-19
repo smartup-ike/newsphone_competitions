@@ -69,5 +69,31 @@ class CouponsCubit extends Cubit<CouponsState> {
       ));
     }
   }
+
+  Future<void> spendOnContest(int amount, String contestId) async {
+    emit(state.copyWith(loading: true, error: null));
+
+    try {
+      final user = _auth.currentUser;
+      if (user == null) throw Exception("User not logged in");
+
+      final idToken = await user.getIdToken(true);
+
+      final result = await _apiService.spendCoupons(
+        idToken: idToken!,
+        amount: amount,
+        contestId: int.tryParse(contestId),
+      );
+
+      // Reload the user to update coupon balance
+      await loadCoupons();
+
+      emit(state.copyWith(loading: false));
+      print('Spend result: $result');
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: e.toString()));
+    }
+  }
+
 }
 

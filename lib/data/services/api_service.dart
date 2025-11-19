@@ -148,7 +148,7 @@ class ApiService {
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken', // auth required
+          'Authorization': 'Bearer $idToken',
         },
       );
 
@@ -163,4 +163,44 @@ class ApiService {
       throw Exception('Failed to fetch coupon history: $e');
     }
   }
+
+  /// Spend coupons on a contest or deal
+  Future<Map<String,dynamic>> spendCoupons({
+    required String idToken,
+    required int amount,
+    int? contestId,
+    int? dealId,
+  }) async {
+    final url = '$_baseUrl/coupons/spend';
+
+    // Build the request body
+    final body = json.encode({
+      'amount': amount,
+      'contest_id': contestId ?? 0,
+    });
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
+        body: body,
+      );
+
+      if (response.statusCode == 200) {
+        // Returns a string message from the API
+        return json.decode(response.body) as Map<String,dynamic>;
+      } else if (response.statusCode == 422) {
+        final error = json.decode(response.body);
+        throw Exception('Validation Error: $error');
+      } else {
+        throw Exception('Failed to spend coupons: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to spend coupons: $e');
+    }
+  }
+
 }

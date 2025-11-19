@@ -83,6 +83,7 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
                                   (context) => ContestCallsms(
                                     name: widget.contest.name,
                                     prefix: widget.contest.shows[index].prefix,
+                                    contestId: widget.contest.id,
                                   ),
                             ),
                           );

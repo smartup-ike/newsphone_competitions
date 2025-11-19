@@ -14,8 +14,14 @@ import 'components/program_button.dart';
 class ContestCallsms extends StatefulWidget {
   final String name;
   final String prefix;
+  final String contestId;
 
-  const ContestCallsms({super.key, required this.prefix, required this.name});
+  const ContestCallsms({
+    super.key,
+    required this.prefix,
+    required this.name,
+    required this.contestId,
+  });
 
   @override
   State<ContestCallsms> createState() => _ContestCallsmsState();
@@ -30,10 +36,9 @@ class _ContestCallsmsState extends State<ContestCallsms> {
     return BlocBuilder<CouponsCubit, CouponsState>(
       builder: (context, state) {
         var balance = 0;
-        if(state.user != null){
+        if (state.user != null) {
           balance = state.user?.couponBalance ?? 0;
         }
-
 
         return Scaffold(
           backgroundColor: NewsphoneTheme.neutralWhite,
@@ -126,9 +131,17 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                                       setState(() => usedCoupons--);
                                     }
                                   },
-                                  () {
-                                    // Confirm coupon usage
-                                    print("Use $usedCoupons coupons");
+                                  () async {
+                                    // Confirm usage
+                                    await context
+                                        .read<CouponsCubit>()
+                                        .spendOnContest(
+                                          usedCoupons,
+                                          widget.contestId,
+                                        );
+                                    Navigator.pop(
+                                      context,
+                                    ); // Close bottom sheet
                                   },
                                 );
                               },
