@@ -121,25 +121,21 @@ class ApiService {
   }
 
   ///Fetch categories of contests
-  Future<void> fetchMe(String idToken) async {
+  Future<Map<String, dynamic>> fetchMe(String idToken) async {
     final url = '$_baseUrl/users/me';
-    try {
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken',
-        },
-      );
 
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body) as Map<String, dynamic>;
-        print(data);
-      } else {
-        throw Exception('Failed to fetch user: ${response.statusCode}');
-      }
-    } catch (e) {
-      throw Exception('Failed to fetch user: $e');
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $idToken',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to fetch user: ${response.statusCode}');
     }
   }
 

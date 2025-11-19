@@ -14,6 +14,7 @@ import 'package:newsphone_competitions/data/services/notifications_services.dart
 import 'firebase_options.dart';
 import 'logic/blocs/auth/auth_cubit.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
+import 'logic/blocs/coupons/cupons_cubit.dart';
 import 'logic/blocs/deals/deals_cubit.dart';
 import 'logic/blocs/notifications/notifications_cubit.dart';
 
@@ -89,6 +90,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AuthCubit>(
           create: (_) => AuthCubit(FirebaseAuth.instance, apiService),
+        ),
+        BlocProvider(
+          create:
+              (_) => CouponsCubit(FirebaseAuth.instance, apiService)..init(),
         ),
       ],
       child: MaterialApp(
