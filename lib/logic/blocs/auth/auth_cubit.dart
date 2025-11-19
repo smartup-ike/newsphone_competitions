@@ -59,7 +59,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       // Get Firebase ID token
-      final idToken = await user.getIdToken();
+      final idToken = await user.getIdToken(true);
 
       if (idToken == null) {
         throw Exception('Failed to get Firebase ID token.');
@@ -72,6 +72,8 @@ class AuthCubit extends Cubit<AuthState> {
 
       // Update state with backend info
       emit(state.copyWith(
+        status: AuthStatus.authenticated,
+        user: user,
         backendUserData: result,
       ));
     } catch (e) {

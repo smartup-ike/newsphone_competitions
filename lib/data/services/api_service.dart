@@ -94,6 +94,7 @@ class ApiService {
 
   /// Register user with Firebase ID token
   Future<Map<String, dynamic>> registerUser(String idToken) async {
+    print('idToken : ${idToken}');
     final url = '$_baseUrl/auth/register';
     final body = json.encode({'idToken': idToken});
 
@@ -118,4 +119,28 @@ class ApiService {
       throw Exception('Failed to register user: $e');
     }
   }
+
+  ///Fetch categories of contests
+  Future<void> fetchMe(String idToken) async {
+    final url = '$_baseUrl/users/me';
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body) as Map<String, dynamic>;
+        print(data);
+      } else {
+        throw Exception('Failed to fetch user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch user: $e');
+    }
+  }
+
 }
