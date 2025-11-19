@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/presentation/pages/coupons/coupons_initialize.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/my_coupons_page.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/sing_in_page.dart';
 
@@ -15,9 +16,8 @@ class CouponsPage extends StatelessWidget {
         if (authState.status == AuthStatus.unknown) {
           return const Center(child: CircularProgressIndicator());
         } else if (authState.status == AuthStatus.unauthenticated) {
-          return const SignInPage();
+          return const CouponsInitialize();
         } else {
-          // User is authenticated → show basic placeholder
           return MyCouponsPage();
         }
       },

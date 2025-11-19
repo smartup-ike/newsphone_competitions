@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:newsphone_competitions/presentation/pages/coupons/success_auth.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
 
@@ -310,6 +311,12 @@ class _SignInPageState extends State<SignInPage> {
                               onTap: () {
                                 context.read<AuthCubit>().signInWithSms(
                                   _otpCode,
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SuccessAuth(),
+                                  ),
                                 );
                               },
                               child: Padding(
