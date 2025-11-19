@@ -22,8 +22,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.newsphone_competitions" />
-                  <option name="mobileSdkAppId" value="1:560508338889:android:111ab0852e8d4cc4004318" />
+                  <option name="appId" value="com.akep.app14614" />
+                  <option name="mobileSdkAppId" value="1:560508338889:android:b6d9c9230cf9e71c004318" />
                   <option name="projectId" value="newphone-test" />
                   <option name="projectNumber" value="560508338889" />
                 </ConnectionSetting>

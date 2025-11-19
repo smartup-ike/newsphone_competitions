@@ -10,6 +10,7 @@ import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'package:newsphone_competitions/data/services/notifications_services.dart';
+import 'firebase_options.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
 import 'logic/blocs/deals/deals_cubit.dart';
 import 'logic/blocs/notifications/notifications_cubit.dart';
@@ -37,7 +38,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final apiService = ApiService();
 
@@ -52,7 +53,6 @@ void main() async {
   await NotificationService.subscribeToTopic('14614Notifications');
 
   await NotificationService.loadMissedNotifications();
-
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -94,8 +94,12 @@ class MyApp extends StatelessWidget {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaleFactor: 1.0, // lock font size
-              devicePixelRatio: MediaQuery.of(context).devicePixelRatio, // optional, keeps pixel ratio fixed
-              size: MediaQuery.of(context).size, // locks the logical screen size
+              devicePixelRatio:
+                  MediaQuery.of(
+                    context,
+                  ).devicePixelRatio, // optional, keeps pixel ratio fixed
+              size:
+                  MediaQuery.of(context).size, // locks the logical screen size
             ),
 
             child: child!,
