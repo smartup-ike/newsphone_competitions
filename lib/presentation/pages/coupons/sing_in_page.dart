@@ -16,6 +16,29 @@ class _SignInPageState extends State<SignInPage> {
   // Using a single controller for the phone number
   final _phoneController = TextEditingController();
 
+  String? _phoneError;
+
+  bool _isValidPhone(String phone) {
+    // Basic Greek phone validation: 10 digits starting with 6
+    final regex = RegExp(r'^6\d{9}$');
+    return regex.hasMatch(phone);
+  }
+
+  void _onContinue() {
+    final phone = _phoneController.text.trim();
+    if (!_isValidPhone(phone)) {
+      setState(() {
+        _phoneError = 'Μη έγκυρος αριθμός κινητού'; // Invalid phone number
+      });
+      return;
+    }
+
+    setState(() => _phoneError = null);
+
+    // Continue with AuthCubit
+    context.read<AuthCubit>().verifyPhone('+30$phone');
+  }
+
   // Using 6 separate controllers for the 6-digit SMS code
   final List<TextEditingController> _otpControllers = List.generate(
     6,
@@ -39,12 +62,10 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   final Color buttonColor = const Color(0xFF3B5998);
-
-  // --- WIDGET FOR SINGLE OTP DIGIT BOX ---
   Widget _buildOtpBox(int index) {
     return Container(
-      width: 52, // Width of the individual box
-      height: 52, // Height of the individual box
+      width: 52,
+      height: 52,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
@@ -221,10 +242,10 @@ class _SignInPageState extends State<SignInPage> {
                                         keyboardType: TextInputType.phone,
                                         decoration: InputDecoration(
                                           labelText:
-                                              'Αριθμός Κινητού Τηλεφώνου',
+                                          _phoneError ?? 'Αριθμός Κινητού Τηλεφώνου',
+                                          labelStyle: TextStyle(color: _phoneError == null ? Colors.black : Colors.red,),
                                           // Greek text from the image
                                           prefixText: '+30 ',
-                                          // Country code prefix
                                           border: InputBorder.none,
                                           contentPadding:
                                               const EdgeInsets.symmetric(
@@ -241,14 +262,7 @@ class _SignInPageState extends State<SignInPage> {
 
                             // Spacing between input and button
                             GestureDetector(
-                              onTap: () {
-                                print(
-                                  'number : ${'+30${_phoneController.text.trim()}'}',
-                                );
-                                context.read<AuthCubit>().verifyPhone(
-                                  '+30${_phoneController.text.trim()}',
-                                );
-                              },
+                              onTap: _onContinue,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 12.0,
@@ -307,38 +321,39 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             const SizedBox(height: 30),
 
-                            GestureDetector(
-                              onTap: () {
-                                context.read<AuthCubit>().signInWithSms(
-                                  _otpCode,
-                                );
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SuccessAuth(),
-                                  ),
-                                );
+                            BlocListener<AuthCubit, AuthState>(
+                              listener: (context, state) {
+                                if (state.smsStatus == SmsStatus.success) {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => SuccessAuth()),
+                                  );
+                                } else if (state.smsStatus == SmsStatus.failure) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.errorMessage ?? 'Σφάλμα επαλήθευσης')),
+                                  );
+                                }
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                ),
-                                child: Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                    color: NewsphoneTheme.primary,
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    border: Border.all(
-                                      color: Colors.grey.shade300,
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.read<AuthCubit>().signInWithSms(_otpCode);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                  child: Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: NewsphoneTheme.primary,
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      border: Border.all(color: Colors.grey.shade300),
                                     ),
-                                  ),
-                                  width: double.infinity,
-                                  child: Center(
-                                    child: Text(
-                                      "Επιβεβαίωση & Παραλαβή Κουπονιών",
-                                      textAlign: TextAlign.center,
-                                      style: NewsphoneTypography.body17SemiBold
-                                          .copyWith(color: Colors.white),
+                                    width: double.infinity,
+                                    child: Center(
+                                      child: Text(
+                                        "Επιβεβαίωση & Παραλαβή Κουπονιών",
+                                        textAlign: TextAlign.center,
+                                        style: NewsphoneTypography.body17SemiBold.copyWith(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),

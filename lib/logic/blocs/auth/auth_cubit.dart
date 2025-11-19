@@ -48,9 +48,17 @@ class AuthCubit extends Cubit<AuthState> {
       smsCode: smsCode,
     );
 
-    await _auth.signInWithCredential(credential);
+    try {
+      await _auth.signInWithCredential(credential);
 
-    emit(state.copyWith(verificationId: null));
+      // Only mark success after Firebase auth completes
+      emit(state.copyWith(smsStatus: SmsStatus.success, errorMessage: null));
+    } catch (e) {
+      emit(state.copyWith(
+        smsStatus: SmsStatus.failure,
+        errorMessage: 'Λανθασμένος κωδικός',
+      ));
+    }
   }
 
   void registerUser() async {
