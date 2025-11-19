@@ -36,7 +36,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
             child: Image.asset(
               'assets/images/logo.png',
-              width: 150,
+              width: 160,
               height: 30,
             ),
           ),
@@ -55,6 +55,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Image.asset(
                   'assets/images/ant1.png',
                   height: 30,
+                  width: 60,
                   fit: BoxFit.contain,
                 ),
               ),

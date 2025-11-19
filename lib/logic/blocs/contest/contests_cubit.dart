@@ -20,7 +20,8 @@ class ContestsCubit extends Cubit<ContestsState> {
   void filterContests({ConsCategories? special, String? normal}) {
     List<Contest> filtered;
 
-    if (special == ConsCategories.all || (special == null && (normal == null || normal == 'ΟΛΑ'))) {
+    if (special == ConsCategories.all ||
+        (special == null && (normal == null || normal == 'ΟΛΑ'))) {
       filtered = _allContests;
     } else if (special == ConsCategories.bigContests) {
       filtered = _allContests.where((c) => c.isBigContest == true).toList();
@@ -42,6 +43,11 @@ class ContestsCubit extends Cubit<ContestsState> {
 
       if (currentCategory == 'ΟΛΑ') {
         listToFilter = _allContests;
+      } else if (currentCategory == 'Μεγάλοι Διαγωνισμοί') {
+        listToFilter =
+            _allContests
+                .where((contest) => contest.isBigContest == true)
+                .toList();
       } else {
         listToFilter =
             _allContests
