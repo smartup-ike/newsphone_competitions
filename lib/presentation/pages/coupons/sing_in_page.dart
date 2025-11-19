@@ -37,9 +37,7 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
-  final Color buttonColor = const Color(
-    0xFF3B5998,
-  );
+  final Color buttonColor = const Color(0xFF3B5998);
 
   // --- WIDGET FOR SINGLE OTP DIGIT BOX ---
   Widget _buildOtpBox(int index) {
@@ -137,12 +135,16 @@ class _SignInPageState extends State<SignInPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Εξασφαλίστε τα 10 Κουπόνια σας!',
+                          (state.verificationId == null)
+                              ? 'Εξασφαλίστε τα 10 Κουπόνια σας!'
+                              : 'Επιβεβαίωση Κωδικού (OTP)',
                           style: NewsphoneTypography.heading6Bold,
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Για να ολοκληρωθεί η απόδοση των 10 κουπονιών και να επιβεβαιώσουμε την ταυτότητά σας (ώστε να λάβετε επίσημα τα δώρα σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.',
+                          (state.verificationId == null)
+                              ? 'Για να ολοκληρωθεί η απόδοση των 10 κουπονιών και να επιβεβαιώσουμε την ταυτότητά σας (ώστε να λάβετε επίσημα τα δώρα σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.'
+                              : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε: XXXX-XXX423 \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα τα 10 κουπόνια.',
                           style: NewsphoneTypography.body13Regular.copyWith(
                             color: NewsphoneTheme.neutral40,
                           ),
@@ -351,10 +353,7 @@ class _SignInPageState extends State<SignInPage> {
                                     child: Text(
                                       "Αποστολή Ξανά",
                                       style: NewsphoneTypography.body13SemiBold
-                                          .copyWith(
-                                            color:
-                                                buttonColor,
-                                          ),
+                                          .copyWith(color: buttonColor),
                                     ),
                                   ),
                                   // Placeholder for the timer

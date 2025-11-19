@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:newsphone_competitions/presentation/pages/coupons/my_coupons_page.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/sing_in_page.dart';
 
 import '../../../logic/blocs/auth/auth_cubit.dart';
@@ -17,14 +18,7 @@ class CouponsPage extends StatelessWidget {
           return const SignInPage();
         } else {
           // User is authenticated → show basic placeholder
-          return const Scaffold(
-            body: Center(
-              child: Text(
-                "User is authenticated! Coupons will be shown here.",
-                textAlign: TextAlign.center,
-              ),
-            ),
-          );
+          return MyCouponsPage();
         }
       },
     );
