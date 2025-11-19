@@ -97,15 +97,7 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
                     setState(() {
                       selectedIndex = index;
                     });
-                    showContestPhoneSmsBottomSheet(
-                      context,
-                      () =>
-                          widget.onPressDial(widget.contest.shows[index].name),
-                      () => widget.onPressMessage(
-                        widget.contest.shows[index].prefix,
-                        widget.contest.shows[index].name,
-                      ),
-                    );
+
                   },
                 ),
               );

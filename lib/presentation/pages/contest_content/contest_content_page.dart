@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/presentation/pages/contest_content/contest_shows_page.dart';
 import '../../../core/functions/helper_functions.dart';
 import '../../../data/models/contests.dart';
 import '../terms_page/terms_page.dart';
@@ -29,23 +30,27 @@ class ContestContentPage extends StatelessWidget {
           ContestDetails(
             contest: contest,
             buttonClick: () {
-              if (contest.shows.length == 1) {
-                showContestPhoneSmsBottomSheet(
-                  context,
-                  () => handleCall(contest.shows.first.name),
-                  () => handleSms(
-                    contest.shows.first.prefix,
-                    contest.shows.first.name,
-                  ),
-                );
-              } else {
-                showContestChooseProBottomSheet(
-                  context,
-                  contest,
-                  (String name) => handleCall(name),
-                  (String prefix, String name) => handleSms(prefix, name),
-                );
-              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  ContestShowsPage(contest: contest)),
+              );
+              // if (contest.shows.length == 1) {
+              //   showContestPhoneSmsBottomSheet(
+              //     context,
+              //     () => handleCall(contest.shows.first.name),
+              //     () => handleSms(
+              //       contest.shows.first.prefix,
+              //       contest.shows.first.name,
+              //     ),
+              //   );
+              // } else {
+              //   showContestChooseProBottomSheet(
+              //     context,
+              //     contest,
+              //     (String name) => handleCall(name),
+              //     (String prefix, String name) => handleSms(prefix, name),
+              //   );
+              // }
             },
             onPressTermsButton: () {
               Navigator.push(
