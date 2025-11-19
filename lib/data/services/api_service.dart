@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:newsphone_competitions/data/models/contest_categories.dart';
+import 'package:newsphone_competitions/data/models/user_transaction.dart';
 import '../models/contests.dart';
 import '../models/deals.dart';
 import '../models/topics.dart';
@@ -138,5 +139,28 @@ class ApiService {
       throw Exception('Failed to fetch user: ${response.statusCode}');
     }
   }
+  /// Fetch coupon history for the current authenticated user
+  Future<List<UserTransaction>> fetchCouponHistory(String idToken) async {
+    final url = '$_baseUrl/coupons/history';
 
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $idToken', // auth required
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((json) => UserTransaction.fromJson(json)).toList();
+      } else {
+        throw Exception(
+            'Failed to fetch coupon history: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch coupon history: $e');
+    }
+  }
 }

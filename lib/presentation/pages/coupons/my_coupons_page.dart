@@ -112,6 +112,27 @@ class MyCouponsPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ...state.transactions.map(
+                                (tx) => Card(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              child: ListTile(
+                                title: Text(tx.id.toString()),
+                                subtitle: Text(tx.transactionDate.toString()),
+                                trailing: Text('x${tx.couponsSpent}'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
                 ],
               );
             }),
