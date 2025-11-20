@@ -3,11 +3,10 @@ import 'package:newsphone_competitions/presentation/pages/contest_content/contes
 import '../../../core/functions/helper_functions.dart';
 import '../../../data/models/contests.dart';
 import '../terms_page/terms_page.dart';
-import 'components/bottom_modalsheet_callsms.dart';
-import 'components/bottom_modalsheet_choosepro.dart';
 import 'components/contest_appbar.dart';
 import 'components/contest_details.dart';
 import 'components/contest_header.dart';
+import 'contest_callsms.dart';
 
 class ContestContentPage extends StatelessWidget {
   final Contest contest;
@@ -32,27 +31,26 @@ class ContestContentPage extends StatelessWidget {
             ContestDetails(
               contest: contest,
               buttonClick: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  ContestShowsPage(contest: contest)),
-                );
-                // if (contest.shows.length == 1) {
-                //   showContestPhoneSmsBottomSheet(
-                //     context,
-                //     () => handleCall(contest.shows.first.name),
-                //     () => handleSms(
-                //       contest.shows.first.prefix,
-                //       contest.shows.first.name,
-                //     ),
-                //   );
-                // } else {
-                //   showContestChooseProBottomSheet(
-                //     context,
-                //     contest,
-                //     (String name) => handleCall(name),
-                //     (String prefix, String name) => handleSms(prefix, name),
-                //   );
-                // }
+                if (contest.shows.length == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => ContestCallsms(
+                            name: contest.name,
+                            prefix: contest.shows.first.prefix,
+                            contestId: contest.id,
+                          ),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContestShowsPage(contest: contest),
+                    ),
+                  );
+                }
               },
               onPressTermsButton: () {
                 Navigator.push(

@@ -91,6 +91,7 @@ class CouponsCubit extends Cubit<CouponsState> {
       );
 
       await loadCoupons();
+      await loadTransactions();
 
       emit(state.copyWith(spendLoading: false, spendSuccess: true));
     } catch (e) {

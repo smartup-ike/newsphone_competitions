@@ -130,6 +130,7 @@ class _NotificationsPageState extends State<NotificationsPage>
             itemCount: notifications.length,
             itemBuilder: (context, index) {
               final notification = notifications[index];
+              print('asdf ${notification.linkedContestId} ${notification.linkedDealId}');
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,
@@ -155,9 +156,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  (notification.type ?? '') == 'contest'
+                                  (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
                                       ? 'Νέος Διαγωνισμός!'
-                                      : 'Νέα Προσφορά!',
+                                      : 'Νέα Προσφορά!': notification.title,
                                   style: NewsphoneTypography.body16SemiBold
                                       .copyWith(
                                         color: NewsphoneTheme.neutralBlack,
@@ -165,7 +166,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  notification.title,
+                                  (notification.linkedContestId != 0 || notification.linkedDealId != null) ? notification.title : notification.body,
                                   style: NewsphoneTypography.body13Regular
                                       .copyWith(
                                         color: NewsphoneTheme.neutral30,
@@ -214,7 +215,8 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                     const SizedBox(height: 4),
                     // Register button
-                    Row(
+                    (notification.linkedContestId != 0 || notification.linkedDealId != null) ? Row(
+
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -335,7 +337,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                             ),
                           ),
                       ],
-                    ),
+                    ): const SizedBox(),
                     const SizedBox(height: 8),
                     // Divider at dead bottom
                     const Divider(height: 1, color: NewsphoneTheme.neutral30),

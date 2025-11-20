@@ -65,7 +65,9 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
 
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: List.generate(widget.contest.shows.length, (index) {
+                    children: List.generate(widget.contest.shows.length, (
+                      index,
+                    ) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10.0,
@@ -84,7 +86,8 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
                                 builder:
                                     (context) => ContestCallsms(
                                       name: widget.contest.name,
-                                      prefix: widget.contest.shows[index].prefix,
+                                      prefix:
+                                          widget.contest.shows[index].prefix,
                                       contestId: widget.contest.id,
                                     ),
                               ),
