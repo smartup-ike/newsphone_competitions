@@ -350,7 +350,6 @@ class _SignInPageState extends State<SignInPage> {
                             BlocListener<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 if (state.smsStatus == SmsStatus.success) {
-                                  context.read<CouponsCubit>().init();
                                   if (state.isNewUser ?? true) {
                                     Navigator.pushReplacement(
                                       context,
@@ -361,6 +360,7 @@ class _SignInPageState extends State<SignInPage> {
                                   } else {
                                     Navigator.pop(context);
                                   }
+                                  context.read<CouponsCubit>().init();
                                 } else if (state.smsStatus ==
                                     SmsStatus.failure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -371,6 +371,7 @@ class _SignInPageState extends State<SignInPage> {
                                       ),
                                     ),
                                   );
+                                  context.read<AuthCubit>().clearSmsStatus();
                                 }
                               },
                               child: GestureDetector(

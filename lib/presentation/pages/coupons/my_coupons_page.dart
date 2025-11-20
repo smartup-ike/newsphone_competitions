@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/coupons_page.dart';
+import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
+import 'package:newsphone_competitions/presentation/pages/settings/settings_page.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
 import '../../../logic/blocs/coupons/cupons_cubit.dart';
+import 'coupons_initialize.dart';
 
 class MyCouponsPage extends StatelessWidget {
   const MyCouponsPage({super.key});
@@ -53,14 +56,17 @@ class MyCouponsPage extends StatelessWidget {
                   actions: [
                     IconButton(
                       onPressed: () async {
+                        // 1. Sign out from Firebase
                         await context.read<AuthCubit>().signOut();
+                        context.read<CouponsCubit>().reset();
 
-                        // Reset CouponsCubit
-                        context.read<CouponsCubit>().emit(const CouponsState());
-
-                        Navigator.of(context).pop();
+                        // 3. Navigate to the initial page and clear navigation stack
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (_) => const HomePage()),
+                              (route) => false,
+                        );
                       },
-                      icon: Icon(Icons.logout),
+                      icon: const Icon(Icons.logout),
                     ),
                   ],
                 ),

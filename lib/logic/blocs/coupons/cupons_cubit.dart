@@ -124,4 +124,7 @@ class CouponsCubit extends Cubit<CouponsState> {
       return null;
     }
   }
+  void reset() {
+    emit(const CouponsState());
+  }
 }

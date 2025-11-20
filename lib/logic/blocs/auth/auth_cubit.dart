@@ -19,7 +19,6 @@ class AuthCubit extends Cubit<AuthState> {
     _authListener = _auth.authStateChanges().listen((user) async {
       if (user != null) {
         emit(state.copyWith(status: AuthStatus.authenticated, user: user, isNewUser: true));
-        registerUser();
       } else {
         emit(const AuthState.unauthenticated());
       }
@@ -44,7 +43,10 @@ class AuthCubit extends Cubit<AuthState> {
       },
       verificationFailed: (e) {
         print("Phone verification failed: $e");
-        emit(state.copyWith(loading: false)); // stop loading
+        emit(state.copyWith(
+          loading: false,
+          errorMessage: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά.',
+        ));
       },
       codeSent: (verificationId, resendToken) {
         emit(state.copyWith(verificationId: verificationId, loading: false));
@@ -74,6 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
         errorMessage: null,
         isNewUser: isNew,
       ));
+      registerUser();
     } catch (e) {
       emit(state.copyWith(
         smsStatus: SmsStatus.failure,
@@ -138,8 +141,6 @@ class AuthCubit extends Cubit<AuthState> {
     await _auth.signOut();
     await _authListener?.cancel();
 
-
-
     // Fully reset AuthState
     emit(const AuthState.unauthenticated().clear(
       verificationId: null,
@@ -149,5 +150,9 @@ class AuthCubit extends Cubit<AuthState> {
       resendSeconds: 60,
       canResend: false,
     ));
+  }
+
+  void clearSmsStatus() {
+    emit(state.copyWith(smsStatus: SmsStatus.initial, errorMessage: null));
   }
 }
