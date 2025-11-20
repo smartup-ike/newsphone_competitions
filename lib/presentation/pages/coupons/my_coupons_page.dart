@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:newsphone_competitions/presentation/pages/coupons/coupons_page.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
@@ -50,16 +51,17 @@ class MyCouponsPage extends StatelessWidget {
                     child: Container(color: Colors.grey[300], height: 1.0),
                   ),
                   actions: [
-                    IconButton(onPressed: () async {
-                      await context.read<AuthCubit>().signOut();
+                    IconButton(
+                      onPressed: () async {
+                        await context.read<AuthCubit>().signOut();
 
-                      // Reset CouponsCubit
-                      context.read<CouponsCubit>().emit(const CouponsState());
+                        // Reset CouponsCubit
+                        context.read<CouponsCubit>().emit(const CouponsState());
 
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/login',
-                            (route) => false,
-                      );}, icon: Icon(Icons.logout)),
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.logout),
+                    ),
                   ],
                 ),
                 SliverToBoxAdapter(

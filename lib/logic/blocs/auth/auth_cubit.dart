@@ -9,21 +9,28 @@ part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth;
+  StreamSubscription<User?>? _authListener;
 
   final ApiService _apiService;
 
   Timer? _timer;
 
   AuthCubit(this._auth, this._apiService) : super(const AuthState.unknown()) {
-    _auth.authStateChanges().listen((user) async {
+    _authListener = _auth.authStateChanges().listen((user) async {
       if (user != null) {
-        // Emit authenticated state
-        emit(state.copyWith(status: AuthStatus.authenticated, user: user,isNewUser: true));
+        emit(state.copyWith(status: AuthStatus.authenticated, user: user, isNewUser: true));
         registerUser();
       } else {
         emit(const AuthState.unauthenticated());
       }
     });
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    _authListener?.cancel();
+    return super.close();
   }
 
   void verifyPhone(String phoneNumber) async {
@@ -127,20 +134,14 @@ class AuthCubit extends Cubit<AuthState> {
       }
     });
   }
-
-  @override
-  Future<void> close() {
-    _timer?.cancel();
-    return super.close();
-  }
   Future<void> signOut() async {
     await _auth.signOut();
-    _timer?.cancel();
+    await _authListener?.cancel();
 
-    // Reset state and set verificationId to null
-    emit(state.clear(
-      status: AuthStatus.unknown,
-      user: null,
+
+
+    // Fully reset AuthState
+    emit(const AuthState.unauthenticated().clear(
       verificationId: null,
       smsStatus: SmsStatus.initial,
       isNewUser: null,
@@ -148,6 +149,5 @@ class AuthCubit extends Cubit<AuthState> {
       resendSeconds: 60,
       canResend: false,
     ));
-    emit(const AuthState.unauthenticated());
   }
 }

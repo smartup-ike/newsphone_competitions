@@ -52,6 +52,10 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   void dispose() {
+    _phoneController.clear();
+    for (var c in _otpControllers) {
+      c.clear();
+    }
     _phoneController.dispose();
     for (var controller in _otpControllers) {
       controller.dispose();
