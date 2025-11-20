@@ -20,7 +20,7 @@ class CouponsInitialize extends StatelessWidget {
             pinned: true,
             centerTitle: true,
             title: Text(
-              'Τα Κουπόνια μου',
+              'Οι δωρεάν συμμετοχές μου',
               style: NewsphoneTypography.body17SemiBold,
             ),
             bottom: PreferredSize(
@@ -37,7 +37,7 @@ class CouponsInitialize extends StatelessWidget {
                 children: [
                   const SizedBox(height: 20),
                   Text(
-                    'SUPER ΔΩΡΟ!',
+                    'SUPER ΠΡΟΣΦΟΡΑ!',
                     style: NewsphoneTypography.heading5Bold.copyWith(
                       color: NewsphoneTheme.primary,
                     ),
@@ -45,13 +45,13 @@ class CouponsInitialize extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     textAlign: TextAlign.center,
-                    'Θέλετε να εξασφαλίσετε 10 κουπόνια-συμμετοχές σε μεγάλους διαγωνισμούς εντελώς ΔΩΡΕΑΝ;',
+                    'Θέλετε να εξασφαλίσετε 10 ΔΩΡΕΑΝ συμμετοχές στους διαγωνισμούς μας;',
                     style: NewsphoneTypography.heading6Bold,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     textAlign: TextAlign.center,
-                    'Με 10 δωρεάν κουπόνια, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.',
+                    'Με 10 δωρεάν συμμετοχές, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.',
                     style: NewsphoneTypography.body13Regular,
                   ),
                   const SizedBox(height: 50),
@@ -78,7 +78,7 @@ class CouponsInitialize extends StatelessWidget {
                         width: double.infinity,
                         child: Center(
                           child: Text(
-                            "ΝΑΙ, θέλω 10 κουπόνια δωρεάν!",
+                            "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
                             textAlign: TextAlign.center,
                             style: NewsphoneTypography.body17SemiBold.copyWith(
                               color: Colors.white,

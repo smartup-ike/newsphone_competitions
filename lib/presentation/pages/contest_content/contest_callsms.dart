@@ -110,7 +110,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                             children: [
                               _buildOptionButton(
                                 icon: 'assets/images/icons/Coupon.svg',
-                                label: 'Χρήση Κουπονιού',
+                                label: 'Χρήση Δωρεάν Συμμετοχής',
                                 firstColor: Color(0XFFE082FF),
                                 secColor: NewsphoneTheme.primary,
                                 onTap: () {

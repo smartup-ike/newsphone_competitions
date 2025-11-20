@@ -166,14 +166,14 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         Text(
                           (state.verificationId == null)
-                              ? 'Εξασφαλίστε τα 10 Κουπόνια σας!'
+                              ? 'Εξασφαλίστε τις 10 δωρεάν συμμετοχές σας!'
                               : 'Επιβεβαίωση Κωδικού (OTP)',
                           style: NewsphoneTypography.heading6Bold,
                         ),
                         const SizedBox(height: 10),
                         Text(
                           (state.verificationId == null)
-                              ? 'Για να ολοκληρωθεί η απόδοση των 10 κουπονιών και να επιβεβαιώσουμε την ταυτότητά σας (ώστε να λάβετε επίσημα τα δώρα σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.'
+                              ? 'Για να ολοκληρωθεί η απόδοση των 10 συμμετοχών και να επιβεβαιώσουμε τα στοιχεία σας (ώστε να λάβετε τις 10 δωρεάν συμμετοχές σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.'
                               : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε: XXXX-XXX423 \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα τα 10 κουπόνια.',
                           style: NewsphoneTypography.body13Regular.copyWith(
                             color: NewsphoneTheme.neutral40,
@@ -391,7 +391,7 @@ class _SignInPageState extends State<SignInPage> {
                                     width: double.infinity,
                                     child: Center(
                                       child: Text(
-                                        "Επιβεβαίωση & Παραλαβή Κουπονιών",
+                                        "Επιβεβαίωση & Παραλαβή Συμμετοχών",
                                         textAlign: TextAlign.center,
                                         style: NewsphoneTypography
                                             .body17SemiBold

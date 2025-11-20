@@ -48,14 +48,14 @@ void showContestCouponsBottomSheet(
                   const SizedBox(height: 16.0),
                   // Title
                   Text(
-                    'Διαλέξτε πόσα κουπόνια θέλετε να χρησιμοποιήσετε τώρα για τον διαγωνισμό',
+                    'Διαλέξτε πόσες συμμετοχές θέλετε να χρησιμοποιήσετε τώρα για τον διαγωνισμό',
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.heading6Bold,
                   ),
                   const SizedBox(height: 8.0),
                   // Subtitle
                   Text(
-                    'Κάθε κουπόνι που χρησιμοποιείτε σε αυτόν τον διαγωνισμό, σας χαρίζει μία επιπλέον συμμετοχή στην κλήρωση!',
+                    'Κάθε δωρεάν συμμετοχή που χρησιμοποιείτε σε αυτόν τον διαγωνισμό, σας χαρίζει μία επιπλέον συμμετοχή στην κλήρωση!',
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.body13SemiBold.copyWith(
                       color: NewsphoneTheme.neutral40,
@@ -82,7 +82,7 @@ void showContestCouponsBottomSheet(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Επιλέξτε κουπόνια για συμμετοχή',
+                            'Επιβεβαίωση Δωρεάν Συμμετοχών',
                             style: NewsphoneTypography.body13Medium,
                           ),
                           const SizedBox(height: 5),

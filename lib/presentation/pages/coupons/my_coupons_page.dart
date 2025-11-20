@@ -42,7 +42,7 @@ class MyCouponsPage extends StatelessWidget {
                   pinned: true,
                   centerTitle: true,
                   title: Text(
-                    'Τα Κουπόνια μου',
+                    'Οι δωρεάν συμμετοχές μου',
                     style: NewsphoneTypography.body17SemiBold,
                   ),
                   bottom: PreferredSize(
@@ -72,14 +72,14 @@ class MyCouponsPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Διαθέσιμα Κουπόνια',
+                          'Διαθέσιμες Συμμετοχές',
                           style: NewsphoneTypography.heading6Bold.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Εδώ μπορείτε να δείτε όλα τα κουπόνια που έχετε κερδίσει ή αποκτήσει, την κατάστασή τους (Ενεργό/Χρησιμοποιημένο) και τους διαγωνισμούς στους οποίους μπορείτε να τα χρησιμοποιήσετε.',
+                          'Εδώ μπορείτε να δείτε όλες τις συμμετοχές που έχετε κερδίσει ή αποκτήσει, την κατάστασή τους (Ενεργή/Χρησιμοποιημένη) και τους διαγωνισμούς στους οποίους μπορείτε να τις χρησιμοποιήσετε.',
                           style: NewsphoneTypography.body13Regular.copyWith(
                             color: NewsphoneTheme.neutral40,
                           ),
@@ -111,7 +111,7 @@ class MyCouponsPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Διαθέσιμα κουπόνια',
+                              'Διαθέσιμες δωρεάν συμμετοχές',
                               style: NewsphoneTypography.body12Regular.copyWith(
                                 color: NewsphoneTheme.neutralWhite,
                               ),

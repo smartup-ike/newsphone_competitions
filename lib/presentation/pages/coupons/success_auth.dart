@@ -60,7 +60,7 @@ class SuccessAuth extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'Επιτυχής Παραλαβή Κουπονιών',
+                      'Επιτυχής Απόδοση Συμμετοχών',
                       textAlign: TextAlign.center,
                       style: NewsphoneTypography.heading3Bold.copyWith(
                         color: NewsphoneTheme.primary,
@@ -75,7 +75,7 @@ class SuccessAuth extends StatelessWidget {
                     const SizedBox(height: 20),
                     Text(
                       textAlign: TextAlign.center,
-                      'Συγχαρητήρια, η διαδικασία ολοκληρώθηκε! Τα 10 κουπόνια συμμετοχής για τους μεγάλους διαγωνισμούς πιστώθηκαν επιτυχώς στον λογαριασμό σας. Είστε πλέον στο παιχνίδι με 10 έξτρα ευκαιρίες για τη νίκη!',
+                      'Συγχαρητήρια, η διαδικασία ολοκληρώθηκε! Οι 10 δωρεάν συμμετοχές σας για τους διαγωνισμούς μας, πιστώθηκαν επιτυχώς στον λογαριασμό σας. Είστε πλέον στο παιχνίδι με 10 έξτρα ευκαιρίες για τη νίκη!',
                       style: NewsphoneTypography.body13Regular,
                     ),
                     const SizedBox(height: 20),
@@ -168,7 +168,7 @@ class SuccessAuth extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
-                                    'Επιλέξτε σε ποιους διαγωνισμούς θέλετε να χρησιμοποιήσετε τα κουπόνια σας.',
+                                    'Επιλέξτε σε ποιους διαγωνισμούς θέλετε να χρησιμοποιήσετε τις συμμετοχές σας.',
                                     style: NewsphoneTypography.body15Regular,
                                   ),
                                 ),
@@ -204,7 +204,7 @@ class SuccessAuth extends StatelessWidget {
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
-                                    'Κατά την ολοκλήρωση της συμμετοχής, θα εμφανιστεί η επιλογή χρήσης των διαθέσιμων κουπονιών.',
+                                    'Κατά την ολοκλήρωση των διαδικασιών, θα εμφανιστεί η επιλογή χρήσης των διαθέσιμων συμμετοχών.',
                                     style: NewsphoneTypography.body15Regular,
                                   ),
                                 ),
