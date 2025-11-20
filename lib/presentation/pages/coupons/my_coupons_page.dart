@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
+import '../../../logic/blocs/auth/auth_cubit.dart';
 import '../../../logic/blocs/coupons/cupons_cubit.dart';
 
 class MyCouponsPage extends StatelessWidget {
@@ -48,6 +49,18 @@ class MyCouponsPage extends StatelessWidget {
                     preferredSize: const Size.fromHeight(1.0),
                     child: Container(color: Colors.grey[300], height: 1.0),
                   ),
+                  actions: [
+                    IconButton(onPressed: () async {
+                      await context.read<AuthCubit>().signOut();
+
+                      // Reset CouponsCubit
+                      context.read<CouponsCubit>().emit(const CouponsState());
+
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/login',
+                            (route) => false,
+                      );}, icon: Icon(Icons.logout)),
+                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Padding(

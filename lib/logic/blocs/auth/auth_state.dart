@@ -13,6 +13,7 @@ class AuthState {
   final bool? isNewUser;
   final int resendSeconds;
   final bool canResend;
+  final bool loading;
 
   const AuthState({
     required this.status,
@@ -22,7 +23,7 @@ class AuthState {
     this.smsStatus = SmsStatus.initial,
     this.errorMessage, this.isNewUser,
     this.resendSeconds = 60,
-    this.canResend = false,
+    this.canResend = false,this.loading = false,
   });
 
   const AuthState.unknown() : this(status: AuthStatus.unknown);
@@ -38,6 +39,7 @@ class AuthState {
     bool? isNewUser,
     int? resendSeconds,
     bool? canResend,
+    bool? loading, // new
   }) {
     return AuthState(
       status: status ?? this.status,
@@ -49,8 +51,33 @@ class AuthState {
       isNewUser: isNewUser ?? this.isNewUser,
       resendSeconds: resendSeconds ?? this.resendSeconds,
       canResend: canResend ?? this.canResend,
+      loading: loading ?? this.loading,
     );
   }
+  AuthState clear({
+    AuthStatus? status,
+    User? user,
+    String? verificationId,
+    Map<String, dynamic>? backendUserData,
+    String? errorMessage,
+    SmsStatus? smsStatus,
+    bool? isNewUser,
+    int? resendSeconds,
+    bool? canResend,
+  }) {
+    return AuthState(
+      status: status ?? this.status,
+      user: user,
+      verificationId: verificationId,
+      backendUserData: backendUserData,
+      errorMessage: errorMessage,
+      smsStatus: smsStatus ?? this.smsStatus,
+      isNewUser: isNewUser,
+      resendSeconds: resendSeconds ?? this.resendSeconds,
+      canResend: canResend ?? this.canResend,
+    );
+  }
+
   @override
   List<Object?> get props => [
     verificationId,

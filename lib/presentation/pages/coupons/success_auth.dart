@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/sing_in_page.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
+import '../../../logic/blocs/coupons/cupons_cubit.dart';
 
 class SuccessAuth extends StatelessWidget {
   const SuccessAuth({super.key});
@@ -222,9 +224,8 @@ class SuccessAuth extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).popUntil((route) {
-                      return route.isFirst;
-                    });
+                    Navigator.pop(context);
+                    context.read<CouponsCubit>().init();
                   },
                   child: Container(
                     height: 50,

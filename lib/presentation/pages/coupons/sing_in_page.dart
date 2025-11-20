@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
     final phone = _phoneController.text.trim();
     if (!_isValidPhone(phone)) {
       setState(() {
-        _phoneError = 'Μη έγκυρος αριθμός κινητού'; // Invalid phone number
+        _phoneError = 'Μη έγκυρος αριθμός κινητού';
       });
       return;
     }
@@ -61,6 +61,7 @@ class _SignInPageState extends State<SignInPage> {
     }
     super.dispose();
   }
+
   String _formatTimer(int s) {
     final m = (s ~/ 60).toString().padLeft(2, '0');
     final sec = (s % 60).toString().padLeft(2, '0');
@@ -68,6 +69,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   final Color buttonColor = const Color(0xFF3B5998);
+
   Widget _buildOtpBox(int index) {
     return Container(
       width: 52,
@@ -248,8 +250,14 @@ class _SignInPageState extends State<SignInPage> {
                                         keyboardType: TextInputType.phone,
                                         decoration: InputDecoration(
                                           labelText:
-                                          _phoneError ?? 'Αριθμός Κινητού Τηλεφώνου',
-                                          labelStyle: TextStyle(color: _phoneError == null ? Colors.black : Colors.red,),
+                                              _phoneError ??
+                                              'Αριθμός Κινητού Τηλεφώνου',
+                                          labelStyle: TextStyle(
+                                            color:
+                                                _phoneError == null
+                                                    ? Colors.black
+                                                    : Colors.red,
+                                          ),
                                           // Greek text from the image
                                           prefixText: '+30 ',
                                           border: InputBorder.none,
@@ -284,12 +292,20 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
                                   width: double.infinity,
                                   child: Center(
-                                    child: Text(
-                                      "Συνέχεια & Αποστολή Κωδικού",
-                                      textAlign: TextAlign.center,
-                                      style: NewsphoneTypography.body17SemiBold
-                                          .copyWith(color: Colors.white),
-                                    ),
+                                    child:
+                                        state.loading
+                                            ? const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                            : Text(
+                                              "Συνέχεια & Αποστολή Κωδικού",
+                                              textAlign: TextAlign.center,
+                                              style: NewsphoneTypography
+                                                  .body17SemiBold
+                                                  .copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                            ),
                                   ),
                                 ),
                               ),
@@ -334,36 +350,52 @@ class _SignInPageState extends State<SignInPage> {
                                   if (state.isNewUser ?? true) {
                                     Navigator.pushReplacement(
                                       context,
-                                      MaterialPageRoute(builder: (_) => SuccessAuth()),
+                                      MaterialPageRoute(
+                                        builder: (_) => SuccessAuth(),
+                                      ),
                                     );
                                   } else {
                                     Navigator.pop(context);
                                   }
-                                } else if (state.smsStatus == SmsStatus.failure) {
+                                } else if (state.smsStatus ==
+                                    SmsStatus.failure) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(state.errorMessage ?? 'Σφάλμα επαλήθευσης')),
+                                    SnackBar(
+                                      content: Text(
+                                        state.errorMessage ??
+                                            'Σφάλμα επαλήθευσης',
+                                      ),
+                                    ),
                                   );
                                 }
                               },
                               child: GestureDetector(
                                 onTap: () {
-                                  context.read<AuthCubit>().signInWithSms(_otpCode);
+                                  context.read<AuthCubit>().signInWithSms(
+                                    _otpCode,
+                                  );
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0,
+                                  ),
                                   child: Container(
                                     height: 50,
                                     decoration: BoxDecoration(
                                       color: NewsphoneTheme.primary,
                                       borderRadius: BorderRadius.circular(24.0),
-                                      border: Border.all(color: Colors.grey.shade300),
+                                      border: Border.all(
+                                        color: Colors.grey.shade300,
+                                      ),
                                     ),
                                     width: double.infinity,
                                     child: Center(
                                       child: Text(
                                         "Επιβεβαίωση & Παραλαβή Κουπονιών",
                                         textAlign: TextAlign.center,
-                                        style: NewsphoneTypography.body17SemiBold.copyWith(color: Colors.white),
+                                        style: NewsphoneTypography
+                                            .body17SemiBold
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ),
                                   ),
@@ -379,17 +411,27 @@ class _SignInPageState extends State<SignInPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   GestureDetector(
-                                    onTap: state.canResend
-                                        ? () {
-                                      final phone = _phoneController.text.trim();
-                                      context.read<AuthCubit>().resendSms('+30$phone');
-                                    }
-                                        : null,
+                                    onTap:
+                                        state.canResend
+                                            ? () {
+                                              final phone =
+                                                  _phoneController.text.trim();
+                                              context
+                                                  .read<AuthCubit>()
+                                                  .resendSms('+30$phone');
+                                            }
+                                            : null,
                                     child: Text(
-                                      state.canResend ? "Αποστολή Ξανά" : "Αποστολή Ξανά",
-                                      style: NewsphoneTypography.body13SemiBold.copyWith(
-                                        color: state.canResend ? buttonColor : Colors.grey,
-                                      ),
+                                      state.canResend
+                                          ? "Αποστολή Ξανά"
+                                          : "Αποστολή Ξανά",
+                                      style: NewsphoneTypography.body13SemiBold
+                                          .copyWith(
+                                            color:
+                                                state.canResend
+                                                    ? buttonColor
+                                                    : Colors.grey,
+                                          ),
                                     ),
                                   ),
                                   // Placeholder for the timer

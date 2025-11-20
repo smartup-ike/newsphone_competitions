@@ -27,8 +27,9 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void verifyPhone(String phoneNumber) async {
-    emit(state.copyWith(canResend: false, resendSeconds: 60));
+    emit(state.copyWith(loading: true, canResend: false, resendSeconds: 60));
     _startResendTimer();
+
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (credential) async {
@@ -36,15 +37,17 @@ class AuthCubit extends Cubit<AuthState> {
       },
       verificationFailed: (e) {
         print("Phone verification failed: $e");
+        emit(state.copyWith(loading: false)); // stop loading
       },
       codeSent: (verificationId, resendToken) {
-        emit(state.copyWith(verificationId: verificationId));
+        emit(state.copyWith(verificationId: verificationId, loading: false));
       },
       codeAutoRetrievalTimeout: (verificationId) {
-        emit(state.copyWith(verificationId: verificationId));
+        emit(state.copyWith(verificationId: verificationId, loading: false));
       },
     );
   }
+
 
   void signInWithSms(String smsCode) async {
     if (state.verificationId == null) return;
@@ -130,8 +133,21 @@ class AuthCubit extends Cubit<AuthState> {
     _timer?.cancel();
     return super.close();
   }
-
-  void signOut() async {
+  Future<void> signOut() async {
     await _auth.signOut();
+    _timer?.cancel();
+
+    // Reset state and set verificationId to null
+    emit(state.clear(
+      status: AuthStatus.unknown,
+      user: null,
+      verificationId: null,
+      smsStatus: SmsStatus.initial,
+      isNewUser: null,
+      errorMessage: null,
+      resendSeconds: 60,
+      canResend: false,
+    ));
+    emit(const AuthState.unauthenticated());
   }
 }
