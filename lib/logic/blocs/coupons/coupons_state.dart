@@ -6,8 +6,13 @@ class CouponsState extends Equatable {
   final List<UserTransaction> transactions;
   final String? error;
 
+  final bool spendLoading;
+  final bool spendSuccess;
+
   const CouponsState({
     this.loading = false,
+    this.spendLoading = false,
+    this.spendSuccess = false,
     this.user,
     this.transactions = const [],
     this.error,
@@ -16,6 +21,8 @@ class CouponsState extends Equatable {
   CouponsState copyWith({
     bool? loading,
     Couponsuser? user,
+    bool? spendLoading,
+    bool? spendSuccess,
     List<UserTransaction>? transactions,
     String? error,
   }) {
@@ -24,9 +31,18 @@ class CouponsState extends Equatable {
       user: user ?? this.user,
       transactions: transactions ?? this.transactions,
       error: error,
+      spendLoading: spendLoading ?? this.spendLoading,
+      spendSuccess: spendSuccess ?? this.spendSuccess,
     );
   }
 
   @override
-  List<Object?> get props => [loading, user, transactions, error];
+  List<Object?> get props => [
+    loading,
+    spendLoading,
+    spendSuccess,
+    user,
+    transactions,
+    error,
+  ];
 }

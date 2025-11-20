@@ -71,7 +71,7 @@ class CouponsCubit extends Cubit<CouponsState> {
   }
 
   Future<void> spendOnContest(int amount, String contestId) async {
-    emit(state.copyWith(loading: true, error: null));
+    emit(state.copyWith(spendLoading: true, spendSuccess: false, error: null));
 
     try {
       final user = _auth.currentUser;
@@ -79,19 +79,18 @@ class CouponsCubit extends Cubit<CouponsState> {
 
       final idToken = await user.getIdToken(true);
 
-      final result = await _apiService.spendCoupons(
+      await _apiService.spendCoupons(
         idToken: idToken!,
         amount: amount,
-        contestId: int.tryParse(contestId),
+        contestId: int.parse(contestId),
       );
 
-      // Reload the user to update coupon balance
       await loadCoupons();
 
-      emit(state.copyWith(loading: false));
-      print('Spend result: $result');
+      emit(state.copyWith(spendLoading: false, spendSuccess: true));
+
     } catch (e) {
-      emit(state.copyWith(loading: false, error: e.toString()));
+      emit(state.copyWith(spendLoading: false, spendSuccess: false, error: "Something went wrong"));
     }
   }
 

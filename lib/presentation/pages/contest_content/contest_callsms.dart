@@ -40,117 +40,120 @@ class _ContestCallsmsState extends State<ContestCallsms> {
           balance = state.user?.couponBalance ?? 0;
         }
 
-        return Scaffold(
-          backgroundColor: NewsphoneTheme.neutralWhite,
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                floating: false,
-                pinned: true,
-                centerTitle: true,
-                title: Text(
-                  'Τρόπος Συμμετοχής',
-                  style: NewsphoneTypography.body17SemiBold,
+        return SafeArea(
+          top: false,
+          child: Scaffold(
+            backgroundColor: NewsphoneTheme.neutralWhite,
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  floating: false,
+                  pinned: true,
+                  centerTitle: true,
+                  title: Text(
+                    'Τρόπος Συμμετοχής',
+                    style: NewsphoneTypography.body17SemiBold,
+                  ),
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(1.0),
+                    child: Container(color: Colors.grey[300], height: 1.0),
+                  ),
                 ),
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(1.0),
-                  child: Container(color: Colors.grey[300], height: 1.0),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(height: 20.0),
-                    // Title
-                    Text(
-                      'Διάλεξε τον τρόπο συμμετοχής',
-                      style: NewsphoneTypography.heading6Bold,
-                    ),
-                    const SizedBox(height: 8.0),
-                    // Subtitle
-                    Text(
-                      'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
-                      textAlign: TextAlign.center,
-                      style: NewsphoneTypography.body13SemiBold.copyWith(
-                        color: NewsphoneTheme.neutral40,
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(height: 20.0),
+                      // Title
+                      Text(
+                        'Διάλεξε τον τρόπο συμμετοχής',
+                        style: NewsphoneTypography.heading6Bold,
                       ),
-                    ),
-                    const SizedBox(height: 50.0),
-                    // Buttons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildOptionButton(
-                          icon: 'assets/images/icons/PhoneCall.svg',
-                          label: 'Κάλεσε',
-                          firstColor: NewsphoneTheme.primary,
-                          secColor: NewsphoneTheme.primary,
-                          onTap: () => handleCall(widget.name),
+                      const SizedBox(height: 8.0),
+                      // Subtitle
+                      Text(
+                        'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
+                        textAlign: TextAlign.center,
+                        style: NewsphoneTypography.body13SemiBold.copyWith(
+                          color: NewsphoneTheme.neutral40,
                         ),
-                        _buildOptionButton(
-                          icon: 'assets/images/icons/ChatCircleDots.svg',
-                          label: 'Στείλε SMS',
-                          firstColor: NewsphoneTheme.primary,
-                          secColor: NewsphoneTheme.primary,
-                          onTap: () => handleSms(widget.prefix, widget.name),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20.0),
-                  ],
+                      ),
+                      const SizedBox(height: 50.0),
+                      // Buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildOptionButton(
+                            icon: 'assets/images/icons/PhoneCall.svg',
+                            label: 'Κάλεσε',
+                            firstColor: NewsphoneTheme.primary,
+                            secColor: NewsphoneTheme.primary,
+                            onTap: () => handleCall(widget.name),
+                          ),
+                          _buildOptionButton(
+                            icon: 'assets/images/icons/ChatCircleDots.svg',
+                            label: 'Στείλε SMS',
+                            firstColor: NewsphoneTheme.primary,
+                            secColor: NewsphoneTheme.primary,
+                            onTap: () => handleSms(widget.prefix, widget.name),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20.0),
+                    ],
+                  ),
                 ),
-              ),
-              SliverToBoxAdapter(
-                child:
-                    balance > 0
-                        ? Row(
-                          children: [
-                            _buildOptionButton(
-                              icon: 'assets/images/icons/Coupon.svg',
-                              label: 'Χρήση Κουπονιού',
-                              firstColor: Color(0XFFE082FF),
-                              secColor: NewsphoneTheme.primary,
-                              onTap: () {
-                                showContestCouponsBottomSheet(
-                                  context,
-                                  usedCoupons.toString(),
-                                  balance,
-                                  () {
-                                    // Increase coupon selection
-                                    if (usedCoupons < balance) {
-                                      setState(() => usedCoupons++);
-                                    }
-                                  },
-                                  () {
-                                    // Decrease coupon selection
-                                    if (usedCoupons > 1) {
-                                      setState(() => usedCoupons--);
-                                    }
-                                  },
-                                  () async {
-                                    // Confirm usage
-                                    await context
-                                        .read<CouponsCubit>()
-                                        .spendOnContest(
-                                          usedCoupons,
-                                          widget.contestId,
-                                        );
-                                    Navigator.pop(
-                                      context,
-                                    ); // Close bottom sheet
-                                  },
-                                );
-                              },
-                            ),
-                          ],
-                        )
-                        : const SizedBox(), // Hide button if no coupons
-              ),
-            ],
+                SliverToBoxAdapter(
+                  child:
+                      balance > 0
+                          ? Row(
+                            children: [
+                              _buildOptionButton(
+                                icon: 'assets/images/icons/Coupon.svg',
+                                label: 'Χρήση Κουπονιού',
+                                firstColor: Color(0XFFE082FF),
+                                secColor: NewsphoneTheme.primary,
+                                onTap: () {
+                                  showContestCouponsBottomSheet(
+                                    context,
+                                    usedCoupons.toString(),
+                                    balance,
+                                    () {
+                                      // Increase coupon selection
+                                      if (usedCoupons < balance) {
+                                        setState(() => usedCoupons++);
+                                      }
+                                    },
+                                    () {
+                                      // Decrease coupon selection
+                                      if (usedCoupons > 1) {
+                                        setState(() => usedCoupons--);
+                                      }
+                                    },
+                                    () async {
+                                      // Confirm usage
+                                      await context
+                                          .read<CouponsCubit>()
+                                          .spendOnContest(
+                                            usedCoupons,
+                                            widget.contestId,
+                                          );
+                                      Navigator.pop(
+                                        context,
+                                      ); // Close bottom sheet
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
+                          )
+                          : const SizedBox(), // Hide button if no coupons
+                ),
+              ],
+            ),
           ),
         );
       },

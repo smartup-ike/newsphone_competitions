@@ -20,84 +20,87 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: NewsphoneTheme.neutralWhite,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            floating: false,
-            pinned: true,
-            centerTitle: true,
-            title: Text(
-              'Επιλογή Εκπομπής',
-              style: NewsphoneTypography.body17SemiBold,
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: NewsphoneTheme.neutralWhite,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              floating: false,
+              pinned: true,
+              centerTitle: true,
+              title: Text(
+                'Επιλογή Εκπομπής',
+                style: NewsphoneTypography.body17SemiBold,
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(1.0),
+                child: Container(color: Colors.grey[300], height: 1.0),
+              ),
             ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1.0),
-              child: Container(color: Colors.grey[300], height: 1.0),
+            SliverToBoxAdapter(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 15.0),
+
+                  // Title
+                  Text(
+                    'Μέσω ποιας εκπομπής θέλεις να συμμετέχεις στο διαγωνισμό;',
+                    textAlign: TextAlign.center,
+                    style: NewsphoneTypography.heading6Bold,
+                  ),
+                  const SizedBox(height: 16.0),
+
+                  // Subtitle
+                  Text(
+                    'Επίλεξε την εκπομπή που παρακολουθείς και στης οποίας το διαγωνισμό θέλεις να πάρεις μέρος',
+                    textAlign: TextAlign.center,
+                    style: NewsphoneTypography.body13Regular,
+                  ),
+                  const SizedBox(height: 24.0),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: List.generate(widget.contest.shows.length, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 5,
+                        ),
+                        child: ProgramButton(
+                          label: widget.contest.shows[index].name,
+                          selected: selectedIndex == index,
+                          onTap: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => ContestCallsms(
+                                      name: widget.contest.name,
+                                      prefix: widget.contest.shows[index].prefix,
+                                      contestId: widget.contest.id,
+                                    ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }),
+                  ),
+
+                  const SizedBox(height: 40.0),
+                ],
+              ),
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: 15.0),
-
-                // Title
-                Text(
-                  'Μέσω ποιας εκπομπής θέλεις να συμμετέχεις στο διαγωνισμό;',
-                  textAlign: TextAlign.center,
-                  style: NewsphoneTypography.heading6Bold,
-                ),
-                const SizedBox(height: 16.0),
-
-                // Subtitle
-                Text(
-                  'Επίλεξε την εκπομπή που παρακολουθείς και στης οποίας το διαγωνισμό θέλεις να πάρεις μέρος',
-                  textAlign: TextAlign.center,
-                  style: NewsphoneTypography.body13Regular,
-                ),
-                const SizedBox(height: 24.0),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: List.generate(widget.contest.shows.length, (index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 5,
-                      ),
-                      child: ProgramButton(
-                        label: widget.contest.shows[index].name,
-                        selected: selectedIndex == index,
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => ContestCallsms(
-                                    name: widget.contest.name,
-                                    prefix: widget.contest.shows[index].prefix,
-                                    contestId: widget.contest.id,
-                                  ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  }),
-                ),
-
-                const SizedBox(height: 40.0),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

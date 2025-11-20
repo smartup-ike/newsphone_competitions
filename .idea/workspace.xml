@@ -28,8 +28,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/data/services/api_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/data/services/api_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/logic/blocs/coupons/coupons_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/coupons/coupons_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/logic/blocs/coupons/cupons_cubit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logic/blocs/coupons/cupons_cubit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_callsms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/bottom_modalsheet_callsms.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/contest_callsms.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/contest_callsms.dart" afterDir="false" />
@@ -43,7 +47,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/dmilios/.android/avd/Pixel_7a.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/dmilios/.android/avd/Pixel_8.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/android">
       <ProjectState />
@@ -118,7 +122,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.17",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "dart.settings",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
