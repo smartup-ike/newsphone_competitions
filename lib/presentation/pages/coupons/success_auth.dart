@@ -216,7 +216,7 @@ class SuccessAuth extends StatelessWidget {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: Spacer()),
+            SliverToBoxAdapter(child: SizedBox(height: 50)),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
