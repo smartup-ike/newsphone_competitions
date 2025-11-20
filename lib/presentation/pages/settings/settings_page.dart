@@ -29,172 +29,175 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<NotificationCubit>();
-    return Scaffold(
-      backgroundColor: NewsphoneTheme.neutral95,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: NewsphoneTheme.neutralWhite,
-            elevation: 0,
-            floating: false,
-            pinned: true,
-            expandedHeight: 60.0,
-            centerTitle: true,
-            title: Text(
-              'Ρυθμίσεις',
-              style: NewsphoneTypography.body16SemiBold.copyWith(
-                color: Theme.of(context).colorScheme.inverseSurface,
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        backgroundColor: NewsphoneTheme.neutral95,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: NewsphoneTheme.neutralWhite,
+              elevation: 0,
+              floating: false,
+              pinned: true,
+              expandedHeight: 60.0,
+              centerTitle: true,
+              title: Text(
+                'Ρυθμίσεις',
+                style: NewsphoneTypography.body16SemiBold.copyWith(
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                ),
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(1.0),
+                child: Container(color: Colors.grey[300], height: 1.0),
               ),
             ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(1.0),
-              child: Container(color: Colors.grey[300], height: 1.0),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 8,
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: 8,
+                  ),
+                  child: Text(
+                    "ΓΕΝΙΚΕΣ ΡΥΘΜΙΣΕΙΣ",
+                    style: NewsphoneTypography.body13SemiBold,
+                  ),
                 ),
-                child: Text(
-                  "ΓΕΝΙΚΕΣ ΡΥΘΜΙΣΕΙΣ",
-                  style: NewsphoneTypography.body13SemiBold,
-                ),
-              ),
-              SettingsListTile(
-                title: "Προτιμήσεις διαγωνισμών",
-                subtitle: "Επίλεξε τις κατηγορίες που επιθυμείς",
-                leadingIcon: Icons.star_border,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PreferencesPage(),
-                    ),
-                  );
-                },
-              ),
-              BlocBuilder<NotificationCubit, List<AppNotification>>(
-                builder: (context, state) {
-                  return SettingsListTile(
-                    title: "Ειδοποιήσεις",
-                    subtitle:
-                        "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
-                    leadingIcon: Icons.notifications_none,
-                    trailingWidget: Switch(
-                      value: cubit.isSubscribedToAnyTopic,
-                      onChanged: (bool value) async {
-                        // Optimistic update for instant feedback
-                        cubit.setSubscriptionState(value);
-
-                        try {
-                          if (value) {
-                            await cubit.subscribeToAllTopics();
-                          } else {
-                            await cubit.unsubscribeFromAllTopics();
-                          }
-                        } catch (e) {
-                          // If something fails, revert and show error
-                          cubit.setSubscriptionState(!value);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Αποτυχία ενημέρωσης ειδοποιήσεων.",
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      activeColor: Colors.blue,
-                    ),
-                  );
-                },
-              ),
-              SettingsListTile(
-                title: "Σχετικά",
-                subtitle: "Τι είναι η εφαρμογή 14614",
-                leadingIcon: Icons.info_outline,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AboutPage()),
-                  );
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 16,
-                  right: 16,
-                  top: 16,
-                  bottom: 8,
-                ),
-                child: Text(
-                  'ΚΟΥΠΟΝΙΑ',
-                  style: NewsphoneTypography.body13SemiBold,
-                ),
-              ),
-              SettingsListTile(
-                title: "Τα Κουπόνια μου",
-                subtitle: "Δείτε τα διαθέσιμα κουπόνια σας",
-                leadingIcon: Icons.discount_outlined,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CouponsPage()),
-                  );
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  "ΑΠΟΡΡΗΤΟ",
-                  style: NewsphoneTypography.body13SemiBold,
-                ),
-              ),
-              SettingsListTile(
-                title: "Όροι Χρήσης",
-                subtitle: "Διάβασε τους όρους χρήσης",
-                leadingIcon: Icons.shield_outlined,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TermsPage()),
-                  );
-                },
-              ),
-            ]),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Έκδοση εφαρμογής',
-                      style: NewsphoneTypography.body15Bold.copyWith(
-                        color: Theme.of(context).colorScheme.inverseSurface,
+                SettingsListTile(
+                  title: "Προτιμήσεις διαγωνισμών",
+                  subtitle: "Επίλεξε τις κατηγορίες που επιθυμείς",
+                  leadingIcon: Icons.star_border,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PreferencesPage(),
                       ),
-                    ),
-                    const VersionInfo(),
-                  ],
+                    );
+                  },
+                ),
+                BlocBuilder<NotificationCubit, List<AppNotification>>(
+                  builder: (context, state) {
+                    return SettingsListTile(
+                      title: "Ειδοποιήσεις",
+                      subtitle:
+                          "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
+                      leadingIcon: Icons.notifications_none,
+                      trailingWidget: Switch(
+                        value: cubit.isSubscribedToAnyTopic,
+                        onChanged: (bool value) async {
+                          // Optimistic update for instant feedback
+                          cubit.setSubscriptionState(value);
+
+                          try {
+                            if (value) {
+                              await cubit.subscribeToAllTopics();
+                            } else {
+                              await cubit.unsubscribeFromAllTopics();
+                            }
+                          } catch (e) {
+                            // If something fails, revert and show error
+                            cubit.setSubscriptionState(!value);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Αποτυχία ενημέρωσης ειδοποιήσεων.",
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        activeColor: Colors.blue,
+                      ),
+                    );
+                  },
+                ),
+                SettingsListTile(
+                  title: "Σχετικά",
+                  subtitle: "Τι είναι η εφαρμογή 14614",
+                  leadingIcon: Icons.info_outline,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AboutPage()),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 16,
+                    bottom: 8,
+                  ),
+                  child: Text(
+                    'ΚΟΥΠΟΝΙΑ',
+                    style: NewsphoneTypography.body13SemiBold,
+                  ),
+                ),
+                SettingsListTile(
+                  title: "Τα Κουπόνια μου",
+                  subtitle: "Δείτε τα διαθέσιμα κουπόνια σας",
+                  leadingIcon: Icons.discount_outlined,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CouponsPage()),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text(
+                    "ΑΠΟΡΡΗΤΟ",
+                    style: NewsphoneTypography.body13SemiBold,
+                  ),
+                ),
+                SettingsListTile(
+                  title: "Όροι Χρήσης",
+                  subtitle: "Διάβασε τους όρους χρήσης",
+                  leadingIcon: Icons.shield_outlined,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TermsPage()),
+                    );
+                  },
+                ),
+              ]),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 40.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Έκδοση εφαρμογής',
+                        style: NewsphoneTypography.body15Bold.copyWith(
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
+                      ),
+                      const VersionInfo(),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
 
-          SliverToBoxAdapter(child: const SizedBox(height: 20)),
-        ],
+            SliverToBoxAdapter(child: const SizedBox(height: 20)),
+          ],
+        ),
       ),
     );
   }

@@ -17,6 +17,11 @@ class CouponsCubit extends Cubit<CouponsState> {
   Future<void> init() async {
     emit(state.copyWith(loading: true, error: null));
 
+    final user = _auth.currentUser;
+    if (user == null) {
+      return;
+    }
+
     try {
       await Future.wait([
         loadCoupons(),

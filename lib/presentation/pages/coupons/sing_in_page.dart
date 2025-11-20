@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
-import 'package:newsphone_competitions/presentation/pages/coupons/my_coupons_page.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/success_auth.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
-import 'coupons_page.dart';
+import '../../../logic/blocs/coupons/cupons_cubit.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -331,6 +330,7 @@ class _SignInPageState extends State<SignInPage> {
                             BlocListener<AuthCubit, AuthState>(
                               listener: (context, state) {
                                 if (state.smsStatus == SmsStatus.success) {
+                                  context.read<CouponsCubit>().init();
                                   if (state.isNewUser ?? true) {
                                     Navigator.pushReplacement(
                                       context,

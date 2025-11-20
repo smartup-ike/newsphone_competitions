@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
-import 'package:newsphone_competitions/data/models/contests.dart';
 
 import '../../../core/functions/helper_functions.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/coupons/cupons_cubit.dart';
 import 'components/bottom_modalsheet_callsms.dart';
-import 'components/bottom_modalsheet_choosepro.dart';
-import 'components/program_button.dart';
 
 class ContestCallsms extends StatefulWidget {
   final String name;
@@ -141,9 +138,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                                             usedCoupons,
                                             widget.contestId,
                                           );
-                                      Navigator.pop(
-                                        context,
-                                      ); // Close bottom sheet
+                                      Navigator.pop(context);
                                     },
                                   );
                                 },

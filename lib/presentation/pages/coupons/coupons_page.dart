@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/coupons_initialize.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/my_coupons_page.dart';
-import 'package:newsphone_competitions/presentation/pages/coupons/sing_in_page.dart';
 
 import '../../../logic/blocs/auth/auth_cubit.dart';
 
