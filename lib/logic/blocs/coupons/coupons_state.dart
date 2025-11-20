@@ -5,9 +5,9 @@ class CouponsState extends Equatable {
   final Couponsuser? user;
   final List<UserTransaction> transactions;
   final String? error;
-
   final bool spendLoading;
   final bool spendSuccess;
+  final List<Contest> contests;
 
   const CouponsState({
     this.loading = false,
@@ -16,6 +16,7 @@ class CouponsState extends Equatable {
     this.user,
     this.transactions = const [],
     this.error,
+    this.contests = const [],
   });
 
   CouponsState copyWith({
@@ -24,6 +25,7 @@ class CouponsState extends Equatable {
     bool? spendLoading,
     bool? spendSuccess,
     List<UserTransaction>? transactions,
+    List<Contest>? contests,
     String? error,
   }) {
     return CouponsState(
@@ -31,6 +33,7 @@ class CouponsState extends Equatable {
       user: user ?? this.user,
       transactions: transactions ?? this.transactions,
       error: error,
+      contests: contests ?? this.contests,
       spendLoading: spendLoading ?? this.spendLoading,
       spendSuccess: spendSuccess ?? this.spendSuccess,
     );
@@ -41,6 +44,7 @@ class CouponsState extends Equatable {
     loading,
     spendLoading,
     spendSuccess,
+    contests,
     user,
     transactions,
     error,
