@@ -135,13 +135,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     bottom: 8,
                   ),
                   child: Text(
-                    'ΚΟΥΠΟΝΙΑ',
+                    'ΔΩΡΕΑΝ ΣΥΜΜΕΤΟΧΕΣ',
                     style: NewsphoneTypography.body13SemiBold,
                   ),
                 ),
                 SettingsListTile(
-                  title: "Τα Κουπόνια μου",
-                  subtitle: "Δείτε τα διαθέσιμα κουπόνια σας",
+                  title: "Οι δωρεάν συμμετοχές μου",
+                  subtitle: "Δείτε τις διαθέσιμες συμμετοχές σας",
                   leadingIcon: Icons.discount_outlined,
                   onTap: () {
                     Navigator.push(

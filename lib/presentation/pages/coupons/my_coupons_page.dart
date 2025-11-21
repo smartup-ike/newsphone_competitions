@@ -169,7 +169,7 @@ class MyCouponsPage extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Εξαργυρώθηκε',
+                                              'Χρησιμοποιήθηκε',
                                               style: NewsphoneTypography
                                                   .body12Regular
                                                   .copyWith(
@@ -192,7 +192,7 @@ class MyCouponsPage extends StatelessWidget {
                                               CrossAxisAlignment.end,
                                           children: [
                                             Text(
-                                              'Ημερομηνία εξαργύρωσης',
+                                              'Ημερομηνία',
                                               style: NewsphoneTypography
                                                   .body12Regular
                                                   .copyWith(
