@@ -49,7 +49,7 @@ class HomePageBottomNavBar extends StatelessWidget {
                     width: 24,
                     color: selectedIndex == 1 ? Colors.white : Colors.grey[700],
                   ),
-                  label: 'Deals',
+                  label: 'Προσφορές',
                   isSelected: selectedIndex == 1,
                   onTap: () => onItemTapped(1),
                 ),

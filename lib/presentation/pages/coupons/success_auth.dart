@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/presentation/pages/coupons/sing_in_page.dart';
+import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
@@ -224,7 +225,10 @@ class SuccessAuth extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                     context.read<CouponsCubit>().init();
                   },
                   child: Container(
@@ -246,6 +250,7 @@ class SuccessAuth extends StatelessWidget {
                 ),
               ),
             ),
+            SliverToBoxAdapter(child: SizedBox(height: 20)),
           ],
         ),
       ),
