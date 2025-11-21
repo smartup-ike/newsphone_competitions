@@ -18,7 +18,7 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       state.any((notification) => !notification.isRead);
 
   // Use a late final box
-  late final Box<AppNotification> _box;
+  late final Box<AppNotification> _box;bool get isBoxReady => _box.isOpen;
   late StreamSubscription<BoxEvent> _subscription;
 
   // Keep track of selected topic IDs
@@ -33,11 +33,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
 
   bool get isSubscribedToAnyTopic => _selectedTopics.isNotEmpty;
 
-  NotificationCubit(this._apiService) : super([]) {
-    _init();
-  }
+  NotificationCubit(this._apiService) : super([]);
 
-  void _init() async {
+  void init() async {
     _box = await Hive.openBox<AppNotification>('notifications');
     // Listen for changes to the box
     _subscription = _box.watch().listen((event) {

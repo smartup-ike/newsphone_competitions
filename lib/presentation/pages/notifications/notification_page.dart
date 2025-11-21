@@ -31,6 +31,16 @@ class _NotificationsPageState extends State<NotificationsPage>
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      print('llalallalal');
+      // App came back to foreground
+      context.read<NotificationCubit>().loadNotifications();
+      context.read<NotificationCubit>().markAllAsRead();
+    }
+  }
+
+  @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();

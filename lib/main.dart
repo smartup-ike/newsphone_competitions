@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
@@ -21,7 +22,9 @@ import 'logic/blocs/notifications/notifications_cubit.dart';
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Hive.initFlutter();
-  Hive.registerAdapter(AppNotificationAdapter());
+  if (!Hive.isAdapterRegistered(0)) {
+    Hive.registerAdapter(AppNotificationAdapter());
+  }
   var box = await Hive.openBox<AppNotification>('notifications');
 
   final notification = AppNotification(
@@ -32,11 +35,10 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     id: int.tryParse(message.messageId ?? '') ?? 0,
     linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
     linkedDealId: int.tryParse(message.data['id'] ?? ''),
-    type: message.data['type'],
+    type: message.data['type'] ?? '',
     isRead: false,
   );
   await box.add(notification);
-  await NotificationService.showNotificationStatic(message);
 }
 
 void main() async {
@@ -86,7 +88,7 @@ class MyApp extends StatelessWidget {
           create: (_) => CategoriesCubit(apiService)..init(),
         ),
         BlocProvider<NotificationCubit>(
-          create: (_) => NotificationCubit(apiService),
+          create: (_) => NotificationCubit(apiService)..init(),
         ),
         BlocProvider<AuthCubit>(
           create: (_) => AuthCubit(FirebaseAuth.instance, apiService),

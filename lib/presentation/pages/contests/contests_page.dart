@@ -15,7 +15,14 @@ class ContestsPage extends StatelessWidget {
   const ContestsPage({super.key});
 
   Future<void> _onRefresh(BuildContext context) async {
-    context.read<NotificationCubit>().loadNotifications();
+    final cubit = context.read<NotificationCubit>();
+
+    // Make sure the box is open before loading
+    if (cubit.isBoxReady) {
+      print('asdf');
+      cubit.loadNotifications();
+    }
+
     await context.read<ContestsCubit>().fetchContests();
   }
 
