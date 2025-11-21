@@ -10,7 +10,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   final FirebaseAuth _auth;
   StreamSubscription<User?>? _authListener;
-
+  PhoneAuthCredential? _autoVerifiedCredential;
   final ApiService _apiService;
 
   Timer? _timer;
@@ -39,13 +39,19 @@ class AuthCubit extends Cubit<AuthState> {
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (credential) async {
-        await _auth.signInWithCredential(credential);
+        // ✅ FIX 1: DO NOT call signInWithCredential immediately.
+        // Instead, store the credential for the manual button press.
+        _autoVerifiedCredential = credential;
+
+        // Treat this path like a successful codeSent to transition the UI.
+        // We use a dummy ID here to make the UI switch to the OTP screen.
+        emit(state.copyWith(verificationId: 'auto_verified', loading: false));
       },
       verificationFailed: (e) {
         print("Phone verification failed: $e");
         emit(state.copyWith(
           loading: false,
-          errorMessage: 'Κάτι πήγε στραβά. Δοκιμάστε ξανά.',
+          errorMessage: 'Ο αριθμός μπλοκαρίστηκε. Δοκιμάστε ξανά αργότερα',
         ));
       },
       codeSent: (verificationId, resendToken) {
@@ -57,26 +63,46 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
+  void _handleSignInResult(UserCredential result) {
+    final bool isNew = result.additionalUserInfo?.isNewUser ?? false;
 
+    emit(state.copyWith(
+      smsStatus: SmsStatus.success,
+      errorMessage: null,
+      isNewUser: isNew,
+    ));
+    registerUser();
+  }
+
+  // Inside AuthCubit.signInWithSms
   void signInWithSms(String smsCode) async {
-    if (state.verificationId == null) return;
+    // Determine which credential to use
+    final PhoneAuthCredential credential;
 
-    final credential = PhoneAuthProvider.credential(
-      verificationId: state.verificationId!,
-      smsCode: smsCode,
-    );
+    if (_autoVerifiedCredential != null) {
+      // Case 1: Auto-verification was successful (Android). Use the stored credential.
+      credential = _autoVerifiedCredential!;
+      _autoVerifiedCredential = null; // Consume and clear
+
+    } else if (state.verificationId != null) {
+      // Case 2: Manual SMS code entry. Build the credential from the input.
+      credential = PhoneAuthProvider.credential(
+        verificationId: state.verificationId!,
+        smsCode: smsCode,
+      );
+    } else {
+      // No verification ID and no auto-verified credential. Should not proceed.
+      return;
+    }
 
     try {
+      // ✅ FIX 2: Only call signInWithCredential here, driven by the button press.
       final result = await _auth.signInWithCredential(credential);
+      _handleSignInResult(result);
 
-      final bool isNew = result.additionalUserInfo?.isNewUser ?? false;
+      // Clear verification ID regardless of how the sign-in succeeded
+      emit(state.copyWith(verificationId: null));
 
-      emit(state.copyWith(
-        smsStatus: SmsStatus.success,
-        errorMessage: null,
-        isNewUser: isNew,
-      ));
-      registerUser();
     } catch (e) {
       emit(state.copyWith(
         smsStatus: SmsStatus.failure,
@@ -154,5 +180,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   void clearSmsStatus() {
     emit(state.copyWith(smsStatus: SmsStatus.initial, errorMessage: null));
+  }
+  void clearPhone() {
+    emit(state.copyWith(errorMessage: null));
   }
 }

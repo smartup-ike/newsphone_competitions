@@ -16,6 +16,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   // Using a single controller for the phone number
   final _phoneController = TextEditingController();
+  bool _errorShown = false;
 
   String? _phoneError;
 
@@ -196,83 +197,98 @@ class _SignInPageState extends State<SignInPage> {
                           children: [
                             const SizedBox(height: 50),
                             // --- Phone Number Input Style ---
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                              child: Container(
+                            BlocListener<AuthCubit, AuthState>(
+                              listener: (context, state) {
+                                if (state.errorMessage != null &&
+                                    state.verificationId == null &&
+                                    !_errorShown) {
+                                  _errorShown = true;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(state.errorMessage!),
+                                    ),
+                                  );
+                                  context.read<AuthCubit>().clearPhone();
+                                }
+                              },
+                              child: Padding(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 10.0,
+                                  horizontal: 16.0,
                                 ),
-                                // Padding inside the container
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  border: Border.all(
-                                    color: Colors.grey.shade300,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0,
                                   ),
-                                  // Light grey border
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 5,
-                                      offset: const Offset(
-                                        0,
-                                        3,
-                                      ), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  children: [
-                                    // Flag and Country Code Text
-                                    const Row(
-                                      children: [
-                                        Text(
-                                          '🇬🇷',
-                                          style: TextStyle(fontSize: 24),
-                                        ),
-                                        SizedBox(width: 4),
-                                        Icon(
-                                          Icons.arrow_right,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Container(
-                                      height: 30,
-                                      width: 1,
+                                  // Padding inside the container
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(
                                       color: Colors.grey.shade300,
                                     ),
-                                    const SizedBox(width: 8),
-                                    // Phone Number Input Field
-                                    Expanded(
-                                      child: TextField(
-                                        controller: _phoneController,
-                                        keyboardType: TextInputType.phone,
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              _phoneError ??
-                                              'Αριθμός Κινητού Τηλεφώνου',
-                                          labelStyle: TextStyle(
-                                            color:
-                                                _phoneError == null
-                                                    ? Colors.black
-                                                    : Colors.red,
+                                    // Light grey border
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.1),
+                                        spreadRadius: 1,
+                                        blurRadius: 5,
+                                        offset: const Offset(
+                                          0,
+                                          3,
+                                        ), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      // Flag and Country Code Text
+                                      const Row(
+                                        children: [
+                                          Text(
+                                            '🇬🇷',
+                                            style: TextStyle(fontSize: 24),
                                           ),
-                                          // Greek text from the image
-                                          prefixText: '+30 ',
-                                          border: InputBorder.none,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                vertical: 15.0,
-                                              ),
+                                          SizedBox(width: 4),
+                                          Icon(
+                                            Icons.arrow_right,
+                                            color: Colors.grey,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Container(
+                                        height: 30,
+                                        width: 1,
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      // Phone Number Input Field
+                                      Expanded(
+                                        child: TextField(
+                                          controller: _phoneController,
+                                          keyboardType: TextInputType.phone,
+                                          decoration: InputDecoration(
+                                            labelText:
+                                                _phoneError ??
+                                                'Αριθμός Κινητού Τηλεφώνου',
+                                            labelStyle: TextStyle(
+                                              color:
+                                                  _phoneError == null
+                                                      ? Colors.black
+                                                      : Colors.red,
+                                            ),
+                                            // Greek text from the image
+                                            prefixText: '+30 ',
+                                            border: InputBorder.none,
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                  vertical: 15.0,
+                                                ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
