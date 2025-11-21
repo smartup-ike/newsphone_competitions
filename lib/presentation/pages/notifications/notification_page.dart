@@ -316,7 +316,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 ),
                               ),
                               child: Text(
-                                'Δήλωσε Συμμετοχή',
+                                (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
+                                    ? 'Δήλωσε Συμμετοχή'
+                                    : 'Δές Προσφορά!': 'Δήλωσε Συμμετοχή',
                                 style: NewsphoneTypography.body13Bold.copyWith(
                                   color: NewsphoneTheme.neutralWhite,
                                 ),

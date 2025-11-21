@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               child: Column(
                 children: [
                   Text(
-                    'SUPER ΔΩΡΟ!',
+                    'SUPER ΠΡΟΣΦΟΡΑ!',
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.heading3Bold.copyWith(
                       color: NewsphoneTheme.primary,
@@ -56,13 +56,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Θέλετε να εξασφαλίσετε 10 κουπόνια - συμμετοχές σε μεγάλους διαγωνισμούς εντελώς ΔΩΡΕΑΝ;",
+                    "Θέλετε να εξασφαλίσετε 10 ΔΩΡΕΑΝ συμμετοχές στους διαγωνισμούς μας;",
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.heading6Bold,
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    "Με 10 δωρεάν κουπόνια, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.",
+                    "Με 10 δωρεάν συμμετοχές, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.",
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.body13Regular.copyWith(
                       color: NewsphoneTheme.neutral40,
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           ),
                           const SizedBox(width: 10),
                           const Text(
-                            "ΝΑΙ, θέλω 10 κουπόνια δωρεάν!",
+                            "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
                             style: TextStyle(
                               color: Color(0xFF054279),
                               fontWeight: FontWeight.w700,

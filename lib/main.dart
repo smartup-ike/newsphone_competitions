@@ -96,28 +96,32 @@ class MyApp extends StatelessWidget {
               (_) => CouponsCubit(FirebaseAuth.instance, apiService)..init(),
         ),
       ],
-      child: MaterialApp(
-        themeMode: ThemeMode.light,
-        debugShowCheckedModeBanner: false,
-        title: '14614 App',
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(
-              textScaleFactor: 1.0, // lock font size
-              devicePixelRatio:
-                  MediaQuery.of(
-                    context,
-                  ).devicePixelRatio, // optional, keeps pixel ratio fixed
-              size:
-                  MediaQuery.of(context).size, // locks the logical screen size
-            ),
-
-            child: child!,
-          );
-        },
-        navigatorObservers: [observer],
-        home: HomePage(),
-        routes: {},
+      child: SafeArea(
+        top: false,
+        bottom: true,
+        child: MaterialApp(
+          themeMode: ThemeMode.light,
+          debugShowCheckedModeBanner: false,
+          title: '14614 App',
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaleFactor: 1.0, // lock font size
+                devicePixelRatio:
+                    MediaQuery.of(
+                      context,
+                    ).devicePixelRatio, // optional, keeps pixel ratio fixed
+                size:
+                    MediaQuery.of(context).size, // locks the logical screen size
+              ),
+        
+              child: child!,
+            );
+          },
+          navigatorObservers: [observer],
+          home: HomePage(),
+          routes: {},
+        ),
       ),
     );
   }

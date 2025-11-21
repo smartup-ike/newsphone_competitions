@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:newsphone_competitions/presentation/pages/coupons/coupons_page.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
-import 'package:newsphone_competitions/presentation/pages/settings/settings_page.dart';
 
 import '../../../core/themes/newsphone_theme.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
 import '../../../logic/blocs/coupons/cupons_cubit.dart';
-import 'coupons_initialize.dart';
 
 class MyCouponsPage extends StatelessWidget {
   const MyCouponsPage({super.key});
