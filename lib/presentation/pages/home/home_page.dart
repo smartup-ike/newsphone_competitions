@@ -42,117 +42,127 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       if (context.mounted) {
         showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           builder: (context) {
-            return Container(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Text(
-                    'SUPER ΠΡΟΣΦΟΡΑ!',
-                    textAlign: TextAlign.center,
-                    style: NewsphoneTypography.heading3Bold.copyWith(
-                      color: NewsphoneTheme.primary,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Θέλετε να εξασφαλίσετε 10 ΔΩΡΕΑΝ συμμετοχές στους διαγωνισμούς μας;",
-                    textAlign: TextAlign.center,
-                    style: NewsphoneTypography.heading6Bold,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Με 10 δωρεάν συμμετοχές, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.",
-                    textAlign: TextAlign.center,
-                    style: NewsphoneTypography.body13Regular.copyWith(
-                      color: NewsphoneTheme.neutral40,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignInPage()),
-                      );
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 52,
-                      padding: const EdgeInsets.only(left: 18, right: 18),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey),
+            return FractionallySizedBox(
+              heightFactor: 0.9,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Text(
+                        'SUPER ΠΡΟΣΦΟΡΑ!',
+                        textAlign: TextAlign.center,
+                        style: NewsphoneTypography.heading3Bold.copyWith(
+                          color: NewsphoneTheme.primary,
+                        ),
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF054279),
-                                width: 2,
+                      const SizedBox(height: 10),
+                      Text(
+                        "Θέλετε να εξασφαλίσετε 10 ΔΩΡΕΑΝ συμμετοχές στους διαγωνισμούς μας;",
+                        textAlign: TextAlign.center,
+                        style: NewsphoneTypography.heading6Bold,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        "Με 10 δωρεάν συμμετοχές, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.",
+                        textAlign: TextAlign.center,
+                        style: NewsphoneTypography.body13Regular.copyWith(
+                          color: NewsphoneTheme.neutral40,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignInPage()),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 52,
+                          padding: const EdgeInsets.only(left: 18, right: 18),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(0xFF054279),
+                                    width: 2,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
-                            style: TextStyle(
-                              color: Color(0xFF054279),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 52,
-                      padding: const EdgeInsets.only(left: 18, right: 18),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFF054279),
-                                width: 2,
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: const Text(
+                                  "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Color(0xFF054279),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "ΟΧΙ",
-                            style: TextStyle(
-                              color: Color(0xFF054279),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 52,
+                          padding: const EdgeInsets.only(left: 18, right: 18),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 16,
+                                height: 16,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(0xFF054279),
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              const Text(
+                                "ΟΧΙ",
+                                style: TextStyle(
+                                  color: Color(0xFF054279),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             );
           },
