@@ -68,6 +68,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                 borderRadius: BorderRadius.circular(10),
               ),
               onSelected: (value) {
+                if(value == 'refresh') {
+                  context.read<NotificationCubit>().reinitializeHiveAndLoad();
+                }
                 if (value == 'read_all') {
                   context.read<NotificationCubit>().markAllAsRead();
                 }
@@ -77,6 +80,29 @@ class _NotificationsPageState extends State<NotificationsPage>
               },
               itemBuilder:
                   (BuildContext context) => <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: 'refresh',
+                      height: 36,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      // tighter padding
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.refresh,
+                            color: NewsphoneTheme.neutralBlack,
+                            size: 18,
+                          ),
+                          // smaller icon
+                          SizedBox(width: 6),
+                          Text(
+                            'Ανανέωση Ειδοποιήσεων',
+                            style: NewsphoneTypography.body15Medium.copyWith(
+                              color: NewsphoneTheme.neutralBlack,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     PopupMenuItem<String>(
                       value: 'read_all',
                       height: 36,
@@ -139,7 +165,6 @@ class _NotificationsPageState extends State<NotificationsPage>
             itemCount: notifications.length,
             itemBuilder: (context, index) {
               final notification = notifications[index];
-              print('asdf ${notification.linkedContestId} ${notification.linkedDealId}');
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,

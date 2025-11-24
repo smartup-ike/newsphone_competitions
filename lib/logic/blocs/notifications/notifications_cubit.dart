@@ -18,7 +18,9 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       state.any((notification) => !notification.isRead);
 
   // Use a late final box
-  late final Box<AppNotification> _box;bool get isBoxReady => _box.isOpen;
+  late Box<AppNotification> _box;
+
+  bool get isBoxReady => _box.isOpen;
   late StreamSubscription<BoxEvent> _subscription;
 
   // Keep track of selected topic IDs
@@ -254,5 +256,27 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       developer.log("Error opening content: $e");
       return null;
     }
+  }
+
+  Future<void> reinitializeHiveAndLoad() async {
+    // 1. Cancel the subscription to stop listening to old changes
+    await _subscription.cancel();
+
+    // 2. Close the current box instance (this releases the cached memory)
+    // Check if the box is open before closing
+    if (_box.isOpen) {
+      await _box.close();
+    }
+
+    // 3. Re-open the box
+    _box = await Hive.openBox<AppNotification>('notifications');
+
+    // 4. Re-establish the watch subscription
+    _subscription = _box.watch().listen((event) {
+      loadNotifications();
+    });
+
+    // 5. Load the latest data from the freshly opened box
+    loadNotifications();
   }
 }
