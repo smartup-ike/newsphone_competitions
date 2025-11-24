@@ -20,6 +20,10 @@ import 'logic/blocs/notifications/notifications_cubit.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  if ((message.notification?.title ?? '').isEmpty &&
+      (message.notification?.body ?? '').isEmpty) {
+    return;
+  }
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(0)) {
     Hive.registerAdapter(AppNotificationAdapter());
@@ -31,7 +35,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     body: message.notification?.body ?? '',
     topicName: message.data['topic_name'] ?? '',
     sentAt: DateTime.now(),
-    id: int.tryParse(message.messageId ?? '') ?? DateTime.now().millisecondsSinceEpoch,
+    id:
+        int.tryParse(message.messageId ?? '') ??
+        DateTime.now().millisecondsSinceEpoch,
     linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
     linkedDealId: int.tryParse(message.data['id'] ?? ''),
     type: message.data['type'] ?? '',
@@ -113,7 +119,9 @@ class MyApp extends StatelessWidget {
                       context,
                     ).devicePixelRatio, // optional, keeps pixel ratio fixed
                 size:
-                    MediaQuery.of(context).size, // locks the logical screen size
+                    MediaQuery.of(
+                      context,
+                    ).size, // locks the logical screen size
               ),
 
               child: child!,
