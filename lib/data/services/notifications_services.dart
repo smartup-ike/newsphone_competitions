@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -7,6 +9,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
@@ -33,6 +36,9 @@ class NotificationService {
   }
 
   static Future<void> showNotificationStatic(RemoteMessage message) async {
+    if ((message.notification?.title ?? '').isEmpty &&
+        (message.notification?.body ?? '').isEmpty) return;
+
     const androidDetails = AndroidNotificationDetails(
       'default_channel',
       'General Notifications',
@@ -50,6 +56,8 @@ class NotificationService {
   }
 
   static void _handleMessage(RemoteMessage message) async {
+    if ((message.notification?.title ?? '').isEmpty &&
+        (message.notification?.body ?? '').isEmpty) return;
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
     // 🔹 Print the RemoteMessage object

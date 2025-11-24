@@ -5,7 +5,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
@@ -32,7 +31,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     body: message.notification?.body ?? '',
     topicName: message.data['topic_name'] ?? '',
     sentAt: DateTime.now(),
-    id: int.tryParse(message.messageId ?? '') ?? 0,
+    id: int.tryParse(message.messageId ?? '') ?? DateTime.now().millisecondsSinceEpoch,
     linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
     linkedDealId: int.tryParse(message.data['id'] ?? ''),
     type: message.data['type'] ?? '',
@@ -116,7 +115,7 @@ class MyApp extends StatelessWidget {
                 size:
                     MediaQuery.of(context).size, // locks the logical screen size
               ),
-        
+
               child: child!,
             );
           },
