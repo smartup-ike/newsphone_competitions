@@ -5,6 +5,7 @@ import 'package:newsphone_competitions/presentation/pages/coupons/success_auth.d
 import '../../../core/themes/newsphone_typography.dart';
 import '../../../logic/blocs/auth/auth_cubit.dart';
 import '../../../logic/blocs/coupons/cupons_cubit.dart';
+import '../home/home_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -374,7 +375,12 @@ class _SignInPageState extends State<SignInPage> {
                                       ),
                                     );
                                   } else {
-                                    Navigator.pop(context);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => HomePage(),
+                                      ),
+                                    );
                                   }
                                   context.read<CouponsCubit>().init();
                                 } else if (state.smsStatus ==
