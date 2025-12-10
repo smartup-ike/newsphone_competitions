@@ -31,13 +31,15 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           // Left blue box with "14614"
-          Container(
-            color: NewsphoneTheme.primary,
-            padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 160,
-              height: 30,
+          Expanded(
+            child: Container(
+              color: NewsphoneTheme.primary,
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 160,
+                height: 30,
+              ),
             ),
           ),
 
@@ -55,7 +57,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Image.asset(
                   'assets/images/ant1.png',
                   height: 30,
-                  width: 60,
+                  width: 160,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -84,9 +86,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     height: 50,
-                    decoration: BoxDecoration(
-                      color: NewsphoneTheme.neutral90,
-                    ),
+                    decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
                     child: const Icon(
                       CupertinoIcons.bell,
                       color: NewsphoneTheme.neutralBlack,
@@ -120,9 +120,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Container(
             padding: const EdgeInsets.all(10),
             height: 50,
-            decoration: BoxDecoration(
-              color: NewsphoneTheme.neutral90,
-            ),
+            decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
             child: const Icon(Icons.menu, color: Colors.black),
           ),
         ),
