@@ -2,14 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="android.firebase_analytics" target="21" />
-      <module name="android.firebase_messaging" target="21" />
-      <module name="android.flutter_local_notifications" target="21" />
-      <module name="android.flutter_native_splash" target="21" />
-      <module name="android.path_provider_android" target="21" />
-      <module name="android.shared_preferences_android" target="21" />
       <module name="android.sqflite_android" target="21" />
-      <module name="android.url_launcher_android" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

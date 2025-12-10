@@ -89,7 +89,9 @@ class _ContestCardState extends State<ContestCard> {
               ),
               child: SizedBox(
                 height: 220,
-                child:
+                child: Stack(
+                  children: [
+                    // PageView
                     (widget.contest.images != null &&
                             widget.contest.images!.isNotEmpty)
                         ? PageView.builder(
@@ -99,7 +101,6 @@ class _ContestCardState extends State<ContestCard> {
                             setState(() {
                               _currentPage = index;
                             });
-                            // Restart timer on user swipe
                             _startAutoSlide();
                           },
                           itemBuilder: (context, index) {
@@ -121,6 +122,34 @@ class _ContestCardState extends State<ContestCard> {
                             color: NewsphoneTheme.neutralWhite,
                           ),
                         ),
+
+                    // Top-right index indicator
+                    if (widget.contest.images != null &&
+                        widget.contest.images!.length > 1)
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '${_currentPage + 1}/${widget.contest.images!.length}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             ),
 
