@@ -156,7 +156,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     vertical: 8.0,
                   ),
                   child: Text(
-                    "ΑΠΟΡΡΗΤΟ",
+                    "ΠΟΛΙΤΙΚΗ ΑΠΟΡΡΗΤΟΥ",
                     style: NewsphoneTypography.body13SemiBold,
                   ),
                 ),
