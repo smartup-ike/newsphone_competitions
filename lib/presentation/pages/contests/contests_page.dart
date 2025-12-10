@@ -88,7 +88,7 @@ class ContestsPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
                 child: Text(
-                  'Δές όλους τους διαγωνισμούς που τρέχουν τώρα και δήλωσε συμμετοχή!',
+                  'Δες όλους τους διαγωνισμούς και δήλωσε συμμετοχή!',
                   style: NewsphoneTypography.heading7Bold,
                 ),
               ),

@@ -48,18 +48,24 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
                   const SizedBox(height: 15.0),
 
                   // Title
-                  Text(
-                    'Μέσω ποιας εκπομπής θέλεις να συμμετέχεις στο διαγωνισμό;',
-                    textAlign: TextAlign.center,
-                    style: NewsphoneTypography.heading6Bold,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      'Μέσω ποιας εκπομπής θέλεις να συμμετέχεις στο διαγωνισμό;',
+                      textAlign: TextAlign.center,
+                      style: NewsphoneTypography.heading6Bold,
+                    ),
                   ),
                   const SizedBox(height: 16.0),
 
                   // Subtitle
-                  Text(
-                    'Επίλεξε την εκπομπή που παρακολουθείς και στης οποίας το διαγωνισμό θέλεις να πάρεις μέρος',
-                    textAlign: TextAlign.center,
-                    style: NewsphoneTypography.body13Regular,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      'Επίλεξε την εκπομπή που παρακολουθείς και στης οποίας το διαγωνισμό θέλεις να πάρεις μέρος',
+                      textAlign: TextAlign.center,
+                      style: NewsphoneTypography.body13Regular,
+                    ),
                   ),
                   const SizedBox(height: 24.0),
 

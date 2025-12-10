@@ -71,7 +71,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                       const SizedBox(height: 8.0),
                       // Subtitle
                       Text(
-                        'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα.',
+                        'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα \n ή χρησιμοποιήστε τις δωρεάν συμμετοχές σας.',
                         textAlign: TextAlign.center,
                         style: NewsphoneTypography.body13SemiBold.copyWith(
                           color: NewsphoneTheme.neutral40,
@@ -110,7 +110,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                             children: [
                               _buildOptionButton(
                                 icon: 'assets/images/icons/Coupon.svg',
-                                label: 'Χρήση Δωρεάν Συμμετοχής',
+                                label: 'Χρήση Δωρεάν Συμμετοχών',
                                 firstColor: Color(0XFFE082FF),
                                 secColor: NewsphoneTheme.primary,
                                 onTap: () {

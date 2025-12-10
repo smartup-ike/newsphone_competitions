@@ -82,7 +82,7 @@ void showContestCouponsBottomSheet(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Επιβεβαίωση Δωρεάν Συμμετοχών',
+                            'Επιλέξτε δωρεάν συμμετοχές',
                             style: NewsphoneTypography.body13Medium,
                           ),
                           const SizedBox(height: 5),
@@ -101,28 +101,34 @@ void showContestCouponsBottomSheet(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       InkWell(
-                        onTap: () {
-                          onDecreaseButton();
-                          setState(() {
-                            if (currentValue > 1) currentValue--;
-                          });
-                        },
-                        child: Container(
-                          height: 56,
-                          width: 85,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
+                        onTap:
+                            currentValue > 1
+                                ? () {
+                                  onDecreaseButton();
+                                  setState(() {
+                                    currentValue--;
+                                  });
+                                }
+                                : null,
+                        child: Opacity(
+                          opacity: currentValue > 1 ? 1.0 : 0.5,
+                          child: Container(
+                            height: 56,
+                            width: 85,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(50),
                             ),
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              CupertinoIcons.minus,
-                              color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                CupertinoIcons.minus,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -204,7 +210,7 @@ void showContestCouponsBottomSheet(
                                       ),
                                     )
                                     : Text(
-                                      'Δήλωσε συμμετοχή',
+                                      'Επιβεβαίωση Δωρεάν Συμμετοχών',
                                       style: NewsphoneTypography.body13Bold
                                           .copyWith(color: Colors.white),
                                     ),
