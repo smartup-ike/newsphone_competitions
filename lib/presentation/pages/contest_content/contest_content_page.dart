@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/presentation/pages/contest_content/contest_shows_page.dart';
-import '../../../core/functions/helper_functions.dart';
 import '../../../data/models/contests.dart';
-import '../terms_page/terms_page.dart';
 import 'components/contest_appbar.dart';
 import 'components/contest_details.dart';
 import 'components/contest_header.dart';
+import 'components/terms_cont_page.dart';
 import 'contest_callsms.dart';
 
 class ContestContentPage extends StatelessWidget {
@@ -55,14 +54,12 @@ class ContestContentPage extends StatelessWidget {
               onPressTermsButton: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TermsPage()),
+                  MaterialPageRoute(
+                    builder:
+                        (_) =>
+                            TermsContPage(terms: contest.termsConditions ?? ''),
+                  ),
                 );
-              },
-              onPressWinnow: () {
-                launchURL('https://winnow.gr');
-              },
-              onPressCallService: () {
-                launchURL('tel:2109472116');
               },
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 70)),

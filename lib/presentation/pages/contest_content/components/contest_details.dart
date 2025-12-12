@@ -14,8 +14,6 @@ import 'contest_terms.dart';
 class ContestDetails extends StatelessWidget {
   final VoidCallback buttonClick;
   final VoidCallback onPressTermsButton;
-  final VoidCallback onPressWinnow;
-  final VoidCallback onPressCallService;
 
   final Contest contest;
 
@@ -24,8 +22,6 @@ class ContestDetails extends StatelessWidget {
     required this.contest,
     required this.buttonClick,
     required this.onPressTermsButton,
-    required this.onPressWinnow,
-    required this.onPressCallService,
   });
 
   @override
@@ -119,7 +115,6 @@ class ContestDetails extends StatelessWidget {
               // 🔹 Terms & Contact
               ContestTerms(
                 onPressTermsButton: onPressTermsButton,
-                onPressCallService: onPressCallService,
               ),
             ],
           ),

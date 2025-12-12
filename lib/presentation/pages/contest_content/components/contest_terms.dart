@@ -4,12 +4,10 @@ import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestTerms extends StatelessWidget {
   final VoidCallback onPressTermsButton;
-  final VoidCallback onPressCallService;
 
   const ContestTerms({
     super.key,
     required this.onPressTermsButton,
-    required this.onPressCallService,
   });
 
   @override

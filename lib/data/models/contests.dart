@@ -13,6 +13,7 @@ class Contest {
   final String? instructions;
   final bool? isBigContest;
   final List<Shows> shows;
+  final String? termsConditions;
 
   Contest({
     required this.id,
@@ -25,6 +26,7 @@ class Contest {
     this.instructions,
     this.isBigContest,
     required this.shows,
+    this.termsConditions,
   });
 
   factory Contest.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class Contest {
       isActive: json['is_active'] as bool?,
       instructions: json['instructions'] as String?,
       isBigContest: json['isBigContest'] as bool?,
+      termsConditions: json['termsConditions'] as String?,
       shows:
           (json['shows'] as List<dynamic>?)
               ?.map((e) => Shows.fromJson(e as Map<String, dynamic>))
@@ -65,6 +68,7 @@ class Contest {
       'is_active': isActive,
       'instructions': instructions,
       'isBigContest': isBigContest,
+      'termsConditions': termsConditions,
       'shows': shows.map((e) => e.toJson()).toList(),
     };
   }
@@ -81,6 +85,7 @@ class Contest {
     String? instructions,
     bool? isBigContest,
     List<Shows>? shows,
+    String? termsConditions,
   }) {
     return Contest(
       id: id ?? this.id,
@@ -93,6 +98,7 @@ class Contest {
       instructions: instructions ?? this.instructions,
       isBigContest: isBigContest ?? this.isBigContest,
       shows: shows ?? this.shows,
+      termsConditions: termsConditions ?? this.termsConditions,
     );
   }
 }
