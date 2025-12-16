@@ -56,9 +56,9 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Center(
                 child: Image.asset(
                   'assets/images/ant1.png',
-                  height: 30,
-                  width: 160,
-                  fit: BoxFit.contain,
+                  height: 37,
+                  width: 87,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
