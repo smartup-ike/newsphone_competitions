@@ -1,18 +1,17 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:video_player/video_player.dart';
 
 class ContestVideoPlayer extends StatefulWidget {
   final String videoUrl;
   final bool isFullScreen;
-  // 1. Add this field to receive the controller
   final VideoPlayerController? controller;
 
   const ContestVideoPlayer({
     super.key,
     required this.videoUrl,
     this.isFullScreen = false,
-    this.controller, // Add this
+    this.controller,
   });
 
   @override
@@ -27,8 +26,6 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   @override
   void initState() {
     super.initState();
-
-    // 2. Use the passed controller if it exists, otherwise init new one
     if (widget.controller != null) {
       _controller = widget.controller!;
       _isInitialized = _controller.value.isInitialized;
@@ -38,11 +35,9 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
           if (mounted) setState(() => _isInitialized = true);
         });
     }
-
     _controller.addListener(_videoListener);
   }
 
-  // Extracted listener logic to keep it clean
   void _videoListener() {
     if (!_isInitialized) return;
 
@@ -58,6 +53,13 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
       if (_hasEnded) setState(() => _hasEnded = false);
     }
     if (mounted) setState(() {});
+  }
+
+  // Helper to format Duration to MM:SS
+  String _formatDuration(Duration duration) {
+    String minutes = duration.inMinutes.toString().padLeft(2, '0');
+    String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 
   void _handleTap() {
@@ -76,40 +78,47 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   }
 
   void _enterFullScreen() {
-    // Note: We don't pause here if you want it to keep playing while transitioning
     showDialog(
       context: context,
       useSafeArea: false,
-      builder: (context) => Scaffold(
-        backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            Center(
-              child: ContestVideoPlayer(
-                videoUrl: widget.videoUrl,
-                isFullScreen: true,
-                controller: _controller, // 3. Pass the current controller here!
-              ),
+      builder:
+          (context) => Scaffold(
+            backgroundColor: Colors.black,
+            body: Stack(
+              children: [
+                Center(
+                  child: ContestVideoPlayer(
+                    videoUrl: widget.videoUrl,
+                    isFullScreen: true,
+                    controller: _controller,
+                  ),
+                ),
+                // Close Button
+                Positioned(
+                  top: 40,
+                  right: 20,
+                  child: IconButton(
+                    icon: CircleAvatar(
+                      backgroundColor: NewsphoneTheme.neutralBlack.withValues(
+                        alpha: 0.5,
+                      ),
+                      child: Icon(
+                        Icons.close,
+                        color: NewsphoneTheme.neutralWhite,
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              top: 40,
-              right: 20,
-              child: IconButton(
-                icon: const Icon(Icons.close, color: Colors.white, size: 30),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
   @override
   void dispose() {
     _controller.removeListener(_videoListener);
-    // 4. IMPORTANT: Only dispose if it's the main player.
-    // If we dispose in fullscreen, the small player will break when we go back.
     if (!widget.isFullScreen) {
       _controller.dispose();
     }
@@ -119,7 +128,9 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     if (!_isInitialized) {
-      return const Center(child: CircularProgressIndicator(color: Colors.white));
+      return Center(
+        child: CircularProgressIndicator(color: NewsphoneTheme.neutralWhite),
+      );
     }
 
     final bool showCenterUI = !_controller.value.isPlaying || _hasEnded;
@@ -127,13 +138,14 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
     return GestureDetector(
       onTap: _handleTap,
       child: Container(
-        color: Colors.black,
+        color: NewsphoneTheme.neutralBlack,
         child: Stack(
           alignment: Alignment.center,
           children: [
+            // Video
             SizedBox.expand(
               child: FittedBox(
-                fit: BoxFit.cover,
+                fit: widget.isFullScreen ? BoxFit.contain : BoxFit.cover,
                 child: SizedBox(
                   width: _controller.value.size.width,
                   height: _controller.value.size.height,
@@ -141,30 +153,95 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
                 ),
               ),
             ),
+
+            // Play/Replay Button Overlay
             if (showCenterUI) ...[
-              Container(color: Colors.black.withOpacity(0.2)),
+              Container(
+                color: NewsphoneTheme.neutralBlack.withValues(alpha: 0.2),
+              ),
               IgnorePointer(
                 child: Container(
                   padding: const EdgeInsets.all(12),
-                  decoration: const BoxDecoration(
-                    color: Colors.black45,
+                  decoration: BoxDecoration(
+                    color: NewsphoneTheme.neutralBlack.withValues(alpha: 0.5),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     _hasEnded ? Icons.replay : Icons.play_arrow_rounded,
                     size: 50,
-                    color: Colors.white,
+                    color: NewsphoneTheme.neutralWhite,
                   ),
                 ),
               ),
             ],
+
+            // FULL SCREEN UI: Progress Bar and Timer
+            if (widget.isFullScreen)
+              Positioned(
+                bottom: 30,
+                left: 20,
+                right: 20,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Time Labels
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _formatDuration(_controller.value.position),
+                          style: const TextStyle(
+                            color: NewsphoneTheme.neutralWhite,
+                            fontSize: 12,
+                          ),
+                        ),
+                        Text(
+                          _formatDuration(_controller.value.duration),
+                          style: const TextStyle(
+                            color: NewsphoneTheme.neutralWhite,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    // The Seek Bar
+                    VideoProgressIndicator(
+                      _controller,
+                      allowScrubbing: true,
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      colors: VideoProgressColors(
+                        playedColor: NewsphoneTheme.primary20,
+                        bufferedColor: NewsphoneTheme.neutralWhite.withValues(
+                          alpha: 0.1,
+                        ),
+                        backgroundColor: NewsphoneTheme.neutralWhite.withValues(
+                          alpha: 0.2,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            // Full Screen Button (Main Card view only)
             if (!widget.isFullScreen && !_hasEnded)
               Positioned(
                 bottom: 10,
                 right: 10,
                 child: GestureDetector(
                   onTap: _enterFullScreen,
-                  child: const Icon(Icons.fullscreen, color: Colors.white, size: 28),
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundColor: NewsphoneTheme.neutralBlack.withValues(
+                      alpha: 0.5,
+                    ),
+                    child: Icon(
+                      Icons.fullscreen,
+                      color: NewsphoneTheme.neutralWhite,
+                      size: 22,
+                    ),
+                  ),
                 ),
               ),
           ],
