@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
 
 class ContestVideoPlayer extends StatefulWidget {
@@ -128,8 +129,20 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     if (!_isInitialized) {
-      return Center(
-        child: CircularProgressIndicator(color: NewsphoneTheme.neutralWhite),
+      return Shimmer.fromColors(
+        baseColor: Colors.grey[350]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: Icon(Icons.videocam, size: 50, color: Colors.white),
+          ),
+        ),
       );
     }
 
