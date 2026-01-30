@@ -3,6 +3,7 @@ import 'package:newsphone_competitions/data/models/image.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../core/themes/newsphone_theme.dart';
+import '../../../widgets/video_contenst_player.dart';
 
 class ContestHeader extends StatefulWidget {
   final List<ImageModel>? images;
@@ -61,14 +62,20 @@ class _ContestHeaderState extends State<ContestHeader> {
                       });
                     },
                     itemBuilder: (context, index) {
-                      return FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: widget.images![index].imageUrl,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        fadeInDuration: const Duration(milliseconds: 500),
-                        fadeInCurve: Curves.easeIn,
-                      );
+                      final mediaItem = widget.images![index];
+
+                      if (mediaItem.isVideo) {
+                        return ContestVideoPlayer(videoUrl: mediaItem.imageUrl);
+                      } else {
+                        return FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: mediaItem.imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          fadeInDuration: const Duration(milliseconds: 500),
+                          fadeInCurve: Curves.easeIn,
+                        );
+                      }
                     },
                   ),
                 ),

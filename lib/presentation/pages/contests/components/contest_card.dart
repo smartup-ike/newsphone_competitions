@@ -9,6 +9,7 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
 
 import '../../../../core/functions/date_time_format.dart';
+import '../../../widgets/video_contenst_player.dart';
 
 class ContestCard extends StatefulWidget {
   const ContestCard({
@@ -101,17 +102,33 @@ class _ContestCardState extends State<ContestCard> {
                             setState(() {
                               _currentPage = index;
                             });
-                            _startAutoSlide();
+
+                            // Logic: If current item is video, stop auto-slide. If image, start it.
+                            if (widget.contest.images![index].isVideo) {
+                              _autoSlideTimer?.cancel();
+                            } else {
+                              _startAutoSlide();
+                            }
                           },
                           itemBuilder: (context, index) {
-                            return FadeInImage.memoryNetwork(
-                              placeholder: kTransparentImage,
-                              image: widget.contest.images![index].imageUrl,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              fadeInDuration: const Duration(milliseconds: 500),
-                              fadeInCurve: Curves.easeIn,
-                            );
+                            final mediaItem = widget.contest.images![index];
+
+                            if (mediaItem.isVideo) {
+                              return ContestVideoPlayer(
+                                videoUrl: mediaItem.imageUrl,
+                              );
+                            } else {
+                              return FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image: mediaItem.imageUrl,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                fadeInDuration: const Duration(
+                                  milliseconds: 500,
+                                ),
+                                fadeInCurve: Curves.easeIn,
+                              );
+                            }
                           },
                         )
                         : Container(
