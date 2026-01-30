@@ -211,7 +211,7 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
                       allowScrubbing: true,
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       colors: VideoProgressColors(
-                        playedColor: NewsphoneTheme.primary20,
+                        playedColor: NewsphoneTheme.primary,
                         bufferedColor: NewsphoneTheme.neutralWhite.withValues(
                           alpha: 0.1,
                         ),
