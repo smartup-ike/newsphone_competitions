@@ -25,7 +25,9 @@ class ContestCard extends StatefulWidget {
   State<ContestCard> createState() => _ContestCardState();
 }
 
-class _ContestCardState extends State<ContestCard> {
+class _ContestCardState extends State<ContestCard> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final PageController _pageController = PageController();
   int _currentPage = 0;
   Timer? _autoSlideTimer;
@@ -71,6 +73,8 @@ class _ContestCardState extends State<ContestCard> {
 
   @override
   Widget build(BuildContext context) {
+
+    super.build(context);
     return Card(
       color: NewsphoneTheme.neutralWhite,
       elevation: 4,

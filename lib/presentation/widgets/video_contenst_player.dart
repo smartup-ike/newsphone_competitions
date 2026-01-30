@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:video_player/video_player.dart';
@@ -27,14 +30,34 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   @override
   void initState() {
     super.initState();
+    _initializePlayer();
+  }
+
+  Future<void> _initializePlayer() async {
     if (widget.controller != null) {
       _controller = widget.controller!;
       _isInitialized = _controller.value.isInitialized;
     } else {
-      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
-        ..initialize().then((_) {
-          if (mounted) setState(() => _isInitialized = true);
+      // 🔹 THE MAGIC HAPPENS HERE: Check cache first
+      final fileInfo = await DefaultCacheManager().getFileFromCache(widget.videoUrl);
+
+      File videoFile;
+      if (fileInfo != null) {
+        // Play from local cache
+        videoFile = fileInfo.file;
+      } else {
+        // Download and save to cache
+        videoFile = await DefaultCacheManager().getSingleFile(widget.videoUrl);
+      }
+
+      _controller = VideoPlayerController.file(videoFile);
+
+      await _controller.initialize();
+      if (mounted) {
+        setState(() {
+          _isInitialized = true;
         });
+      }
     }
     _controller.addListener(_videoListener);
   }
