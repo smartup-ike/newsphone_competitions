@@ -27,9 +27,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/presentation/widgets/video_contenst_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/widgets/video_contenst_player.dart" afterDir="false" />
-    </list>
+    <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
