@@ -34,32 +34,45 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
   }
 
   Future<void> _initializePlayer() async {
-    if (widget.controller != null) {
-      _controller = widget.controller!;
-      _isInitialized = _controller.value.isInitialized;
-    } else {
-      // 🔹 THE MAGIC HAPPENS HERE: Check cache first
-      final fileInfo = await DefaultCacheManager().getFileFromCache(widget.videoUrl);
-
-      File videoFile;
-      if (fileInfo != null) {
-        // Play from local cache
-        videoFile = fileInfo.file;
+    try {
+      if (widget.controller != null) {
+        _controller = widget.controller!;
+        _isInitialized = _controller.value.isInitialized;
       } else {
-        // Download and save to cache
-        videoFile = await DefaultCacheManager().getSingleFile(widget.videoUrl);
-      }
+        // 1. Await the cache check
+        final fileInfo = await DefaultCacheManager().getFileFromCache(widget.videoUrl);
+        if (!mounted) return; // Check immediately after await
 
-      _controller = VideoPlayerController.file(videoFile);
+        File videoFile;
+        if (fileInfo != null) {
+          videoFile = fileInfo.file;
+        } else {
+          // 2. Await the download
+          videoFile = await DefaultCacheManager().getSingleFile(widget.videoUrl);
+          if (!mounted) return; // Check again
+        }
 
-      await _controller.initialize();
-      if (mounted) {
+        _controller = VideoPlayerController.file(videoFile);
+
+        // 3. Await initialization
+        await _controller.initialize();
+        if (!mounted) {
+          // If we finished initializing but the user scrolled away,
+          // we must dispose this controller immediately to prevent memory leaks
+          _controller.dispose();
+          return;
+        }
+
         setState(() {
           _isInitialized = true;
         });
       }
+
+      // Only add listener if we actually have a controller and are mounted
+      _controller.addListener(_videoListener);
+    } catch (e) {
+      debugPrint("Error loading video: $e");
     }
-    _controller.addListener(_videoListener);
   }
 
   void _videoListener() {
