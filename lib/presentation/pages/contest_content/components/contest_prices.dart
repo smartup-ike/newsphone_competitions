@@ -4,7 +4,14 @@ import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import '../../../../core/themes/newsphone_typography.dart';
 
 class ContestPrices extends StatelessWidget {
-  const ContestPrices({super.key});
+  final String? priceLandline;
+  final String? priceMobile;
+
+  const ContestPrices({
+    super.key,
+    this.priceLandline,
+    this.priceMobile,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +22,14 @@ class ContestPrices extends StatelessWidget {
           text: TextSpan(
             style: NewsphoneTypography.body15Regular,
             children: [
-              TextSpan(text: 'Σταθερό '),
+              const TextSpan(text: 'Σταθερό '),
               TextSpan(
-                text: '3,14 €',
+                text: priceLandline ?? '3,14 €',
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
               ),
-              TextSpan(text: ' / ΚΛΗΣΗ με ΦΠΑ'),
+              const TextSpan(text: ' / ΚΛΗΣΗ με ΦΠΑ'),
             ],
           ),
         ),
@@ -31,14 +38,14 @@ class ContestPrices extends StatelessWidget {
           text: TextSpan(
             style: NewsphoneTypography.body15Regular,
             children: [
-              TextSpan(text: 'Κινητό '),
+              const TextSpan(text: 'Κινητό '),
               TextSpan(
-                text: '3,29 €',
+                text: priceMobile ?? '3,29 €',
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
               ),
-              TextSpan(text: ' / ΚΛΗΣΗ - SMS με ΦΠΑ'),
+              const TextSpan(text: ' / ΚΛΗΣΗ - SMS με ΦΠΑ'),
             ],
           ),
         ),

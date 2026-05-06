@@ -15,6 +15,9 @@ class Contest {
   final List<Shows> shows;
   final String? termsConditions;
   final int? sortOrder;
+  final String? priceMobile;
+  final String? priceLandline;
+  final String? messageSuffix;
 
   Contest({
     required this.id,
@@ -29,6 +32,9 @@ class Contest {
     required this.shows,
     this.termsConditions,
     this.sortOrder,
+    this.priceMobile,
+    this.priceLandline,
+    this.messageSuffix,
   });
 
   factory Contest.fromJson(Map<String, dynamic> json) {
@@ -52,6 +58,9 @@ class Contest {
       isBigContest: json['isBigContest'] as bool?,
       termsConditions: json['termsConditions'] as String?,
       sortOrder: json['sortOrder'] as int?,
+      priceMobile: json['priceMobile'] as String?,
+      priceLandline: json['priceLandline'] as String?,
+      messageSuffix: json['messageSuffix'] as String?,
       shows:
           (json['shows'] as List<dynamic>?)
               ?.map((e) => Shows.fromJson(e as Map<String, dynamic>))
@@ -73,6 +82,9 @@ class Contest {
       'isBigContest': isBigContest,
       'termsConditions': termsConditions,
       'sortOrder': sortOrder,
+      'priceMobile': priceMobile,
+      'priceLandline': priceLandline,
+      'messageSuffix': messageSuffix,
       'shows': shows.map((e) => e.toJson()).toList(),
     };
   }
@@ -91,6 +103,9 @@ class Contest {
     List<Shows>? shows,
     String? termsConditions,
     int? sortOrder,
+    String? priceMobile,
+    String? priceLandline,
+    String? messageSuffix,
   }) {
     return Contest(
       id: id ?? this.id,
@@ -105,6 +120,9 @@ class Contest {
       shows: shows ?? this.shows,
       termsConditions: termsConditions ?? this.termsConditions,
       sortOrder: sortOrder ?? this.sortOrder,
+      priceMobile: priceMobile ?? this.priceMobile,
+      priceLandline: priceLandline ?? this.priceLandline,
+      messageSuffix: messageSuffix ?? this.messageSuffix,
     );
   }
 }

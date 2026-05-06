@@ -45,14 +45,22 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     });
     // Load initial notifications
     loadNotifications();
-    await _loadSelectedTopics();
+
+    final prefs = await SharedPreferences.getInstance();
+    // Check if topics have ever been initialized
+    bool isFirstRun = prefs.getBool('notifications_initialized') ?? true;
+
     await fetchTopicsFromApi();
 
-    // Load saved topics from SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    _selectedTopics = (prefs.getStringList('selectedTopics') ?? []).toSet();
-
-    await _subscribeToTopics(_selectedTopics);
+    if (isFirstRun) {
+      if (topics.isNotEmpty) {
+        await subscribeToAllTopics();
+        await prefs.setBool('notifications_initialized', false);
+      }
+    } else {
+      _selectedTopics = (prefs.getStringList('selectedTopics') ?? []).toSet();
+      await _subscribeToTopics(_selectedTopics);
+    }
   }
 
   Future<void> fetchTopicsFromApi() async {
@@ -207,6 +215,25 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
       _selectedTopics.clear();
     }
     emit(List.from(state)); // trigger UI rebuild
+  }
+
+  Future<void> toggleAllNotifications(bool value) async {
+    // Optimistic update
+    final previousTopics = Set<String>.from(_selectedTopics);
+    setSubscriptionState(value);
+
+    try {
+      if (value) {
+        await subscribeToAllTopics();
+      } else {
+        await unsubscribeFromAllTopics();
+      }
+    } catch (e) {
+      // Revert on failure
+      _selectedTopics = previousTopics;
+      emit(List.from(state));
+      rethrow;
+    }
   }
 
   Future<dynamic> openContentFromNotifications(

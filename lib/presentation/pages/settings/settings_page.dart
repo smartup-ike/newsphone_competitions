@@ -82,33 +82,40 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 BlocBuilder<NotificationCubit, List<AppNotification>>(
                   builder: (context, state) {
+                    final isSubscribed = cubit.isSubscribedToAnyTopic;
                     return SettingsListTile(
                       title: "Ειδοποιήσεις",
                       subtitle:
                           "Λάβετε ειδοποιήσεις για διαγωνισμούς και προσφορές!",
                       leadingIcon: Icons.notifications_none,
-                      trailingWidget: Switch(
-                        value: cubit.isSubscribedToAnyTopic,
-                        onChanged: (bool value) async {
-                          // Optimistic update for instant feedback
-                          cubit.setSubscriptionState(value);
-
-                          try {
-                            if (value) {
-                              await cubit.subscribeToAllTopics();
-                            } else {
-                              await cubit.unsubscribeFromAllTopics();
-                            }
-                          } catch (e) {
-                            // If something fails, revert and show error
-                            cubit.setSubscriptionState(!value);
+                      onTap: () async {
+                        try {
+                          await cubit.toggleAllNotifications(!isSubscribed);
+                        } catch (e) {
+                          if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text(
-                                  "Αποτυχία ενημέρωσης ειδοποιήσεων.",
-                                ),
+                                content: Text("Αποτυχία ενημέρωσης ειδοποιήσεων."),
                               ),
                             );
+                          }
+                        }
+                      },
+                      trailingWidget: Switch(
+                        value: isSubscribed,
+                        onChanged: (bool value) async {
+                          try {
+                            await cubit.toggleAllNotifications(value);
+                          } catch (e) {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    "Αποτυχία ενημέρωσης ειδοποιήσεων.",
+                                  ),
+                                ),
+                              );
+                            }
                           }
                         },
                         activeColor: Colors.blue,

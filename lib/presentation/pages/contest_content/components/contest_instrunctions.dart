@@ -4,8 +4,13 @@ import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestInstructions extends StatelessWidget {
   final List<String> prefixs;
+  final String? messageSuffix;
 
-  const ContestInstructions({super.key, required this.prefixs});
+  const ContestInstructions({
+    super.key,
+    required this.prefixs,
+    this.messageSuffix,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +34,9 @@ class ContestInstructions extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              TextSpan(text: 'ΑΦΗΣΕ '),
+              const TextSpan(text: 'ΑΦΗΣΕ '),
               TextSpan(
-                text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ',
+                text: messageSuffix ?? 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ',
                 style: TextStyle(
                   color: NewsphoneTheme.deactivate,
                   fontWeight: FontWeight.bold,
@@ -67,16 +72,16 @@ class ContestInstructions extends StatelessWidget {
           text: TextSpan(
             style: NewsphoneTypography.body15Medium,
             children: [
-              TextSpan(text: 'ΣΤΕΙΛΕ '),
+              const TextSpan(text: 'ΣΤΕΙΛΕ '),
               TextSpan(
                 text: prefixs.join(' ή '),
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
               ),
-              TextSpan(text: ' (ΚΕΝΟ) '),
+              const TextSpan(text: ' (ΚΕΝΟ) '),
               TextSpan(
-                text: 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ',
+                text: messageSuffix ?? 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ',
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
