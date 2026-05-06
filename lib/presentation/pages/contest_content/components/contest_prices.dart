@@ -24,7 +24,7 @@ class ContestPrices extends StatelessWidget {
             children: [
               const TextSpan(text: 'Σταθερό '),
               TextSpan(
-                text: priceLandline ?? '3,14 €',
+                text: priceLandline != null ?'$priceLandline €' : '',
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
@@ -40,7 +40,7 @@ class ContestPrices extends StatelessWidget {
             children: [
               const TextSpan(text: 'Κινητό '),
               TextSpan(
-                text: priceMobile ?? '3,29 €',
+                text: priceMobile != null ?'$priceMobile €' : '',
                 style: NewsphoneTypography.body15Bold.copyWith(
                   color: NewsphoneTheme.deactivate,
                 ),
