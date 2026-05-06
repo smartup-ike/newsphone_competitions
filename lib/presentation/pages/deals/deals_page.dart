@@ -48,6 +48,28 @@ class DealsPage extends StatelessWidget {
               ),
             );
           } else if (state is DealsLoaded) {
+            if (state.deals.isEmpty) {
+              return RefreshIndicator(
+                color: NewsphoneTheme.primary,
+                onRefresh: () => _onRefresh(context),
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      child: Center(
+                        child: Text(
+                          "Δεν υπάρχουν διαθέσιμες προσφορές",
+                          style: NewsphoneTypography.body15Medium.copyWith(
+                            color: NewsphoneTheme.neutral30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
             return RefreshIndicator(
               color: NewsphoneTheme.primary,
               onRefresh: () => _onRefresh(context),
