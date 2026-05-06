@@ -7,8 +7,8 @@ import '../models/deals.dart';
 import '../models/topics.dart';
 
 class ApiService {
-  final String _baseUrl = 'http://192.168.1.19:8000';
-  //'https://newsphone-api-560508338889.europe-central2.run.app';
+  final String _baseUrl = //'http://192.168.1.19:8000';
+  'https://newsphone-api-560508338889.europe-central2.run.app';
 
   /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
