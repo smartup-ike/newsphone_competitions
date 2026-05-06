@@ -11,6 +11,9 @@ class ContestsCubit extends Cubit<ContestsState> {
   List<Contest> _allContests = [];
   final ApiService _apiService;
 
+  ConsCategories? _lastSpecial;
+  String? _lastNormal;
+
   ContestsCubit(this._apiService) : super(ContestsInitial());
 
   Future<void> init() async {
@@ -18,6 +21,9 @@ class ContestsCubit extends Cubit<ContestsState> {
   }
 
   void filterContests({ConsCategories? special, String? normal}) {
+    _lastSpecial = special;
+    _lastNormal = normal;
+
     List<Contest> filtered;
 
     if (special == ConsCategories.all ||
@@ -88,24 +94,12 @@ class ContestsCubit extends Cubit<ContestsState> {
 
       _allContests = fetchedContests;
 
-      // final now = DateTime.now();
-      //
-      // List<Contest> upcomingContests =
-      //     _allContests
-      //         .where((contest) => contest.dateEnd.isAfter(now))
-      //         .toList();
-      // List<Contest> pastContests =
-      //     _allContests
-      //         .where((contest) => contest.dateEnd.isBefore(now))
-      //         .toList();
-      //
-      // upcomingContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
-      // pastContests.sort((a, b) => a.dateEnd.compareTo(b.dateEnd));
-      //
-      // List<Contest> sortedContests = [...upcomingContests, ...pastContests];
-
-      // 🔹 Always emit with selectedCategory (default "ΟΛΑ")
-      emit(ContestsLoaded(_allContests, selectedCategory: 'ΟΛΑ'));
+      // Re-apply the last filter if it exists, otherwise default to "ΟΛΑ"
+      if (_lastSpecial != null || _lastNormal != null) {
+        filterContests(special: _lastSpecial, normal: _lastNormal);
+      } else {
+        emit(ContestsLoaded(_allContests, selectedCategory: 'ΟΛΑ'));
+      }
     } catch (e) {
       emit(ContestsError("Failed to fetch contests. $e"));
     }
