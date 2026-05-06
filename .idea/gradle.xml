@@ -29,7 +29,9 @@
             <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/package_info_plus-9.0.0/android" />
             <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_android-2.2.21/android" />
             <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shared_preferences_android-2.4.16/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/sqflite_android-2.4.2+2/android" />
             <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.26/android" />
+            <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/video_player_android-2.9.1/android" />
             <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/android/app" />
             <option value="$USER_HOME$/flutter/packages/flutter_tools/gradle" />

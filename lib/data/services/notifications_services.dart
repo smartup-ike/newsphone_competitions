@@ -37,7 +37,8 @@ class NotificationService {
 
   static Future<void> showNotificationStatic(RemoteMessage message) async {
     if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty) return;
+        (message.notification?.body ?? '').isEmpty)
+      return;
 
     const androidDetails = AndroidNotificationDetails(
       'default_channel',
@@ -57,7 +58,8 @@ class NotificationService {
 
   static void _handleMessage(RemoteMessage message) async {
     if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty) return;
+        (message.notification?.body ?? '').isEmpty)
+      return;
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
     // 🔹 Print the RemoteMessage object

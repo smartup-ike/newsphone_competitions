@@ -7,8 +7,8 @@ import '../models/deals.dart';
 import '../models/topics.dart';
 
 class ApiService {
-  final String _baseUrl =
-      'https://newsphone-api-560508338889.europe-central2.run.app';
+  final String _baseUrl = 'http://192.168.1.19:8000';
+  //'https://newsphone-api-560508338889.europe-central2.run.app';
 
   /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
@@ -139,6 +139,7 @@ class ApiService {
       throw Exception('Failed to fetch user: ${response.statusCode}');
     }
   }
+
   /// Fetch coupon history for the current authenticated user
   Future<List<UserTransaction>> fetchCouponHistory(String idToken) async {
     final url = '$_baseUrl/coupons/history';
@@ -157,7 +158,8 @@ class ApiService {
         return data.map((json) => UserTransaction.fromJson(json)).toList();
       } else {
         throw Exception(
-            'Failed to fetch coupon history: ${response.statusCode}');
+          'Failed to fetch coupon history: ${response.statusCode}',
+        );
       }
     } catch (e) {
       throw Exception('Failed to fetch coupon history: $e');
@@ -165,7 +167,7 @@ class ApiService {
   }
 
   /// Spend coupons on a contest or deal
-  Future<Map<String,dynamic>> spendCoupons({
+  Future<Map<String, dynamic>> spendCoupons({
     required String idToken,
     required int amount,
     int? contestId,
@@ -174,10 +176,7 @@ class ApiService {
     final url = '$_baseUrl/coupons/spend';
 
     // Build the request body
-    final body = json.encode({
-      'amount': amount,
-      'contest_id': contestId ?? 0,
-    });
+    final body = json.encode({'amount': amount, 'contest_id': contestId ?? 0});
 
     try {
       final response = await http.post(
@@ -191,7 +190,7 @@ class ApiService {
 
       if (response.statusCode == 200) {
         // Returns a string message from the API
-        return json.decode(response.body) as Map<String,dynamic>;
+        return json.decode(response.body) as Map<String, dynamic>;
       } else if (response.statusCode == 422) {
         final error = json.decode(response.body);
         throw Exception('Validation Error: $error');
@@ -202,5 +201,4 @@ class ApiService {
       throw Exception('Failed to spend coupons: $e');
     }
   }
-
 }

@@ -78,6 +78,14 @@ class ContestsCubit extends Cubit<ContestsState> {
     try {
       List<Contest> fetchedContests = await _apiService.fetchContests();
 
+      // Sort by sortOrder (ascending), nulls last
+      fetchedContests.sort((a, b) {
+        if (a.sortOrder == null && b.sortOrder == null) return 0;
+        if (a.sortOrder == null) return 1;
+        if (b.sortOrder == null) return -1;
+        return a.sortOrder!.compareTo(b.sortOrder!);
+      });
+
       _allContests = fetchedContests;
 
       // final now = DateTime.now();

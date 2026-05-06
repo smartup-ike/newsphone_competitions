@@ -22,6 +22,15 @@ class DealsCubit extends Cubit<DealsState> {
     emit(DealsLoading());
     try {
       List<Deal> fetchDeal = await _apiService.apiFetchDeals();
+
+      // Sort by sortOrder (ascending), nulls last
+      fetchDeal.sort((a, b) {
+        if (a.sortOrder == null && b.sortOrder == null) return 0;
+        if (a.sortOrder == null) return 1;
+        if (b.sortOrder == null) return -1;
+        return a.sortOrder!.compareTo(b.sortOrder!);
+      });
+
       _allDeals = fetchDeal;
       emit(DealsLoaded(_allDeals));
     } catch (e) {
@@ -34,6 +43,15 @@ class DealsCubit extends Cubit<DealsState> {
     emit(DealsLoading());
     try {
       List<Deal> fetchDeal = await _apiService.apiFetchDeals();
+
+      // Sort by sortOrder (ascending), nulls last
+      fetchDeal.sort((a, b) {
+        if (a.sortOrder == null && b.sortOrder == null) return 0;
+        if (a.sortOrder == null) return 1;
+        if (b.sortOrder == null) return -1;
+        return a.sortOrder!.compareTo(b.sortOrder!);
+      });
+
       _allDeals = fetchDeal;
       emit(DealsLoaded(_allDeals));
     } catch (e) {
