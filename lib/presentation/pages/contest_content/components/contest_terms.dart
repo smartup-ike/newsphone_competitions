@@ -30,7 +30,7 @@ class ContestTerms extends StatelessWidget {
             ),
           ),
           const TextSpan(text: ' | Δωροεπιταγή για όλους από το winnow.gr'),
-          const TextSpan(text: ' | Γρ. Εξυπηρέτησης 2109472116'),
+          const TextSpan(text: ' | Γρ. Εξυπηρέτησης 2109472116 • Newsphone Hellas'),
         ],
       ),
     );
