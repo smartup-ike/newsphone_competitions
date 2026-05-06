@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:io';
 
@@ -9,7 +8,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
@@ -19,8 +17,19 @@ class NotificationService {
   static Future<void> init() async {
     // Request permissions (iOS)
     await _messaging.requestPermission();
-    String? token = await FirebaseMessaging.instance.getToken();
-    developer.log("FCM Token: $token");
+
+    // On iOS, we might need to wait for the APNS token to be available
+    // before calling getToken(). We wrap it in a try-catch to avoid crashing.
+    try {
+      if (Platform.isIOS) {
+        // Give it a moment to receive the APNS token
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      String? token = await _messaging.getToken();
+      developer.log("FCM Token: $token");
+    } catch (e) {
+      developer.log("Error getting FCM token: $e");
+    }
 
     // Setup local notifications
     const androidInit = AndroidInitializationSettings('@mipmap/launcher_icon');
@@ -29,7 +38,7 @@ class NotificationService {
       android: androidInit,
       iOS: iosInit,
     );
-    await _localNotifications.initialize(initSettings);
+    await _localNotifications.initialize(settings: initSettings);
 
     // ✅ Foreground messages
     FirebaseMessaging.onMessage.listen(_handleMessage);
@@ -37,8 +46,9 @@ class NotificationService {
 
   static Future<void> showNotificationStatic(RemoteMessage message) async {
     if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty)
+        (message.notification?.body ?? '').isEmpty) {
       return;
+    }
 
     const androidDetails = AndroidNotificationDetails(
       'default_channel',
@@ -49,17 +59,18 @@ class NotificationService {
     const notificationDetails = NotificationDetails(android: androidDetails);
 
     await _localNotifications.show(
-      message.notification.hashCode,
-      message.notification?.title,
-      message.notification?.body,
-      notificationDetails,
+      id: message.notification.hashCode,
+      title: message.notification?.title,
+      body: message.notification?.body,
+      notificationDetails: notificationDetails,
     );
   }
 
   static void _handleMessage(RemoteMessage message) async {
     if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty)
+        (message.notification?.body ?? '').isEmpty) {
       return;
+    }
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
     // 🔹 Print the RemoteMessage object
@@ -103,6 +114,6 @@ class NotificationService {
   static Future<void> loadMissedNotifications() async {
     var box = Hive.box<AppNotification>('notifications');
     // Here you can do any re-processing or mark them as unread
-    print('Loaded ${box.length} notifications on startup');
+    developer.log('Loaded ${box.length} notifications on startup');
   }
 }
