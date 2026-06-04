@@ -11,7 +11,6 @@ import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../coupons/coupons_page.dart';
 import 'components/settings_list_tile.dart';
-import 'components/version_info.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -186,16 +185,20 @@ class _SettingsPageState extends State<SettingsPage> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 40.0),
-                  child: Column(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'Έκδοση εφαρμογής',
-                        style: NewsphoneTypography.body15Bold.copyWith(
-                          color: Theme.of(context).colorScheme.inverseSurface,
+                        'Powered by ',
+                        style: NewsphoneTypography.body13SemiBold.copyWith(
+                          color: Colors.grey[500],
+                          fontSize: 12,
                         ),
                       ),
-                      const VersionInfo(),
+                      Image.asset(
+                        'assets/images/smartup.png',
+                        height: 20,
+                      ),
                     ],
                   ),
                 ),
