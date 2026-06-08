@@ -18,6 +18,7 @@ class Contest {
   final String? priceMobile;
   final String? priceLandline;
   final String? messageSuffix;
+  final String? callSuffix;
 
   Contest({
     required this.id,
@@ -35,6 +36,7 @@ class Contest {
     this.priceMobile,
     this.priceLandline,
     this.messageSuffix,
+    this.callSuffix,
   });
 
   factory Contest.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class Contest {
       priceMobile: json['priceMobile'] as String?,
       priceLandline: json['priceLandline'] as String?,
       messageSuffix: json['messageSuffix'] as String?,
+      callSuffix: json['callSuffix'] as String?,
       shows:
           (json['shows'] as List<dynamic>?)
               ?.map((e) => Shows.fromJson(e as Map<String, dynamic>))
@@ -85,6 +88,7 @@ class Contest {
       'priceMobile': priceMobile,
       'priceLandline': priceLandline,
       'messageSuffix': messageSuffix,
+      'callSuffix': callSuffix,
       'shows': shows.map((e) => e.toJson()).toList(),
     };
   }
@@ -106,6 +110,7 @@ class Contest {
     String? priceMobile,
     String? priceLandline,
     String? messageSuffix,
+    String? callSuffix,
   }) {
     return Contest(
       id: id ?? this.id,
@@ -123,6 +128,7 @@ class Contest {
       priceMobile: priceMobile ?? this.priceMobile,
       priceLandline: priceLandline ?? this.priceLandline,
       messageSuffix: messageSuffix ?? this.messageSuffix,
+      callSuffix: callSuffix ?? this.callSuffix,
     );
   }
 }
