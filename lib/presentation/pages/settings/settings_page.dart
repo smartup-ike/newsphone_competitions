@@ -6,6 +6,7 @@ import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import 'package:newsphone_competitions/presentation/pages/about/about_page.dart';
 import 'package:newsphone_competitions/presentation/pages/preferences/prefernces_page.dart';
 import 'package:newsphone_competitions/presentation/pages/terms_page/terms_page.dart';
+import 'package:newsphone_competitions/core/functions/helper_functions.dart';
 
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
@@ -195,18 +196,26 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Powered by ',
-                            style: NewsphoneTypography.body13SemiBold.copyWith(
-                              color: Colors.grey[500],
-                              fontSize: 12,
+                      GestureDetector(
+                        onTap: () => launchURL('https://smartupweb.com/'),
+                        behavior: HitTestBehavior.opaque,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Powered by ',
+                              style: NewsphoneTypography.body13SemiBold
+                                  .copyWith(
+                                    color: Colors.grey[500],
+                                    fontSize: 12,
+                                  ),
                             ),
-                          ),
-                          Image.asset('assets/images/smartup.png', height: 20),
-                        ],
+                            Image.asset(
+                              'assets/images/smartup.png',
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 8),
                       const VersionInfo(),
