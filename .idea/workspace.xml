@@ -27,7 +27,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="" />
+    <list default="true" id="2e8b79c1-a553-4ff6-bc6c-549a311a356f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presentation/pages/contest_content/components/contest_instrunctions.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +109,6 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "dev",
     "io.flutter.project.isFirstOpen": "true",
     "io.flutter.reload.alreadyRun": "true",
@@ -280,6 +284,7 @@
     <list>
       <item itemvalue="Android App.android.app" />
       <item itemvalue="Android App.newsphone_competitions_android" />
+      <item itemvalue="Flutter.main.dart" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

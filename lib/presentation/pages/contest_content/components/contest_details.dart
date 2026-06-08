@@ -93,6 +93,7 @@ class ContestDetails extends StatelessWidget {
               ContestInstructions(
                 prefixs: contest.shows.map((show) => show.prefix).toList(),
                 messageSuffix: contest.messageSuffix,
+                callSuffix: contest.callSuffix,
               ),
 
               const SizedBox(height: 15),
