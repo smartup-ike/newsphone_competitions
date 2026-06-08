@@ -8,7 +8,7 @@ import '../models/topics.dart';
 
 class ApiService {
   final String _baseUrl = //'http://192.168.1.19:8000';
-  'https://newsphone-api-560508338889.europe-central2.run.app';
+      'https://newsphone-api-560508338889.europe-central2.run.app';
 
   /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
@@ -199,6 +199,36 @@ class ApiService {
       }
     } catch (e) {
       throw Exception('Failed to spend coupons: $e');
+    }
+  }
+
+  /// Register a test device
+  Future<Map<String, dynamic>> registerTestDevice({
+    required String name,
+    required String fcmToken,
+  }) async {
+    final url = '$_baseUrl/test-devices';
+    final body = json.encode({'name': name, 'fcm_token': fcmToken});
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: body,
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return json.decode(response.body) as Map<String, dynamic>;
+      } else if (response.statusCode == 422) {
+        final error = json.decode(response.body);
+        throw Exception('Validation Error: $error');
+      } else {
+        throw Exception(
+          'Failed to register test device: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Failed to register test device: $e');
     }
   }
 }

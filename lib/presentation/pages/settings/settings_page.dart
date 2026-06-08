@@ -11,6 +11,7 @@ import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../coupons/coupons_page.dart';
 import 'components/settings_list_tile.dart';
+import 'components/version_info.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -94,7 +95,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("Αποτυχία ενημέρωσης ειδοποιήσεων."),
+                                content: Text(
+                                  "Αποτυχία ενημέρωσης ειδοποιήσεων.",
+                                ),
                               ),
                             );
                           }
@@ -129,7 +132,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const AboutPage()),
+                      MaterialPageRoute(
+                        builder: (context) => const AboutPage(),
+                      ),
                     );
                   },
                 ),
@@ -173,7 +178,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const TermsPage()),
+                      MaterialPageRoute(
+                        builder: (context) => const TermsPage(),
+                      ),
                     );
                   },
                 ),
@@ -185,20 +192,24 @@ class _SettingsPageState extends State<SettingsPage> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 40.0),
-                  child: Row(
+                  child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'Powered by ',
-                        style: NewsphoneTypography.body13SemiBold.copyWith(
-                          color: Colors.grey[500],
-                          fontSize: 12,
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Powered by ',
+                            style: NewsphoneTypography.body13SemiBold.copyWith(
+                              color: Colors.grey[500],
+                              fontSize: 12,
+                            ),
+                          ),
+                          Image.asset('assets/images/smartup.png', height: 20),
+                        ],
                       ),
-                      Image.asset(
-                        'assets/images/smartup.png',
-                        height: 20,
-                      ),
+                      const SizedBox(height: 8),
+                      const VersionInfo(),
                     ],
                   ),
                 ),
