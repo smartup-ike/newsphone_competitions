@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
@@ -108,19 +110,96 @@ class NotificationService {
     }
   }
 
+  /// Downloads an image from [url] and saves it as a temp file.
+  /// Returns the file path, or null if the download fails.
+  static Future<String?> _downloadImageToTemp(String url) async {
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode != 200) return null;
+      final dir = await getTemporaryDirectory();
+      final ext = url.contains('.png') ? 'png' : 'jpg';
+      final file = File('${dir.path}/notification_image_${DateTime.now().millisecondsSinceEpoch}.$ext');
+      await file.writeAsBytes(response.bodyBytes);
+      return file.path;
+    } catch (e) {
+      developer.log('Failed to download notification image: $e');
+      return null;
+    }
+  }
+
   static Future<void> showNotificationStatic(RemoteMessage message) async {
     if ((message.notification?.title ?? '').isEmpty &&
         (message.notification?.body ?? '').isEmpty) {
       return;
     }
 
-    const androidDetails = AndroidNotificationDetails(
-      'default_channel',
-      'General Notifications',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-    const notificationDetails = NotificationDetails(android: androidDetails);
+    // Extract image URL from all possible FCM locations
+    final imageUrl = message.notification?.android?.imageUrl ??
+        message.notification?.apple?.imageUrl ??
+        message.data['image'] ??
+        message.data['image_url'];
+
+    NotificationDetails notificationDetails;
+
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      final imagePath = await _downloadImageToTemp(imageUrl);
+
+      if (imagePath != null) {
+        if (Platform.isAndroid) {
+          final bigPictureStyle = BigPictureStyleInformation(
+            FilePathAndroidBitmap(imagePath),
+            largeIcon: FilePathAndroidBitmap(imagePath),
+            contentTitle: message.notification?.title,
+            summaryText: message.notification?.body,
+            hideExpandedLargeIcon: false,
+          );
+          final androidDetails = AndroidNotificationDetails(
+            'default_channel',
+            'General Notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+            styleInformation: bigPictureStyle,
+            largeIcon: FilePathAndroidBitmap(imagePath),
+          );
+          notificationDetails = NotificationDetails(android: androidDetails);
+        } else if (Platform.isIOS) {
+          final attachment = DarwinNotificationAttachment(imagePath);
+          final iosDetails = DarwinNotificationDetails(
+            attachments: [attachment],
+          );
+          notificationDetails = NotificationDetails(iOS: iosDetails);
+        } else {
+          notificationDetails = const NotificationDetails(
+            android: AndroidNotificationDetails(
+              'default_channel',
+              'General Notifications',
+              importance: Importance.max,
+              priority: Priority.high,
+            ),
+          );
+        }
+      } else {
+        // Image download failed — fall back to plain notification
+        notificationDetails = const NotificationDetails(
+          android: AndroidNotificationDetails(
+            'default_channel',
+            'General Notifications',
+            importance: Importance.max,
+            priority: Priority.high,
+          ),
+        );
+      }
+    } else {
+      // No image — plain notification
+      notificationDetails = const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'default_channel',
+          'General Notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+        ),
+      );
+    }
 
     await _localNotifications.show(
       id: message.notification.hashCode,

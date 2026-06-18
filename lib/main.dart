@@ -34,7 +34,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     title: message.notification?.title ?? '',
     body: message.notification?.body ?? '',
     topicName: message.data['topic_name'] ?? '',
-    sentAt: DateTime.now(),
+    sentAt: DateTime.now(), 
     id:
         int.tryParse(message.messageId ?? '') ??
         DateTime.now().millisecondsSinceEpoch,
