@@ -107,6 +107,7 @@ class MyApp extends StatelessWidget {
         top: false,
         bottom: true,
         child: MaterialApp(
+          navigatorKey: NotificationService.navigatorKey,
           themeMode: ThemeMode.light,
           debugShowCheckedModeBanner: false,
           title: '14614 App',

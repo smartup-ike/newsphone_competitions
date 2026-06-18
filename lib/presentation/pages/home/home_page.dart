@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
+import 'package:newsphone_competitions/data/services/notifications_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/themes/newsphone_typography.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -21,6 +22,21 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = const [ContestsPage(), DealsPage()];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      NotificationService.handleInitialNotification();
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   void _onItemTapped(int index) {
     setState(() {

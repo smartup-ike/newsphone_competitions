@@ -3,16 +3,39 @@ import 'dart:developer' as developer;
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
+import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
 
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   static final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
+
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static DateTime? _lastNavigationTime;
+
+  static void _navigateToNotificationsPage() {
+    final now = DateTime.now();
+    if (_lastNavigationTime != null &&
+        now.difference(_lastNavigationTime!) < const Duration(milliseconds: 1000)) {
+      developer.log("Skipping duplicate notification navigation");
+      return;
+    }
+    _lastNavigationTime = now;
+
+    developer.log("Navigating to NotificationsPage...");
+    navigatorKey.currentState?.push(
+      MaterialPageRoute(
+        builder: (context) => const NotificationsPage(),
+      ),
+    );
+  }
 
   static Future<void> init() async {
     // Request permissions (iOS)
@@ -38,10 +61,51 @@ class NotificationService {
       android: androidInit,
       iOS: iosInit,
     );
-    await _localNotifications.initialize(settings: initSettings);
+    await _localNotifications.initialize(
+      settings: initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) {
+        developer.log("Local notification clicked: ${response.payload}");
+        _navigateToNotificationsPage();
+      },
+    );
 
     // ✅ Foreground messages
     FirebaseMessaging.onMessage.listen(_handleMessage);
+
+    // ✅ Background / Terminated message callbacks opened app
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      developer.log("FCM Notification opened app: ${message.messageId}");
+      _navigateToNotificationsPage();
+    });
+  }
+
+  static bool _initialNotificationHandled = false;
+
+  static Future<void> handleInitialNotification() async {
+    if (_initialNotificationHandled) return;
+    _initialNotificationHandled = true;
+
+    try {
+      final RemoteMessage? initialMessage = await _messaging.getInitialMessage();
+      if (initialMessage != null) {
+        developer.log("App opened from terminated state via FCM: ${initialMessage.messageId}");
+        _navigateToNotificationsPage();
+        return;
+      }
+    } catch (e) {
+      developer.log("Error checking initial FCM message: $e");
+    }
+
+    try {
+      final NotificationAppLaunchDetails? launchDetails =
+          await _localNotifications.getNotificationAppLaunchDetails();
+      if (launchDetails != null && launchDetails.didNotificationLaunchApp) {
+        developer.log("App opened from terminated state via local notification");
+        _navigateToNotificationsPage();
+      }
+    } catch (e) {
+      developer.log("Error checking local notification launch details: $e");
+    }
   }
 
   static Future<void> showNotificationStatic(RemoteMessage message) async {
