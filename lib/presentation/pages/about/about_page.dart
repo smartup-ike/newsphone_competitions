@@ -37,12 +37,12 @@ class AboutPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 22),
                 Text(
-                  "Τι είναι η εφαρμογή 14614;",
+                  "Σχετικά με την εφαρμογή 14614",
                   style: NewsphoneTypography.heading7Bold,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Η εφαρμογή 14614 είναι η επίσημη εφαρμογή για την τηλεοπτική εκπομπή “Το Πρωινό” του ΑΝΤ1. Μέσα από την εφαρμογή μπορείς να συμμετέχεις σε μοναδικούς διαγωνισμούς και να κερδίσεις απίθανα δώρα!",
+                  "Η εφαρμογή 14614 είναι ο πιο εύκολος και άμεσος τρόπος για να ενημερώνεσαι και να συμμετέχεις στους μοναδικούς διαγωνισμούς των εκπομπών του τηλεοπτικού σταθμού ΑΝΤ1. Μέσα από το app μπορείς να κερδίσεις απίθανα δώρα, να αξιοποιήσεις αποκλειστικές προσφορές και να κάνεις τις αγορές σου με προνομιακές τιμές, ειδικά για εσένα.",
                   style: NewsphoneTypography.body13Medium,
                 ),
                 const SizedBox(height: 24),
@@ -52,41 +52,15 @@ class AboutPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "1. Ανοίγεις την εφαρμογή 14614 και βλέπεις τους διαθέσιμους ενεργούς διαγωνισμούς .\n2. Επιλέγεις τον διαγωνισμό που σε ενδιαφέρει .\n3. Ακολουθείς τα βήματα που περιγράφονται στην σελίδα του διαγωνισμού. \n4. Αγοράζεις μια δωροεπιταγή (giftcard).\n5. Με την αγορά της δωροεπιταγής συμμετέχεις αυτόματα στον διαγωνισμό για να κερδίσεις το μεγάλο δώρο που φαίνεται στη σελίδα του διαγωνισμού.",
+                  "1. Σαρώνεις (scan) το QR Code που εμφανίζεται στην τηλεοπτική οθόνη ή εγκαθιστάς την εφαρμογή αναζητώντας «14614 app» στο Play Store ή στο App Store. .\n2. Συνδέεσαι με τον αριθμό του κινητού σου και λαμβάνεις 10 δωρεάν συμμετοχές ως καλωσόρισμα.\n3. Επιλέγεις έναν ενεργό διαγωνισμό και δηλώνεις συμμετοχή μέσω Κλήσης ή SMS, ακολουθώντας τα βήματα της εφαρμογής. ",
                   style: NewsphoneTypography.body13Medium,
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  "Που χρησιμοποιώ τη δωροεπιταγή;",
-                  style: NewsphoneTypography.heading7Bold,
-                ),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    style: NewsphoneTypography.body13Medium,
-                    children: [
-                      const TextSpan(
-                        text:
-                            'Η δωροεπιταγή που αγόρασες εξαργυρώνεται στην ιστοσελίδα ',
-                      ),
-                      TextSpan(
-                        text: 'winnow.gr',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const TextSpan(
-                        text: ', όπου μπορείς να διαλέξετε προϊόντα.',
-                      ),
-                    ],
-                  ),
-                ),
+
                 const SizedBox(height: 32),
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Καλή επιτυχία και καλές αγορές!",
+                    "Καλή επιτυχία!",
                     style: NewsphoneTypography.body15SemiBold,
                   ),
                 ),
