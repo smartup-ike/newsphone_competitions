@@ -29,6 +29,9 @@ class AppNotification extends HiveObject {
   @HiveField(8)
   bool isRead;
 
+  @HiveField(9)
+  final String? imageUrl;
+
   AppNotification({
     required this.id,
     required this.title,
@@ -39,5 +42,6 @@ class AppNotification extends HiveObject {
     this.linkedContestId,
     this.linkedDealId,
     this.isRead = false,
+    this.imageUrl,
   });
 }

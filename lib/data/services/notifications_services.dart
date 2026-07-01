@@ -226,6 +226,11 @@ class NotificationService {
     // print('Sent time: ${message.sentTime}');
     // print('--- End RemoteMessage ---');
 
+    final imageUrl = message.notification?.android?.imageUrl ??
+        message.notification?.apple?.imageUrl ??
+        message.data['image'] ??
+        message.data['image_url'];
+
     // 2️⃣ Create AppNotification
     final appNotification = AppNotification(
       title: message.notification?.title ?? '',
@@ -237,6 +242,7 @@ class NotificationService {
       linkedDealId: int.tryParse(message.data['id'] ?? ''),
       type: message.data['type'] ?? '',
       isRead: false,
+      imageUrl: imageUrl,
     );
 
     // 3️⃣ Save to Hive

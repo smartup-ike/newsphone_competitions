@@ -19,6 +19,7 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage>
     with WidgetsBindingObserver {
   final Set<int> _loadingNotifications = {};
+  final Set<int> _collapsedImageNotifications = {};
 
   @override
   void initState() {
@@ -180,72 +181,144 @@ class _NotificationsPageState extends State<NotificationsPage>
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0,
-                        vertical: 4,
+                        vertical: 8.0, // slightly more vertical breathing room
                       ),
-                      child: Row(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
-                                      ? 'Νέος Διαγωνισμός!'
-                                      : 'Νέα Προσφορά!': notification.title,
-                                  style: NewsphoneTypography.body16SemiBold
-                                      .copyWith(
-                                        color: NewsphoneTheme.neutralBlack,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
+                                          ? 'Νέος Διαγωνισμός!'
+                                          : 'Νέα Προσφορά!': notification.title,
+                                      style: NewsphoneTypography.body16SemiBold
+                                          .copyWith(
+                                            color: NewsphoneTheme.neutralBlack,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      (notification.linkedContestId != 0 || notification.linkedDealId != null) ? notification.title : notification.body,
+                                      style: NewsphoneTypography.body13Regular
+                                          .copyWith(
+                                            color: NewsphoneTheme.neutral30,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Three dots menu
+                              PopupMenuButton<String>(
+                                icon: const Icon(
+                                  Icons.more_horiz,
+                                  color: NewsphoneTheme.neutralBlack,
+                                  size: 20,
+                                ),
+                                padding: const EdgeInsets.all(8.0),
+                                color: NewsphoneTheme.neutralWhite,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                onSelected: (value) {
+                                  if (value == 'delete') {
+                                    context
+                                        .read<NotificationCubit>()
+                                        .deleteNotification(notification);
+                                  }
+                                },
+                                itemBuilder:
+                                    (context) => <PopupMenuEntry<String>>[
+                                      const PopupMenuItem<String>(
+                                        value: 'delete',
+                                        height: 30,
+                                        child: Text('Διαγραφή'),
                                       ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  (notification.linkedContestId != 0 || notification.linkedDealId != null) ? notification.title : notification.body,
-                                  style: NewsphoneTypography.body13Regular
-                                      .copyWith(
-                                        color: NewsphoneTheme.neutral30,
-                                      ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  formatDate(notification.sentAt),
-                                  style: NewsphoneTypography.body12Bold
-                                      .copyWith(color: NewsphoneTheme.primary),
-                                ),
-                              ],
-                            ),
+                                    ],
+                              ),
+                            ],
                           ),
-                          // Three dots menu
-                          PopupMenuButton<String>(
-                            icon: const Icon(
-                              Icons.more_horiz,
-                              color: NewsphoneTheme.neutralBlack,
-                              size: 20,
-                            ),
-                            color: NewsphoneTheme.neutralWhite,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            onSelected: (value) {
-                              if (value == 'delete') {
-                                context
-                                    .read<NotificationCubit>()
-                                    .deleteNotification(notification);
-                              }
-                            },
-                            itemBuilder:
-                                (context) => <PopupMenuEntry<String>>[
-                                  const PopupMenuItem<String>(
-                                    value: 'delete',
-                                    height: 30,
-                                    child: Text('Διαγραφή'),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                formatDate(notification.sentAt),
+                                style: NewsphoneTypography.body12Bold
+                                    .copyWith(color: NewsphoneTheme.primary),
+                              ),
+                              if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty)
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      if (_collapsedImageNotifications.contains(notification.id)) {
+                                        _collapsedImageNotifications.remove(notification.id);
+                                      } else {
+                                        _collapsedImageNotifications.add(notification.id);
+                                      }
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 12.0, right: 6.0, top: 4.0, bottom: 4.0),
+                                    child: Icon(
+                                      _collapsedImageNotifications.contains(notification.id)
+                                          ? Icons.keyboard_arrow_down
+                                          : Icons.keyboard_arrow_up,
+                                      size: 24,
+                                      color: NewsphoneTheme.primary,
+                                    ),
                                   ),
-                                ],
+                                ),
+                            ],
                           ),
                         ],
                       ),
                     ),
+
+                    // Premium Image UI
+                    if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty && !_collapsedImageNotifications.contains(notification.id))
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.08),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: Image.network(
+                                notification.imageUrl!,
+                                fit: BoxFit.cover,
+                                loadingBuilder: (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Container(
+                                    color: NewsphoneTheme.neutral10,
+                                    child: const Center(
+                                      child: CircularProgressIndicator.adaptive(),
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
 
                     const SizedBox(height: 4),
                     // Register button

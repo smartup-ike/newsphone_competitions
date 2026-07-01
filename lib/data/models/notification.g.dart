@@ -26,13 +26,14 @@ class AppNotificationAdapter extends TypeAdapter<AppNotification> {
       linkedContestId: fields[5] as int?,
       linkedDealId: fields[6] as int?,
       isRead: fields[8] as bool,
+      imageUrl: fields[9] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppNotification obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class AppNotificationAdapter extends TypeAdapter<AppNotification> {
       ..writeByte(7)
       ..write(obj.type)
       ..writeByte(8)
-      ..write(obj.isRead);
+      ..write(obj.isRead)
+      ..writeByte(9)
+      ..write(obj.imageUrl);
   }
 
   @override

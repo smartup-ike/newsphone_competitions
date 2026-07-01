@@ -30,6 +30,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   }
   var box = await Hive.openBox<AppNotification>('notifications');
 
+  final imageUrl = message.notification?.android?.imageUrl ??
+      message.notification?.apple?.imageUrl ??
+      message.data['image'] ??
+      message.data['image_url'];
+
   final notification = AppNotification(
     title: message.notification?.title ?? '',
     body: message.notification?.body ?? '',
@@ -42,6 +47,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     linkedDealId: int.tryParse(message.data['id'] ?? ''),
     type: message.data['type'] ?? '',
     isRead: false,
+    imageUrl: imageUrl,
   );
   await box.add(notification);
 }
