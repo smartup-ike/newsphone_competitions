@@ -5,10 +5,7 @@ import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 class ContestTerms extends StatelessWidget {
   final VoidCallback onPressTermsButton;
 
-  const ContestTerms({
-    super.key,
-    required this.onPressTermsButton,
-  });
+  const ContestTerms({super.key, required this.onPressTermsButton});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,9 @@ class ContestTerms extends StatelessWidget {
             ),
           ),
           const TextSpan(text: ' | Δωροεπιταγή για όλους από το winnow.gr'),
-          const TextSpan(text: ' | Γρ. Εξυπηρέτησης 2109472116 • Newsphone Hellas'),
+          const TextSpan(
+            text: ' | Γρ. Εξυπηρέτησης 2109472166 • Newsphone Hellas',
+          ),
         ],
       ),
     );

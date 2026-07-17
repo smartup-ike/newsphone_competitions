@@ -71,9 +71,12 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                       const SizedBox(height: 8.0),
                       // Subtitle
                       Text(
-                        'Επίλεξε τρόπο συμμετοχής στον διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα \n ή χρησιμοποιήστε τις δωρεάν συμμετοχές σας.',
+                        'Επίλεξε τρόπο συμμετοχής στο διαγωνισμό.\nΚάλεσε μας ή στείλε μήνυμα \n ή χρησιμοποιήστε τις δωρεάν συμμετοχές σου!',
                         textAlign: TextAlign.center,
-                        style: NewsphoneTypography.body13SemiBold.copyWith(
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          height: 1.3,
                           color: NewsphoneTheme.neutral40,
                         ),
                       ),

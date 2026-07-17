@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
@@ -14,6 +16,9 @@ class DealCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final text = deal.details ?? '';
+    final displayText =
+        text.length > 200 ? '${text.substring(0, 200)}...' : text;
     return Card(
       color: NewsphoneTheme.neutral95,
       margin: const EdgeInsets.only(bottom: 16),
@@ -24,7 +29,7 @@ class DealCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             if (deal.companyImage != null)
               FadeInImage.memoryNetwork(
                 placeholder: kTransparentImage,
@@ -38,7 +43,7 @@ class DealCard extends StatelessWidget {
             if (deal.details != null) ...[
               const SizedBox(height: 8),
               Text(
-                deal.details!,
+                displayText,
                 style: NewsphoneTypography.body15Medium.copyWith(
                   color: NewsphoneTheme.neutral40,
                 ),
