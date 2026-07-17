@@ -251,13 +251,21 @@ class NotificationService {
   }
 
   static Future<void> subscribeToTopic(String topic) async {
-    await _messaging.subscribeToTopic(topic);
-    developer.log("Subscribed to topic: $topic");
+    try {
+      await _messaging.subscribeToTopic(topic);
+      developer.log("Subscribed to topic: $topic");
+    } catch (e) {
+      developer.log("Error subscribing to topic $topic: $e");
+    }
   }
 
   static Future<void> unsubscribeFromTopic(String topic) async {
-    await _messaging.unsubscribeFromTopic(topic);
-    developer.log("Unsubscribed from topic: $topic");
+    try {
+      await _messaging.unsubscribeFromTopic(topic);
+      developer.log("Unsubscribed from topic: $topic");
+    } catch (e) {
+      developer.log("Error unsubscribing from topic $topic: $e");
+    }
   }
 
   static Future<void> loadMissedNotifications() async {
