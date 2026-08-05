@@ -10,12 +10,14 @@ class ContestVideoPlayer extends StatefulWidget {
   final String videoUrl;
   final bool isFullScreen;
   final VideoPlayerController? controller;
+  final bool autoPlay;
 
   const ContestVideoPlayer({
     super.key,
     required this.videoUrl,
     this.isFullScreen = false,
     this.controller,
+    this.autoPlay = true,
   });
 
   @override
@@ -38,6 +40,9 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
       if (widget.controller != null) {
         _controller = widget.controller!;
         _isInitialized = _controller.value.isInitialized;
+        if (widget.autoPlay && !_controller.value.isPlaying) {
+          _controller.play();
+        }
       } else {
         // 1. Await the cache check
         final fileInfo = await DefaultCacheManager().getFileFromCache(widget.videoUrl);
@@ -61,6 +66,10 @@ class _ContestVideoPlayerState extends State<ContestVideoPlayer> {
           // we must dispose this controller immediately to prevent memory leaks
           _controller.dispose();
           return;
+        }
+
+        if (widget.autoPlay) {
+          await _controller.play();
         }
 
         setState(() {
