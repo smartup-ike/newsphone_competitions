@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:newsphone_competitions/data/models/contests.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../../../core/functions/date_time_format.dart';
 import '../../../widgets/video_contenst_player.dart';
@@ -25,7 +25,8 @@ class ContestCard extends StatefulWidget {
   State<ContestCard> createState() => _ContestCardState();
 }
 
-class _ContestCardState extends State<ContestCard> with AutomaticKeepAliveClientMixin {
+class _ContestCardState extends State<ContestCard>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   final PageController _pageController = PageController();
@@ -73,7 +74,6 @@ class _ContestCardState extends State<ContestCard> with AutomaticKeepAliveClient
 
   @override
   Widget build(BuildContext context) {
-
     super.build(context);
     return Card(
       color: NewsphoneTheme.neutralWhite,
@@ -192,7 +192,7 @@ class _ContestCardState extends State<ContestCard> with AutomaticKeepAliveClient
                     style: NewsphoneTypography.body13Medium.copyWith(
                       color: NewsphoneTheme.neutral35,
                     ),
-                    maxLines: 3,
+                    maxLines: 10,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 16),
@@ -292,7 +292,7 @@ class _ContestCardState extends State<ContestCard> with AutomaticKeepAliveClient
                         ),
                       ),
                       child: Text(
-                        'Διεκδίκησε το',
+                        'Διεκδίκησέ το',
                         style: NewsphoneTypography.body16SemiBold.copyWith(
                           color: NewsphoneTheme.neutralWhite,
                         ),
