@@ -22,11 +22,10 @@ class SettingsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16),
-      child: Container(
-        decoration: BoxDecoration(
-          color: NewsphoneTheme.neutralWhite,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+      child: Material(
+        color: NewsphoneTheme.neutralWhite,
+        borderRadius: BorderRadius.circular(10.0),
+        clipBehavior: Clip.antiAlias,
         child: ListTile(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 12.0,
