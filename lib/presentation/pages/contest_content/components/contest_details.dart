@@ -47,7 +47,7 @@ class ContestDetails extends StatelessWidget {
                 children: [
                   Text(
                     '${isContestEnded ? 'ΚΛΗΡΩΘΗΚΕ' : 'ΚΛΗΡΩΣΗ'} ${formatDate(contest.dateEnd)}',
-                    style: GoogleFonts.robotoFlex(
+                    style: GoogleFonts.roboto(
                       color:
                           isContestEnded
                               ? NewsphoneTheme.deactivate

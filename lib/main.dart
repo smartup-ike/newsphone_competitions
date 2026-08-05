@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           navigatorKey: NotificationService.navigatorKey,
           themeMode: ThemeMode.light,
+          theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
           debugShowCheckedModeBanner: false,
           title: '14614 App',
           builder: (context, child) {
