@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 import '../../../core/functions/date_time_format.dart';
+import '../../../data/models/contests.dart';
 import '../../../data/models/notification.dart';
 import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../contest_content/contest_content_page.dart';
@@ -18,26 +19,32 @@ class NotificationsPage extends StatefulWidget {
 
 class _NotificationsPageState extends State<NotificationsPage>
     with WidgetsBindingObserver {
-  final Set<int> _loadingNotifications = {};
-  final Set<int> _collapsedImageNotifications = {};
+  // Keyed by the Hive key, which is unique per stored notification.
+  final Set<dynamic> _loadingNotifications = {};
+  final Set<dynamic> _collapsedImageNotifications = {};
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<NotificationCubit>().loadNotifications();
-      context.read<NotificationCubit>().markAllAsRead();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => _reloadAndMarkRead());
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       // App came back to foreground
-      context.read<NotificationCubit>().loadNotifications();
-      context.read<NotificationCubit>().markAllAsRead();
+      _reloadAndMarkRead();
     }
+  }
+
+  /// Reads the box from disk (pushes may have been stored by the background
+  /// isolate) before marking everything as read.
+  Future<void> _reloadAndMarkRead() async {
+    final cubit = context.read<NotificationCubit>();
+    await cubit.reloadFromDisk();
+    if (!mounted) return;
+    cubit.markAllAsRead();
   }
 
   @override
@@ -69,9 +76,6 @@ class _NotificationsPageState extends State<NotificationsPage>
                 borderRadius: BorderRadius.circular(10),
               ),
               onSelected: (value) {
-                if(value == 'refresh') {
-                  context.read<NotificationCubit>().reinitializeHiveAndLoad();
-                }
                 if (value == 'read_all') {
                   context.read<NotificationCubit>().markAllAsRead();
                 }
@@ -81,29 +85,6 @@ class _NotificationsPageState extends State<NotificationsPage>
               },
               itemBuilder:
                   (BuildContext context) => <PopupMenuEntry<String>>[
-                    PopupMenuItem<String>(
-                      value: 'refresh',
-                      height: 36,
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      // tighter padding
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.refresh,
-                            color: NewsphoneTheme.neutralBlack,
-                            size: 18,
-                          ),
-                          // smaller icon
-                          SizedBox(width: 6),
-                          Text(
-                            'Ανανέωση Ειδοποιήσεων',
-                            style: NewsphoneTypography.body15Medium.copyWith(
-                              color: NewsphoneTheme.neutralBlack,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     PopupMenuItem<String>(
                       value: 'read_all',
                       height: 36,
@@ -194,22 +175,22 @@ class _NotificationsPageState extends State<NotificationsPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
-                                          ? 'Νέος Διαγωνισμός!'
-                                          : 'Νέα Προσφορά!': notification.title,
+                                      notification.title,
                                       style: NewsphoneTypography.body16SemiBold
                                           .copyWith(
                                             color: NewsphoneTheme.neutralBlack,
                                           ),
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      (notification.linkedContestId != 0 || notification.linkedDealId != null) ? notification.title : notification.body,
-                                      style: NewsphoneTypography.body13Regular
-                                          .copyWith(
-                                            color: NewsphoneTheme.neutral30,
-                                          ),
-                                    ),
+                                    if (notification.body.isNotEmpty) ...[
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        notification.body,
+                                        style: NewsphoneTypography.body13Regular
+                                            .copyWith(
+                                              color: NewsphoneTheme.neutral30,
+                                            ),
+                                      ),
+                                    ],
                                   ],
                                 ),
                               ),
@@ -257,17 +238,17 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      if (_collapsedImageNotifications.contains(notification.id)) {
-                                        _collapsedImageNotifications.remove(notification.id);
+                                      if (_collapsedImageNotifications.contains(notification.key)) {
+                                        _collapsedImageNotifications.remove(notification.key);
                                       } else {
-                                        _collapsedImageNotifications.add(notification.id);
+                                        _collapsedImageNotifications.add(notification.key);
                                       }
                                     });
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 12.0, right: 6.0, top: 4.0, bottom: 4.0),
                                     child: Icon(
-                                      _collapsedImageNotifications.contains(notification.id)
+                                      _collapsedImageNotifications.contains(notification.key)
                                           ? Icons.keyboard_arrow_down
                                           : Icons.keyboard_arrow_up,
                                       size: 24,
@@ -282,7 +263,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                     ),
 
                     // Premium Image UI
-                    if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty && !_collapsedImageNotifications.contains(notification.id))
+                    if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty && !_collapsedImageNotifications.contains(notification.key))
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                         child: Container(
@@ -322,7 +303,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                     const SizedBox(height: 4),
                     // Register button
-                    (notification.linkedContestId != 0 || notification.linkedDealId != null) ? Row(
+                    notification.isLinked ? Row(
 
                       children: [
                         Padding(
@@ -342,26 +323,30 @@ class _NotificationsPageState extends State<NotificationsPage>
                             child: ElevatedButton(
                               onPressed:
                                   _loadingNotifications.contains(
-                                        notification.linkedContestId,
+                                        notification.key,
                                       )
                                       ? null
                                       : () async {
+                                        final key = notification.key;
                                         setState(() {
-                                          _loadingNotifications.add(
-                                            notification.linkedContestId ?? -1,
-                                          );
+                                          _loadingNotifications.add(key);
                                         });
 
                                         final result = await context
                                             .read<NotificationCubit>()
                                             .openContentFromNotifications(
-                                              notification.linkedContestId,
-                                              notification.linkedDealId,
-                                              notification.type,
+                                              notification,
                                             );
 
+                                        if (!mounted || !context.mounted) {
+                                          return;
+                                        }
+                                        setState(() {
+                                          _loadingNotifications.remove(key);
+                                        });
+
                                         if (result != null) {
-                                          if (notification.type == 'contest') {
+                                          if (result is Contest) {
                                             Navigator.of(context).push(
                                               MaterialPageRoute(
                                                 builder:
@@ -402,12 +387,6 @@ class _NotificationsPageState extends State<NotificationsPage>
                                             );
                                           }
                                         }
-
-                                        setState(() {
-                                          _loadingNotifications.remove(
-                                            notification.linkedContestId ?? -1,
-                                          );
-                                        });
                                       },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
@@ -423,9 +402,9 @@ class _NotificationsPageState extends State<NotificationsPage>
                                 ),
                               ),
                               child: Text(
-                                (notification.linkedContestId != 0 || notification.linkedDealId != null) ? (notification.type ?? '') == 'contest'
+                                notification.contestId != null
                                     ? 'Δήλωσε Συμμετοχή'
-                                    : 'Δές Προσφορά!': 'Δήλωσε Συμμετοχή',
+                                    : 'Δές Προσφορά!',
                                 style: NewsphoneTypography.body13Bold.copyWith(
                                   color: NewsphoneTheme.neutralWhite,
                                 ),
@@ -435,7 +414,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                         ),
                         const SizedBox(width: 8),
                         if (_loadingNotifications.contains(
-                          notification.linkedContestId,
+                          notification.key,
                         ))
                           SizedBox(
                             width: 20,

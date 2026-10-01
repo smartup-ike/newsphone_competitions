@@ -21,36 +21,12 @@ import 'logic/blocs/notifications/notifications_cubit.dart';
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  if ((message.notification?.title ?? '').isEmpty &&
-      (message.notification?.body ?? '').isEmpty) {
-    return;
-  }
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(0)) {
     Hive.registerAdapter(AppNotificationAdapter());
   }
-  var box = await Hive.openBox<AppNotification>('notifications');
-
-  final imageUrl = message.notification?.android?.imageUrl ??
-      message.notification?.apple?.imageUrl ??
-      message.data['image'] ??
-      message.data['image_url'];
-
-  final notification = AppNotification(
-    title: message.notification?.title ?? '',
-    body: message.notification?.body ?? '',
-    topicName: message.data['topic_name'] ?? '',
-    sentAt: DateTime.now(), 
-    id:
-        int.tryParse(message.messageId ?? '') ??
-        DateTime.now().millisecondsSinceEpoch,
-    linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
-    linkedDealId: int.tryParse(message.data['id'] ?? ''),
-    type: message.data['type'] ?? '',
-    isRead: false,
-    imageUrl: imageUrl,
-  );
-  await box.add(notification);
+  // Close the box after writing so this isolate never holds a stale copy.
+  await NotificationService.storeRemoteMessage(message, closeBox: true);
 }
 
 void main() async {
@@ -63,7 +39,7 @@ void main() async {
 
   await Hive.initFlutter();
   Hive.registerAdapter(AppNotificationAdapter());
-  await Hive.openBox<AppNotification>('notifications');
+  await Hive.openBox<AppNotification>(NotificationService.notificationsBoxName);
 
   await NotificationService.init();
 

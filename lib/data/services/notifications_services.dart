@@ -4,13 +4,15 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
+import 'package:newsphone_competitions/logic/blocs/notifications/notifications_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/notifications/notification_page.dart';
 
 class NotificationService {
@@ -37,6 +39,24 @@ class NotificationService {
         builder: (context) => const NotificationsPage(),
       ),
     );
+  }
+
+  /// iOS does not always run the background handler, so a tapped push may not
+  /// be in the box yet. Store it (de-duplicated by `notification_id`) before
+  /// showing the list; NotificationsPage reloads the box from disk on open.
+  static Future<void> _openFromMessage(RemoteMessage message) async {
+    if (message.data['notification_id'] != null) {
+      try {
+        // Reload first so the de-dup check sees what the background isolate wrote.
+        await navigatorKey.currentContext
+            ?.read<NotificationCubit>()
+            .reloadFromDisk();
+        await storeRemoteMessage(message);
+      } catch (e) {
+        developer.log("Error storing opened notification: $e");
+      }
+    }
+    _navigateToNotificationsPage();
   }
 
   static Future<void> init() async {
@@ -77,7 +97,7 @@ class NotificationService {
     // ✅ Background / Terminated message callbacks opened app
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       developer.log("FCM Notification opened app: ${message.messageId}");
-      _navigateToNotificationsPage();
+      _openFromMessage(message);
     });
   }
 
@@ -91,7 +111,7 @@ class NotificationService {
       final RemoteMessage? initialMessage = await _messaging.getInitialMessage();
       if (initialMessage != null) {
         developer.log("App opened from terminated state via FCM: ${initialMessage.messageId}");
-        _navigateToNotificationsPage();
+        _openFromMessage(initialMessage);
         return;
       }
     } catch (e) {
@@ -128,20 +148,14 @@ class NotificationService {
   }
 
   static Future<void> showNotificationStatic(RemoteMessage message) async {
-    if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty) {
-      return;
-    }
+    if (!_hasContent(message)) return;
 
     // Extract image URL from all possible FCM locations
-    final imageUrl = message.notification?.android?.imageUrl ??
-        message.notification?.apple?.imageUrl ??
-        message.data['image'] ??
-        message.data['image_url'];
+    final imageUrl = imageUrlOf(message);
 
     NotificationDetails notificationDetails;
 
-    if (imageUrl != null && imageUrl.isNotEmpty) {
+    if (imageUrl != null) {
       final imagePath = await _downloadImageToTemp(imageUrl);
 
       if (imagePath != null) {
@@ -203,51 +217,124 @@ class NotificationService {
 
     await _localNotifications.show(
       id: message.notification.hashCode,
-      title: message.notification?.title,
-      body: message.notification?.body,
+      title: message.notification?.title ?? message.data['title'],
+      body: message.notification?.body ?? message.data['body'],
       notificationDetails: notificationDetails,
     );
   }
 
   static void _handleMessage(RemoteMessage message) async {
-    if ((message.notification?.title ?? '').isEmpty &&
-        (message.notification?.body ?? '').isEmpty) {
-      return;
-    }
+    if (!_hasContent(message)) return;
     // 1️⃣ Show system notification
     await showNotificationStatic(message);
-    // 🔹 Print the RemoteMessage object
-    // print('--- RemoteMessage ---');
-    // print('Message ID: ${message.messageId}');
-    // print('Title: ${message.notification?.title}');
-    // print('Body: ${message.notification?.body}');
-    // print('Data: ${message.data}');
-    // print('From: ${message.from}');
-    // print('Sent time: ${message.sentTime}');
-    // print('--- End RemoteMessage ---');
+    // 2️⃣ Save to Hive (same isolate as NotificationCubit, so keep the box open)
+    await storeRemoteMessage(message);
+  }
 
-    final imageUrl = message.notification?.android?.imageUrl ??
-        message.notification?.apple?.imageUrl ??
-        message.data['image'] ??
-        message.data['image_url'];
+  static const String notificationsBoxName = 'notifications';
+  static const String _deletedIdsKey = 'deleted_notification_ids';
+  static const int _maxDeletedIds = 300;
 
-    // 2️⃣ Create AppNotification
-    final appNotification = AppNotification(
-      title: message.notification?.title ?? '',
-      body: message.notification?.body ?? '',
-      topicName: message.data['topic_name'] ?? '',
-      sentAt: DateTime.now(),
-      id: int.tryParse(message.messageId ?? '') ?? 0,
-      linkedContestId: int.tryParse(message.data['id'] ?? '') ?? 0,
-      linkedDealId: int.tryParse(message.data['id'] ?? ''),
-      type: message.data['type'] ?? '',
+  static String? _nonEmpty(String? value) =>
+      (value == null || value.isEmpty) ? null : value;
+
+  static bool _hasContent(RemoteMessage message) =>
+      _nonEmpty(message.notification?.title ?? message.data['title']) != null ||
+      _nonEmpty(message.notification?.body ?? message.data['body']) != null;
+
+  static String? imageUrlOf(RemoteMessage message) =>
+      _nonEmpty(message.notification?.android?.imageUrl) ??
+      _nonEmpty(message.notification?.apple?.imageUrl) ??
+      _nonEmpty(message.data['image']) ??
+      _nonEmpty(message.data['image_url']);
+
+  /// Builds an [AppNotification] from the FCM payload. Reads the new keys
+  /// (`contest_id`, `deal_id`, `notification_id`, ...) and falls back to the
+  /// legacy `type`/`id` pair for pushes sent before the backend change.
+  static AppNotification fromRemoteMessage(RemoteMessage message) {
+    final data = message.data;
+    final type = (data['type'] as String?) ?? '';
+    final legacyId = int.tryParse(data['id'] ?? '');
+
+    final contestId = int.tryParse(data['contest_id'] ?? '') ??
+        (type == 'contest' ? legacyId : null);
+    final dealId = int.tryParse(data['deal_id'] ?? '') ??
+        (type == 'deal' ? legacyId : null);
+
+    return AppNotification(
+      id: int.tryParse(data['notification_id'] ?? '') ??
+          DateTime.now().millisecondsSinceEpoch,
+      title: message.notification?.title ?? data['title'] ?? '',
+      body: message.notification?.body ?? data['body'] ?? '',
+      topicName: data['topic_name'] ?? '',
+      sentAt: message.sentTime ?? DateTime.now(),
+      linkedContestId: contestId,
+      linkedDealId: dealId,
+      type: type,
       isRead: false,
-      imageUrl: imageUrl,
+      imageUrl: imageUrlOf(message),
     );
+  }
 
-    // 3️⃣ Save to Hive
-    var box = await Hive.openBox<AppNotification>('notifications');
-    await box.add(appNotification);
+  /// Saves [message] to the notifications box unless it is already stored or
+  /// the user deleted it (matched by the backend `notification_id`).
+  ///
+  /// Pass [closeBox] from the background isolate: Hive is not multi-isolate
+  /// safe, and a box left open there keeps a stale copy of entries the user
+  /// later deletes in the main isolate.
+  static Future<void> storeRemoteMessage(
+    RemoteMessage message, {
+    bool closeBox = false,
+  }) async {
+    if (!_hasContent(message)) return;
+
+    final notification = fromRemoteMessage(message);
+    final hasServerId =
+        int.tryParse(message.data['notification_id'] ?? '') != null;
+
+    final box = await Hive.openBox<AppNotification>(notificationsBoxName);
+    try {
+      // Explicit keys: auto-increment keys collide when two isolates add().
+      final key = storageKey(notification.id);
+      if (hasServerId) {
+        final deletedIds = await loadDeletedIds();
+        if (box.containsKey(key) || deletedIds.contains(notification.id)) {
+          developer.log('Skipping duplicate notification ${notification.id}');
+          return;
+        }
+      }
+      await box.put(key, notification);
+    } finally {
+      if (closeBox) await box.close();
+    }
+  }
+
+  static String storageKey(int notificationId) => 'n_$notificationId';
+
+  /// Ids of notifications the user deleted, shared across isolates through
+  /// SharedPreferences (reloaded so the background isolate sees fresh data).
+  static Future<Set<int>> loadDeletedIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return (prefs.getStringList(_deletedIdsKey) ?? [])
+        .map(int.tryParse)
+        .whereType<int>()
+        .toSet();
+  }
+
+  static Future<void> rememberDeletedIds(Iterable<int> ids) async {
+    // id 0 comes from older app versions and is not unique.
+    final newIds = ids.where((id) => id != 0);
+    if (newIds.isEmpty) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    final stored = prefs.getStringList(_deletedIdsKey) ?? [];
+    final merged = {...stored, ...newIds.map((id) => id.toString())}.toList();
+    final trimmed = merged.length > _maxDeletedIds
+        ? merged.sublist(merged.length - _maxDeletedIds)
+        : merged;
+    await prefs.setStringList(_deletedIdsKey, trimmed);
   }
 
   static Future<void> subscribeToTopic(String topic) async {
@@ -269,7 +356,7 @@ class NotificationService {
   }
 
   static Future<void> loadMissedNotifications() async {
-    var box = Hive.box<AppNotification>('notifications');
+    var box = Hive.box<AppNotification>(notificationsBoxName);
     // Here you can do any re-processing or mark them as unread
     developer.log('Loaded ${box.length} notifications on startup');
   }

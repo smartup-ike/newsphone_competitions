@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:newsphone_competitions/data/models/contests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/models/deals.dart';
 import '../../../data/models/notification.dart';
 import '../../../data/models/topics.dart';
 import '../../../data/services/analytics_service.dart';
@@ -17,11 +16,12 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   bool get hasUnreadNotifications =>
       state.any((notification) => !notification.isRead);
 
-  // Use a late final box
-  late Box<AppNotification> _box;
+  Box<AppNotification>? _box;
 
-  bool get isBoxReady => _box.isOpen;
-  late StreamSubscription<BoxEvent> _subscription;
+  bool get isBoxReady => _box?.isOpen ?? false;
+  StreamSubscription<BoxEvent>? _subscription;
+  AppLifecycleListener? _lifecycleListener;
+  Future<void>? _reloading;
 
   // Keep track of selected topic IDs
   Set<String> _selectedTopics = {};
@@ -38,13 +38,10 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   NotificationCubit(this._apiService) : super([]);
 
   void init() async {
-    _box = await Hive.openBox<AppNotification>('notifications');
-    // Listen for changes to the box
-    _subscription = _box.watch().listen((event) {
-      loadNotifications();
-    });
-    // Load initial notifications
-    loadNotifications();
+    await reloadFromDisk();
+    // The background isolate writes to the box on disk; pick those writes up
+    // whenever the app comes back to the foreground.
+    _lifecycleListener = AppLifecycleListener(onResume: reloadFromDisk);
 
     final prefs = await SharedPreferences.getInstance();
     // Check if topics have ever been initialized
@@ -103,17 +100,17 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   void loadNotifications() {
-    final reversed = _box.values.toList().reversed.toList();
-    emit(reversed);
-  }
-
-  void addNotification(AppNotification notification) {
-    _box.add(notification);
+    final box = _box;
+    if (box == null || !box.isOpen) return;
+    final sorted = box.values.toList()
+      ..sort((a, b) => b.sentAt.compareTo(a.sentAt));
+    emit(sorted);
   }
 
   @override
   Future<void> close() {
-    _subscription.cancel();
+    _subscription?.cancel();
+    _lifecycleListener?.dispose();
     return super.close();
   }
 
@@ -143,11 +140,13 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
   }
 
   Future<void> deleteAllNotifications() async {
-    await _box.clear(); // clears all data in the box
+    await NotificationService.rememberDeletedIds(state.map((n) => n.id));
+    await _box?.clear(); // clears all data in the box
     emit([]); // update state to empty list
   }
 
   Future<void> deleteNotification(AppNotification notification) async {
+    await NotificationService.rememberDeletedIds([notification.id]);
     await notification.delete(); // removes from Hive
     loadNotifications(); // update state
   }
@@ -236,29 +235,15 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     }
   }
 
+  /// Returns the [Contest] or [Deal] linked to [notification], or null.
+  /// Fetched by id so contests that are upcoming, expired or inactive open too.
   Future<dynamic> openContentFromNotifications(
-    int? contestId,
-    int? dealId,
-    String? type,
+    AppNotification notification,
   ) async {
-    final apiService = ApiService();
-
     try {
-      // 1️⃣ Fetch all contests and deals simultaneously
-      final contestsFuture = apiService.fetchContests();
-      final dealsFuture = apiService.apiFetchDeals();
-
-      final results = await Future.wait([contestsFuture, dealsFuture]);
-
-      final contests = results[0] as List<Contest>;
-      final deals = results[1] as List<Deal>;
-
-      // 2️⃣ Find the contest if contestId is provided
-      if (type == 'contest' && contestId != null) {
-        final contest = contests.firstWhere(
-          (c) => int.tryParse(c.id) == contestId,
-          orElse: () => throw Exception('Contest not found'),
-        );
+      final contestId = notification.contestId;
+      if (contestId != null) {
+        final contest = await _apiService.fetchContestById(contestId);
         AnalyticsService.logNotificationOpen(
           'Content',
           contest.id,
@@ -267,17 +252,13 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
         return contest;
       }
 
-      // 3️⃣ Find the deal if dealId is provided
-      if (type == 'deal' && contestId != null) {
-        final deal = deals.firstWhere(
-          (d) => int.tryParse(d.id) == dealId,
-          orElse: () => throw Exception('Deal not found'),
-        );
+      final dealId = notification.dealId;
+      if (dealId != null) {
+        final deal = await _apiService.fetchDealById(dealId);
         AnalyticsService.logNotificationOpen('Deal', deal.id, deal.name);
         return deal;
       }
 
-      // 4️⃣ If neither ID is provided
       return null;
     } catch (e) {
       developer.log("Error opening content: $e");
@@ -285,25 +266,41 @@ class NotificationCubit extends Cubit<List<AppNotification>> {
     }
   }
 
-  Future<void> reinitializeHiveAndLoad() async {
-    // 1. Cancel the subscription to stop listening to old changes
-    await _subscription.cancel();
-
-    // 2. Close the current box instance (this releases the cached memory)
-    // Check if the box is open before closing
-    if (_box.isOpen) {
-      await _box.close();
-    }
-
-    // 3. Re-open the box
-    _box = await Hive.openBox<AppNotification>('notifications');
-
-    // 4. Re-establish the watch subscription
-    _subscription = _box.watch().listen((event) {
+  Future<void> _openBox() async {
+    _box = await Hive.openBox<AppNotification>(
+      NotificationService.notificationsBoxName,
+    );
+    await _purgeDeletedNotifications();
+    _subscription = _box!.watch().listen((event) {
       loadNotifications();
     });
-
-    // 5. Load the latest data from the freshly opened box
     loadNotifications();
+  }
+
+  /// Drops entries the user already deleted but that came back on disk
+  /// (written from a stale copy in the background isolate).
+  Future<void> _purgeDeletedNotifications() async {
+    final box = _box;
+    if (box == null) return;
+    final deletedIds = await NotificationService.loadDeletedIds();
+    if (deletedIds.isEmpty) return;
+    final keys = box.keys
+        .where((key) => deletedIds.contains(box.get(key)?.id))
+        .toList();
+    if (keys.isNotEmpty) await box.deleteAll(keys);
+  }
+
+  /// Closes and re-opens the box so the main isolate sees what the background
+  /// isolate wrote to disk. Concurrent calls share the same reload.
+  Future<void> reloadFromDisk() {
+    return _reloading ??= _reload().whenComplete(() => _reloading = null);
+  }
+
+  Future<void> _reload() async {
+    await _subscription?.cancel();
+    if (_box?.isOpen ?? false) {
+      await _box!.close();
+    }
+    await _openBox();
   }
 }

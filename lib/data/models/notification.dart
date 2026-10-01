@@ -44,4 +44,14 @@ class AppNotification extends HiveObject {
     this.isRead = false,
     this.imageUrl,
   });
+
+  /// Linked contest id, or null. Older stored notifications used 0 for "none"
+  /// and put the same id in both fields, so `type` decides which one applies.
+  int? get contestId =>
+      type == 'contest' && (linkedContestId ?? 0) > 0 ? linkedContestId : null;
+
+  int? get dealId =>
+      type == 'deal' && (linkedDealId ?? 0) > 0 ? linkedDealId : null;
+
+  bool get isLinked => contestId != null || dealId != null;
 }

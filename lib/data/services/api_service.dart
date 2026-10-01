@@ -55,6 +55,40 @@ class ApiService {
     }
   }
 
+  /// Fetch one contest by id, regardless of its time window or active flag
+  Future<Contest> fetchContestById(int id) async {
+    final url = '$_baseUrl/contests/$id';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        return Contest.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load contest $id: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load contest $id: $e');
+    }
+  }
+
+  /// Fetch one deal by id, regardless of its time window or active flag
+  Future<Deal> fetchDealById(int id) async {
+    final url = '$_baseUrl/deals/$id';
+
+    try {
+      final response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        return Deal.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load deal $id: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Failed to load deal $id: $e');
+    }
+  }
+
   ///Fetch topics of notifications
   Future<List<Topic>> fetchTopic() async {
     final url = '$_baseUrl/topics';
