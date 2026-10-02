@@ -21,7 +21,6 @@ class _NotificationsPageState extends State<NotificationsPage>
     with WidgetsBindingObserver {
   // Keyed by the Hive key, which is unique per stored notification.
   final Set<dynamic> _loadingNotifications = {};
-  final Set<dynamic> _collapsedImageNotifications = {};
 
   @override
   void initState() {
@@ -45,6 +44,27 @@ class _NotificationsPageState extends State<NotificationsPage>
     await cubit.reloadFromDisk();
     if (!mounted) return;
     cubit.markAllAsRead();
+  }
+
+  void _showFullImage(String imageUrl) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black87,
+      builder:
+          (dialogContext) => GestureDetector(
+            onTap: () => Navigator.of(dialogContext).pop(),
+            child: Dialog(
+              backgroundColor: Colors.transparent,
+              insetPadding: const EdgeInsets.all(16),
+              child: InteractiveViewer(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(imageUrl, fit: BoxFit.contain),
+                ),
+              ),
+            ),
+          ),
+    );
   }
 
   @override
@@ -160,146 +180,88 @@ class _NotificationsPageState extends State<NotificationsPage>
                   children: [
                     // Notification content
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0,
-                        vertical: 8.0, // slightly more vertical breathing room
-                      ),
-                      child: Column(
+                      padding: const EdgeInsets.fromLTRB(12, 10, 0, 10),
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      notification.title,
-                                      style: NewsphoneTypography.body16SemiBold
-                                          .copyWith(
-                                            color: NewsphoneTheme.neutralBlack,
-                                          ),
-                                    ),
-                                    if (notification.body.isNotEmpty) ...[
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        notification.body,
-                                        style: NewsphoneTypography.body13Regular
-                                            .copyWith(
-                                              color: NewsphoneTheme.neutral30,
-                                            ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  notification.title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: NewsphoneTypography.body16SemiBold
+                                      .copyWith(
+                                        color: NewsphoneTheme.neutralBlack,
                                       ),
-                                    ],
-                                  ],
                                 ),
-                              ),
-                              // Three dots menu
-                              PopupMenuButton<String>(
-                                icon: const Icon(
-                                  Icons.more_horiz,
-                                  color: NewsphoneTheme.neutralBlack,
-                                  size: 20,
-                                ),
-                                padding: const EdgeInsets.all(8.0),
-                                color: NewsphoneTheme.neutralWhite,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                onSelected: (value) {
-                                  if (value == 'delete') {
-                                    context
-                                        .read<NotificationCubit>()
-                                        .deleteNotification(notification);
-                                  }
-                                },
-                                itemBuilder:
-                                    (context) => <PopupMenuEntry<String>>[
-                                      const PopupMenuItem<String>(
-                                        value: 'delete',
-                                        height: 30,
-                                        child: Text('Διαγραφή'),
-                                      ),
-                                    ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                formatDate(notification.sentAt),
-                                style: NewsphoneTypography.body12Bold
-                                    .copyWith(color: NewsphoneTheme.primary),
-                              ),
-                              if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty)
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (_collapsedImageNotifications.contains(notification.key)) {
-                                        _collapsedImageNotifications.remove(notification.key);
-                                      } else {
-                                        _collapsedImageNotifications.add(notification.key);
-                                      }
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 12.0, right: 6.0, top: 4.0, bottom: 4.0),
-                                    child: Icon(
-                                      _collapsedImageNotifications.contains(notification.key)
-                                          ? Icons.keyboard_arrow_down
-                                          : Icons.keyboard_arrow_up,
-                                      size: 24,
-                                      color: NewsphoneTheme.primary,
-                                    ),
+                                if (notification.body.isNotEmpty) ...[
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    notification.body,
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: NewsphoneTypography.body13Regular
+                                        .copyWith(
+                                          color: NewsphoneTheme.neutral30,
+                                        ),
                                   ),
+                                ],
+                                const SizedBox(height: 6),
+                                Text(
+                                  formatDate(notification.sentAt),
+                                  style: NewsphoneTypography.body12Bold
+                                      .copyWith(color: NewsphoneTheme.primary),
                                 ),
-                            ],
+                              ],
+                            ),
+                          ),
+                          if (notification.imageUrl != null &&
+                              notification.imageUrl!.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12, top: 2),
+                              child: _NotificationThumbnail(
+                                imageUrl: notification.imageUrl!,
+                                onTap:
+                                    () => _showFullImage(
+                                      notification.imageUrl!,
+                                    ),
+                              ),
+                            ),
+                          // Three dots menu
+                          PopupMenuButton<String>(
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              color: NewsphoneTheme.neutralBlack,
+                              size: 20,
+                            ),
+                            padding: const EdgeInsets.all(8.0),
+                            color: NewsphoneTheme.neutralWhite,
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            onSelected: (value) {
+                              if (value == 'delete') {
+                                context
+                                    .read<NotificationCubit>()
+                                    .deleteNotification(notification);
+                              }
+                            },
+                            itemBuilder:
+                                (context) => <PopupMenuEntry<String>>[
+                                  const PopupMenuItem<String>(
+                                    value: 'delete',
+                                    height: 30,
+                                    child: Text('Διαγραφή'),
+                                  ),
+                                ],
                           ),
                         ],
                       ),
                     ),
-
-                    // Premium Image UI
-                    if (notification.imageUrl != null && notification.imageUrl!.isNotEmpty && !_collapsedImageNotifications.contains(notification.key))
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.08),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: AspectRatio(
-                              aspectRatio: 16 / 9,
-                              child: Image.network(
-                                notification.imageUrl!,
-                                fit: BoxFit.cover,
-                                loadingBuilder: (context, child, loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Container(
-                                    color: NewsphoneTheme.neutral10,
-                                    child: const Center(
-                                      child: CircularProgressIndicator.adaptive(),
-                                    ),
-                                  );
-                                },
-                                errorBuilder: (context, error, stackTrace) => const SizedBox.shrink(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
 
                     const SizedBox(height: 4),
                     // Register button
@@ -307,7 +269,7 @@ class _NotificationsPageState extends State<NotificationsPage>
 
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -435,6 +397,48 @@ class _NotificationsPageState extends State<NotificationsPage>
             },
           );
         },
+      ),
+    );
+  }
+}
+
+/// Small rounded preview shown next to the notification text.
+class _NotificationThumbnail extends StatelessWidget {
+  const _NotificationThumbnail({required this.imageUrl, required this.onTap});
+
+  static const double _size = 64;
+
+  final String imageUrl;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final placeholder = Container(
+      color: NewsphoneTheme.neutral95,
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.image_outlined,
+        size: 20,
+        color: NewsphoneTheme.neutral30,
+      ),
+    );
+
+    return GestureDetector(
+      onTap: onTap,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: SizedBox(
+          width: _size,
+          height: _size,
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            loadingBuilder:
+                (context, child, progress) =>
+                    progress == null ? child : placeholder,
+            errorBuilder: (context, error, stackTrace) => placeholder,
+          ),
+        ),
       ),
     );
   }
