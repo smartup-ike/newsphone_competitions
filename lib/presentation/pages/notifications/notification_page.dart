@@ -188,24 +188,27 @@ class _NotificationsPageState extends State<NotificationsPage>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                // Title and body are shown in full; line
+                                // height keeps long multi-line text readable.
                                 Text(
-                                  notification.title,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                  _cleanText(notification.title),
+                                  softWrap: true,
                                   style: NewsphoneTypography.body16SemiBold
                                       .copyWith(
                                         color: NewsphoneTheme.neutralBlack,
+                                        height: 1.3,
                                       ),
                                 ),
-                                if (notification.body.isNotEmpty) ...[
-                                  const SizedBox(height: 2),
+                                if (_cleanText(notification.body)
+                                    .isNotEmpty) ...[
+                                  const SizedBox(height: 4),
                                   Text(
-                                    notification.body,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
+                                    _cleanText(notification.body),
+                                    softWrap: true,
                                     style: NewsphoneTypography.body13Regular
                                         .copyWith(
                                           color: NewsphoneTheme.neutral30,
+                                          height: 1.4,
                                         ),
                                   ),
                                 ],
@@ -401,6 +404,15 @@ class _NotificationsPageState extends State<NotificationsPage>
     );
   }
 }
+
+/// Trims the text, collapses runs of spaces/tabs and limits consecutive
+/// blank lines to one, so long payloads don't render with odd gaps.
+String _cleanText(String text) => text
+    .replaceAll('\r\n', '\n')
+    .replaceAll(RegExp(r'[ \t]+'), ' ')
+    .replaceAll(RegExp(r' *\n *'), '\n')
+    .replaceAll(RegExp(r'\n{3,}'), '\n\n')
+    .trim();
 
 /// Small rounded preview shown next to the notification text.
 class _NotificationThumbnail extends StatelessWidget {
