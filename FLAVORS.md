@@ -123,3 +123,19 @@ The app does **not** send an app id yet. When the backend is ready, add it in on
 - [ ] Firebase decided and configured (see above).
 - [ ] Backend separates 14614 / 14800 data.
 - [ ] App Store Connect + Google Play apps created.
+
+## Store screenshots
+
+Build with made-up contests and deals (no backend data, no other channel's names):
+
+```bash
+# logos for the demo deals, served from this Mac
+python3 -m http.server 8095 --bind 127.0.0.1 --directory flavors/app14800/store/demo_logos
+adb reverse tcp:8095 tcp:8095        # Android emulator only
+
+flutter run --flavor app14800 --dart-define=DEMO_DATA=true
+```
+
+The fake data is in `lib/data/demo/demo_data.dart` (photos from Unsplash). Without
+`DEMO_DATA=true` it is never used. Raw screenshots and the Mokuply project live in
+`flavors/app14800/store/`.

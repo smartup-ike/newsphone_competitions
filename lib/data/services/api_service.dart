@@ -5,6 +5,7 @@ import 'package:newsphone_competitions/data/models/user_transaction.dart';
 import '../models/contests.dart';
 import '../models/deals.dart';
 import '../models/topics.dart';
+import '../demo/demo_data.dart';
 
 class ApiService {
   /// Headers sent with every request. When the backend is ready to tell
@@ -19,6 +20,7 @@ class ApiService {
 
   /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
+    if (DemoData.enabled) return DemoData.contests();
     final url = '$_baseUrl/contests';
 
     try {
@@ -43,6 +45,7 @@ class ApiService {
 
   /// Fetch deals from API
   Future<List<Deal>> apiFetchDeals() async {
+    if (DemoData.enabled) return DemoData.deals();
     final url = '$_baseUrl/deals';
 
     try {
@@ -64,6 +67,12 @@ class ApiService {
 
   /// Fetch one contest by id, regardless of its time window or active flag
   Future<Contest> fetchContestById(int id) async {
+    if (DemoData.enabled) {
+      return DemoData.contests().firstWhere(
+        (c) => c.id == 'demo-$id',
+        orElse: () => DemoData.contests().first,
+      );
+    }
     final url = '$_baseUrl/contests/$id';
 
     try {
@@ -81,6 +90,12 @@ class ApiService {
 
   /// Fetch one deal by id, regardless of its time window or active flag
   Future<Deal> fetchDealById(int id) async {
+    if (DemoData.enabled) {
+      return DemoData.deals().firstWhere(
+        (d) => d.id == 'demo-deal-$id',
+        orElse: () => DemoData.deals().first,
+      );
+    }
     final url = '$_baseUrl/deals/$id';
 
     try {
