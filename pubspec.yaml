@@ -45,13 +45,16 @@ dev_dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.13
 
+# 14614 splash. Generated files already live in android/app/src/main and
+# ios/Runner; regenerate only with: dart run flutter_native_splash:create
+# 14800 uses flutter_native_splash-app14800.yaml (see FLAVORS.md).
 flutter_native_splash:
   android: true
   ios: true
   web: false
 
   color: "#0072bc"
-  image: "assets/android12.png"
+  image: "flavors/app14614/source/splash_logo.png"
 
   branding: "assets/images/smartup_branding.png"
   branding_mode: bottom
@@ -59,8 +62,8 @@ flutter_native_splash:
 
   android_12:
     color: "#0072bc"
-    image: "assets/android12.png"
-    image_dark: "assets/android12.png"
+    image: "flavors/app14614/source/splash_logo.png"
+    image_dark: "flavors/app14614/source/splash_logo.png"
     branding: "assets/images/smartup_branding.png"
     branding_dark: "assets/images/smartup_branding.png"
 
@@ -73,10 +76,20 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/icons/
+    # App-specific images (logos). Each folder is bundled only into its
+    # own app (--flavor). See FLAVORS.md.
+    - path: flavors/app14614/bundled/
+      flavors:
+        - app14614
+    - path: flavors/app14800/bundled/
+      flavors:
+        - app14800
 
+# 14614 icon (generated into android/app/src/main and AppIcon).
+# 14800 uses flutter_launcher_icons-app14800.yaml (see FLAVORS.md).
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: "AppIcon"
-  image_path: "assets/icon.jpeg"
+  image_path: "flavors/app14614/source/icon.jpeg"
   min_sdk_android: 21
   remove_alpha_ios: true

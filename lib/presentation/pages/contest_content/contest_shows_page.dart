@@ -23,11 +23,11 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: NewsphoneTheme.neutralWhite,
+        backgroundColor: NewsphoneTheme.scaffold,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: NewsphoneTheme.surface,
               elevation: 0,
               floating: false,
               pinned: true,
@@ -38,7 +38,7 @@ class _ContestShowsPageState extends State<ContestShowsPage> {
               ),
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(1.0),
-                child: Container(color: Colors.grey[300], height: 1.0),
+                child: Container(color: NewsphoneTheme.divider, height: 1.0),
               ),
             ),
             SliverToBoxAdapter(

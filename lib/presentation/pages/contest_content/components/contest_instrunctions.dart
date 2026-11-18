@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
+import 'package:newsphone_competitions/flavors/flavor_config.dart';
 
 class ContestInstructions extends StatelessWidget {
   final List<String> prefixs;
@@ -30,9 +31,9 @@ class ContestInstructions extends StatelessWidget {
             style: NewsphoneTypography.body15Medium,
             children: [
               TextSpan(
-                text: '14614 ',
+                text: '${FlavorConfig.instance.phoneNumber} ',
                 style: TextStyle(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -40,7 +41,7 @@ class ContestInstructions extends StatelessWidget {
               TextSpan(
                 text: callSuffix ?? 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ - ΤΗΛΕΦΩΝΟ',
                 style: TextStyle(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,11 +58,11 @@ class ContestInstructions extends StatelessWidget {
               Container(
                 height: 1,
                 width: double.infinity,
-                color: NewsphoneTheme.neutral60,
+                color: NewsphoneTheme.dividerMuted,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                color: NewsphoneTheme.neutral95,
+                color: NewsphoneTheme.surfaceMuted,
                 child: const Text('ή'),
               ),
             ],
@@ -78,14 +79,14 @@ class ContestInstructions extends StatelessWidget {
               TextSpan(
                 text: prefixs.join(' ή '),
                 style: NewsphoneTypography.body15Bold.copyWith(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                 ),
               ),
               const TextSpan(text: ' (ΚΕΝΟ) '),
               TextSpan(
                 text: messageSuffix ?? 'ΟΝΟΜΑΤΕΠΩΝΥΜΟ',
                 style: NewsphoneTypography.body15Bold.copyWith(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                 ),
               ),
             ],

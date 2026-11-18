@@ -30,7 +30,7 @@ void showContestCouponsBottomSheet(
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: NewsphoneTheme.neutral95,
+                color: NewsphoneTheme.surfaceMuted,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
               ),
               child: Column(
@@ -41,7 +41,7 @@ void showContestCouponsBottomSheet(
                     height: 5.0,
                     width: 40.0,
                     decoration: BoxDecoration(
-                      color: Colors.grey[300],
+                      color: NewsphoneTheme.divider,
                       borderRadius: BorderRadius.circular(2.5),
                     ),
                   ),
@@ -58,7 +58,7 @@ void showContestCouponsBottomSheet(
                     'Κάθε δωρεάν συμμετοχή που χρησιμοποιείτε σε αυτόν τον διαγωνισμό, σας χαρίζει μία επιπλέον συμμετοχή στην κλήρωση!',
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.body13SemiBold.copyWith(
-                      color: NewsphoneTheme.neutral40,
+                      color: NewsphoneTheme.textTertiary,
                     ),
                   ),
                   const SizedBox(height: 50.0),
@@ -69,7 +69,7 @@ void showContestCouponsBottomSheet(
                       // 1. Define the LinearGradient
                       color: Colors.transparent,
                       border: Border.all(
-                        color: NewsphoneTheme.neutral50, // Custom color
+                        color: NewsphoneTheme.outlineMuted, // Custom color
                         width: 1.0, // Custom width (2 pixels)
                         style: BorderStyle.solid,
                       ),
@@ -116,8 +116,8 @@ void showContestCouponsBottomSheet(
                             height: 56,
                             width: 85,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                              gradient: LinearGradient(
+                                colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),
@@ -127,7 +127,7 @@ void showContestCouponsBottomSheet(
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(
                                 CupertinoIcons.minus,
-                                color: Colors.white,
+                                color: NewsphoneTheme.onPrimary,
                               ),
                             ),
                           ),
@@ -145,8 +145,8 @@ void showContestCouponsBottomSheet(
                           height: 56,
                           width: 85,
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                            gradient: LinearGradient(
+                              colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                             ),
@@ -156,7 +156,7 @@ void showContestCouponsBottomSheet(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               CupertinoIcons.add,
-                              color: Colors.white,
+                              color: NewsphoneTheme.onPrimary,
                             ),
                           ),
                         ),
@@ -191,8 +191,8 @@ void showContestCouponsBottomSheet(
                           width: double.infinity,
                           height: 50,
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                            gradient: LinearGradient(
+                              colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
                             ),
@@ -201,18 +201,18 @@ void showContestCouponsBottomSheet(
                           child: Center(
                             child:
                                 loading
-                                    ? const SizedBox(
+                                    ? SizedBox(
                                       height: 22,
                                       width: 22,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
-                                        color: Colors.white,
+                                        color: NewsphoneTheme.onPrimary,
                                       ),
                                     )
                                     : Text(
                                       'Επιβεβαίωση Δωρεάν Συμμετοχών',
                                       style: NewsphoneTypography.body13Bold
-                                          .copyWith(color: Colors.white),
+                                          .copyWith(color: NewsphoneTheme.onPrimary),
                                     ),
                           ),
                         ),

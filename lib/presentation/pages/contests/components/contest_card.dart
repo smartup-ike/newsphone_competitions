@@ -76,10 +76,10 @@ class _ContestCardState extends State<ContestCard>
   Widget build(BuildContext context) {
     super.build(context);
     return Card(
-      color: NewsphoneTheme.neutralWhite,
+      color: NewsphoneTheme.surface,
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      shadowColor: Colors.black.withValues(alpha: 0.5),
+      shadowColor: NewsphoneTheme.shadow.withValues(alpha: 0.5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: InkWell(
         onTap: widget.clickContentFunction,
@@ -136,11 +136,11 @@ class _ContestCardState extends State<ContestCard>
                           },
                         )
                         : Container(
-                          color: NewsphoneTheme.neutral30,
-                          child: const Icon(
+                          color: NewsphoneTheme.imagePlaceholderStrong,
+                          child: Icon(
                             Icons.image,
                             size: 50,
-                            color: NewsphoneTheme.neutralWhite,
+                            color: NewsphoneTheme.onImagePlaceholder,
                           ),
                         ),
 
@@ -190,7 +190,7 @@ class _ContestCardState extends State<ContestCard>
                     widget.contest.instructions ??
                         'Συμμετοχή στον διαγωνισμό για μια μοναδική ευκαιρία να κερδίσεις το έπαθλο!',
                     style: NewsphoneTypography.body13Medium.copyWith(
-                      color: NewsphoneTheme.neutral35,
+                      color: NewsphoneTheme.textMuted,
                     ),
                     maxLines: 10,
                     overflow: TextOverflow.ellipsis,
@@ -212,7 +212,7 @@ class _ContestCardState extends State<ContestCard>
                             height: 20,
                             color:
                                 widget.contest.dateEnd.isBefore(DateTime.now())
-                                    ? NewsphoneTheme.deactivate
+                                    ? NewsphoneTheme.danger
                                     : NewsphoneTheme.primary,
                           ),
                           const SizedBox(width: 4),
@@ -223,7 +223,7 @@ class _ContestCardState extends State<ContestCard>
                                   widget.contest.dateEnd.isBefore(
                                         DateTime.now(),
                                       )
-                                      ? NewsphoneTheme.deactivate
+                                      ? NewsphoneTheme.danger
                                       : NewsphoneTheme.primary,
                             ),
                           ),
@@ -275,7 +275,7 @@ class _ContestCardState extends State<ContestCard>
                               ),
                       color:
                           widget.contest.dateEnd.isBefore(DateTime.now())
-                              ? Colors.grey[300]
+                              ? NewsphoneTheme.disabledFill
                               : null,
                       borderRadius: BorderRadius.circular(24.0),
                     ),
@@ -294,7 +294,7 @@ class _ContestCardState extends State<ContestCard>
                       child: Text(
                         'Διεκδίκησέ το',
                         style: NewsphoneTypography.body16SemiBold.copyWith(
-                          color: NewsphoneTheme.neutralWhite,
+                          color: NewsphoneTheme.onPrimary,
                         ),
                       ),
                     ),

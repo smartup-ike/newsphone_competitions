@@ -76,9 +76,9 @@ class _NotificationsPageState extends State<NotificationsPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NewsphoneTheme.neutral95,
+      backgroundColor: NewsphoneTheme.scaffoldMuted,
       appBar: AppBar(
-        backgroundColor: NewsphoneTheme.neutralWhite,
+        backgroundColor: NewsphoneTheme.surface,
         elevation: 0,
         title: Text('Ειδοποιήσεις', style: NewsphoneTypography.body17Bold),
         centerTitle: true,
@@ -86,11 +86,11 @@ class _NotificationsPageState extends State<NotificationsPage>
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: PopupMenuButton<String>(
-              icon: const Icon(
+              icon: Icon(
                 Icons.more_horiz,
-                color: NewsphoneTheme.neutralBlack,
+                color: NewsphoneTheme.textStrong,
               ),
-              color: NewsphoneTheme.neutralWhite,
+              color: NewsphoneTheme.surface,
               elevation: 2,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -115,7 +115,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                         children: [
                           Icon(
                             Icons.check_box_outlined,
-                            color: NewsphoneTheme.neutralBlack,
+                            color: NewsphoneTheme.textStrong,
                             size: 18,
                           ),
                           // smaller icon
@@ -123,7 +123,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                           Text(
                             'Σήμανση όλων ως διαβασμένα',
                             style: NewsphoneTypography.body15Medium.copyWith(
-                              color: NewsphoneTheme.neutralBlack,
+                              color: NewsphoneTheme.textStrong,
                             ),
                           ),
                         ],
@@ -139,7 +139,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                         children: [
                           Icon(
                             Icons.delete,
-                            color: NewsphoneTheme.deactivate,
+                            color: NewsphoneTheme.danger,
                             size: 18,
                           ),
                           // smaller icon
@@ -147,7 +147,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                           Text(
                             'Διαγραφή όλων',
                             style: NewsphoneTypography.body15Medium.copyWith(
-                              color: NewsphoneTheme.deactivate,
+                              color: NewsphoneTheme.danger,
                             ),
                           ),
                         ],
@@ -170,7 +170,7 @@ class _NotificationsPageState extends State<NotificationsPage>
               return Card(
                 margin: EdgeInsets.zero,
                 elevation: 0,
-                color: NewsphoneTheme.neutralWhite,
+                color: NewsphoneTheme.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0),
                 ),
@@ -195,7 +195,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                   softWrap: true,
                                   style: NewsphoneTypography.body16SemiBold
                                       .copyWith(
-                                        color: NewsphoneTheme.neutralBlack,
+                                        color: NewsphoneTheme.textStrong,
                                         height: 1.3,
                                       ),
                                 ),
@@ -207,7 +207,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                     softWrap: true,
                                     style: NewsphoneTypography.body13Regular
                                         .copyWith(
-                                          color: NewsphoneTheme.neutral30,
+                                          color: NewsphoneTheme.textSecondary,
                                           height: 1.4,
                                         ),
                                   ),
@@ -235,13 +235,13 @@ class _NotificationsPageState extends State<NotificationsPage>
                             ),
                           // Three dots menu
                           PopupMenuButton<String>(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.more_horiz,
-                              color: NewsphoneTheme.neutralBlack,
+                              color: NewsphoneTheme.textStrong,
                               size: 20,
                             ),
                             padding: const EdgeInsets.all(8.0),
-                            color: NewsphoneTheme.neutralWhite,
+                            color: NewsphoneTheme.surface,
                             elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -326,7 +326,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                               context: context,
                                               isScrollControlled: true,
                                               backgroundColor:
-                                                  NewsphoneTheme.neutralWhite,
+                                                  NewsphoneTheme.surface,
                                               shape:
                                                   const RoundedRectangleBorder(
                                                     borderRadius:
@@ -371,7 +371,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                                     ? 'Δήλωσε Συμμετοχή'
                                     : 'Δές Προσφορά!',
                                 style: NewsphoneTypography.body13Bold.copyWith(
-                                  color: NewsphoneTheme.neutralWhite,
+                                  color: NewsphoneTheme.onPrimary,
                                 ),
                               ),
                             ),
@@ -393,7 +393,7 @@ class _NotificationsPageState extends State<NotificationsPage>
                     ): const SizedBox(),
                     const SizedBox(height: 8),
                     // Divider at dead bottom
-                    const Divider(height: 1, color: NewsphoneTheme.neutral30),
+                    Divider(height: 1, color: NewsphoneTheme.separator),
                   ],
                 ),
               );
@@ -426,12 +426,12 @@ class _NotificationThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final placeholder = Container(
-      color: NewsphoneTheme.neutral95,
+      color: NewsphoneTheme.surfaceMuted,
       alignment: Alignment.center,
-      child: const Icon(
+      child: Icon(
         Icons.image_outlined,
         size: 20,
-        color: NewsphoneTheme.neutral30,
+        color: NewsphoneTheme.textSecondary,
       ),
     );
 

@@ -25,17 +25,17 @@ class CustomActionChip extends StatelessWidget {
       ),
       labelStyle: TextStyle(
         color:
-            isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutralBlack,
+            isSelected ? NewsphoneTheme.primary : NewsphoneTheme.textStrong,
       ),
       avatar:
           isSelected
               ? Icon(Icons.check, color: NewsphoneTheme.primary, size: 16)
               : null,
       side: BorderSide(
-        color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutral50,
+        color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.outlineMuted,
       ),
       backgroundColor:
-          isSelected ? NewsphoneTheme.primary40 : NewsphoneTheme.neutralWhite,
+          isSelected ? NewsphoneTheme.primary40 : NewsphoneTheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       onPressed: onPressed,
     );

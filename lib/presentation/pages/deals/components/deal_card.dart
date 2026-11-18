@@ -20,7 +20,7 @@ class DealCard extends StatelessWidget {
     final displayText =
         text.length > 200 ? '${text.substring(0, 200)}...' : text;
     return Card(
-      color: NewsphoneTheme.neutral95,
+      color: NewsphoneTheme.surfaceMuted,
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 2,
@@ -45,7 +45,7 @@ class DealCard extends StatelessWidget {
               Text(
                 displayText,
                 style: NewsphoneTypography.body15Medium.copyWith(
-                  color: NewsphoneTheme.neutral40,
+                  color: NewsphoneTheme.textTertiary,
                 ),
               ),
             ],
@@ -64,15 +64,15 @@ class DealCard extends StatelessWidget {
                 ).copyWith(
                   backgroundColor: WidgetStateProperty.all(Colors.transparent),
                   shadowColor: WidgetStateProperty.all(
-                    NewsphoneTheme.neutral95,
+                    NewsphoneTheme.surfaceMuted,
                   ),
                 ),
                 label: Ink(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        NewsphoneTheme.primary,
-                        NewsphoneTheme.deactivate,
+                        NewsphoneTheme.dealGradientStart,
+                        NewsphoneTheme.dealGradientEnd,
                       ],
                     ),
                     borderRadius: BorderRadius.circular(8),
@@ -93,7 +93,7 @@ class DealCard extends StatelessWidget {
                         Text(
                           "Πάρε την προσφορά!",
                           style: NewsphoneTypography.body16SemiBold.copyWith(
-                            color: NewsphoneTheme.neutralWhite,
+                            color: NewsphoneTheme.onPrimary,
                           ),
                         ),
                       ],

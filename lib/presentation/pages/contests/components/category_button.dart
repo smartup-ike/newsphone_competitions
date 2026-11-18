@@ -57,8 +57,8 @@ class CategoryButton extends StatelessWidget {
               style: TextStyle(
                 color:
                     isSelected
-                        ? NewsphoneTheme.neutralWhite
-                        : NewsphoneTheme.neutral30,
+                        ? NewsphoneTheme.onPrimary
+                        : NewsphoneTheme.textSecondary,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
             ),

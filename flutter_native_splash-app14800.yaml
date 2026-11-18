@@ -1,0 +1,20 @@
+# Splash for 14800. Run: dart run flutter_native_splash:create --flavor app14800
+# Same layout as 14614: background color + centre number + Smartup branding.
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+
+  color: "#232323"
+  image: "flavors/app14800/source/splash_logo.png"
+
+  branding: "assets/images/smartup_branding.png"
+  branding_mode: bottom
+  branding_bottom_padding: 40
+
+  android_12:
+    color: "#232323"
+    image: "flavors/app14800/source/splash_logo.png"
+    image_dark: "flavors/app14800/source/splash_logo.png"
+    branding: "assets/images/smartup_branding.png"
+    branding_dark: "assets/images/smartup_branding.png"

@@ -7,6 +7,13 @@ import '../models/deals.dart';
 import '../models/topics.dart';
 
 class ApiService {
+  /// Headers sent with every request. When the backend is ready to tell
+  /// apps apart, add the app id here (e.g. `FlavorConfig.instance.appId`).
+  Map<String, String> _headers({String? idToken, bool json = false}) => {
+    if (json) 'Content-Type': 'application/json',
+    if (idToken != null) 'Authorization': 'Bearer $idToken',
+  };
+
   final String _baseUrl = //'http://192.168.1.19:8000';
       'https://newsphone-api-560508338889.europe-central2.run.app';
 
@@ -15,7 +22,7 @@ class ApiService {
     final url = '$_baseUrl/contests';
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
       //log("/deals contests: ${response.body}");
 
       if (response.statusCode == 200) {
@@ -39,7 +46,7 @@ class ApiService {
     final url = '$_baseUrl/deals';
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
       //log("/deals response: ${response.body}");
 
       if (response.statusCode == 200) {
@@ -60,7 +67,7 @@ class ApiService {
     final url = '$_baseUrl/contests/$id';
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
 
       if (response.statusCode == 200) {
         return Contest.fromJson(json.decode(response.body));
@@ -77,7 +84,7 @@ class ApiService {
     final url = '$_baseUrl/deals/$id';
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
 
       if (response.statusCode == 200) {
         return Deal.fromJson(json.decode(response.body));
@@ -93,7 +100,7 @@ class ApiService {
   Future<List<Topic>> fetchTopic() async {
     final url = '$_baseUrl/topics';
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data.map((topicJson) => Topic.fromJson(topicJson)).toList();
@@ -111,7 +118,7 @@ class ApiService {
   Future<List<ContestCategories>> fetchCategories() async {
     final url = '$_baseUrl/contest-categories';
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(Uri.parse(url), headers: _headers());
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         return data
@@ -136,7 +143,7 @@ class ApiService {
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
+        headers: _headers(json: true),
         body: body,
       );
 
@@ -161,10 +168,7 @@ class ApiService {
 
     final response = await http.get(
       Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $idToken',
-      },
+      headers: _headers(idToken: idToken, json: true),
     );
 
     if (response.statusCode == 200) {
@@ -181,10 +185,7 @@ class ApiService {
     try {
       final response = await http.get(
         Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken',
-        },
+        headers: _headers(idToken: idToken, json: true),
       );
 
       if (response.statusCode == 200) {
@@ -215,10 +216,7 @@ class ApiService {
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $idToken',
-        },
+        headers: _headers(idToken: idToken, json: true),
         body: body,
       );
 
@@ -247,7 +245,7 @@ class ApiService {
     try {
       final response = await http.post(
         Uri.parse(url),
-        headers: {'Content-Type': 'application/json'},
+        headers: _headers(json: true),
         body: body,
       );
 

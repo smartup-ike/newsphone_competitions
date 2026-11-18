@@ -35,7 +35,7 @@ class ContestDetails extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: NewsphoneTheme.neutral95,
+            color: NewsphoneTheme.surfaceMuted,
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Column(
@@ -50,8 +50,8 @@ class ContestDetails extends StatelessWidget {
                     style: GoogleFonts.roboto(
                       color:
                           isContestEnded
-                              ? NewsphoneTheme.deactivate
-                              : NewsphoneTheme.active,
+                              ? NewsphoneTheme.danger
+                              : NewsphoneTheme.activeState,
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),

@@ -24,7 +24,7 @@ class BottomNavBarItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
-          color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.neutral90,
+          color: isSelected ? NewsphoneTheme.primary : NewsphoneTheme.surfaceSubtle,
           borderRadius: BorderRadius.circular(30),
         ),
         child: Row(
@@ -38,8 +38,8 @@ class BottomNavBarItem extends StatelessWidget {
                 style: TextStyle(
                   color:
                       isSelected
-                          ? NewsphoneTheme.neutralWhite
-                          : NewsphoneTheme.neutral30,
+                          ? NewsphoneTheme.onPrimary
+                          : NewsphoneTheme.textSecondary,
                   fontWeight: FontWeight.w600,
                 ),
                 overflow: TextOverflow.ellipsis,

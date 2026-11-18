@@ -40,11 +40,11 @@ class _ContestCallsmsState extends State<ContestCallsms> {
         return SafeArea(
           top: false,
           child: Scaffold(
-            backgroundColor: NewsphoneTheme.neutralWhite,
+            backgroundColor: NewsphoneTheme.scaffold,
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: NewsphoneTheme.surface,
                   elevation: 0,
                   floating: false,
                   pinned: true,
@@ -55,7 +55,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                   ),
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(1.0),
-                    child: Container(color: Colors.grey[300], height: 1.0),
+                    child: Container(color: NewsphoneTheme.divider, height: 1.0),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -77,7 +77,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           height: 1.3,
-                          color: NewsphoneTheme.neutral40,
+                          color: NewsphoneTheme.textTertiary,
                         ),
                       ),
                       const SizedBox(height: 50.0),
@@ -114,7 +114,7 @@ class _ContestCallsmsState extends State<ContestCallsms> {
                               _buildOptionButton(
                                 icon: 'assets/images/icons/Coupon.svg',
                                 label: 'Χρήση Δωρεάν Συμμετοχών',
-                                firstColor: Color(0XFFE082FF),
+                                firstColor: NewsphoneTheme.gradientStart,
                                 secColor: NewsphoneTheme.primary,
                                 onTap: () {
                                   showContestCouponsBottomSheet(
@@ -187,7 +187,7 @@ Widget _buildOptionButton({
               icon,
               height: 30.0,
               width: 30.0,
-              color: Colors.white,
+              color: NewsphoneTheme.onPrimary,
             ),
           ),
           const SizedBox(height: 8.0),

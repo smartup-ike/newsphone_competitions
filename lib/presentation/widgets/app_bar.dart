@@ -6,6 +6,8 @@ import 'package:newsphone_competitions/logic/blocs/notifications/notifications_c
 import '../../data/models/notification.dart';
 import '../pages/notifications/notification_page.dart';
 import '../pages/settings/settings_page.dart';
+import 'package:newsphone_competitions/flavors/flavor_config.dart';
+import 'flavor_logo.dart';
 
 class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback clickNotificationFunction;
@@ -23,30 +25,30 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
       pinned: false,
       floating: true,
       snap: true,
-      backgroundColor: NewsphoneTheme.neutralWhite,
+      backgroundColor: NewsphoneTheme.surface,
       elevation: 0,
       toolbarHeight: 50,
       automaticallyImplyLeading: false,
       titleSpacing: 0,
       title: Row(
         children: [
-          // Left blue box with "14614"
+          // Left box: app number logo
           Expanded(
             child: Container(
-              color: NewsphoneTheme.primary,
+              color: NewsphoneTheme.appBarLogoBackground,
               padding: const EdgeInsets.only(top: 20, bottom: 20),
-              child: Image.asset(
-                'assets/images/logo.png',
+              child: FlavorLogo(
+                FlavorConfig.instance.appLogoAsset,
                 width: 160,
                 height: 30,
               ),
             ),
           ),
 
-          // Center logo ANT1
+          // Centre box: TV channel logo
           Expanded(
             child: Container(
-              color: NewsphoneTheme.neutral90,
+              color: NewsphoneTheme.surfaceSubtle,
               padding: const EdgeInsets.only(
                 left: 10,
                 right: 10,
@@ -54,16 +56,17 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                 bottom: 20,
               ),
               child: Center(
-                child: Image.asset(
-                  'assets/images/ant1.png',
+                child: FlavorLogo(
+                  FlavorConfig.instance.stationLogoAsset,
                   height: 37,
                   width: 87,
                   fit: BoxFit.fill,
+                  color: FlavorConfig.instance.stationLogoColor,
                 ),
               ),
             ),
           ),
-          Container(color: NewsphoneTheme.neutralWhite, width: 2),
+          Container(color: NewsphoneTheme.surface, width: 2),
         ],
       ),
       actions: [
@@ -86,10 +89,10 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     height: 50,
-                    decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
-                    child: const Icon(
+                    decoration: BoxDecoration(color: NewsphoneTheme.surfaceSubtle),
+                    child: Icon(
                       CupertinoIcons.bell,
-                      color: NewsphoneTheme.neutralBlack,
+                      color: NewsphoneTheme.textStrong,
                     ),
                   ),
                 ),
@@ -101,7 +104,7 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
-                        color: NewsphoneTheme.deactivate,
+                        color: NewsphoneTheme.danger,
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -120,8 +123,8 @@ class HomePageAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Container(
             padding: const EdgeInsets.all(10),
             height: 50,
-            decoration: BoxDecoration(color: NewsphoneTheme.neutral90),
-            child: const Icon(Icons.menu, color: Colors.black),
+            decoration: BoxDecoration(color: NewsphoneTheme.surfaceSubtle),
+            child: Icon(Icons.menu, color: NewsphoneTheme.contrast),
           ),
         ),
       ],

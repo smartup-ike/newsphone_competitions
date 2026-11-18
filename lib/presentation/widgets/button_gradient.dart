@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ButtonGradient extends StatelessWidget {
@@ -18,7 +19,7 @@ class ButtonGradient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = GoogleFonts.roboto(
-      color: Colors.white,
+      color: NewsphoneTheme.onPrimary,
       fontSize: 15,
       fontWeight: FontWeight.w600,
       height: 20 / 13,
@@ -45,13 +46,13 @@ class ButtonGradient extends StatelessWidget {
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
-        color: isDisabled ? Colors.black12 : null,
+        color: isDisabled ? NewsphoneTheme.buttonDisabled : null,
       ),
       child: ElevatedButton(
         onPressed: isDisabled ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
+          foregroundColor: NewsphoneTheme.onPrimary,
           shadowColor: Colors.transparent,
           elevation: 0,
           padding: EdgeInsets.zero,

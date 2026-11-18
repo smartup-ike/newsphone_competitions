@@ -16,7 +16,7 @@ class MyCouponsPage extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: const Color(0xFFF2F4F7),
+        backgroundColor: NewsphoneTheme.scaffoldMuted,
         body: BlocBuilder<CouponsCubit, CouponsState>(
           builder: (context, state) {
             if (state.loading) {
@@ -37,7 +37,7 @@ class MyCouponsPage extends StatelessWidget {
             return CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: NewsphoneTheme.surface,
                   elevation: 0,
                   floating: false,
                   pinned: true,
@@ -48,7 +48,7 @@ class MyCouponsPage extends StatelessWidget {
                   ),
                   bottom: PreferredSize(
                     preferredSize: const Size.fromHeight(1.0),
-                    child: Container(color: Colors.grey[300], height: 1.0),
+                    child: Container(color: NewsphoneTheme.divider, height: 1.0),
                   ),
                   actions: [
                     IconButton(
@@ -86,7 +86,7 @@ class MyCouponsPage extends StatelessWidget {
                         Text(
                           'Εδώ μπορείτε να δείτε όλες τις συμμετοχές που έχετε κερδίσει ή αποκτήσει, την κατάστασή τους (Ενεργή/Χρησιμοποιημένη) και τους διαγωνισμούς στους οποίους μπορείτε να τις χρησιμοποιήσετε.',
                           style: NewsphoneTypography.body13Regular.copyWith(
-                            color: NewsphoneTheme.neutral40,
+                            color: NewsphoneTheme.textTertiary,
                           ),
                         ),
                       ],
@@ -102,8 +102,8 @@ class MyCouponsPage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         // 1. Define the LinearGradient
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                        gradient: LinearGradient(
+                          colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -118,14 +118,14 @@ class MyCouponsPage extends StatelessWidget {
                             Text(
                               'Διαθέσιμες δωρεάν συμμετοχές',
                               style: NewsphoneTypography.body12Regular.copyWith(
-                                color: NewsphoneTheme.neutralWhite,
+                                color: NewsphoneTheme.onPrimary,
                               ),
                             ),
                             const SizedBox(height: 5),
                             Text(
                               'x${count}',
                               style: NewsphoneTypography.heading4SemiBold
-                                  .copyWith(color: NewsphoneTheme.neutralWhite),
+                                  .copyWith(color: NewsphoneTheme.onPrimary),
                             ),
                           ],
                         ),
@@ -148,7 +148,7 @@ class MyCouponsPage extends StatelessWidget {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: NewsphoneTheme.neutralWhite,
+                                color: NewsphoneTheme.surface,
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: Padding(
@@ -215,7 +215,7 @@ class MyCouponsPage extends StatelessWidget {
                                       'Διαγωνισμός',
                                       style: NewsphoneTypography.body12Regular
                                           .copyWith(
-                                            color: NewsphoneTheme.neutral40,
+                                            color: NewsphoneTheme.textTertiary,
                                           ),
                                     ),
                                     Text(

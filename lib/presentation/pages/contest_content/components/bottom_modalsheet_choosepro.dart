@@ -52,7 +52,7 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: NewsphoneTheme.neutral95,
+        color: NewsphoneTheme.surfaceMuted,
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(
@@ -63,7 +63,7 @@ class _ContestChooseProContentState extends State<_ContestChooseProContent> {
             height: 5.0,
             width: 40.0,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: NewsphoneTheme.divider,
               borderRadius: BorderRadius.circular(2.5),
             ),
           ),

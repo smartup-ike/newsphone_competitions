@@ -8,7 +8,8 @@ import '../../../data/services/api_service.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final FirebaseAuth _auth;
+  /// `null` when the app has no Firebase set up yet (login is disabled).
+  final FirebaseAuth? _auth;
   StreamSubscription<User?>? _authListener;
   PhoneAuthCredential? _autoVerifiedCredential;
   final ApiService _apiService;
@@ -16,7 +17,12 @@ class AuthCubit extends Cubit<AuthState> {
   Timer? _timer;
 
   AuthCubit(this._auth, this._apiService) : super(const AuthState.unknown()) {
-    _authListener = _auth.authStateChanges().listen((user) async {
+    final auth = _auth;
+    if (auth == null) {
+      emit(const AuthState.unauthenticated());
+      return;
+    }
+    _authListener = auth.authStateChanges().listen((user) async {
       if (user != null) {
         emit(state.copyWith(status: AuthStatus.authenticated, user: user, isNewUser: true));
       } else {
@@ -33,10 +39,18 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void verifyPhone(String phoneNumber) async {
+    final auth = _auth;
+    if (auth == null) {
+      emit(state.copyWith(
+        loading: false,
+        errorMessage: 'Η σύνδεση δεν είναι ακόμη διαθέσιμη.',
+      ));
+      return;
+    }
     emit(state.copyWith(loading: true, canResend: false, resendSeconds: 60));
     _startResendTimer();
 
-    await _auth.verifyPhoneNumber(
+    await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       verificationCompleted: (credential) async {
         // ✅ FIX 1: DO NOT call signInWithCredential immediately.
@@ -97,7 +111,7 @@ class AuthCubit extends Cubit<AuthState> {
 
     try {
       // ✅ FIX 2: Only call signInWithCredential here, driven by the button press.
-      final result = await _auth.signInWithCredential(credential);
+      final result = await _auth!.signInWithCredential(credential);
       _handleSignInResult(result);
 
       // Clear verification ID regardless of how the sign-in succeeded
@@ -112,7 +126,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void registerUser() async {
-    final user = _auth.currentUser;
+    final user = _auth?.currentUser;
     if (user == null) return;
 
     try {
@@ -164,7 +178,7 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
   Future<void> signOut() async {
-    await _auth.signOut();
+    await _auth?.signOut();
     await _authListener?.cancel();
 
     // Fully reset AuthState

@@ -18,7 +18,7 @@ class DealsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NewsphoneTheme.neutralWhite,
+      backgroundColor: NewsphoneTheme.scaffold,
       body: BlocBuilder<DealsCubit, DealsState>(
         builder: (context, state) {
           if (state is DealsLoading) {
@@ -34,13 +34,13 @@ class DealsPage extends StatelessWidget {
                     Icon(
                       Icons.error_outline,
                       size: 60,
-                      color: NewsphoneTheme.neutral30,
+                      color: NewsphoneTheme.textSecondary,
                     ),
                     SizedBox(height: 16),
                     Text(
                       'Κάτι πήγε στραβά',
                       style: NewsphoneTypography.heading6Bold.copyWith(
-                        color: NewsphoneTheme.neutral30,
+                        color: NewsphoneTheme.textSecondary,
                       ),
                     ),
                   ],
@@ -61,7 +61,7 @@ class DealsPage extends StatelessWidget {
                         child: Text(
                           "Δεν υπάρχουν διαθέσιμες προσφορές",
                           style: NewsphoneTypography.body15Medium.copyWith(
-                            color: NewsphoneTheme.neutral30,
+                            color: NewsphoneTheme.textSecondary,
                           ),
                         ),
                       ),
@@ -84,7 +84,7 @@ class DealsPage extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        backgroundColor: NewsphoneTheme.neutralWhite,
+                        backgroundColor: NewsphoneTheme.surface,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.vertical(
                             top: Radius.circular(20),

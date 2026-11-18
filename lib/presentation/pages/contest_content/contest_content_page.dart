@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/presentation/pages/contest_content/contest_shows_page.dart';
 import '../../../data/models/contests.dart';
 import 'components/contest_appbar.dart';
@@ -17,7 +18,7 @@ class ContestContentPage extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: NewsphoneTheme.scaffold,
         body: CustomScrollView(
           slivers: [
             //App bar with the title name
