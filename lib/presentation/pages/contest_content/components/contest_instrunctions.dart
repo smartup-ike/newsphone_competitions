@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
-import 'package:newsphone_competitions/flavors/flavor_config.dart';
+import 'package:newsphone_competitions/data/services/brand_service.dart';
 
 class ContestInstructions extends StatelessWidget {
   final List<String> prefixs;
@@ -17,6 +17,7 @@ class ContestInstructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brand = BrandService.current;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,7 +32,7 @@ class ContestInstructions extends StatelessWidget {
             style: NewsphoneTypography.body15Medium,
             children: [
               TextSpan(
-                text: '${FlavorConfig.instance.phoneNumber} ',
+                text: '${brand.callNumber} ',
                 style: TextStyle(
                   color: NewsphoneTheme.emphasis,
                   fontWeight: FontWeight.bold,
@@ -89,6 +90,17 @@ class ContestInstructions extends StatelessWidget {
                   color: NewsphoneTheme.emphasis,
                 ),
               ),
+              // Only when SMS goes to another number than calls; otherwise
+              // the text stays exactly as before.
+              if (brand.smsNumber != brand.callNumber) ...[
+                const TextSpan(text: ' ΣΤΟ '),
+                TextSpan(
+                  text: brand.smsNumber,
+                  style: NewsphoneTypography.body15Bold.copyWith(
+                    color: NewsphoneTheme.emphasis,
+                  ),
+                ),
+              ],
             ],
           ),
         ),

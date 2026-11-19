@@ -65,31 +65,59 @@ color changes. Run `flutter test` before merging.
 
 ## Firebase
 
-An app without `firebaseOptions` (currently 14800) runs **without Firebase**: no login,
-coupons, push notifications or analytics. It still builds and every screen works.
+Both apps use the **same Firebase project** (`newphone-test`), each with its own Android and
+iOS app registered in it. The backend keeps users and coupons apart per app (`X-Brand`).
 
-To turn Firebase on for an app (example 14800, once the project is decided):
+| App | Android config | iOS config | Dart options |
+| :-- | :-- | :-- | :-- |
+| 14614 | `android/app/src/app14614/google-services.json` | `ios/config/app14614/GoogleService-Info.plist` | `lib/flavors/app14614/firebase_options.dart` |
+| 14800 | `android/app/src/app14800/google-services.json` | `ios/config/app14800/GoogleService-Info.plist` | `lib/flavors/app14800/firebase_options.dart` |
 
-```bash
-flutterfire configure \
-  --project=<firebase-project-id> \
-  --out=lib/flavors/app14800/firebase_options.dart \
-  --android-package-name=com.akep.app14800 \
-  --ios-bundle-id=com.akep.14800 \
-  --android-out=android/app/src/app14800/google-services.json \
-  --ios-out=ios/config/app14800/GoogleService-Info.plist \
-  --ios-build-config=Release-app14800
-```
+An app with `firebaseOptions: null` runs without Firebase (no login, coupons, push, analytics).
 
-Then rename the generated class to `App14800FirebaseOptions` and set
-`firebaseOptions: () => App14800FirebaseOptions.currentPlatform` in `app14800.dart`.
-Also set `GOOGLE_REVERSED_CLIENT_ID` for the `*-app14800` iOS configs (Xcode → Runner →
-Build Settings → User-Defined) and enable Phone sign-in in Firebase Auth.
+For Android phone login, every signing key must be added to the Firebase Android app
+(Project settings → Your apps → SHA certificates): the debug key, the upload key in
+`android/keystores/`, and the **Play App Signing key** (Play Console → Test and release →
+App integrity) once the first build is uploaded. For iOS push, upload the APNs key to the
+iOS app in Firebase (Project settings → Cloud Messaging).
+
+If an app later moves to its own Firebase project, run `flutterfire configure` with that
+project and the paths above.
 
 ## Backend
 
-The app does **not** send an app id yet. When the backend is ready, add it in one place:
-`_headers()` in `lib/data/services/api_service.dart` (`FlavorConfig.instance.appId`).
+Every request sends `X-Brand: <appId>` (`14614`, `14800`), from `_headers()` in
+`lib/data/services/api_service.dart`. The backend returns that app's contests, deals, users
+and coupons. No header means 14614; an unknown value is rejected (400).
+
+### Station numbers and topic (`GET /brand`)
+
+The call number, SMS number and notification topic come from `GET /brand`, so Newsphone can
+change them on the server without an app update (`lib/data/services/brand_service.dart`):
+
+1. On start the app uses the values saved last time (the flavor's `phoneNumber` /
+   `notificationsTopic` on the very first run) and subscribes to that topic.
+2. In the background it calls `/brand`. A good answer for **this** app is saved and used;
+   if the topic changed, the app moves its subscription.
+3. If the request fails (offline, old backend without `/brand`), nothing changes.
+
+Use `BrandService.current.callNumber` / `.smsNumber` / `.generalTopic` in the code, not the
+flavor values. The SMS line of the contest instructions shows the SMS number only when it
+differs from the call number.
+
+## Environments (production / staging)
+
+Production is the default; normal `flutter run` / `flutter build` need no flags.
+To test against another backend, use a local env file (git-ignored, never committed):
+
+```bash
+cp env/staging.example.json env/staging.json   # then put the real staging URL in it
+flutter run --flavor app14800 --dart-define-from-file=env/staging.json
+```
+
+- A non-production build shows a red **STAGING** ribbon in the top-right corner.
+- **Release builds always use production**, even if an env file is passed
+  (`lib/core/config/app_env.dart`). A staging URL can never reach the stores.
 
 ## Add a new number (example: 14900, channel XYZ)
 
@@ -120,8 +148,8 @@ The app does **not** send an app id yet. When the backend is ready, add it in on
 
 - [x] Dark color palette approved (based on tvopen.gr). Update `app14800.dart` if a final brand palette arrives.
 - [ ] Real 14800 terms (currently a copy of 14614's with number/channel swapped).
-- [ ] Firebase decided and configured (see above).
-- [ ] Backend separates 14614 / 14800 data.
+- [x] Firebase: same project as 14614 for now (see above). Add the Play App Signing SHA and the APNs key.
+- [ ] Backend separates 14614 / 14800 data: done on staging (`X-Brand`), production pending.
 - [ ] App Store Connect + Google Play apps created.
 
 ## Store screenshots

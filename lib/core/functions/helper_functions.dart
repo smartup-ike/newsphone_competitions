@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/services/analytics_service.dart';
-import 'package:newsphone_competitions/flavors/flavor_config.dart';
+import '../../data/services/brand_service.dart';
 
 void launchURL(String stringURL) async {
   final Uri url = Uri.parse(stringURL);
@@ -12,16 +12,16 @@ void launchURL(String stringURL) async {
   }
 }
 
-///Redirect to call this flavor's premium number
+///Redirect to call this app's premium number (from the backend, see BrandService)
 void handleCall(String showName) {
-  launchURL('tel:${FlavorConfig.instance.phoneNumber}');
+  launchURL('tel:${BrandService.current.callNumber}');
   AnalyticsService.logActionCallSMS('Call', showName);
 }
 
-///Redirect to send sms to this flavor's premium number with prefix
+///Redirect to send sms to this app's SMS number with prefix
 void handleSms(String prefix,String showName) {
   final messageBody = '$prefix ';
 
-  launchURL('sms:${FlavorConfig.instance.phoneNumber}?body=${Uri.encodeComponent(messageBody)}');
+  launchURL('sms:${BrandService.current.smsNumber}?body=${Uri.encodeComponent(messageBody)}');
   AnalyticsService.logActionCallSMS('SMS', showName);
 }

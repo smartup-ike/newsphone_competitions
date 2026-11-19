@@ -11,6 +11,11 @@ import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'package:newsphone_competitions/data/services/notifications_services.dart';
+import 'dart:async';
+
+import 'core/config/app_env.dart';
+import 'data/demo/demo_data.dart';
+import 'data/services/brand_service.dart';
 import 'flavors/flavor_config.dart';
 import 'logic/blocs/auth/auth_cubit.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
@@ -47,9 +52,11 @@ void main() async {
 
   await NotificationService.init();
 
-  await NotificationService.subscribeToTopic(
-    FlavorConfig.instance.notificationsTopic,
-  );
+  // Station numbers + topic: last saved values now, fresh ones from the
+  // backend in the background (see BrandService).
+  await BrandService.loadCached();
+  await NotificationService.subscribeToTopic(BrandService.current.generalTopic);
+  if (!DemoData.enabled) unawaited(_refreshBrand(apiService));
 
   await NotificationService.loadMissedNotifications();
 
@@ -59,6 +66,17 @@ void main() async {
   ]);
 
   runApp(MyApp(apiService: apiService));
+}
+
+/// Gets fresh station values; if the topic changed, moves the subscription.
+Future<void> _refreshBrand(ApiService api) async {
+  final previous = await BrandService.refresh(api.fetchBrand);
+  if (previous == null) return;
+  final topic = BrandService.current.generalTopic;
+  if (previous.generalTopic != topic) {
+    await NotificationService.unsubscribeFromTopic(previous.generalTopic);
+    await NotificationService.subscribeToTopic(topic);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -93,8 +111,7 @@ class MyApp extends StatelessWidget {
           create: (_) => AuthCubit(_firebaseAuth, apiService),
         ),
         BlocProvider(
-          create:
-              (_) => CouponsCubit(_firebaseAuth, apiService)..init(),
+          create: (_) => CouponsCubit(_firebaseAuth, apiService)..init(),
         ),
       ],
       child: SafeArea(
@@ -120,7 +137,19 @@ class MyApp extends StatelessWidget {
                     ).size, // locks the logical screen size
               ),
 
-              child: child!,
+              child:
+                  AppEnv.isProduction
+                      ? child!
+                      // Non-production backend: show a corner ribbon so a
+                      // staging build is never mistaken for the real app.
+                      : Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Banner(
+                          message: AppEnv.name.toUpperCase(),
+                          location: BannerLocation.topEnd,
+                          child: child!,
+                        ),
+                      ),
             );
           },
           navigatorObservers: _observers,

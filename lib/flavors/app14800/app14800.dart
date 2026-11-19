@@ -4,6 +4,7 @@ import '../dark_material_theme.dart';
 
 import '../app_colors.dart';
 import '../flavor_config.dart';
+import 'firebase_options.dart';
 import 'terms.dart' as terms;
 
 /// 14800 — channel OPEN (OpenTV).
@@ -19,9 +20,9 @@ final FlavorConfig app14800 = FlavorConfig(
   stationLogoAsset: 'flavors/app14800/bundled/station_logo.svg',
   englishTerms: () => terms.englishTerms,
   greekTerms: () => terms.greekTerms,
-  // TODO(app14800): Firebase not decided yet. When it is, run flutterfire
-  // configure (see FLAVORS.md) and set firebaseOptions here.
-  firebaseOptions: null,
+  // Same Firebase project as 14614 (newphone-test), its own Android/iOS apps.
+  // The backend keeps 14800 users and coupons apart via the X-Brand header.
+  firebaseOptions: () => App14800FirebaseOptions.currentPlatform,
   materialTheme: () => buildDarkMaterialTheme(app14800.colors),
   poweredByLogoAsset: 'assets/images/smartup-logo light.png',
   stationLogoColor: Colors.white,

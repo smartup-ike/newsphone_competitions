@@ -2,21 +2,28 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:newsphone_competitions/data/models/contest_categories.dart';
 import 'package:newsphone_competitions/data/models/user_transaction.dart';
+import '../models/brand.dart';
 import '../models/contests.dart';
 import '../models/deals.dart';
 import '../models/topics.dart';
 import '../demo/demo_data.dart';
+import '../../core/config/app_env.dart';
+import '../../flavors/flavor_config.dart';
 
 class ApiService {
-  /// Headers sent with every request. When the backend is ready to tell
-  /// apps apart, add the app id here (e.g. `FlavorConfig.instance.appId`).
+  /// Headers sent with every request.
+  ///
+  /// `X-Brand` tells the backend which app (number) is calling, so it returns
+  /// that app's contests, deals, users and coupons.
   Map<String, String> _headers({String? idToken, bool json = false}) => {
+    'X-Brand': FlavorConfig.instance.appId,
     if (json) 'Content-Type': 'application/json',
     if (idToken != null) 'Authorization': 'Bearer $idToken',
   };
 
-  final String _baseUrl = //'http://192.168.1.19:8000';
-      'https://newsphone-api-560508338889.europe-central2.run.app';
+  /// Production unless a debug build was started with an env file
+  /// (see [AppEnv]).
+  final String _baseUrl = AppEnv.apiBaseUrl;
 
   /// Fetch contests from API
   Future<List<Contest>> fetchContests() async {
@@ -147,6 +154,20 @@ class ApiService {
       // Handle network or parsing errors
       throw Exception('Failed to load deals: $e');
     }
+  }
+
+  /// Station details for this app: call/SMS numbers and notification topic.
+  /// Throws on any error; [BrandService] then keeps the values it has.
+  Future<Brand> fetchBrand() async {
+    final response = await http
+        .get(Uri.parse('$_baseUrl/brand'), headers: _headers())
+        .timeout(const Duration(seconds: 10));
+    if (response.statusCode != 200) {
+      throw Exception('GET /brand: ${response.statusCode}');
+    }
+    return Brand.fromJson(
+      json.decode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>,
+    );
   }
 
   /// Register user with Firebase ID token
