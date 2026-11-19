@@ -278,25 +278,48 @@ class ApiService {
     final url = '$_baseUrl/test-devices';
     final body = json.encode({'name': name, 'fcm_token': fcmToken});
 
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: _headers(json: true),
-        body: body,
-      );
+    final response = await http.post(
+      Uri.parse(url),
+      headers: _headers(json: true),
+      body: body,
+    );
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return json.decode(response.body) as Map<String, dynamic>;
-      } else if (response.statusCode == 422) {
-        final error = json.decode(response.body);
-        throw Exception('Validation Error: $error');
-      } else {
-        throw Exception(
-          'Failed to register test device: ${response.statusCode}',
-        );
-      }
-    } catch (e) {
-      throw Exception('Failed to register test device: $e');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return json.decode(response.body) as Map<String, dynamic>;
     }
+
+    final detail = _errorDetail(response.body);
+    if (response.statusCode == 409 ||
+        detail.toLowerCase().contains('already registered')) {
+      throw const TestDeviceAlreadyRegistered();
+    }
+    throw ApiError(response.statusCode, detail);
   }
+
+  /// The backend's error text (`{"detail": ...}`), or the raw body.
+  static String _errorDetail(String body) {
+    try {
+      final decoded = json.decode(body);
+      if (decoded is Map && decoded['detail'] != null) {
+        return decoded['detail'].toString();
+      }
+    } catch (_) {}
+    return body;
+  }
+}
+
+/// An error answer from the backend, with its message.
+class ApiError implements Exception {
+  const ApiError(this.statusCode, this.detail);
+
+  final int statusCode;
+  final String detail;
+
+  @override
+  String toString() => '$detail ($statusCode)';
+}
+
+/// This phone (its FCM token) is already a test device for this app.
+class TestDeviceAlreadyRegistered implements Exception {
+  const TestDeviceAlreadyRegistered();
 }

@@ -226,6 +226,19 @@ class _VersionInfoState extends State<VersionInfo> {
           ),
         );
       }
+    } on TestDeviceAlreadyRegistered {
+      // Not a problem: the phone already gets TEST notifications.
+      if (mounted) {
+        Navigator.pop(context); // dismiss loading
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Η συσκευή είναι ήδη εγγεγραμμένη ως δοκιμαστική.',
+            ),
+            backgroundColor: NewsphoneTheme.success,
+          ),
+        );
+      }
     } catch (e) {
       if (mounted) {
         Navigator.pop(context); // dismiss loading

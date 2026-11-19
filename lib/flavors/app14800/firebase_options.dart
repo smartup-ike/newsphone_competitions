@@ -65,6 +65,9 @@ class App14800FirebaseOptions {
     messagingSenderId: '560508338889',
     projectId: 'newphone-test',
     storageBucket: 'newphone-test.firebasestorage.app',
+    // Needed by phone login: Firebase then uses the REVERSED_CLIENT_ID URL
+    // scheme (Info.plist) instead of crashing on a missing app-1-... scheme.
+    iosClientId: '560508338889-ung1d7ibk98o2qd2obq5c461j6efvbvv.apps.googleusercontent.com',
     iosBundleId: 'com.akep.14800',
   );
 }
