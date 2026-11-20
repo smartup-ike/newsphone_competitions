@@ -1,5 +1,5 @@
-// TODO(app14800): PLACEHOLDER. This is a copy of the 14614 terms with the
-// number and channel swapped. Replace with the real 14800 terms before release.
+// Same terms as 14614, with the number (14800) and the channel (OPEN TV)
+// changed. Charges are the same as 14614.
 import 'package:flutter/material.dart';
 
 ///English Terms in Terms of use using Text
@@ -12,7 +12,7 @@ final List<Widget> englishTerms = [
     '''These terms regulate the use of the "14800 app" application, which is provided by the company named "NEWSPHONE HELLAS SA" with headquarters at 280 Thiseos Ave., Kallithea, Attica, PC 17675 (hereinafter "the Company").
 
 The Company has developed an electronic application that provides users with the opportunity to stay informed and participate in activities (e.g., contests) broadcast on television shows of partner radio and television stations, through landline or mobile telephony by calling/sending a message to premium rate numbers.
-Specifically, the "14800 app" allows the user immediate and continuous access (24/7) to contests of the television station OPEN via landline or mobile phone.
+Specifically, the "14800 app" allows the user immediate and continuous access (24/7) to contests of the television station OPEN TV via landline or mobile phone.
 Access consists of the ability to view active contests, facilitate user participation (viewing contests, participation instructions, easy access), and receive informative notifications for current and new contests. Additionally, the application will provide users with the opportunity to receive partner offer codes.
 By downloading the application, the user is bound by these Terms of Use and the Newsphone Group Security and Privacy Policy (https://newsphone.gr/privacy-policy/) and declares that they accept them unreservedly.''',
     textAlign: TextAlign.justify,
@@ -30,7 +30,7 @@ By downloading the application, the user is bound by these Terms of Use and the 
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
   const Text(
-    '''By installing the "14800 app" on a mobile phone or tablet, the user gains immediate and continuous access (24/7) to the contests of the television station OPEN.
+    '''By installing the "14800 app" on a mobile phone or tablet, the user gains immediate and continuous access (24/7) to the contests of the television station OPEN TV.
 Access to the application can be achieved through one of the following ways:
 • Scanning the QR Code displayed on the TV screen during broadcasts.
 • Via a link sent to the user as a reply SMS within the framework of their participation in the TV station's contests.
@@ -77,7 +77,7 @@ After exhaustion, additional participation is exclusively via available methods 
   ),
   const Text(
     '''The installation and use of the "14800 app" is free.
-The charge for participation in OPEN contests via SMS or Call is: Landline – €3.14/Call, Mobile €3.29/Call, €3.29/SMS. Prices include VAT and mobile telephony fees.''',
+The charge for participation in OPEN TV contests via SMS or Call is: Landline – €3.14/Call, Mobile €3.29/Call, €3.29/SMS. Prices include VAT and mobile telephony fees.''',
     textAlign: TextAlign.justify,
   ),
   const Text(
@@ -195,7 +195,7 @@ final List<Widget> greekTerms = [
     '''Οι παρόντες όροι ρυθμίζουν την χρήση της εφαρμογής «14800 app» η οποία παρέχεται από την εταιρεία με την επωνυμία «ΕΙΔΗΣΕΟΦΩΝΙΚΗ ΕΛΛΑΣ - ΑΝΩΝΥΜΗ ΕΜΠΟΡΙΚΗ ΕΤΑΙΡΕΙΑ - ΥΠΗΡΕΣΙΕΣ ΤΗΛΕΗΧΟΠΛΗΡΟΦΟΡΗΣΗΣ- ΟΛΟΚΛΗΡΩΜΕΝΕΣ ΥΠΗΡΕΣΙΕΣ ΠΛΗΡΟΦΟΡΙΚΗΣ ΚΑΙ ΕΠΙΚΟΙΝΩΝΙΩΝ» και τον διακριτικό τίτλο «NEWSPHONE HELLAS SA» με έδρα την Λ. Θησέως 280, Καλλιθέα Αττικής, ΤΚ 17675, αρ. ΓΕΜΗ 123788460000 (εφεξής «η Εταιρεία»).
 
 Η Εταιρεία έχει αναπτύξει ηλεκτρονική εφαρμογή η οποία παρέχει στους χρήστες τη δυνατότητα να ενημερώνονται και να συμμετέχουν σε ενέργειες (ενδεικτικά διαγωνισμούς) που προβάλλονται σε τηλεοπτικές εκπομπές συνεργαζόμενων με την Εταιρεία ραδιοτηλεοπτικών σταθμών, μέσω σταθερής ή κινητής τηλεφωνίας με κλήση/αποστολή μηνύματος σε αριθμούς αυξημένης χρέωσης.
-Αναλυτικά, η εφαρμογή «14800 app» επιτρέπει στον χρήστη άμεση και συνεχή πρόσβαση (24/7) στους διαγωνισμούς των τηλεοπτικών εκπομπών του τηλεοπτικού σταθμού OPEN μέσω σταθερής ή κινητής τηλεφωνίας με κλήση/αποστολή μηνύματος σε αριθμούς αυξημένης χρέωσης.
+Αναλυτικά, η εφαρμογή «14800 app» επιτρέπει στον χρήστη άμεση και συνεχή πρόσβαση (24/7) στους διαγωνισμούς των τηλεοπτικών εκπομπών του τηλεοπτικού σταθμού OPEN TV μέσω σταθερής ή κινητής τηλεφωνίας με κλήση/αποστολή μηνύματος σε αριθμούς αυξημένης χρέωσης.
 Η πρόσβαση συνίσταται στη δυνατότητα προβολής των ενεργών διαγωνισμών, στη διευκόλυνση της συμμετοχής του χρήστη σε διαγωνισμό (προβολή διαγωνισμών, οδηγίες συμμετοχής, εύκολη πρόσβαση) και την λήψη ενημερωτικών ειδοποιήσεων για τους τρέχοντες και νέους διαγωνισμούς. Επιπλέον, η εφαρμογή θα παρέχει στους χρήστες τη δυνατότητα να λαμβάνουν κωδικούς προσφορών συνεργατών (για εκπτώσεις σε προϊόντα, υπηρεσίες ή καταστήματα συνεργατών)
 Με την καταφόρτωση της εφαρμογής ο χρήστης δεσμεύεται από τους παρόντες Όρους Χρήσης και την Πολιτική Ασφάλειας και Προστασίας Προσωπικών Δεδομένων Ομίλου Newsphone (https://newsphone.gr/privacy-policy/) και δηλώνει ότι τους αποδέχεται ανεπιφύλακτα.''',
     textAlign: TextAlign.justify,
@@ -213,7 +213,7 @@ final List<Widget> greekTerms = [
     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
   ),
   const Text(
-    '''Με την εγκατάσταση της εφαρμογής «14800 app» σε κινητό τηλέφωνο ή tablet, ο χρήστης αποκτά άμεση και συνεχή πρόσβαση (24/7) στους διαγωνισμούς των τηλεοπτικών εκπομπών του τηλεοπτικού σταθμού OPEN.
+    '''Με την εγκατάσταση της εφαρμογής «14800 app» σε κινητό τηλέφωνο ή tablet, ο χρήστης αποκτά άμεση και συνεχή πρόσβαση (24/7) στους διαγωνισμούς των τηλεοπτικών εκπομπών του τηλεοπτικού σταθμού OPEN TV.
 Η πρόσβαση στην εφαρμογή μπορεί να πραγματοποιηθεί με έναν από τους ακόλουθους τρόπους:
 • Σάρωση (scan) του QR Code που εμφανίζεται στην τηλεοπτική οθόνη κατά τη διάρκεια των εκπομπών.
 • Μέσω συνδέσμου (link) που αποστέλλεται στον χρήστη ως απαντητικό SMS, στο πλαίσιο συμμετοχής του στους διαγωνισμούς του τηλεοπτικού σταθμού.
@@ -260,7 +260,7 @@ final List<Widget> greekTerms = [
   ),
   const Text(
     '''Η εγκατάσταση και χρήση της εφαρμογής «14800 app» είναι δωρεάν.
-Η χρέωση για τη συμμετοχή στους διαγωνισμούς των εκπομπών του τηλεοπτικού σταθμού OPEN μέσω SMS ή Κλήσης είναι η εξής: Σταθερό – €3,14/Κλήση, Κινητό €3,29/Κλήση, €3,29/SMS. Οι τιμές περιλαμβάνουν ΦΠΑ και τέλη συνδρομητών κινητής τηλεφωνίας.''',
+Η χρέωση για τη συμμετοχή στους διαγωνισμούς των εκπομπών του τηλεοπτικού σταθμού OPEN TV μέσω SMS ή Κλήσης είναι η εξής: Σταθερό – €3,14/Κλήση, Κινητό €3,29/Κλήση, €3,29/SMS. Οι τιμές περιλαμβάνουν ΦΠΑ και τέλη συνδρομητών κινητής τηλεφωνίας.''',
     textAlign: TextAlign.justify,
   ),
   const Text(
