@@ -23,6 +23,8 @@ final FlavorConfig app14800 = FlavorConfig(
   // Same Firebase project as 14614 (newphone-test), its own Android/iOS apps.
   // The backend keeps 14800 users and coupons apart via the X-Brand header.
   firebaseOptions: () => App14800FirebaseOptions.currentPlatform,
+  // White OPEN ring (android/app/src/app14800/res/drawable-*/).
+  androidNotificationIcon: '@drawable/ic_stat_notification',
   materialTheme: () => buildDarkMaterialTheme(app14800.colors),
   poweredByLogoAsset: 'assets/images/smartup-logo light.png',
   stationLogoColor: Colors.white,

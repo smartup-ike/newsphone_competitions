@@ -82,9 +82,11 @@ class NotificationService {
     }
 
     // Setup local notifications
-    const androidInit = AndroidInitializationSettings('@mipmap/launcher_icon');
+    final androidInit = AndroidInitializationSettings(
+      FlavorConfig.instance.androidNotificationIcon,
+    );
     const iosInit = DarwinInitializationSettings();
-    const initSettings = InitializationSettings(
+    final initSettings = InitializationSettings(
       android: androidInit,
       iOS: iosInit,
     );

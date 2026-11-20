@@ -27,6 +27,7 @@ class FlavorConfig {
     required this.englishTerms,
     required this.greekTerms,
     this.firebaseOptions,
+    this.androidNotificationIcon = '@mipmap/launcher_icon',
   });
 
   /// Same as the `--flavor` name, the Android productFlavor and the iOS scheme.
@@ -75,6 +76,13 @@ class FlavorConfig {
   /// `null` = Firebase not set up for this app yet: the app runs without
   /// login, coupons, push notifications and analytics.
   final FirebaseOptions Function()? firebaseOptions;
+
+  /// Small icon of Android notifications shown by the app itself (in the
+  /// foreground). Android draws it as a one-color silhouette, so it should be
+  /// white on transparent. Notifications shown by FCM while the app is in the
+  /// background use `default_notification_icon` in the flavor's
+  /// AndroidManifest.xml; keep the two the same.
+  final String androidNotificationIcon;
 
   bool get firebaseEnabled => firebaseOptions != null;
 
