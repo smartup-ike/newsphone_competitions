@@ -52,6 +52,13 @@ class _SignInPageState extends State<SignInPage> {
   // Helper to combine OTP controllers into a single string
   String get _otpCode => _otpControllers.map((c) => c.text).join();
 
+  /// ": XXXX-XXX123" with the last 3 digits the user typed, or "" if unknown.
+  String get _maskedPhone {
+    final phone = _phoneController.text.trim();
+    if (phone.length < 3) return '';
+    return ': XXXX-XXX${phone.substring(phone.length - 3)}';
+  }
+
   @override
   void dispose() {
     _phoneController.clear();
@@ -180,7 +187,7 @@ class _SignInPageState extends State<SignInPage> {
                         Text(
                           (state.verificationId == null)
                               ? 'Για να ολοκληρωθεί η απόδοση των 10 συμμετοχών και να επιβεβαιώσουμε τα στοιχεία σας (ώστε να λάβετε τις 10 δωρεάν συμμετοχές σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.'
-                              : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε: XXXX-XXX423 \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα 10 συμμετοχές.',
+                              : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε$_maskedPhone \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα 10 συμμετοχές.',
                           style: NewsphoneTypography.body13Regular.copyWith(
                             color: NewsphoneTheme.textTertiary,
                           ),

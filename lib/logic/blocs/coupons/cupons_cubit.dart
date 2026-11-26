@@ -24,8 +24,10 @@ class CouponsCubit extends Cubit<CouponsState> {
     }
 
     try {
+      // The profile first: it registers the user for this station if needed,
+      // and the history needs that user to exist.
+      await loadCoupons();
       await Future.wait([
-        loadCoupons(),
         loadTransactions(),
         loadContests(),
       ]);
@@ -44,9 +46,17 @@ class CouponsCubit extends Cubit<CouponsState> {
       print('user: $user');
       if (user == null) throw Exception("User not logged in");
 
-      final idToken = await user.getIdToken(true);
+      final idToken = (await user.getIdToken(true))!;
 
-      final meJson = await _apiService.fetchMe(idToken!);
+      Map<String, dynamic> meJson;
+      try {
+        meJson = await _apiService.fetchMe(idToken);
+      } catch (_) {
+        // Signed in to Firebase but no user for this station yet (e.g. the
+        // registration after login failed). Registering is safe to repeat.
+        await _apiService.registerUser(idToken);
+        meJson = await _apiService.fetchMe(idToken);
+      }
 
       final me = Couponsuser.fromJson(meJson);
 

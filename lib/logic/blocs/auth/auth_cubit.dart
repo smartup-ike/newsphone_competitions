@@ -77,15 +77,28 @@ class AuthCubit extends Cubit<AuthState> {
     );
   }
 
-  void _handleSignInResult(UserCredential result) {
-    final bool isNew = result.additionalUserInfo?.isNewUser ?? false;
+  /// Registers the user in the backend first, and only then reports success,
+  /// so the next screen never asks for coupons before the user exists there.
+  ///
+  /// "New" means new to this station: 14614 and 14800 share Firebase users, so
+  /// someone coming from the other app is not new to Firebase but gets a fresh
+  /// backend user (with its 10 coupons) here.
+  Future<void> _handleSignInResult(UserCredential result) async {
+    final bool newInFirebase = result.additionalUserInfo?.isNewUser ?? false;
+    final backendUser = await registerUser();
 
     emit(state.copyWith(
       smsStatus: SmsStatus.success,
       errorMessage: null,
-      isNewUser: isNew,
+      isNewUser: newInFirebase || _createdJustNow(backendUser),
     ));
-    registerUser();
+  }
+
+  static bool _createdJustNow(Map<String, dynamic>? backendUser) {
+    final createdAt = DateTime.tryParse('${backendUser?['created_at']}');
+    if (createdAt == null) return false;
+    return DateTime.now().toUtc().difference(createdAt.toUtc()).abs() <
+        const Duration(minutes: 2);
   }
 
   // Inside AuthCubit.signInWithSms
@@ -112,7 +125,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       // ✅ FIX 2: Only call signInWithCredential here, driven by the button press.
       final result = await _auth!.signInWithCredential(credential);
-      _handleSignInResult(result);
+      await _handleSignInResult(result);
 
       // Clear verification ID regardless of how the sign-in succeeded
       emit(state.copyWith(verificationId: null));
@@ -125,9 +138,11 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void registerUser() async {
+  /// Returns the backend user, or `null` if registration failed (the coupons
+  /// screen registers again when it loads, see CouponsCubit.loadCoupons).
+  Future<Map<String, dynamic>?> registerUser() async {
     final user = _auth?.currentUser;
-    if (user == null) return;
+    if (user == null) return null;
 
     try {
       // Get Firebase ID token
@@ -148,12 +163,14 @@ class AuthCubit extends Cubit<AuthState> {
         user: user,
         backendUserData: result,
       ));
+      return result;
     } catch (e) {
       print('Failed to register user: $e');
       emit(state.copyWith(
         status: AuthStatus.unauthenticated,
         errorMessage: e.toString(),
       ));
+      return null;
     }
   }
 
