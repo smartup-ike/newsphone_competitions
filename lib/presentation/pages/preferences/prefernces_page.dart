@@ -23,11 +23,11 @@ class _PreferencesPageState extends State<PreferencesPage> {
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: NewsphoneTheme.neutral95,
+          backgroundColor: NewsphoneTheme.scaffoldMuted,
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                backgroundColor: NewsphoneTheme.neutralWhite,
+                backgroundColor: NewsphoneTheme.surface,
                 elevation: 0,
                 floating: false,
                 pinned: true,
@@ -40,7 +40,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 ),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(1.0),
-                  child: Container(color: Colors.grey[300], height: 1.0),
+                  child: Container(color: NewsphoneTheme.divider, height: 1.0),
                 ),
               ),
               SliverPadding(
@@ -51,14 +51,14 @@ class _PreferencesPageState extends State<PreferencesPage> {
                     Text(
                       "Τι κατηγορίες διαγωνισμών σε ενδιαφέρουν;",
                       style: NewsphoneTypography.heading7Bold.copyWith(
-                        color: NewsphoneTheme.neutralBlack,
+                        color: NewsphoneTheme.textStrong,
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       "Επίλεξε τις κατηγορίες διαγωνισμών για τους οποίους θέλεις να λαμβάνεις ειδοποιήσεις.",
                       style: NewsphoneTypography.body13Regular.copyWith(
-                        color: NewsphoneTheme.neutral20,
+                        color: NewsphoneTheme.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 24),

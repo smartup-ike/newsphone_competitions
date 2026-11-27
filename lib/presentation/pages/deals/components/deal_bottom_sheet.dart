@@ -60,7 +60,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                       width: 40,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: Colors.grey[300],
+                        color: NewsphoneTheme.divider,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -102,7 +102,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                     widget.deal.details!,
                     textAlign: TextAlign.center,
                     style: NewsphoneTypography.body15Regular.copyWith(
-                      color: NewsphoneTheme.neutral35,
+                      color: NewsphoneTheme.textMuted,
                     ),
                   ),
                 ),
@@ -118,11 +118,11 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: NewsphoneTheme.neutralWhite,
+                            color: NewsphoneTheme.surface,
                             border: Border.all(color: Colors.transparent),
-                            boxShadow: const [
+                            boxShadow: [
                               BoxShadow(
-                                color: Color(0xFF5A44E0),
+                                color: NewsphoneTheme.dealGlow,
                                 offset: Offset(0, 0),
                                 blurRadius: 2,
                               ),
@@ -149,7 +149,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                             child: Text(
                               widget.deal.dealCode,
                               style: NewsphoneTypography.body16Bold.copyWith(
-                                color: NewsphoneTheme.neutralBlack,
+                                color: NewsphoneTheme.textStrong,
                                 letterSpacing: 1.6,
                               ),
                             ),
@@ -161,8 +161,8 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                             borderRadius: BorderRadius.circular(50),
                             gradient: LinearGradient(
                               colors: [
-                                NewsphoneTheme.primary,
-                                NewsphoneTheme.deactivate,
+                                NewsphoneTheme.dealGradientStart,
+                                NewsphoneTheme.dealGradientEnd,
                               ],
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight,
@@ -170,7 +170,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                           ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              foregroundColor: NewsphoneTheme.neutralWhite,
+                              foregroundColor: NewsphoneTheme.onPrimary,
                               backgroundColor: Colors.transparent,
                               shadowColor: Colors.transparent,
                               padding: const EdgeInsets.symmetric(vertical: 14),
@@ -186,7 +186,7 @@ class _DealBottomSheetState extends State<DealBottomSheet> {
                             child: Text(
                               "Δες τον κωδικό",
                               style: NewsphoneTypography.body16Bold.copyWith(
-                                color: NewsphoneTheme.neutralWhite,
+                                color: NewsphoneTheme.onPrimary,
                               ),
                             ),
                           ),

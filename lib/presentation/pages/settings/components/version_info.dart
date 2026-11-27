@@ -61,7 +61,7 @@ class _VersionInfoState extends State<VersionInfo> {
             borderRadius: BorderRadius.circular(20),
           ),
           elevation: 10,
-          backgroundColor: Colors.white,
+          backgroundColor: NewsphoneTheme.surface,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Form(
@@ -78,7 +78,7 @@ class _VersionInfoState extends State<VersionInfo> {
                           color: NewsphoneTheme.primary50,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.developer_mode,
                           color: NewsphoneTheme.primary,
                           size: 28,
@@ -89,7 +89,7 @@ class _VersionInfoState extends State<VersionInfo> {
                         child: Text(
                           'Εγγραφή Δοκιμαστικής Συσκευής',
                           style: NewsphoneTypography.heading7Bold.copyWith(
-                            color: NewsphoneTheme.neutral10,
+                            color: NewsphoneTheme.textHeading,
                           ),
                         ),
                       ),
@@ -99,7 +99,7 @@ class _VersionInfoState extends State<VersionInfo> {
                   Text(
                     'Εισάγετε ένα αναγνωρίσιμο όνομα για αυτήν τη συσκευή (π.χ. "Κινητό Γιώργου") για να την εγγράψετε στο σύστημα.',
                     style: NewsphoneTypography.body13Medium.copyWith(
-                      color: NewsphoneTheme.neutral35,
+                      color: NewsphoneTheme.textMuted,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -114,7 +114,7 @@ class _VersionInfoState extends State<VersionInfo> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(
+                        borderSide: BorderSide(
                           color: NewsphoneTheme.primary,
                           width: 2,
                         ),
@@ -134,8 +134,8 @@ class _VersionInfoState extends State<VersionInfo> {
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(context),
                           style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                              color: NewsphoneTheme.neutral70,
+                            side: BorderSide(
+                              color: NewsphoneTheme.outlineLight,
                             ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -145,7 +145,7 @@ class _VersionInfoState extends State<VersionInfo> {
                           child: Text(
                             'Ακύρωση',
                             style: NewsphoneTypography.button15Medium.copyWith(
-                              color: NewsphoneTheme.neutral30,
+                              color: NewsphoneTheme.textSecondary,
                             ),
                           ),
                         ),
@@ -162,7 +162,7 @@ class _VersionInfoState extends State<VersionInfo> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: NewsphoneTheme.primary,
-                            foregroundColor: Colors.white,
+                            foregroundColor: NewsphoneTheme.onPrimary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -172,7 +172,7 @@ class _VersionInfoState extends State<VersionInfo> {
                           child: Text(
                             'Εγγραφή',
                             style: NewsphoneTypography.button15Medium.copyWith(
-                              color: Colors.white,
+                              color: NewsphoneTheme.onPrimary,
                             ),
                           ),
                         ),
@@ -220,8 +220,21 @@ class _VersionInfoState extends State<VersionInfo> {
       if (mounted) {
         Navigator.pop(context); // dismiss loading
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text('Η συσκευή εγγράφηκε με επιτυχία!'),
+            backgroundColor: NewsphoneTheme.success,
+          ),
+        );
+      }
+    } on TestDeviceAlreadyRegistered {
+      // Not a problem: the phone already gets TEST notifications.
+      if (mounted) {
+        Navigator.pop(context); // dismiss loading
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Η συσκευή είναι ήδη εγγεγραμμένη ως δοκιμαστική.',
+            ),
             backgroundColor: NewsphoneTheme.success,
           ),
         );
@@ -232,7 +245,7 @@ class _VersionInfoState extends State<VersionInfo> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Σφάλμα κατά την εγγραφή: $e'),
-            backgroundColor: NewsphoneTheme.error30,
+            backgroundColor: NewsphoneTheme.error,
           ),
         );
       }

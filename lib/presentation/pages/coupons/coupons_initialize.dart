@@ -10,11 +10,11 @@ class CouponsInitialize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F4F7),
+      backgroundColor: NewsphoneTheme.scaffoldMuted,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: NewsphoneTheme.surface,
             elevation: 0,
             floating: false,
             pinned: true,
@@ -25,7 +25,7 @@ class CouponsInitialize extends StatelessWidget {
             ),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(1.0),
-              child: Container(color: Colors.grey[300], height: 1.0),
+              child: Container(color: NewsphoneTheme.divider, height: 1.0),
             ),
           ),
           SliverToBoxAdapter(
@@ -68,8 +68,8 @@ class CouponsInitialize extends StatelessWidget {
                         height: 50,
                         decoration: BoxDecoration(
                           // 1. Define the LinearGradient
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                          gradient: LinearGradient(
+                            colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ),
@@ -81,7 +81,7 @@ class CouponsInitialize extends StatelessWidget {
                             "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
                             textAlign: TextAlign.center,
                             style: NewsphoneTypography.body17SemiBold.copyWith(
-                              color: Colors.white,
+                              color: NewsphoneTheme.onPrimary,
                             ),
                           ),
                         ),

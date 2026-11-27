@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 
 class ProgramButton extends StatelessWidget {
   final String label;
@@ -20,9 +21,9 @@ class ProgramButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFFE0F0FF) : Colors.white,
+          color: selected ? NewsphoneTheme.selectedTint : NewsphoneTheme.surface,
           // light blue when selected
-          border: Border.all(color: const Color(0xFF054279), width: 1),
+          border: Border.all(color: NewsphoneTheme.primaryDark, width: 1),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Row(
@@ -34,7 +35,7 @@ class ProgramButton extends StatelessWidget {
               height: 20,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF054279), width: 1.6),
+                border: Border.all(color: NewsphoneTheme.primaryDark, width: 1.6),
               ),
               child: Center(
                 // Inner dot
@@ -44,7 +45,7 @@ class ProgramButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color:
-                        selected ? const Color(0xFF054279) : Colors.transparent,
+                        selected ? NewsphoneTheme.primaryDark : Colors.transparent,
                   ),
                 ),
               ),
@@ -55,8 +56,8 @@ class ProgramButton extends StatelessWidget {
             // Text
             Text(
               label,
-              style: const TextStyle(
-                color: Color(0xFF054279),
+              style: TextStyle(
+                color: NewsphoneTheme.primaryDark,
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
               ),

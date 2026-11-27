@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:newsphone_competitions/flavors/flavor_config.dart';
 
 import 'package:newsphone_competitions/data/models/notification.dart';
 import 'package:newsphone_competitions/logic/blocs/notifications/notifications_cubit.dart';
@@ -17,6 +18,9 @@ import 'package:newsphone_competitions/presentation/pages/notifications/notifica
 
 class NotificationService {
   static final FirebaseMessaging _messaging = FirebaseMessaging.instance;
+
+  /// False for apps without Firebase set up yet: push is skipped.
+  static bool get _pushEnabled => FlavorConfig.instance.firebaseEnabled;
   static final FlutterLocalNotificationsPlugin _localNotifications =
       FlutterLocalNotificationsPlugin();
 
@@ -60,6 +64,7 @@ class NotificationService {
   }
 
   static Future<void> init() async {
+    if (!_pushEnabled) return;
     // Request permissions (iOS)
     await _messaging.requestPermission();
 
@@ -77,9 +82,11 @@ class NotificationService {
     }
 
     // Setup local notifications
-    const androidInit = AndroidInitializationSettings('@mipmap/launcher_icon');
+    final androidInit = AndroidInitializationSettings(
+      FlavorConfig.instance.androidNotificationIcon,
+    );
     const iosInit = DarwinInitializationSettings();
-    const initSettings = InitializationSettings(
+    final initSettings = InitializationSettings(
       android: androidInit,
       iOS: iosInit,
     );
@@ -104,7 +111,7 @@ class NotificationService {
   static bool _initialNotificationHandled = false;
 
   static Future<void> handleInitialNotification() async {
-    if (_initialNotificationHandled) return;
+    if (_initialNotificationHandled || !_pushEnabled) return;
     _initialNotificationHandled = true;
 
     try {
@@ -338,6 +345,7 @@ class NotificationService {
   }
 
   static Future<void> subscribeToTopic(String topic) async {
+    if (!_pushEnabled) return;
     try {
       await _messaging.subscribeToTopic(topic);
       developer.log("Subscribed to topic: $topic");
@@ -347,6 +355,7 @@ class NotificationService {
   }
 
   static Future<void> unsubscribeFromTopic(String topic) async {
+    if (!_pushEnabled) return;
     try {
       await _messaging.unsubscribeFromTopic(topic);
       developer.log("Unsubscribed from topic: $topic");

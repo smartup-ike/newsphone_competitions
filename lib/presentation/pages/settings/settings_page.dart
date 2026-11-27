@@ -13,6 +13,7 @@ import '../../../logic/blocs/notifications/notifications_cubit.dart';
 import '../coupons/coupons_page.dart';
 import 'components/settings_list_tile.dart';
 import 'components/version_info.dart';
+import 'package:newsphone_competitions/flavors/flavor_config.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -33,11 +34,11 @@ class _SettingsPageState extends State<SettingsPage> {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: NewsphoneTheme.neutral95,
+        backgroundColor: NewsphoneTheme.scaffoldMuted,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: NewsphoneTheme.neutralWhite,
+              backgroundColor: NewsphoneTheme.surface,
               elevation: 0,
               floating: false,
               pinned: true,
@@ -51,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(1.0),
-                child: Container(color: Colors.grey[300], height: 1.0),
+                child: Container(color: NewsphoneTheme.divider, height: 1.0),
               ),
             ),
             SliverList(
@@ -121,14 +122,14 @@ class _SettingsPageState extends State<SettingsPage> {
                             }
                           }
                         },
-                        activeColor: Colors.blue,
+                        activeColor: NewsphoneTheme.switchActive,
                       ),
                     );
                   },
                 ),
                 SettingsListTile(
                   title: "Σχετικά",
-                  subtitle: "Τι είναι η εφαρμογή 14614",
+                  subtitle: "Τι είναι η εφαρμογή ${FlavorConfig.instance.appName}",
                   leadingIcon: Icons.info_outline,
                   onTap: () {
                     Navigator.push(
@@ -206,12 +207,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               'Powered by ',
                               style: NewsphoneTypography.body13SemiBold
                                   .copyWith(
-                                    color: Colors.grey[500],
+                                    color: NewsphoneTheme.textDisabled,
                                     fontSize: 12,
                                   ),
                             ),
                             Image.asset(
-                              'assets/images/smartup.png',
+                              FlavorConfig.instance.poweredByLogoAsset,
                               height: 20,
                             ),
                           ],

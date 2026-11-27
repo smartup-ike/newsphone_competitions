@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsphone_competitions/core/themes/newsphone_theme.dart';
 import 'package:newsphone_competitions/core/themes/newsphone_typography.dart';
 
 class ContestAppBar extends StatelessWidget {
@@ -9,14 +10,14 @@ class ContestAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: NewsphoneTheme.surface,
       elevation: 0,
       pinned: true,
       title: Text(title, style: NewsphoneTypography.body17Bold),
       centerTitle: true,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1.0),
-        child: Container(color: Colors.grey[300], height: 1.0),
+        child: Container(color: NewsphoneTheme.divider, height: 1.0),
       ),
     );
   }

@@ -16,7 +16,7 @@ class SuccessAuth extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Scaffold(
-        backgroundColor: const Color(0xFFF2F4F7),
+        backgroundColor: NewsphoneTheme.scaffoldMuted,
         body: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -35,8 +35,8 @@ class SuccessAuth extends StatelessWidget {
                       width: 80,
                       decoration: BoxDecoration(
                         // 1. Define the LinearGradient
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFE082FF), Color(0xFF0765CB)],
+                        gradient: LinearGradient(
+                          colors: [NewsphoneTheme.gradientStart, NewsphoneTheme.gradientEnd],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -47,13 +47,13 @@ class SuccessAuth extends StatelessWidget {
                         children: [
                           Icon(
                             CupertinoIcons.circle,
-                            color: Colors.white,
+                            color: NewsphoneTheme.onPrimary,
                             size: 70,
                           ),
                           Icon(
                             Icons.check_rounded,
                             weight: 100,
-                            color: Colors.white,
+                            color: NewsphoneTheme.onPrimary,
                             size: 35,
                           ),
                         ],
@@ -84,11 +84,11 @@ class SuccessAuth extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         // 1. Define the LinearGradient
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           colors: [
-                            Color(0xFFECFEFF),
-                            Color(0xFFEFF6FF),
-                            Color(0xFFECFEFF),
+                            NewsphoneTheme.successTintEdge,
+                            NewsphoneTheme.successTintMid,
+                            NewsphoneTheme.successTintEdge,
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -114,10 +114,10 @@ class SuccessAuth extends StatelessWidget {
                                   width: 24,
                                   decoration: BoxDecoration(
                                     // 1. Define the LinearGradient
-                                    gradient: const LinearGradient(
+                                    gradient: LinearGradient(
                                       colors: [
-                                        Color(0xFF08C7F4),
-                                        Color(0xFF0765CB),
+                                        NewsphoneTheme.gradientAccent,
+                                        NewsphoneTheme.gradientEnd,
                                       ],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
@@ -127,7 +127,7 @@ class SuccessAuth extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '1',
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: NewsphoneTheme.onPrimary),
                                     ),
                                   ),
                                 ),
@@ -149,10 +149,10 @@ class SuccessAuth extends StatelessWidget {
                                   width: 24,
                                   decoration: BoxDecoration(
                                     // 1. Define the LinearGradient
-                                    gradient: const LinearGradient(
+                                    gradient: LinearGradient(
                                       colors: [
-                                        Color(0xFF08C7F4),
-                                        Color(0xFF0765CB),
+                                        NewsphoneTheme.gradientAccent,
+                                        NewsphoneTheme.gradientEnd,
                                       ],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
@@ -162,7 +162,7 @@ class SuccessAuth extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '2',
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: NewsphoneTheme.onPrimary),
                                     ),
                                   ),
                                 ),
@@ -185,10 +185,10 @@ class SuccessAuth extends StatelessWidget {
                                   width: 24,
                                   decoration: BoxDecoration(
                                     // 1. Define the LinearGradient
-                                    gradient: const LinearGradient(
+                                    gradient: LinearGradient(
                                       colors: [
-                                        Color(0xFF08C7F4),
-                                        Color(0xFF0765CB),
+                                        NewsphoneTheme.gradientAccent,
+                                        NewsphoneTheme.gradientEnd,
                                       ],
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
@@ -198,7 +198,7 @@ class SuccessAuth extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '3',
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: NewsphoneTheme.onPrimary),
                                     ),
                                   ),
                                 ),
@@ -242,7 +242,7 @@ class SuccessAuth extends StatelessWidget {
                         "Δείτε τους Διαγωνισμούς",
                         textAlign: TextAlign.center,
                         style: NewsphoneTypography.body17SemiBold.copyWith(
-                          color: Colors.white,
+                          color: NewsphoneTheme.onPrimary,
                         ),
                       ),
                     ),

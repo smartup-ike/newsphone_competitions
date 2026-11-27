@@ -49,35 +49,35 @@ class ContestsPage extends StatelessWidget {
                   onSubmitted: (query) {
                     context.read<ContestsCubit>().searchContests(query);
                   },
-                  cursorColor: Colors.black,
+                  cursorColor: NewsphoneTheme.contrast,
                   decoration: InputDecoration(
                     isDense: true,
                     hintText: 'Αναζήτηση',
                     hintStyle: NewsphoneTypography.body15Regular.copyWith(
-                      color: NewsphoneTheme.neutral30,
+                      color: NewsphoneTheme.textSecondary,
                     ),
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0.0),
-                      borderSide: const BorderSide(
-                        color: NewsphoneTheme.neutral30,
+                      borderSide: BorderSide(
+                        color: NewsphoneTheme.inputBorder,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0.0),
-                      borderSide: const BorderSide(
-                        color: NewsphoneTheme.neutral30,
+                      borderSide: BorderSide(
+                        color: NewsphoneTheme.inputBorder,
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0.0),
-                      borderSide: const BorderSide(
-                        color: NewsphoneTheme.neutral30,
+                      borderSide: BorderSide(
+                        color: NewsphoneTheme.inputBorder,
                         width: 1.0,
                       ),
                     ),
                     filled: false,
-                    fillColor: const Color(0xFFE7E9EB),
+                    fillColor: NewsphoneTheme.surfaceSubtle,
                   ),
                 ),
               ),
@@ -180,13 +180,13 @@ class ContestsPage extends StatelessWidget {
                           Icon(
                             Icons.error_outline,
                             size: 60,
-                            color: NewsphoneTheme.neutral30,
+                            color: NewsphoneTheme.textSecondary,
                           ),
                           SizedBox(height: 16),
                           Text(
                             'Κάτι πήγε στραβά',
                             style: NewsphoneTypography.heading6Bold.copyWith(
-                              color: NewsphoneTheme.neutral30,
+                              color: NewsphoneTheme.textSecondary,
                             ),
                           ),
                         ],
@@ -206,14 +206,14 @@ class ContestsPage extends StatelessWidget {
                             Icon(
                               Icons.search_off_outlined,
                               size: 60,
-                              color: NewsphoneTheme.neutral30,
+                              color: NewsphoneTheme.textSecondary,
                             ),
                             SizedBox(height: 16),
                             Text(
                               'Δεν βρέθηκε διαγωνισμός!',
                               textAlign: TextAlign.center,
                               style: NewsphoneTypography.heading6Bold.copyWith(
-                                color: NewsphoneTheme.neutral30,
+                                color: NewsphoneTheme.textSecondary,
                               ),
                             ),
                           ],

@@ -9,7 +9,8 @@ import '../../../data/services/api_service.dart';
 part 'coupons_state.dart';
 
 class CouponsCubit extends Cubit<CouponsState> {
-  final FirebaseAuth _auth;
+  /// `null` when the app has no Firebase set up yet (nobody can log in).
+  final FirebaseAuth? _auth;
   final ApiService _apiService;
 
   CouponsCubit(this._auth, this._apiService) : super(const CouponsState());
@@ -17,14 +18,16 @@ class CouponsCubit extends Cubit<CouponsState> {
   Future<void> init() async {
     emit(state.copyWith(loading: true, error: null));
 
-    final user = _auth.currentUser;
+    final user = _auth?.currentUser;
     if (user == null) {
       return;
     }
 
     try {
+      // The profile first: it registers the user for this station if needed,
+      // and the history needs that user to exist.
+      await loadCoupons();
       await Future.wait([
-        loadCoupons(),
         loadTransactions(),
         loadContests(),
       ]);
@@ -39,13 +42,21 @@ class CouponsCubit extends Cubit<CouponsState> {
     emit(state.copyWith(loading: true, error: null));
 
     try {
-      final user = _auth.currentUser;
+      final user = _auth?.currentUser;
       print('user: $user');
       if (user == null) throw Exception("User not logged in");
 
-      final idToken = await user.getIdToken(true);
+      final idToken = (await user.getIdToken(true))!;
 
-      final meJson = await _apiService.fetchMe(idToken!);
+      Map<String, dynamic> meJson;
+      try {
+        meJson = await _apiService.fetchMe(idToken);
+      } catch (_) {
+        // Signed in to Firebase but no user for this station yet (e.g. the
+        // registration after login failed). Registering is safe to repeat.
+        await _apiService.registerUser(idToken);
+        meJson = await _apiService.fetchMe(idToken);
+      }
 
       final me = Couponsuser.fromJson(meJson);
 
@@ -61,7 +72,7 @@ class CouponsCubit extends Cubit<CouponsState> {
     emit(state.copyWith(loading: true, error: null));
 
     try {
-      final user = _auth.currentUser;
+      final user = _auth?.currentUser;
       if (user == null) throw Exception("User not logged in");
 
       final idToken = await user.getIdToken(true);
@@ -79,7 +90,7 @@ class CouponsCubit extends Cubit<CouponsState> {
     emit(state.copyWith(spendLoading: true, spendSuccess: false, error: null));
 
     try {
-      final user = _auth.currentUser;
+      final user = _auth?.currentUser;
       if (user == null) throw Exception("User not logged in");
 
       final idToken = await user.getIdToken(true);

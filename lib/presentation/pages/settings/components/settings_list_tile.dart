@@ -23,7 +23,7 @@ class SettingsListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16),
       child: Material(
-        color: NewsphoneTheme.neutralWhite,
+        color: NewsphoneTheme.surface,
         borderRadius: BorderRadius.circular(10.0),
         clipBehavior: Clip.antiAlias,
         child: ListTile(
@@ -35,10 +35,10 @@ class SettingsListTile extends StatelessWidget {
           subtitle: Text(
             subtitle,
             style: NewsphoneTypography.body13Medium.copyWith(
-              color: NewsphoneTheme.neutral30,
+              color: NewsphoneTheme.textSecondary,
             ),
           ),
-          leading: Icon(leadingIcon, color: NewsphoneTheme.neutral40),
+          leading: Icon(leadingIcon, color: NewsphoneTheme.textTertiary),
           trailing:
               trailingWidget ?? Icon(Icons.arrow_forward_ios_rounded, size: 16),
           onTap: onTap,

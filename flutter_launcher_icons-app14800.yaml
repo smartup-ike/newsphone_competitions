@@ -1,0 +1,9 @@
+# Launcher icon for 14800. Run: dart run flutter_launcher_icons
+# (generates only the apps that have a flutter_launcher_icons-<flavor>.yaml;
+# 14614's icon lives in android/app/src/main + AppIcon and is not regenerated)
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "flavors/app14800/source/icon.png"
+  min_sdk_android: 21
+  remove_alpha_ios: true

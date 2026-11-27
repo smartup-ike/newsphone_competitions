@@ -52,6 +52,13 @@ class _SignInPageState extends State<SignInPage> {
   // Helper to combine OTP controllers into a single string
   String get _otpCode => _otpControllers.map((c) => c.text).join();
 
+  /// ": XXXX-XXX123" with the last 3 digits the user typed, or "" if unknown.
+  String get _maskedPhone {
+    final phone = _phoneController.text.trim();
+    if (phone.length < 3) return '';
+    return ': XXXX-XXX${phone.substring(phone.length - 3)}';
+  }
+
   @override
   void dispose() {
     _phoneController.clear();
@@ -74,19 +81,19 @@ class _SignInPageState extends State<SignInPage> {
     return "$m:$sec";
   }
 
-  final Color buttonColor = const Color(0xFF3B5998);
+  final Color buttonColor = NewsphoneTheme.resendAction;
 
   Widget _buildOtpBox(int index) {
     return Container(
       width: 52,
       height: 52,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: NewsphoneTheme.surface,
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(color: Colors.grey.shade300, width: 1.5),
+        border: Border.all(color: NewsphoneTheme.divider, width: 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: NewsphoneTheme.shadowSoft.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -128,13 +135,13 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NewsphoneTheme.neutral95,
+      backgroundColor: NewsphoneTheme.scaffoldMuted,
       body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           return CustomScrollView(
             slivers: [
               SliverAppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: NewsphoneTheme.surface,
                 elevation: 0,
                 floating: false,
                 pinned: true,
@@ -145,13 +152,13 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 bottom: PreferredSize(
                   preferredSize: const Size.fromHeight(1.0),
-                  child: Container(color: Colors.grey[300], height: 1.0),
+                  child: Container(color: NewsphoneTheme.divider, height: 1.0),
                 ),
               ),
               SliverToBoxAdapter(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: NewsphoneTheme.surface,
                     // 2. Specify the bottom corners to be rounded
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20.0),
@@ -180,9 +187,9 @@ class _SignInPageState extends State<SignInPage> {
                         Text(
                           (state.verificationId == null)
                               ? 'Για να ολοκληρωθεί η απόδοση των 10 συμμετοχών και να επιβεβαιώσουμε τα στοιχεία σας (ώστε να λάβετε τις 10 δωρεάν συμμετοχές σας), παρακαλούμε εισάγετε τον αριθμό του κινητού σας. Θα σας στείλουμε άμεσα έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) για το επόμενο βήμα.'
-                              : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε: XXXX-XXX423 \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα 10 συμμετοχές.',
+                              : 'Μόλις σας στείλαμε έναν 6ψήφιο κωδικό επιβεβαίωσης (OTP) με SMS στον αριθμό που δηλώσατε$_maskedPhone \n \n Εισάγετε τον κωδικό παρακάτω για να επιβεβαιώσετε τον λογαριασμό σας και να λάβετε άμεσα 10 συμμετοχές.',
                           style: NewsphoneTypography.body13Regular.copyWith(
-                            color: NewsphoneTheme.neutral40,
+                            color: NewsphoneTheme.textTertiary,
                           ),
                         ),
                       ],
@@ -222,15 +229,15 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
                                   // Padding inside the container
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: NewsphoneTheme.surface,
                                     borderRadius: BorderRadius.circular(12.0),
                                     border: Border.all(
-                                      color: Colors.grey.shade300,
+                                      color: NewsphoneTheme.divider,
                                     ),
                                     // Light grey border
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
+                                        color: NewsphoneTheme.shadowSoft.withOpacity(0.1),
                                         spreadRadius: 1,
                                         blurRadius: 5,
                                         offset: const Offset(
@@ -243,7 +250,7 @@ class _SignInPageState extends State<SignInPage> {
                                   child: Row(
                                     children: [
                                       // Flag and Country Code Text
-                                      const Row(
+                                      Row(
                                         children: [
                                           Text(
                                             '🇬🇷',
@@ -252,7 +259,7 @@ class _SignInPageState extends State<SignInPage> {
                                           SizedBox(width: 4),
                                           Icon(
                                             Icons.arrow_right,
-                                            color: Colors.grey,
+                                            color: NewsphoneTheme.iconMuted,
                                           ),
                                         ],
                                       ),
@@ -260,7 +267,7 @@ class _SignInPageState extends State<SignInPage> {
                                       Container(
                                         height: 30,
                                         width: 1,
-                                        color: Colors.grey.shade300,
+                                        color: NewsphoneTheme.divider,
                                       ),
                                       const SizedBox(width: 8),
                                       // Phone Number Input Field
@@ -275,8 +282,8 @@ class _SignInPageState extends State<SignInPage> {
                                             labelStyle: TextStyle(
                                               color:
                                                   _phoneError == null
-                                                      ? Colors.black
-                                                      : Colors.red,
+                                                      ? NewsphoneTheme.contrast
+                                                      : NewsphoneTheme.errorText,
                                             ),
                                             // Greek text from the image
                                             prefixText: '+30 ',
@@ -308,15 +315,15 @@ class _SignInPageState extends State<SignInPage> {
                                     color: NewsphoneTheme.primary,
                                     borderRadius: BorderRadius.circular(24.0),
                                     border: Border.all(
-                                      color: Colors.grey.shade300,
+                                      color: NewsphoneTheme.divider,
                                     ),
                                   ),
                                   width: double.infinity,
                                   child: Center(
                                     child:
                                         state.loading
-                                            ? const CircularProgressIndicator(
-                                              color: Colors.white,
+                                            ? CircularProgressIndicator(
+                                              color: NewsphoneTheme.onPrimary,
                                             )
                                             : Text(
                                               "Συνέχεια & Αποστολή Κωδικού",
@@ -324,7 +331,7 @@ class _SignInPageState extends State<SignInPage> {
                                               style: NewsphoneTypography
                                                   .body17SemiBold
                                                   .copyWith(
-                                                    color: Colors.white,
+                                                    color: NewsphoneTheme.onPrimary,
                                                   ),
                                             ),
                                   ),
@@ -339,7 +346,7 @@ class _SignInPageState extends State<SignInPage> {
                               child: Text(
                                 'Ο αριθμός σας χρησιμοποιείται αποκλειστικά για την επιβεβαίωση της συμμετοχής σας και την ενημέρωσή σας σε περίπτωση νίκης, χωρίς καμία χρέωση. Διαβάστε τους Όρους Χρήσης.',
                                 style: NewsphoneTypography.body12Regular
-                                    .copyWith(color: NewsphoneTheme.neutral30),
+                                    .copyWith(color: NewsphoneTheme.textSecondary),
                               ),
                             ),
                           ],
@@ -412,7 +419,7 @@ class _SignInPageState extends State<SignInPage> {
                                       color: NewsphoneTheme.primary,
                                       borderRadius: BorderRadius.circular(24.0),
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: NewsphoneTheme.divider,
                                       ),
                                     ),
                                     width: double.infinity,
@@ -422,7 +429,7 @@ class _SignInPageState extends State<SignInPage> {
                                         textAlign: TextAlign.center,
                                         style: NewsphoneTypography
                                             .body17SemiBold
-                                            .copyWith(color: Colors.white),
+                                            .copyWith(color: NewsphoneTheme.onPrimary),
                                       ),
                                     ),
                                   ),
@@ -457,7 +464,7 @@ class _SignInPageState extends State<SignInPage> {
                                             color:
                                                 state.canResend
                                                     ? buttonColor
-                                                    : Colors.grey,
+                                                    : NewsphoneTheme.textDisabled,
                                           ),
                                     ),
                                   ),
@@ -465,7 +472,7 @@ class _SignInPageState extends State<SignInPage> {
                                   Text(
                                     _formatTimer(state.resendSeconds),
                                     style: NewsphoneTypography.body13SemiBold
-                                        .copyWith(color: Colors.grey.shade600),
+                                        .copyWith(color: NewsphoneTheme.textFaint),
                                   ),
                                 ],
                               ),

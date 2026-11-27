@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/icon.jpeg" alt="14614 Logo" width="200" />
+  <img src="flavors/app14614/source/icon.jpeg" alt="14614 Logo" width="200" />
 </p>
 
 <p align="center">

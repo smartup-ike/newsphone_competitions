@@ -25,3 +25,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Local environment files (backend URLs). Only the examples are committed.
+env/*.json
+!env/*.example.json

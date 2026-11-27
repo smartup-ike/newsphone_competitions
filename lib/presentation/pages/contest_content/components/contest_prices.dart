@@ -26,7 +26,7 @@ class ContestPrices extends StatelessWidget {
               TextSpan(
                 text: priceLandline != null ?'$priceLandline €' : '',
                 style: NewsphoneTypography.body15Bold.copyWith(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                 ),
               ),
               const TextSpan(text: ' / ΚΛΗΣΗ με ΦΠΑ'),
@@ -42,7 +42,7 @@ class ContestPrices extends StatelessWidget {
               TextSpan(
                 text: priceMobile != null ?'$priceMobile €' : '',
                 style: NewsphoneTypography.body15Bold.copyWith(
-                  color: NewsphoneTheme.deactivate,
+                  color: NewsphoneTheme.emphasis,
                 ),
               ),
               const TextSpan(text: ' / ΚΛΗΣΗ - SMS με ΦΠΑ'),

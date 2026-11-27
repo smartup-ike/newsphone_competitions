@@ -14,7 +14,7 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-class DefaultFirebaseOptions {
+class App14614FirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '560508338889',
     projectId: 'newphone-test',
     storageBucket: 'newphone-test.firebasestorage.app',
+    // Needed by phone login: Firebase then uses the REVERSED_CLIENT_ID URL
+    // scheme (Info.plist) instead of crashing on a missing app-1-... scheme.
+    iosClientId: '560508338889-27k7d58mehguojalf5tbbh1fc6vugdam.apps.googleusercontent.com',
     iosBundleId: 'com.akep.14614',
   );
 }

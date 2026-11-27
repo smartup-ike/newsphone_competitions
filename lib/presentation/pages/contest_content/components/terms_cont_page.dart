@@ -11,11 +11,11 @@ class TermsContPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NewsphoneTheme.neutralWhite,
+      backgroundColor: NewsphoneTheme.scaffold,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: NewsphoneTheme.surface,
             elevation: 0,
             pinned: true,
             title: Text(
@@ -25,7 +25,7 @@ class TermsContPage extends StatelessWidget {
             centerTitle: true,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(1.0),
-              child: Container(color: Colors.grey[300], height: 1.0),
+              child: Container(color: NewsphoneTheme.divider, height: 1.0),
             ),
           ),
           terms.isEmpty

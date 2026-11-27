@@ -1,8 +1,11 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:newsphone_competitions/flavors/flavor_config.dart';
 
 class AnalyticsService {
-  static final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+  /// `null` for apps without Firebase set up yet: events are skipped.
+  static FirebaseAnalytics? get _analytics =>
+      FlavorConfig.instance.firebaseEnabled ? FirebaseAnalytics.instance : null;
 
   /// Logs a generic event with a list of actions
   static Future<void> basicLogEvent(
@@ -16,7 +19,7 @@ class AnalyticsService {
     }
 
     // Log the event
-    await _analytics.logEvent(name: name, parameters: params);
+    await _analytics?.logEvent(name: name, parameters: params);
 
     // Optional dev log
     if (kDebugMode) {
@@ -31,7 +34,7 @@ class AnalyticsService {
     bool isContent,
   ) async {
     // Log event in Firebase Analytics
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: isContent ? 'open_content' : 'open_deal',
       parameters: {'id': id, 'name': name},
     );
@@ -48,7 +51,7 @@ class AnalyticsService {
     String actionType,
     String showName,
   ) async {
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: 'communication_action',
       parameters: {
         'action_type': actionType,
@@ -65,7 +68,7 @@ class AnalyticsService {
 
   /// Log copy of deal code
   static Future<void> logCopyDealCode(String dealName) async {
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: 'copy_action',
       parameters: {'deal_name': dealName},
     );
@@ -81,7 +84,7 @@ class AnalyticsService {
     String id,
     String name,
   ) async {
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: 'user_notification_open',
       parameters: {'type': type, 'id': id, 'name': name},
     );
@@ -100,7 +103,7 @@ class AnalyticsService {
     final action = isSubscribing ? 'subscribe' : 'unsubscribe';
 
     // Log event in Firebase Analytics
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: 'topic_subscription',
       parameters: {'topic_name': topicName, 'action': action},
     );
@@ -117,7 +120,7 @@ class AnalyticsService {
     final action = isSubscribing ? 'subscribe' : 'unsubscribe';
 
     // Log event in Firebase Analytics
-    await _analytics.logEvent(
+    await _analytics?.logEvent(
       name: 'subscription_all_topics',
       parameters: {'action': action},
     );

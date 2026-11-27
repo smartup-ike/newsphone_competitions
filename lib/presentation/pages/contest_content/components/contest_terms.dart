@@ -21,7 +21,7 @@ class ContestTerms extends StatelessWidget {
               child: Text(
                 'εδώ',
                 style: NewsphoneTypography.body12Regular.copyWith(
-                  color: NewsphoneTheme.info50,
+                  color: NewsphoneTheme.link,
                 ),
               ),
             ),

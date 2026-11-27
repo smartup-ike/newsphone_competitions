@@ -18,8 +18,8 @@ class HomePageBottomNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: NewsphoneTheme.neutralWhite,
-        border: Border(top: BorderSide(color: Colors.black12, width: 1)),
+        color: NewsphoneTheme.surface,
+        border: Border(top: BorderSide(color: NewsphoneTheme.navBarBorder, width: 1)),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -36,7 +36,7 @@ class HomePageBottomNavBar extends StatelessWidget {
                     'assets/images/icons/FireSimple.svg',
                     height: 24,
                     width: 24,
-                    color: selectedIndex == 0 ? Colors.white : Colors.grey[700],
+                    color: selectedIndex == 0 ? NewsphoneTheme.onPrimary : NewsphoneTheme.navIconInactive,
                   ),
                   label: 'Διαγωνισμοί',
                   isSelected: selectedIndex == 0,
@@ -47,7 +47,7 @@ class HomePageBottomNavBar extends StatelessWidget {
                     'assets/images/icons/Lightning.svg',
                     height: 24,
                     width: 24,
-                    color: selectedIndex == 1 ? Colors.white : Colors.grey[700],
+                    color: selectedIndex == 1 ? NewsphoneTheme.onPrimary : NewsphoneTheme.navIconInactive,
                   ),
                   label: 'Προσφορές',
                   isSelected: selectedIndex == 1,

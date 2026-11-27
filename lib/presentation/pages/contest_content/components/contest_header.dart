@@ -31,8 +31,8 @@ class _ContestHeaderState extends State<ContestHeader> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-            color: Colors.grey[300],
-            child: const Icon(Icons.image, size: 50, color: Colors.white),
+            color: NewsphoneTheme.imagePlaceholder,
+            child: Icon(Icons.image, size: 50, color: NewsphoneTheme.onImagePlaceholder),
           ),
         ),
       );
@@ -46,7 +46,7 @@ class _ContestHeaderState extends State<ContestHeader> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: NewsphoneTheme.neutral95,
+                color: NewsphoneTheme.surfaceMuted,
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: ClipRRect(
@@ -95,8 +95,8 @@ class _ContestHeaderState extends State<ContestHeader> {
                     decoration: BoxDecoration(
                       color:
                           _currentPage == index
-                              ? Color(0xFF0765CB)
-                              : Colors.grey[400],
+                              ? NewsphoneTheme.gradientEnd
+                              : NewsphoneTheme.indicatorInactive,
                       shape: BoxShape.circle,
                     ),
                   ),

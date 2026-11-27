@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         "Με 10 δωρεάν συμμετοχές, δεκαπλασιάζετε τις πιθανότητες να κερδίσετε τα μεγάλα έπαθλα που προσφέρουν οι  διαγωνισμοί μας. Αρκεί μόνο ένα γρήγορο βήμα για να τα αποκτήσετε εντελώς δωρεάν.",
                         textAlign: TextAlign.center,
                         style: NewsphoneTypography.body13Regular.copyWith(
-                          color: NewsphoneTheme.neutral40,
+                          color: NewsphoneTheme.textTertiary,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           padding: const EdgeInsets.only(left: 18, right: 18),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: NewsphoneTheme.outline),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -114,19 +114,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: const Color(0xFF054279),
+                                    color: NewsphoneTheme.primaryDark,
                                     width: 2,
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 10),
                               Expanded(
-                                child: const Text(
+                                child: Text(
                                   "ΝΑΙ, θέλω 10 δωρεάν συμμετοχές!",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: Color(0xFF054279),
+                                    color: NewsphoneTheme.primaryDark,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
                                   ),
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           padding: const EdgeInsets.only(left: 18, right: 18),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: NewsphoneTheme.outline),
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,16 +158,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                    color: const Color(0xFF054279),
+                                    color: NewsphoneTheme.primaryDark,
                                     width: 2,
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              const Text(
+                              Text(
                                 "ΟΧΙ",
                                 style: TextStyle(
-                                  color: Color(0xFF054279),
+                                  color: NewsphoneTheme.primaryDark,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       top: false,
       bottom: true,
       child: Scaffold(
-        backgroundColor: NewsphoneTheme.neutralWhite,
+        backgroundColor: NewsphoneTheme.scaffold,
         body: NestedScrollView(
           headerSliverBuilder:
               (context, innerBoxIsScrolled) => [

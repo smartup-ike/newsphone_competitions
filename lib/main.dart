@@ -5,14 +5,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:newsphone_competitions/logic/blocs/categories/categories_cubit.dart';
 import 'package:newsphone_competitions/presentation/pages/home/home_page.dart';
 import 'data/models/notification.dart';
 import 'data/services/api_service.dart';
 import 'package:newsphone_competitions/data/services/notifications_services.dart';
-import 'firebase_options.dart';
+import 'dart:async';
+
+import 'core/config/app_env.dart';
+import 'data/demo/demo_data.dart';
+import 'data/services/brand_service.dart';
+import 'flavors/flavor_config.dart';
 import 'logic/blocs/auth/auth_cubit.dart';
 import 'logic/blocs/contest/contests_cubit.dart';
 import 'logic/blocs/coupons/cupons_cubit.dart';
@@ -31,11 +35,16 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final flavor = FlavorConfig.instance;
+  if (flavor.firebaseEnabled) {
+    await Firebase.initializeApp(options: flavor.firebaseOptions!());
+  }
 
   final apiService = ApiService();
 
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  if (flavor.firebaseEnabled) {
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   await Hive.initFlutter();
   Hive.registerAdapter(AppNotificationAdapter());
@@ -43,7 +52,11 @@ void main() async {
 
   await NotificationService.init();
 
-  await NotificationService.subscribeToTopic('14614Notifications');
+  // Station numbers + topic: last saved values now, fresh ones from the
+  // backend in the background (see BrandService).
+  await BrandService.loadCached();
+  await NotificationService.subscribeToTopic(BrandService.current.generalTopic);
+  if (!DemoData.enabled) unawaited(_refreshBrand(apiService));
 
   await NotificationService.loadMissedNotifications();
 
@@ -55,14 +68,30 @@ void main() async {
   runApp(MyApp(apiService: apiService));
 }
 
+/// Gets fresh station values; if the topic changed, moves the subscription.
+Future<void> _refreshBrand(ApiService api) async {
+  final previous = await BrandService.refresh(api.fetchBrand);
+  if (previous == null) return;
+  final topic = BrandService.current.generalTopic;
+  if (previous.generalTopic != topic) {
+    await NotificationService.unsubscribeFromTopic(previous.generalTopic);
+    await NotificationService.subscribeToTopic(topic);
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.apiService});
 
   final ApiService apiService;
-  static final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static final FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
-    analytics: analytics,
-  );
+
+  /// `null` for apps without Firebase set up yet (login is then disabled).
+  static FirebaseAuth? get _firebaseAuth =>
+      FlavorConfig.instance.firebaseEnabled ? FirebaseAuth.instance : null;
+  static FirebaseAnalytics get analytics => FirebaseAnalytics.instance;
+  static final List<NavigatorObserver> _observers = [
+    if (FlavorConfig.instance.firebaseEnabled)
+      FirebaseAnalyticsObserver(analytics: analytics),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +108,10 @@ class MyApp extends StatelessWidget {
           create: (_) => NotificationCubit(apiService)..init(),
         ),
         BlocProvider<AuthCubit>(
-          create: (_) => AuthCubit(FirebaseAuth.instance, apiService),
+          create: (_) => AuthCubit(_firebaseAuth, apiService),
         ),
         BlocProvider(
-          create:
-              (_) => CouponsCubit(FirebaseAuth.instance, apiService)..init(),
+          create: (_) => CouponsCubit(_firebaseAuth, apiService)..init(),
         ),
       ],
       child: SafeArea(
@@ -92,9 +120,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           navigatorKey: NotificationService.navigatorKey,
           themeMode: ThemeMode.light,
-          theme: ThemeData(textTheme: GoogleFonts.robotoTextTheme()),
+          theme: FlavorConfig.instance.materialTheme(),
           debugShowCheckedModeBanner: false,
-          title: '14614 App',
+          title: '${FlavorConfig.instance.appName} App',
           builder: (context, child) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(
@@ -109,10 +137,22 @@ class MyApp extends StatelessWidget {
                     ).size, // locks the logical screen size
               ),
 
-              child: child!,
+              child:
+                  AppEnv.isProduction
+                      ? child!
+                      // Non-production backend: show a corner ribbon so a
+                      // staging build is never mistaken for the real app.
+                      : Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Banner(
+                          message: AppEnv.name.toUpperCase(),
+                          location: BannerLocation.topEnd,
+                          child: child!,
+                        ),
+                      ),
             );
           },
-          navigatorObservers: [observer],
+          navigatorObservers: _observers,
           home: HomePage(),
           routes: {},
         ),
